@@ -1,0 +1,8 @@
+LeaveFlow — Migration Verification
+Date: 2026-11-21T18:57:45+05:00
+Commit: bada9a03ecec53ef6945827230e3594d825da87a
+
+Command: python backend/manage.py migrate --check
+
+Exit code: 0
+RESULT: PASS — No unapplied migrations.
