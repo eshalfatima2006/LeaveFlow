@@ -1,0 +1,122 @@
+# Test basis and acceptance oracles
+
+Baseline `bada9a03ecec53ef6945827230e3594d825da87a`; analysis 21 November 2026. Source describes the current implementation, not automatic proof of correct business policy. **Observed baseline** expectations below can support characterization tests. **Desired** expectations for missing safeguards require explicit team policy decisions and must fail against the defective baseline where applicable.
+
+## Evidence sources
+
+All code ranges were checked against local files and pinned Git blobs. Links identify the exact baseline, not a moving branch; no remote GitHub operation was performed.
+
+| Ref | Exact source and summarized behavior |
+|---|---|
+| M1 | [backend/leave/models.py:15–43](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/backend/leave/models.py#L15-L43): three roles, team membership, display-name fallback, one-to-one balance, all approved requests summed; available=allowance−approved_days |
+| M2 | [backend/leave/models.py:46–90](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/backend/leave/models.py#L46-L90): types/status choices, note length, pending default, inclusive weekday loop and date/overlap clean |
+| S1 | [backend/leave/serializers.py:7–28](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/backend/leave/serializers.py#L7-L28): public identity, read-only nested employee/status, derived fields; model-derived input constraints |
+| S2 | [backend/leave/serializers.py:30–42](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/backend/leave/serializers.py#L30-L42): caller-owned candidate, clean, exception normalization, optional-balance limit, caller-owned insert |
+| V1 | [backend/leave/views.py:31–63](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/backend/leave/views.py#L31-L63): credential login, me, scoped visibility, GET/POST request dispatch and 201 creation |
+| V2 | [backend/leave/views.py:66–89](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/backend/leave/views.py#L66-L89): ordered decision guards; atomic row lock; status/actor/time save; 200 response; no balance check |
+| V3 | [backend/leave/views.py:92–132](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/backend/leave/views.py#L92-L132): caller balance, visible counts/recent; own-team profiles/balances/upcoming leave for any authenticated role |
+| E1 | [backend/leave/events.py:18–63](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/backend/leave/events.py#L18-L63): requested recipients admin or matching-team manager excluding owner; decision recipient owner; absent Redis early return, after-commit publication, caught publication exceptions |
+| C1 | [backend/config/settings.py:81–98](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/backend/config/settings.py#L81-L98) and [123–151](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/backend/config/settings.py#L123-L151): SQLite default/PostgreSQL env switch, Europe/Rome timezone, token auth, IsAuthenticated and Redis |
+| U1 | [backend/leave/urls.py:5–12](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/backend/leave/urls.py#L5-L12), [backend/config/urls.py:22–26](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/backend/config/urls.py#L22-L26): API mapping, health/admin, no schema endpoint |
+| F1 | [frontend/src/App.vue:13–43](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/frontend/src/App.vue#L13-L43): token boot/login, roles, preview, refresh, submit catch and uncaught decision rejection |
+| F2 | [frontend/src/App.vue:70–123](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/frontend/src/App.vue#L70-L123): state-selected screens, lists, balance/team, filters, actual modal fields |
+| F3 | [frontend/src/api.ts:3–18](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/frontend/src/api.ts#L3-L18), [frontend/src/RequestRow.vue:13–24](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/frontend/src/RequestRow.vue#L13-L24): HTTP/token/error flattening; manager+pending action buttons |
+| F4 | [frontend/src/BalanceGauge.vue:4–18](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/frontend/src/BalanceGauge.vue#L4-L18): gauge clamps negative remaining to zero; [frontend/src/types.ts:1–5](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/frontend/src/types.ts#L1-L5): UI data contracts |
+| D1 | [backend/leave/migrations/0001_initial.py:19–81](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/backend/leave/migrations/0001_initial.py#L19-L81): persisted tables/FKs; no request-overlap or remaining-allowance DB constraint |
+| D2 | [backend/leave/management/commands/seed_demo.py:7–29](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/backend/leave/management/commands/seed_demo.py#L7-L29): account/balance overwrite, delete all requests, relative-date fixtures |
+| T1 | [backend/leave/tests.py:11–108](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/backend/leave/tests.py#L11-L108): nine upstream examples; mostly basic request/permission/state/event-recipient checks; not team-owned tests |
+| R1 | [README.md](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/README.md), Product walkthrough, What is included, Run without Docker, Verification, Scope and trade-offs; Italian counterparts in [README.it.md](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/README.it.md): dates/overlap/balance claims, weekday-only count, demo setup/reset claim |
+| L1 | [LICENSE:1–21](https://github.com/cmdr-chara/LeaveFlow/blob/bada9a03ecec53ef6945827230e3594d825da87a/LICENSE#L1-L21): MIT permission and conditions |
+
+Assignment source A1 is local `SQE_Final_Project Fall 2026.pdf`: page 1 Section 1; page 2 test planning/unit/API/browser/generator; page 3 mutation/CI; page 4 usability/security; page 5 performance/recovery/submission/viva; page 6 rubric; page 7 AI/plagiarism. All seven pages were text-extracted and read. No lecture PDF was located. The assignment's exact “all API coverage criteria” reference does not enumerate a separate detailed API-coverage taxonomy in this PDF; students should obtain the instructor's checklist rather than invent one.
+
+## Requirement-by-requirement basis
+
+These acceptance criteria are proposed future assertions. A “no change” oracle means read back DB row count, request fields/status/decision metadata and calculated balance as relevant, not merely check the HTTP response. Field-specific ranges in the FR document refine the evidence references below.
+
+| Requirement | Source / relevant behavior | Why the expected outcome is justified / acceptance criteria | Contradiction, assumption or unresolved question |
+|---|---|---|---|
+| FR-W1-01 | C1 settings:142–149; S1 serializer:17–28; S2:41–42; M2:57–65 | Valid token create stores caller as employee, status pending; absent/invalid token 401 with no row; injected employee/status cannot override | Selected employee role is a scenario, not server-only role condition. Is broader submission policy intended? |
+| FR-W1-02 | M2:47–61; S1:16–28; F2 App:123 | Required parseable dates; omitted type defaults vacation; three accepted types; note omitted/blank or ≤280 trimmed chars; invalid classes 400/no insert | UI always sends type; API does not require it. Final schema must preserve this difference |
+| FR-W1-03 | M2:70–82; S2:30–35; F1:25–31 | Reversed dates 400/no insert; same weekday=1, weekend-only=0, Mon–Fri=5; compare server count and UI preview | No future-only/year/holiday minimum rule. Confirm zero-day/annual policy, avoid unverified extreme-date claims |
+| FR-W1-04 | M2:83–90; S2:31–35; T1:40–48 | Same employee pending/approved inclusive intersection →400 and stable count; rejected/different employee or disjoint interval →eligible | Query cannot guarantee duplicate prevention under concurrency. Record eligibility conditions separately from protocol retry |
+| FR-W1-05 | S2:36–39; M1:29–43 | Hold A known, submit D=A−1/A/A+1 (feasible nonnegative values): first two eligible, last 400/no change; missing balance bypass characterized | README's balance validation claim is incomplete. Should balance absence fail closed? No year/type distinction implemented |
+| FR-W1-06 | V1:54–63; S2:41–42; E1:49–63; F1:37–41; F2:99–108 | 201 returns new k; GET and ORM confirm pending owned k; no balance row write/consumption; modal closes, values clear, refreshed list shows k; event disabled/enabled paths | Success confirmation is refreshed data, no toast. A failed refresh can display error after a successful write; do not retry blindly |
+| FR-W2-01 | V1:46–51,62–63; V3:93–108; F1:19–20 | For own/team/outsider fixtures, compare exact visible ID sets per role/team presence; dashboard counts/recent agree | Client filter does not change endpoint. Admin's dashboard all-request counts vs own balance can be confusing, but source-supported |
+| FR-W2-02 | C1:142–149; V1:46–51; V2:68–80 | Employee 403, non-self team manager allowed, outsider 404, admin non-self allowed, self 403; DB unchanged on denial | Buttons shown for manager/admin self requests and App.decide does not render caught errors. Do not promise actionable UI error for this path |
+| FR-W2-03 | V2:70–72; F3 api:17 / row:21–23 | approved/rejected reach next guard; missing/null/pending/unknown →400 and unchanged row/balance | Manual body has no serializer; default schema omits enum and error responses. Desired strict unknown-key policy unconfirmed |
+| FR-W2-04 | V2:74–87; M2:52–65 | pending allows both final decisions; approved/rejected reject either decision 409; no extra record or overwritten actor/time; verify at least one disallowed event per state | Row locks protect same-request races on supporting DBs, not total allowance across distinct rows. Approved/rejected terminal only for selected API |
+| FR-W2-05 | V2:83–89; M1:35–43; V3:112–132; E1:18–63; F1:37,42 | Approval returns same k=approved and 200; ORM actor/time set; allowance unchanged; employee used increases D/available decreases D; team UI updates; event owner recipient | Baseline **can go negative**. Desired rejection for insufficiency is separate, unimplemented; agree code and policy before fixing |
+| FR-W2-06 | V2:83–89; M1:35–43; M2:83–90; F1:37,42; E1:18–63 | Rejection returns same k=rejected/200; actor/time set; available/approved totals unchanged; UI rejected row; subsequent W1 overlap no longer blocked by k | No rejection-reason input. Audit fields stored but not serialized; use ORM assertions, not invented response fields |
+
+## Rule-by-rule basis
+
+| Rule | Source summary / exact baseline ranges | Acceptance criteria and rationale | Contradictions / unresolved policy |
+|---|---|---|---|
+| BR-01 | M2 models:70–82; S2 serializer:30–35; F1 App:25–31 | End<start rejected; inclusive weekdays counted; test boundary and weekend loop paths. Both UI and server use weekday concepts | No holiday/calendar/year limit or minimum one day; date.max overflow risk not executed |
+| BR-02 | M2 models:83–90; D1 migration:64–81; S2:31–35 | Five-part overlap query blocks only matching records; endpoint equality blocks; rejected status doesn't. Assert record count and ownership | No DB overlap constraint or atomic W1; “no duplicates” cannot be claimed for concurrent/recovery cases |
+| BR-03 | M1 models:29–43; S2:36–39; V2:74–87 | D>A checked only with balance; equality allowed; only approved rows consume. Assert same shared value across W1→W2→next W1 | Missing approval guard confirmed statically; desired nonnegative invariant must be agreed. Year property is metadata only in this implementation |
+| BR-04 | C1 settings:142–149; V1:46–51; V2:68–80; S2:41–42 | Server token/role/team/self checks determine visibility/actions; UI cannot grant access. Require at least one allow/deny per employee/manager in future security tests | Employee team API exposes colleagues; self buttons contradict authorization; teamless event recipient mismatch |
+| BR-05 | M2 models:52–65; V2:70–89; E1:63 | Only pending→approved/rejected; final decisions 409; same k updated with audit fields inside atomic block; after-commit callback | Baseline code does not enforce balance in transition. ORM/admin can bypass API state guard; no reopen feature |
+| BR-06 | M2 models:47–65; S1:16–28; V2:70–72; F2 App:123 | Required dates, optional enum/default and note constraints; valid decision domain. EP/BVA metadata from actual serializer fields | UI type selection not API required; no strict unknown-key or decision serializer/schema; trimming means raw length alone is insufficient |
+
+## Contradictions and specification gaps
+
+| ID | Evidence and consequence | Classification / next action |
+|---|---|---|
+| GAP-01 | README advertises balance validation; S2 enforces only W1, V2 skips W2. Pending consumes nothing, so multiple nonoverlapping requests can each pass and later exhaust allowance | Confirmed missing safeguard by source; runtime failing test proposed below; desired rejection response unconfirmed |
+| GAP-02 | U1 exposes no schema route and repository search found no spec. DRF introspection for function views returns empty request/response schemas and default POST=201 even though decision/login return 200 | Direct introspection evidence; prepare accurate OpenAPI in later phase, no schema changes now |
+| GAP-03 | README says demo data can be restored; D2:25 deletes all requests, :17–23 overwrites profiles/balances, :25–28 uses current relative dates and retains unrelated state | Unsafe/incomplete reset basis; isolated fixed fixtures and reset proof outstanding |
+| GAP-04 | F3 row:21 shows controls for every manager/admin pending row, while V2:79–80 forbids self-decision. F1:42 lacks try/catch/error binding | Confirmed UI/server mismatch; no promise of rendered decision rejection message |
+| GAP-05 | F4 clamps remaining to zero; dashboard text in F2:91 uses API value directly, which can be negative after excess approval | Confirmed display discrepancy by source, not browser reproduction |
+| GAP-06 | M1 balance year=2026, while approved_days filters only status. All leave types consume same allowance; all years contribute | Observed implementation, policy ambiguity; no annual-reset or per-type assumption |
+| GAP-07 | No balance →W1 bypass S2:37; dashboard/team missing-balance output zero V3:98–100,125–126 | Observed discrepancy; confirm whether missing balance should forbid leave |
+| GAP-08 | E1:21–25 matches manager team_id=None to teamless employee; V1:49–51 lets teamless managers see own records only | Recipient/authorization mismatch, statically reasoned; retain event recipient branch in scope |
+| GAP-09 | Historical report absent at current HEAD; report conclusion and screenshot paths disagree with later logs/tree | Historical evidence availability issue; student reconcile on their branch, no restored files here |
+| GAP-10 | A1 requires six use cases for three students; actual UI has submit, approve, reject as strong distinct goals plus supporting views | Feasibility risk, not solved by counting filters/type variants as distinct goals; instructor confirmation needed |
+
+## Known risk A — approval-time balance integrity
+
+**Location:** `backend/leave/views.py:81–86`, after pending-state guard and before changing status. No `LeaveBalance`, `available_days` or D comparison occurs in this function. Only W1 serializer does that (`serializers.py:36–38`). There is no actual balance-row decrement; the invariant fails through newly approved requests entering the derived sum.
+
+**Proposed failing test, not executed:** Start synthetic employee E with allowance 5, no approved requests. Through W1 create two nonoverlapping 4-weekday requests A and B (e.g. 2026-12-07..10 and 2026-12-14..17). Both should return 201 because pending days reserve nothing. Record returned primary keys. Through W2 same-team non-self manager approves A, leaving available 1. Attempt approval of **B's original key**. Under the proposed desired nonnegative rule this should reject; select a documented 400 or 409 contract after policy review. Source predicts baseline instead returns 200 and calculated available becomes −3. That prediction is not runtime evidence.
+
+**Required postconditions for future desired-rule test:** Re-fetch A and B; A approved, B still pending; B.decided_by/decided_at remain null; original request IDs/owners/dates/types/notes unchanged; total request count still 2; E's allowance/year/balance-row count unchanged; approved total=4, available=1; no successful decision event for rejected B approval. A rejection decision on B should remain allowed without reducing available. Verify via ORM and API reads; manager's dashboard balance is the manager's, so use employee dashboard or team member E. Characterization of baseline should explicitly expect the defective result, while the desired regression test should fail until a separately authorized later fix.
+
+## Known risk B — incomplete OpenAPI
+
+No schema file/route/configuration was found in the baseline; avoid describing an audited complete schema as present. Default DRF AutoSchema on these `@api_view` wrappers has no `get_serializer`. Read-only introspection in this session confirmed `{schema: {}}` for request and response on request creation, decision and login; it advertised 201 for all three POSTs. Decision and login code actually default to 200. No network/API calls or database writes were needed for this check.
+
+Later accurate spec needs:
+
+- Creation request: required start/end date strings, formats, optional nonnull leave_type enum with vacation default, optional nonnull note with maxLength 280 and trimming semantics, read-only output identity/status/derived fields.
+- Decision request: required status enum approved/rejected and integer route ID syntax; response 200 plus 400/401/403/404/409 error contracts. Login: username/password input, 200 token/user response and 400 invalid credentials. Apply token security to protected operations; keep login unauthenticated.
+- GET responses: nested employee/team nullability, array request/team schemas, dashboard shape, integer business_days and fields actually returned (not decided_by/at). Both methods on requests must be represented.
+- Cross-field/DB constraints cannot be inferred solely from JSON field types: date order, weekday calculation, overlap predicate, available balance existence/value, role/team/self access and pending-state transitions. Describe these with reviewed vendor extensions or a linked rule manifest usable by the generator; do not invent a fixed max-days constraint from allowance=26.
+- Reusable errors, valid examples, omission vs blank/null, protocol/media/method partitions. Confirm whether generator evaluates raw or trimmed note length and whether schema unknown-key behavior matches ignored baseline keys.
+
+Future generator demonstration can change note maxLength and the accepted leave_type enum in a **separate reviewed spec variant**, regenerate and show changed cases. That does not mean the unchanged baseline accepts the changed contract; coordinated implementation/viva variant and expected failures must be stated. No spec, generator or dependency repair was implemented in Phase 1.
+
+## Known risk C — concurrency and recovery
+
+W1 does clean/overlap query and balance reads before `LeaveRequest.objects.create` (`serializers.py:31–42`); `requests_view` has no explicit atomic block and settings do not enable ATOMIC_REQUESTS. Two concurrent overlapping W1 submissions could both observe no overlap. The migration has no corresponding uniqueness/exclusion constraint. W1 insert normally commits under autocommit before publishing.
+
+W2 wraps selected-row lookup and status save in `transaction.atomic` plus `select_for_update` (`views.py:74–87`). This serializes the **same request** on supporting databases; SQLite does not give PostgreSQL row-lock guarantees. Distinct requests for the same employee do not acquire a shared balance/user lock, and no balance recheck exists anyway. A future fix must consider both the check and its lock scope; no fix or concurrency reproduction is claimed here.
+
+`events.py:63` uses on_commit. Redis xadd failures in callback lines 57–61 are logged/swallowed after commit, so HTTP success need not imply notification delivery; there is no transactional outbox or retry here. Later recovery tests must distinguish a failure **before** request write/commit (assert no change, restore, retry once) from notification failure **after** commit (request already exists; retries must not create another record). A W1 retry after a committed write normally hits overlap if still pending/approved, not a deduplicated 201. No recovery tests have been run.
+
+## Known risks D/E — metrics and browser/reset evidence
+
+The prompt's approximate 84% statement / 62% branch figures are **historical audit observations supplied in prompt.md**, without a current raw coverage artifact here. They are not new measurements, not team-owned coverage and not marks earned by upstream tests. Phase 1 did not run coverage, MCC/MC/DC or mutation tooling.
+
+Historical baseline commits contain successful upstream-test/build logs and a browser screenshot narrative; these do not establish complete Playwright flow automation, correct persisted cross-workflow assertions or deterministic reset. Browser smoke, six approved use-case specifications, fixed-data reset and both DB engines' relevant transaction behavior remain upcoming work.
+
+## Actual Phase 1 verification
+
+- Read repository instructions, prompt, both READMEs, licence, named backend/frontend sources, migration, CI toolchain context and historical baseline report/logs. Read all seven local assignment PDF pages; no lecture material found.
+- Read-only Git checks verified branch, HEAD, baseline ancestry/type, origin/upstream, initial diff and absence of changes to tracked application sources. No staging/commit/history/remote mutation was performed.
+- Inspected ModelSerializer metadata in Django 6.0.7 / DRF 3.17.1 using the existing Python 3.12.7 interpreter. Inspected default AutoSchema outputs described above; no full generated spec artifact or schema endpoint claimed.
+- Ran Django system check and all **nine upstream tests**, successfully (9 tests, 2.467 seconds, OK; zero system-check issues), in a Python process overriding DATABASES to SQLite `:memory:` and REDIS_URL to empty **before django.setup**. Test database was created/destroyed in memory; current SQLite/PostgreSQL data was untouched. These are smoke checks, not new team tests or coverage claims.
+- Final document validation checks IDs/counts, local/pinned source paths and line ranges, source symbols and Git changes; results are recorded in AI-USE-RECORD. No migrations, seeds, resets, browser E2E, CI, Sonar, performance, accessibility, security scans or defect reproduction were executed.
+
+Students must validate every oracle and resolve the questions above before submission. See [SCOPE.md](SCOPE.md) for the assignment mapping and [AI-USE-RECORD.md](../AI-USE-RECORD.md) for assistance disclosure.
