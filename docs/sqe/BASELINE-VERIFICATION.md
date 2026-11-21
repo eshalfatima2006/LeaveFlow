@@ -141,3 +141,15 @@ The frontend production build, complete browser-flow assertions and database res
 - `evidence/baseline/upstream-tests.log`
 
 Additional frontend and E2E evidence will be added after execution.
+ ## 12. Browser Screenshots
+
+The following screenshots document the locally running LeaveFlow application using synthetic demonstration accounts.
+
+| Evidence | Description | File |
+|---|---|---|
+| BL-UI-01 | Employee dashboard displaying leave information | `evidence/baseline/screenshots/01-employee-dashboard.png` |
+| BL-UI-02 | Employee leave request form | `evidence/baseline/screenshots/02-leave-request-form.png` |
+| BL-UI-03 | Manager dashboard showing pending requests | `evidence/baseline/screenshots/03-manager-dashboard.png` |
+| BL-UI-04 | Manager's decision result for a leave request | `evidence/baseline/screenshots/04-manager-decision.png` |
+
+These screenshots provide preliminary browser evidence. Full automated assertions and persisted database verification will be performed separately during the team's Playwright and integration testing phases.
