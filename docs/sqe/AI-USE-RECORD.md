@@ -124,3 +124,52 @@ PR-01 missing approval validation is statically grounded, not independently repr
 - Checked ten GQM chains, required weekly metrics, proposed-case/FR/BR/risk/work-package/criterion references, explicit unidentified second major RCA case,58 relative Markdown links,30 qualified source ranges, new table column consistency and Markdown whitespace/newlines. Source analysis/peer-oracle review is still needed; structural checks do not prove every prose claim.
 - Compared the125-file initial tracked SHA-256 snapshot: every initial file preserved byte-for-byte except the authorized AI-record append; original Phase1 AI text remains an exact prefix; prompt.md and existing .gitignore edit unchanged. Application/toolchain/dependency/CI paths still have no diff from original upstream baseline. Branch remains docs/test-planning at original input HEAD, staging empty; new untracked set is exactly ten planning documents plus the pre-existing prompt. Git diff --check passed.
 - Validation helpers and snapshot stayed in /tmp, outside project deliverables. An initial validator regex mistakenly matched EC inside SEC identifiers; the helper was corrected with word boundaries and final checks passed. No application defect/result was inferred from that helper correction. No runtime application tests, scans, migrations/seeds/resets, Git/GitHub mutations or human approvals occurred in Phase2.
+
+
+# A2.0 — implemented shared automated test foundation
+
+- **Date/tool:** 22 November 2026 (Asia/Karachi), Codex. AI-assisted implementation and verification; no claim of human authorship, member review or instructor approval.
+- **Prompt and authorization:** Corrected root `prompt.md` (SHA-256 `6d1c9f041a9c7a4eff7941386dcc9d6584f9af4c61adb2265ecad9a3f088171a`) requires existing `test/isolated-fixtures-and-baseline`; user explicitly confirmed proceeding with A2.0 while forbidding production logic changes and every Git/GitHub mutation. Earlier stopped attempt made no edits because its expected branch differed. Current prompt replaces earlier Phase1/2 root prompt content; students must retain prior prompt/chat records rather than infer old text remains at the same path.
+- **Source state:** Tested HEAD `0a9a3f00e30859adca969a2673fa3e7698357d34`, pinned original baseline `bada9a03ecec53ef6945827230e3594d825da87a`; branch matched before edits. Working tree was dirty with pre-existing .gitignore change and untracked prompt, then uncommitted new test/evidence files. Raw manifests identify exact SHA, Git status/diff hash and all Python source hashes; no pretend committed test revision.
+- **Sources read:** Updated prompt/AGENTS; all seven local assignment PDF pages (existing temporary pypdf reader, no new install); Phase1 scope/FRs/BRs/test basis/workflow/coverage boundary and Phase2 strategy/plan/risk/entry-exit/RTM/roadmap and other relevant planning sections. Actual backend models/serializers/views/events/urls/tests/seed/settings/config urls/migration, requirements and .gitignore; installed Django DiscoverRunner and SQLite test-creation implementation for safety/discovery compatibility. No lecture PDF located, none claimed read.
+
+## A2.0 files and implementation
+
+Created `scripts/sqe/run_tests.py`; `tests/__init__.py`; `tests/team/__init__.py`, `settings.py`, `safety.py`, `runner.py`; `tests/team/fixtures/__init__.py`, `leave_data.py`; `tests/team/foundation/__init__.py`, `test_foundation.py`; package markers `tests/team/api/__init__.py`, `integration/__init__.py`, `generated/__init__.py`; [SHARED-TEST-FOUNDATION.md](testing/SHARED-TEST-FOUNDATION.md); actual logs/result manifests, deliberately injected-failure wrapper and final preservation verification under `docs/sqe/evidence/foundation/a20/`. Only this disclosure is appended among pre-existing tracked files; prior Phase1/2 documentation/evidence and all application/dependency/CI files preserved. Exact created-file inventory is in [verification.json](evidence/foundation/a20/verification.json).
+
+Selected installed Django unittest runner/DRF client, not a new framework/dependency. Core profile forces SQLite :memory: /Django memory URI and Redis disabled before setup; guard refuses files/unknown targets/extra aliases/mirrors/external engines, fixtures require active memory target. No production seed/reset helper exists. Django TestCase transactions/savepoints provide teardown; repeatability uses two independent processes and compares logical state, not random IDs/password hashes/tokens/timestamps. Fixture defaults use explicit dates and valid ownership/decision actors; invalid overlap requires explicit opt-in. Fixture-only allowance safeguards do not alter or claim to repair W2 balance validation.
+
+## A2.0 commands actually executed and evidence
+
+Read-only `git branch --show-current`, `git rev-parse`, `git status --short --untracked-files=all`, `git log`, `git diff`/`--check` and file/source searches/reads (`rg`, `find`, `cat`, `ls`, inline Python inspection). Snapshot135 initial tracked files and development SQLite/sidecar fingerprints in `/tmp/leaveflow-a20-before.json`. `apply_patch` and stdlib Python wrote authorized infrastructure/report/disclosure/evidence only. No dependency install, external scan, Git mutation, GitHub operation or message to others.
+
+Actual runtime commands from repository root:
+
+```bash
+.venv/bin/python scripts/sqe/run_tests.py check --evidence-dir docs/sqe/evidence/foundation/a20/check
+.venv/bin/python scripts/sqe/run_tests.py team --evidence-dir docs/sqe/evidence/foundation/a20/team
+.venv/bin/python scripts/sqe/run_tests.py upstream --evidence-dir docs/sqe/evidence/foundation/a20/upstream
+.venv/bin/python scripts/sqe/run_tests.py repeatability --evidence-dir docs/sqe/evidence/foundation/a20/repeatability
+POSTGRES_DB=sqe_never_connect POSTGRES_HOST=127.0.0.1 POSTGRES_PORT=1 REDIS_URL=redis://127.0.0.1:1/0 DJANGO_SETTINGS_MODULE=config.settings .venv/bin/python scripts/sqe/run_tests.py team tests.team.foundation.test_foundation.FoundationTests.test_pending_record_and_approved_only_consumption --evidence-dir docs/sqe/evidence/foundation/a20/environment-override
+.venv/bin/python docs/sqe/evidence/foundation/a20/failure_probe.py docs/sqe/evidence/foundation/a20/failure-propagation
+```
+
+System check: zero reported issues, exit0. Team:12 passed,0 failures/errors/skips/expected failures, exit0. Upstream:9 passed,0 failures/errors/skips, exit0, separately reported with no student test credit. Repeatability children:12 passed each,0 failures/errors/skips, separate processes/memory DBs, parent exit0 and exact canonical reference comparison passed. Environment-override single selected case passed, exit0, active SQLite memory/Redis disabled despite sentinel external settings. Deliberate child-process method patch:1 executed/1 intentional failure,0 errors/skips, **actual process exit1**, stdout/stderr markers and traceback retained. This last run verifies failure propagation; it is not a product failure or a permanently failing discovered test. No failure was suppressed or edited into a pass.
+
+Measured Python3.12.7, Django6.0.7, DRF3.17.1, SQLite3.46.1, django-cors-headers4.9.0, redis6.4.0 and psycopg3.3.4. Genuine start/finish UTC timestamps are retained per result.json; UTC21November21:56+ corresponds to22November in Asia/Karachi. No hardware/browser/performance/coverage/mutation/CI result invented. Stdout and stderr saved independently without raw token/credential values. Each evidence directory was new; prior output was never overwritten.
+
+Development SQLite remained180224 bytes, SHA-256 `70155559be6dc448fa8eb05e804ff7a60532afbac881bac21bc42de47cbcd33d`, sidecars absent. No development DB opened for SQL or changed, no real PostgreSQL/Redis selected. Normal migrations/seed/flush/reset not executed; Django migrated **only its verified in-memory test schema**. Source/dependency/lockfile preservation and staged-state checks are independently recorded in final verification.json.
+
+## A2.0 limits and required student review
+
+12 unique smoke/infrastructure tests with FND/FR/BR docstrings are not full FR/BR/API/white-box coverage; repeated12-case runs are not additional independently authored tests. The overapproval fixture prepares two pending4-day requests at allowance5 without calling W2 or asserting negative allowance is correct. Suspected approval defect remains unchanged; genuine failing-before integration regression belongs to A2.1, accurate OpenAPI/generator/generated EP/BVA and regeneration to proposed A2.2. External DB concurrency, browser server reset, full CI/mutation/security/accessibility/performance/recovery and unresolved instructor policies remain future work. Normal development reset is deliberately unsupported.
+
+Students must review source safety/fixtures/assertions/evidence, retain prompts, agree shared fixture changes/IDs and implement their own real contributions/reviews/commits. No student review, member allocation, issue/PR creation or human sign-off occurred during this assistance. All Git/GitHub operations remain student-owned. See the foundation report for exact independent verification commands and contributor contract.
+
+
+# A2.0 — audit and independent re-verification
+
+- **Date/tool:** 23 November 2026 (Asia/Karachi), Claude Code (Claude Sonnet 5.5). AI-assisted audit and re-execution at the student's instruction; no human review or approval is claimed.
+- **Scope:** Read the existing uncommitted A2.0 files (`scripts/sqe/run_tests.py`, `tests/`, foundation doc, evidence, prior AI record) against `prompt.md` A2.0 requirements. No test, fixture, runner, settings, dependency or production file was modified. The `.gitignore` was not changed.
+- **Commands run:** read-only git inspection (using a per-command `-c safe.directory=*`, no config change), then `check`, `upstream`, `team`, `repeatability`, the sentinel-environment single test and `failure_probe.py` via `.venv/bin/python` inside WSL, writing to the new directory `docs/sqe/evidence/foundation/a20-reverify-20261123/`. Results: check 0; upstream 9/9; team 12/12; repeatability 12/12 twice with equal reference hashes; environment-override 1/1; deliberate probe exit 1 as intended. Development SQLite hash unchanged.
+- **Edits:** appended a re-verification section to `docs/sqe/testing/SHARED-TEST-FOUNDATION.md` and this entry. No Git/GitHub mutation occurred.

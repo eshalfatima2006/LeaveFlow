@@ -1,0 +1,31 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+test_01_mutate_own_records (tests.team.foundation.test_foundation.FixtureIsolationTests.test_01_mutate_own_records)
+FND-008; FR-W1-06; BR-03/05: mutate inside this test's savepoint. ... ok
+test_02_independent_test_starts_clean (tests.team.foundation.test_foundation.FixtureIsolationTests.test_02_independent_test_starts_clean)
+FND-009; FR-W1-06; BR-03/05: prior test's mutations rolled back. ... ok
+test_overlap_requires_explicit_fixture_opt_in (tests.team.foundation.test_foundation.FoundationTests.test_overlap_requires_explicit_fixture_opt_in)
+FND-006; FR-W1-04; BR-02: invalid fixture setup is deliberate only. ... ok
+test_pending_record_and_approved_only_consumption (tests.team.foundation.test_foundation.FoundationTests.test_pending_record_and_approved_only_consumption)
+FND-002; FR-W1-03/05/06; BR-01/03/05: persisted pending and totals. ... ok
+test_prepare_future_overapproval_scenario_without_deciding (tests.team.foundation.test_foundation.FoundationTests.test_prepare_future_overapproval_scenario_without_deciding)
+FND-007; FR-W1-05/06; BR-03/05: prepare future regression, no W2 call. ... ok
+test_real_login_and_token_authenticated_dashboard (tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard)
+FND-003; FR-W1-01/05, FR-W2-01; BR-03/04: real DRF token lookup. ... ok
+test_reference_logical_snapshot (tests.team.foundation.test_foundation.FoundationTests.test_reference_logical_snapshot)
+FND-004; FR-W1-06, FR-W2-01; BR-03/04/05: stable logical fixture. ... ok
+test_synthetic_identity_and_balance_relationships (tests.team.foundation.test_foundation.FoundationTests.test_synthetic_identity_and_balance_relationships)
+FND-001; FR-W1-01, FR-W2-01; BR-04: synthetic roles/teams/balances. ... ok
+test_zero_missing_and_exact_balance_fixture_variants (tests.team.foundation.test_foundation.FoundationTests.test_zero_missing_and_exact_balance_fixture_variants)
+FND-005; FR-W1-05; BR-03: reusable zero/missing/exact allowance setups. ... ok
+test_file_external_and_custom_test_targets_are_refused (tests.team.foundation.test_foundation.SafetyGuardTests.test_file_external_and_custom_test_targets_are_refused)
+FND-011; infrastructure: reject dev SQLite, unknown files/URIs and PG. ... ok
+test_fixture_requires_active_django_memory_target (tests.team.foundation.test_foundation.SafetyGuardTests.test_fixture_requires_active_django_memory_target)
+FND-012; infrastructure: refuse fixture work before test DB selection. ... ok
+test_unknown_profiles_are_refused (tests.team.foundation.test_foundation.SafetyGuardTests.test_unknown_profiles_are_refused)
+FND-010; infrastructure: an explicit safe profile is mandatory. ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 6.924s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...

@@ -1,0 +1,171 @@
+{
+  "action": "team",
+  "cases": [
+    {
+      "description": "Deliberate non-product failure: verify both streams and process status.",
+      "id": "tests.team.foundation.test_foundation.FoundationTests.test_pending_record_and_approved_only_consumption",
+      "outcome": "failed"
+    }
+  ],
+  "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python /home/pc/projects/sqe-final/LeaveFlow/scripts/sqe/run_tests.py team tests.team.foundation.test_foundation.FoundationTests.test_pending_record_and_approved_only_consumption --evidence-dir docs/sqe/evidence/foundation/a20/failure-propagation",
+  "counts": {
+    "errors": 0,
+    "executed": 1,
+    "expected_failures": 0,
+    "failed": 1,
+    "passed": 0,
+    "skipped": 0,
+    "unexpected_successes": 0
+  },
+  "database": {
+    "active_name": "file:memorydb_default?mode=memory&cache=shared",
+    "engine": "django.db.backends.sqlite3",
+    "redis_disabled": true
+  },
+  "development_database_after": {
+    "db.sqlite3": {
+      "exists": true,
+      "sha256": "70155559be6dc448fa8eb05e804ff7a60532afbac881bac21bc42de47cbcd33d",
+      "size": 180224
+    },
+    "db.sqlite3-journal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-shm": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-wal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    }
+  },
+  "development_database_before": {
+    "db.sqlite3": {
+      "exists": true,
+      "sha256": "70155559be6dc448fa8eb05e804ff7a60532afbac881bac21bc42de47cbcd33d",
+      "size": 180224
+    },
+    "db.sqlite3-journal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-shm": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-wal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    }
+  },
+  "development_database_unchanged": true,
+  "elapsed_seconds": 2.091255,
+  "environment": {
+    "database_profile": "sqe-memory-v1",
+    "external_database_environment_ignored": false,
+    "git_branch": "test/isolated-fixtures-and-baseline",
+    "git_sha": "0a9a3f00e30859adca969a2673fa3e7698357d34",
+    "git_status": [
+      "M .gitignore",
+      "?? docs/sqe/evidence/foundation/a20/check/result.json",
+      "?? docs/sqe/evidence/foundation/a20/check/stderr.log",
+      "?? docs/sqe/evidence/foundation/a20/check/stdout.log",
+      "?? docs/sqe/evidence/foundation/a20/environment-override/result.json",
+      "?? docs/sqe/evidence/foundation/a20/environment-override/stderr.log",
+      "?? docs/sqe/evidence/foundation/a20/environment-override/stdout.log",
+      "?? docs/sqe/evidence/foundation/a20/failure-propagation/stderr.log",
+      "?? docs/sqe/evidence/foundation/a20/failure-propagation/stdout.log",
+      "?? docs/sqe/evidence/foundation/a20/failure_probe.py",
+      "?? docs/sqe/evidence/foundation/a20/repeatability/result.json",
+      "?? docs/sqe/evidence/foundation/a20/repeatability/run-1/result.json",
+      "?? docs/sqe/evidence/foundation/a20/repeatability/run-1/stderr.log",
+      "?? docs/sqe/evidence/foundation/a20/repeatability/run-1/stdout.log",
+      "?? docs/sqe/evidence/foundation/a20/repeatability/run-2/result.json",
+      "?? docs/sqe/evidence/foundation/a20/repeatability/run-2/stderr.log",
+      "?? docs/sqe/evidence/foundation/a20/repeatability/run-2/stdout.log",
+      "?? docs/sqe/evidence/foundation/a20/repeatability/stderr.log",
+      "?? docs/sqe/evidence/foundation/a20/repeatability/stdout.log",
+      "?? docs/sqe/evidence/foundation/a20/team/result.json",
+      "?? docs/sqe/evidence/foundation/a20/team/stderr.log",
+      "?? docs/sqe/evidence/foundation/a20/team/stdout.log",
+      "?? docs/sqe/evidence/foundation/a20/upstream/result.json",
+      "?? docs/sqe/evidence/foundation/a20/upstream/stderr.log",
+      "?? docs/sqe/evidence/foundation/a20/upstream/stdout.log",
+      "?? prompt.md",
+      "?? scripts/sqe/run_tests.py",
+      "?? tests/__init__.py",
+      "?? tests/team/__init__.py",
+      "?? tests/team/api/__init__.py",
+      "?? tests/team/fixtures/__init__.py",
+      "?? tests/team/fixtures/leave_data.py",
+      "?? tests/team/foundation/__init__.py",
+      "?? tests/team/foundation/test_foundation.py",
+      "?? tests/team/generated/__init__.py",
+      "?? tests/team/integration/__init__.py",
+      "?? tests/team/runner.py",
+      "?? tests/team/safety.py",
+      "?? tests/team/settings.py"
+    ],
+    "packages": {
+      "Django": "6.0.7",
+      "django-cors-headers": "4.9.0",
+      "djangorestframework": "3.17.1",
+      "psycopg": "3.3.4",
+      "redis": "6.4.0"
+    },
+    "python": "3.12.7",
+    "python_executable": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python",
+    "redis_environment_ignored": false,
+    "runner": "Django DiscoverRunner + unittest; version is the Django/Python version above",
+    "source_sha256": {
+      "backend/config/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/config/asgi.py": "f23d09f7cded8ce1239e5fbb32961ea409103501b9958934dbd77e92d4a8db21",
+      "backend/config/settings.py": "280ef4c3681431f604f132324c3f8bfd1ab00ed189799478e9e65efa4d6d2a7e",
+      "backend/config/urls.py": "ffd0aafd7a1d40d02be8bb99429d0058adfa4983568e9faf90fda22020d81bf5",
+      "backend/config/wsgi.py": "a7b47958708160e7ebcb377d677f5f2081640fb5dc4478bb486743055a85e192",
+      "backend/leave/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/admin.py": "7ce699328024faa2509a344b00c4edc255bd0bb7baeb4430bfbc4f40fc733acc",
+      "backend/leave/apps.py": "83e25d15a9e284383927712d3e065ab41882f7d22b995a7a44e1f271c364901a",
+      "backend/leave/events.py": "5f7d0c07bfbbfed9d30275a7b2dc7312399529afcf89965fd79240683c93c494",
+      "backend/leave/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/management/commands/seed_demo.py": "5f2e5db904c68eb03f89b1616404cb5f38d1758f79720a91f67191aaf44edd59",
+      "backend/leave/migrations/0001_initial.py": "ee7a9ad789bed3726e5b5b027f43dfc6fbe613e05d5e95d3acf69515f26d7f91",
+      "backend/leave/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/models.py": "bd1f0dbea11e0d7a665d9b17bd17c2d01c3ce7da7985d9deff0a7ca405711f57",
+      "backend/leave/serializers.py": "8dbfd179d7a85198cd0fac5b209c7fe6dfd740d50d110bd8e9c5a521089a7d88",
+      "backend/leave/tests.py": "61be0822d9c51929efdcde2f401d055deab8b0c0919b697078cc768413563c1c",
+      "backend/leave/urls.py": "81630a31adc7c02c33c92218b7f08b91bc9068f924661b17e80228a7126245e3",
+      "backend/leave/views.py": "86f214b1d1e775c1610f0d6377702b7a1569970068205a7c7c39d2f9c8f2c971",
+      "backend/manage.py": "b30eeb4890cb6f315cc238313808f636db29e9906b61cc6f6051567156a0097b",
+      "requirements.txt": "ca409861c6a962ba2b22754da08a531b1a4bf1c1f1f4c77e892e804532fe0a44",
+      "scripts/sqe/run_tests.py": "dca42f30f3011f7e4f18ffc08afc7f9c884d92b29c572b8d2f9b725d8e43de3c",
+      "tests/__init__.py": "401c994404cf80c29753cd5ffcb9f5b4964f07e20d51a720ba7070f1b1c334c8",
+      "tests/team/__init__.py": "1a8c0583e7a59b76dc97c31ef6ea8205994c1482c6e4f3d8cc52a86de4815213",
+      "tests/team/api/__init__.py": "644e3a6aaa5b75fd9b949c84c69c6d6abd91c9cb61a1714263f8070e53b0b47e",
+      "tests/team/fixtures/__init__.py": "a4f3d78436c5ac0a1377fa08183f7ee299df67e7638f1e076e249b340dd0bcfe",
+      "tests/team/fixtures/leave_data.py": "db3f01290c00206db9d065c020582bab9bac8364b7fc7405ed6d5f3ef13c8a1a",
+      "tests/team/foundation/__init__.py": "a4a08308e5b6d25d67ba2b831993afe15c05265c12d6a789c566d013f090746b",
+      "tests/team/foundation/test_foundation.py": "4ce6683e4d3f9697c48e1b804f5010f1fcf1d513086056d804a4469e10a84c03",
+      "tests/team/generated/__init__.py": "f5090cc4ac9fcfba221f5dfc3e8807c6bfc675937d6949362e20a32e663462df",
+      "tests/team/integration/__init__.py": "b9728132e02d77de346980957b8ada6f25baa658e043382d59e4fb08ed68634f",
+      "tests/team/runner.py": "5f6b4f567aaa1a03534a35c546a292a142e5a5e10c3e7b9535b8c10b6cb497a7",
+      "tests/team/safety.py": "fed1640f3081f2baa56a3e224142d10a90355cb730b68ea622471c7e2bec69cc",
+      "tests/team/settings.py": "9281b859d7f4d9e9aac2667ce7a6ac719bbc5756b08c305bdc17a4babe0941fe"
+    },
+    "sqlite_version": "3.46.1",
+    "tracked_diff_sha256": "d7eba918a4fc23eabbeb926a05ac2a5ef80f8aaf9b8e60c02a10cc8400e158f6"
+  },
+  "finished_at_utc": "2026-11-21T21:58:09.459329+00:00",
+  "process_exit_code": 1,
+  "snapshots": {},
+  "started_at_utc": "2026-11-21T21:58:07.367914+00:00"
+}

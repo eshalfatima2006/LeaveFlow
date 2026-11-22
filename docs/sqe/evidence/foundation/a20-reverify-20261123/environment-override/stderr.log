@@ -1,0 +1,9 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+test_pending_record_and_approved_only_consumption (tests.team.foundation.test_foundation.FoundationTests.test_pending_record_and_approved_only_consumption)
+FND-002; FR-W1-03/05/06; BR-01/03/05: persisted pending and totals. ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 1.696s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
