@@ -114,13 +114,17 @@ def run_django(action, labels, verbosity, report):
     result = runner.last_result
     if result is None or result.testsRun == 0:
         raise RuntimeError("No tests executed; an empty area is not a passing suite.")
+    # failed/errors count unittest failure entries (one per failing subtest row);
+    # passed counts test methods with no failure/error/skip entry at all.
+    non_passing_methods = {c["method_id"] for c in result.cases if c["outcome"] != "passed"}
     report["counts"] = {
         "executed": result.testsRun,
         "failed": len(result.failures), "errors": len(result.errors),
         "skipped": len(result.skipped), "expected_failures": len(result.expectedFailures),
         "unexpected_successes": len(result.unexpectedSuccesses),
-        "passed": result.testsRun - len(result.failures) - len(result.errors)
-        - len(result.skipped) - len(result.expectedFailures) - len(result.unexpectedSuccesses),
+        "non_passing_test_methods": len(non_passing_methods),
+        "passed": result.testsRun - len(non_passing_methods)
+        - len(result.expectedFailures) - len(result.unexpectedSuccesses),
     }
     report["cases"] = result.cases
     report["database"] = runner.database_observations

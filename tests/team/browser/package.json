@@ -1,0 +1,13 @@
+{
+  "name": "leaveflow-sqe-browser-tests",
+  "private": true,
+  "description": "SQE Playwright use-case tests. Runs only against a disposable, harness-created database.",
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "coverage": "node tools/flow-coverage.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.49.1"
+  }
+}

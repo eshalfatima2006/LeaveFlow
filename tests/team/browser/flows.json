@@ -1,0 +1,58 @@
+{
+  "version": "b1-2026-11-23",
+  "basis": "Strategy A catalog (team decision); Lecture 16 p10 coverage = flows tested / total flows. Django Admin (UC-08, UC-09) and notification services (UC-07) remain PENDING instructor scope decisions.",
+  "counting_rules": [
+    "Only the 30 mandatory flows below form the use-case flow-coverage denominator.",
+    "Blocked regression objectives, supplementary checks and observations are reported separately and never raise or lower mandatory coverage.",
+    "A test title must start with exactly one registry ID; the coverage tool maps results by that ID."
+  ],
+  "mandatory_flows": [
+    { "id": "TC-UC01-M",  "uc": "UC-01", "kind": "main",        "title": "Employee submits a valid request at the allowance boundary (D = A)" },
+    { "id": "TC-UC01-A1", "uc": "UC-01", "kind": "alternative", "title": "Employee revises the dates after the working-day preview" },
+    { "id": "TC-UC01-A2", "uc": "UC-01", "kind": "alternative", "title": "Employee abandons the request before submitting" },
+    { "id": "TC-UC01-E1", "uc": "UC-01", "kind": "exception",   "title": "Overlap with an own active request (inclusive boundary), then corrected" },
+    { "id": "TC-UC01-E2", "uc": "UC-01", "kind": "exception",   "title": "Requested days exceed remaining entitlement (D = A + 1), then shortened" },
+
+    { "id": "TC-UC02-M",  "uc": "UC-02", "kind": "main",        "title": "Team manager approves pending request k (D = available)" },
+    { "id": "TC-UC02-A1", "uc": "UC-02", "kind": "alternative", "title": "Team manager rejects k: no charge, dates released" },
+    { "id": "TC-UC02-A2", "uc": "UC-02", "kind": "alternative", "title": "Administrator decides a pending request of another team" },
+    { "id": "TC-UC02-E1", "uc": "UC-02", "kind": "exception",   "title": "k already decided by another approver after the page loaded (409)" },
+    { "id": "TC-UC02-E2", "uc": "UC-02", "kind": "exception",   "title": "Manager attempts to decide their own pending request (403)" },
+
+    { "id": "TC-UC04-M",  "uc": "UC-04", "kind": "main",        "title": "Employee reviews own requests and remaining entitlement (no writes)" },
+    { "id": "TC-UC04-A1", "uc": "UC-04", "kind": "alternative", "title": "Filter own requests by outcome (<<extend>>)" },
+    { "id": "TC-UC04-A2", "uc": "UC-04", "kind": "alternative", "title": "Outcome changes during the journey; reload shows the new state" },
+    { "id": "TC-UC04-E1", "uc": "UC-04", "kind": "exception",   "title": "Session no longer valid on reload (not signed in)" },
+    { "id": "TC-UC04-E2", "uc": "UC-04", "kind": "exception",   "title": "Server error while loading requests (expected result set after runtime probe)" },
+
+    { "id": "TC-UC07-M",  "uc": "UC-07", "kind": "main",        "title": "Employee receives a live decision alert (feed, dedup key, ack, gateway)" },
+    { "id": "TC-UC07-A1", "uc": "UC-07", "kind": "alternative", "title": "Managers/admins receive a new-request alert; outsiders and requester do not" },
+    { "id": "TC-UC07-A2", "uc": "UC-07", "kind": "alternative", "title": "Recipient offline during the event sees it from the stored feed" },
+    { "id": "TC-UC07-E1", "uc": "UC-07", "kind": "exception",   "title": "Notification gateway unavailable: rendered unavailable message, core app usable" },
+    { "id": "TC-UC07-E2", "uc": "UC-07", "kind": "exception",   "title": "Event publication fails during a decision: decision persists, no alert" },
+
+    { "id": "TC-UC08-M",  "uc": "UC-08", "kind": "main",        "title": "Administrator changes an employee's entitlement" },
+    { "id": "TC-UC08-A1", "uc": "UC-08", "kind": "alternative", "title": "Administrator creates a missing entitlement record" },
+    { "id": "TC-UC08-A2", "uc": "UC-08", "kind": "alternative", "title": "Entitlement reduced below approved use (characterisation: no warning)" },
+    { "id": "TC-UC08-E1", "uc": "UC-08", "kind": "exception",   "title": "Invalid entitlement value (-1 rejected, 0 accepted, empty required; upper bound engine-dependent)" },
+    { "id": "TC-UC08-E2", "uc": "UC-08", "kind": "exception",   "title": "Duplicate entitlement for the same employee" },
+
+    { "id": "TC-UC09-M",  "uc": "UC-09", "kind": "main",        "title": "Administrator moves an employee to another approving team" },
+    { "id": "TC-UC09-A1", "uc": "UC-09", "kind": "alternative", "title": "Administrator grants approval authority by role" },
+    { "id": "TC-UC09-A2", "uc": "UC-09", "kind": "alternative", "title": "Administrator removes the employee from every team (characterisation)" },
+    { "id": "TC-UC09-E1", "uc": "UC-09", "kind": "exception",   "title": "Target team removed while the reassignment form is open (invalid choice, no change)" },
+    { "id": "TC-UC09-E2", "uc": "UC-09", "kind": "exception",   "title": "Employee record removed while the reassignment form is open (admin redirect warning, nothing recreated)" }
+  ],
+  "blocked_regression_objectives": [
+    { "id": "OBJ-UC02-01", "uc": "UC-02", "title": "Approval exceeding the employee's remaining entitlement is refused atomically", "blocked_by": "Approval-time error contract not approved (TEST-BASIS GAP-01); baseline approves" }
+  ],
+  "supplementary_checks": [
+    { "id": "SUP-UC09-01", "uc": "UC-09", "title": "Former approver's in-flight decision after reassignment returns 404 and leaves k pending", "purpose": "Authorization/integration check of the reassignment postcondition (BR-04); not a mandatory flow" },
+    { "id": "SUP-UC07-01", "uc": "UC-07", "title": "Duplicate delivery of the same event leaves exactly one feed item", "purpose": "Dedup control (store NX key)" }
+  ],
+  "observations": [
+    { "id": "OBS-UC08-01", "uc": "UC-08", "title": "Leave-balance changelist identifies rows only as 'LeaveBalance object (n)', not by employee", "status": "Predicted from source (no __str__, no list_display); requires browser verification" },
+    { "id": "OBS-UC02-01", "uc": "UC-02", "title": "Failed decisions (409/403) show no message; row stays Pending with actions until reload", "status": "Observed in browser on 2026-11-23 (console logs the unhandled error)" },
+    { "id": "OBS-UC01-01", "uc": "UC-01", "title": "Closing the request form without submitting keeps the abandoned values; reopening shows them again", "status": "Observed in browser on 2026-11-23 (recorded in runs b1/run-1 and run-2; added to the registry after those runs' coverage reports were generated)" }
+  ]
+}

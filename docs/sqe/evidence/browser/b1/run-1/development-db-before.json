@@ -1,0 +1,20 @@
+{
+  "taken_at": "2026-11-23T15:06:03.814Z",
+  "files": {
+    "db.sqlite3": {
+      "exists": true,
+      "size": 180224,
+      "mtime_ns": "1795271953841933236",
+      "inode": "222502"
+    },
+    "db.sqlite3-wal": {
+      "exists": false
+    },
+    "db.sqlite3-shm": {
+      "exists": false
+    },
+    "db.sqlite3-journal": {
+      "exists": false
+    }
+  }
+}

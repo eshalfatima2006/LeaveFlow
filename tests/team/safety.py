@@ -35,4 +35,3 @@ def assert_disposable_database(*, active=False):
         getattr(settings, "TEAM_TEST_PROFILE", None),
         active=active,
     )
-

@@ -26,10 +26,12 @@ class RecordingResult(TextTestResult):
         super().__init__(*args, **kwargs)
         self.cases = []
 
-    def record(self, test, outcome):
-        self.cases.append(
-            {"id": test.id(), "description": test.shortDescription(), "outcome": outcome}
-        )
+    def record(self, test, outcome, method_id=None):
+        # method_id: the owning test method, so subtest failures count once per method.
+        self.cases.append({
+            "id": test.id(), "description": test.shortDescription(), "outcome": outcome,
+            "method_id": method_id or test.id(),
+        })
 
     def addSuccess(self, test):
         super().addSuccess(test)
@@ -46,6 +48,14 @@ class RecordingResult(TextTestResult):
     def addSkip(self, test, reason):
         super().addSkip(test, reason)
         self.record(test, "skipped")
+
+    def addSubTest(self, test, subtest, err):
+        # Table-driven cases: unittest reports failed subtests outside
+        # addFailure/addError, so record them explicitly to keep per-case evidence.
+        super().addSubTest(test, subtest, err)
+        if err is not None:
+            failed = issubclass(err[0], test.failureException)
+            self.record(subtest, "failed" if failed else "error", method_id=test.id())
 
 
 class SafeDiscoverRunner(DiscoverRunner):

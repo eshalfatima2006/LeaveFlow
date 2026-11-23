@@ -1,0 +1,183 @@
+Creating test database for alias 'default'...
+.F.............................F...FFFFFF...FFFFFF
+======================================================================
+FAIL: test_token_identity_is_the_authenticated_user_only (tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only)
+API-W1-001.05; FR-W1-01, FR-W2-01; BR-04: /me and lists reflect only the token's user.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_authentication.py", line 137, in test_token_identity_is_the_authenticated_user_only
+    self.assertEqual(e1_ids, {self.fx.pending.pk, self.fx.approved.pk, self.fx.rejected.pk})
+AssertionError: Items in the first set but not the second:
+4
+
+======================================================================
+FAIL: test_guard_precedence (tests.team.api.test_w2_decisions.DecisionValueTests.test_guard_precedence) (case='out of scope + final state')
+API-W2-003.02; FR-W2-02, FR-W2-03; BR-04/05/06: role before value before lookup before self/state.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 209, in test_guard_precedence
+    self.assert_denied(actor, target, {"status": value}, code, data)
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 45, in assert_denied
+    self.assertEqual(response.status_code, status_code, response.data)
+AssertionError: 409 != 404 : {'detail': 'La richiesta è già stata decisa.'}
+
+======================================================================
+FAIL: test_out_of_scope_managers_receive_404 (tests.team.api.test_w2_decisions.DeniedDecisionTests.test_out_of_scope_managers_receive_404) (actor='w2_m2', target=2)
+API-W2-002.04; FR-W2-01, FR-W2-02; BR-04: other-team and teamless managers cannot reach target.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 159, in test_out_of_scope_managers_receive_404
+    self.assert_denied(actor, target.pk, {"status": "approved"}, 404)
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 45, in assert_denied
+    self.assertEqual(response.status_code, status_code, response.data)
+AssertionError: 200 != 404 : {'id': 2, 'employee': {'id': 1, 'username': 'w2_e1', 'display_name': 'Synthetic e1', 'email': 'w2_e1@example.invalid', 'role': 'employee', 'team': 'w2-A'}, 'leave_type': 'vacation', 'leave_type_label': 'Ferie', 'start_date': '2026-12-14', 'end_date': '2026-12-16', 'note': 'Synthetic fixture', 'status': 'approved', 'status_label': 'Approvata', 'business_days': 3, 'created_at': '2026-11-22T21:06:18.945632+01:00'}
+
+======================================================================
+FAIL: test_out_of_scope_managers_receive_404 (tests.team.api.test_w2_decisions.DeniedDecisionTests.test_out_of_scope_managers_receive_404) (actor='w2_m2', target=7)
+API-W2-002.04; FR-W2-01, FR-W2-02; BR-04: other-team and teamless managers cannot reach target.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 159, in test_out_of_scope_managers_receive_404
+    self.assert_denied(actor, target.pk, {"status": "approved"}, 404)
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 45, in assert_denied
+    self.assertEqual(response.status_code, status_code, response.data)
+AssertionError: 200 != 404 : {'id': 7, 'employee': {'id': 5, 'username': 'w2_admin', 'display_name': 'Synthetic admin', 'email': 'w2_admin@example.invalid', 'role': 'admin', 'team': 'w2-A'}, 'leave_type': 'vacation', 'leave_type_label': 'Ferie', 'start_date': '2026-12-14', 'end_date': '2026-12-15', 'note': 'Synthetic fixture', 'status': 'approved', 'status_label': 'Approvata', 'business_days': 2, 'created_at': '2026-11-22T21:06:19.228168+01:00'}
+
+======================================================================
+FAIL: test_out_of_scope_managers_receive_404 (tests.team.api.test_w2_decisions.DeniedDecisionTests.test_out_of_scope_managers_receive_404) (actor='w2_m2', target=6)
+API-W2-002.04; FR-W2-01, FR-W2-02; BR-04: other-team and teamless managers cannot reach target.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 159, in test_out_of_scope_managers_receive_404
+    self.assert_denied(actor, target.pk, {"status": "approved"}, 404)
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 45, in assert_denied
+    self.assertEqual(response.status_code, status_code, response.data)
+AssertionError: 200 != 404 : {'id': 6, 'employee': {'id': 3, 'username': 'w2_m1', 'display_name': 'Synthetic m1', 'email': 'w2_m1@example.invalid', 'role': 'manager', 'team': 'w2-A'}, 'leave_type': 'vacation', 'leave_type_label': 'Ferie', 'start_date': '2026-12-14', 'end_date': '2026-12-15', 'note': 'Synthetic fixture', 'status': 'approved', 'status_label': 'Approvata', 'business_days': 2, 'created_at': '2026-11-22T21:06:19.224522+01:00'}
+
+======================================================================
+FAIL: test_out_of_scope_managers_receive_404 (tests.team.api.test_w2_decisions.DeniedDecisionTests.test_out_of_scope_managers_receive_404) (actor='w2_m1', target=5)
+API-W2-002.04; FR-W2-01, FR-W2-02; BR-04: other-team and teamless managers cannot reach target.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 159, in test_out_of_scope_managers_receive_404
+    self.assert_denied(actor, target.pk, {"status": "approved"}, 404)
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 45, in assert_denied
+    self.assertEqual(response.status_code, status_code, response.data)
+AssertionError: 200 != 404 : {'id': 5, 'employee': {'id': 7, 'username': 'w2_eb', 'display_name': 'Synthetic eb', 'email': 'w2_eb@example.invalid', 'role': 'employee', 'team': 'w2-B'}, 'leave_type': 'vacation', 'leave_type_label': 'Ferie', 'start_date': '2026-12-14', 'end_date': '2026-12-15', 'note': 'Synthetic fixture', 'status': 'approved', 'status_label': 'Approvata', 'business_days': 2, 'created_at': '2026-11-22T21:06:19.219394+01:00'}
+
+======================================================================
+FAIL: test_out_of_scope_managers_receive_404 (tests.team.api.test_w2_decisions.DeniedDecisionTests.test_out_of_scope_managers_receive_404) (actor='w2_teamless_manager', target=2)
+API-W2-002.04; FR-W2-01, FR-W2-02; BR-04: other-team and teamless managers cannot reach target.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 159, in test_out_of_scope_managers_receive_404
+    self.assert_denied(actor, target.pk, {"status": "approved"}, 404)
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 45, in assert_denied
+    self.assertEqual(response.status_code, status_code, response.data)
+AssertionError: 409 != 404 : {'detail': 'La richiesta è già stata decisa.'}
+
+======================================================================
+FAIL: test_out_of_scope_managers_receive_404 (tests.team.api.test_w2_decisions.DeniedDecisionTests.test_out_of_scope_managers_receive_404) (actor='w2_teamless_manager', target=5)
+API-W2-002.04; FR-W2-01, FR-W2-02; BR-04: other-team and teamless managers cannot reach target.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 159, in test_out_of_scope_managers_receive_404
+    self.assert_denied(actor, target.pk, {"status": "approved"}, 404)
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 45, in assert_denied
+    self.assertEqual(response.status_code, status_code, response.data)
+AssertionError: 409 != 404 : {'detail': 'La richiesta è già stata decisa.'}
+
+======================================================================
+FAIL: test_request_list_and_dashboard_scope_by_role (tests.team.api.test_w2_decisions.VisibilityTests.test_request_list_and_dashboard_scope_by_role) (user='w2_e1')
+API-W2-001.01; FR-W2-01; BR-04: employee own, team manager team, teamless own, admin all.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 93, in test_request_list_and_dashboard_scope_by_role
+    self.assertEqual({r["id"] for r in listed.data}, ids)
+AssertionError: Items in the first set but not the second:
+4
+5
+6
+7
+8
+
+======================================================================
+FAIL: test_request_list_and_dashboard_scope_by_role (tests.team.api.test_w2_decisions.VisibilityTests.test_request_list_and_dashboard_scope_by_role) (user='w2_e2')
+API-W2-001.01; FR-W2-01; BR-04: employee own, team manager team, teamless own, admin all.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 93, in test_request_list_and_dashboard_scope_by_role
+    self.assertEqual({r["id"] for r in listed.data}, ids)
+AssertionError: Items in the first set but not the second:
+1
+2
+3
+5
+6
+7
+8
+
+======================================================================
+FAIL: test_request_list_and_dashboard_scope_by_role (tests.team.api.test_w2_decisions.VisibilityTests.test_request_list_and_dashboard_scope_by_role) (user='w2_eb')
+API-W2-001.01; FR-W2-01; BR-04: employee own, team manager team, teamless own, admin all.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 93, in test_request_list_and_dashboard_scope_by_role
+    self.assertEqual({r["id"] for r in listed.data}, ids)
+AssertionError: Items in the first set but not the second:
+1
+2
+3
+4
+6
+7
+8
+
+======================================================================
+FAIL: test_request_list_and_dashboard_scope_by_role (tests.team.api.test_w2_decisions.VisibilityTests.test_request_list_and_dashboard_scope_by_role) (user='w2_m1')
+API-W2-001.01; FR-W2-01; BR-04: employee own, team manager team, teamless own, admin all.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 93, in test_request_list_and_dashboard_scope_by_role
+    self.assertEqual({r["id"] for r in listed.data}, ids)
+AssertionError: Items in the first set but not the second:
+8
+5
+
+======================================================================
+FAIL: test_request_list_and_dashboard_scope_by_role (tests.team.api.test_w2_decisions.VisibilityTests.test_request_list_and_dashboard_scope_by_role) (user='w2_m2')
+API-W2-001.01; FR-W2-01; BR-04: employee own, team manager team, teamless own, admin all.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 93, in test_request_list_and_dashboard_scope_by_role
+    self.assertEqual({r["id"] for r in listed.data}, ids)
+AssertionError: Items in the first set but not the second:
+1
+2
+3
+4
+6
+7
+8
+
+======================================================================
+FAIL: test_request_list_and_dashboard_scope_by_role (tests.team.api.test_w2_decisions.VisibilityTests.test_request_list_and_dashboard_scope_by_role) (user='w2_teamless_manager')
+API-W2-001.01; FR-W2-01; BR-04: employee own, team manager team, teamless own, admin all.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w2_decisions.py", line 93, in test_request_list_and_dashboard_scope_by_role
+    self.assertEqual({r["id"] for r in listed.data}, ids)
+AssertionError: Items in the first set but not the second:
+1
+2
+3
+4
+5
+6
+7
+
+----------------------------------------------------------------------
+Ran 40 tests in 34.820s
+
+FAILED (failures=14)
+Destroying test database for alias 'default'...

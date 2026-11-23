@@ -1,0 +1,90 @@
+Creating test database for alias 'default'...
+...............FFFFFFF.......................
+======================================================================
+FAIL: test_approved_request_blocks_and_neighbour_passes (tests.team.api.test_w1_submission.OverlapTests.test_approved_request_blocks_and_neighbour_passes)
+API-W1-004.02; FR-W1-04; BR-02/05: approved interval still blocks overlap.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 252, in test_approved_request_blocks_and_neighbour_passes
+    self.assert_rejected_without_insert(payload("2026-12-15", "2026-12-15"), "non_field_errors")
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 37, in assert_rejected_without_insert
+    self.assertEqual(response.status_code, 400, response.data)
+AssertionError: 201 != 400 : {'id': 3, 'employee': {'id': 1, 'username': 'ov_e1', 'display_name': 'Synthetic e1', 'email': 'ov_e1@example.invalid', 'role': 'employee', 'team': 'ov-A'}, 'leave_type': 'vacation', 'leave_type_label': 'Ferie', 'start_date': '2026-12-15', 'end_date': '2026-12-15', 'note': 'Synthetic A2.1', 'status': 'pending', 'status_label': 'In attesa', 'business_days': 1, 'created_at': '2026-11-22T20:50:54.017370+01:00'}
+
+======================================================================
+FAIL: test_inclusive_boundaries_against_pending_request (tests.team.api.test_w1_submission.OverlapTests.test_inclusive_boundaries_against_pending_request) (start='2026-12-07', end='2026-12-07')
+API-W1-004.01; FR-W1-04; BR-02: existing pending 12-07..11; touching endpoints block, neighbours pass.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 244, in test_inclusive_boundaries_against_pending_request
+    response = self.assert_rejected_without_insert(payload(start, end), "non_field_errors")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 37, in assert_rejected_without_insert
+    self.assertEqual(response.status_code, 400, response.data)
+AssertionError: 201 != 400 : {'id': 2, 'employee': {'id': 1, 'username': 'ov_e1', 'display_name': 'Synthetic e1', 'email': 'ov_e1@example.invalid', 'role': 'employee', 'team': 'ov-A'}, 'leave_type': 'vacation', 'leave_type_label': 'Ferie', 'start_date': '2026-12-07', 'end_date': '2026-12-07', 'note': 'Synthetic A2.1', 'status': 'pending', 'status_label': 'In attesa', 'business_days': 1, 'created_at': '2026-11-22T20:50:54.043648+01:00'}
+
+======================================================================
+FAIL: test_inclusive_boundaries_against_pending_request (tests.team.api.test_w1_submission.OverlapTests.test_inclusive_boundaries_against_pending_request) (start='2026-12-08', end='2026-12-08')
+API-W1-004.01; FR-W1-04; BR-02: existing pending 12-07..11; touching endpoints block, neighbours pass.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 244, in test_inclusive_boundaries_against_pending_request
+    response = self.assert_rejected_without_insert(payload(start, end), "non_field_errors")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 37, in assert_rejected_without_insert
+    self.assertEqual(response.status_code, 400, response.data)
+AssertionError: 201 != 400 : {'id': 2, 'employee': {'id': 1, 'username': 'ov_e1', 'display_name': 'Synthetic e1', 'email': 'ov_e1@example.invalid', 'role': 'employee', 'team': 'ov-A'}, 'leave_type': 'vacation', 'leave_type_label': 'Ferie', 'start_date': '2026-12-08', 'end_date': '2026-12-08', 'note': 'Synthetic A2.1', 'status': 'pending', 'status_label': 'In attesa', 'business_days': 1, 'created_at': '2026-11-22T20:50:54.051016+01:00'}
+
+======================================================================
+FAIL: test_inclusive_boundaries_against_pending_request (tests.team.api.test_w1_submission.OverlapTests.test_inclusive_boundaries_against_pending_request) (start='2026-12-10', end='2026-12-10')
+API-W1-004.01; FR-W1-04; BR-02: existing pending 12-07..11; touching endpoints block, neighbours pass.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 244, in test_inclusive_boundaries_against_pending_request
+    response = self.assert_rejected_without_insert(payload(start, end), "non_field_errors")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 37, in assert_rejected_without_insert
+    self.assertEqual(response.status_code, 400, response.data)
+AssertionError: 201 != 400 : {'id': 2, 'employee': {'id': 1, 'username': 'ov_e1', 'display_name': 'Synthetic e1', 'email': 'ov_e1@example.invalid', 'role': 'employee', 'team': 'ov-A'}, 'leave_type': 'vacation', 'leave_type_label': 'Ferie', 'start_date': '2026-12-10', 'end_date': '2026-12-10', 'note': 'Synthetic A2.1', 'status': 'pending', 'status_label': 'In attesa', 'business_days': 1, 'created_at': '2026-11-22T20:50:54.057999+01:00'}
+
+======================================================================
+FAIL: test_inclusive_boundaries_against_pending_request (tests.team.api.test_w1_submission.OverlapTests.test_inclusive_boundaries_against_pending_request) (start='2026-12-11', end='2026-12-11')
+API-W1-004.01; FR-W1-04; BR-02: existing pending 12-07..11; touching endpoints block, neighbours pass.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 244, in test_inclusive_boundaries_against_pending_request
+    response = self.assert_rejected_without_insert(payload(start, end), "non_field_errors")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 37, in assert_rejected_without_insert
+    self.assertEqual(response.status_code, 400, response.data)
+AssertionError: 201 != 400 : {'id': 2, 'employee': {'id': 1, 'username': 'ov_e1', 'display_name': 'Synthetic e1', 'email': 'ov_e1@example.invalid', 'role': 'employee', 'team': 'ov-A'}, 'leave_type': 'vacation', 'leave_type_label': 'Ferie', 'start_date': '2026-12-11', 'end_date': '2026-12-11', 'note': 'Synthetic A2.1', 'status': 'pending', 'status_label': 'In attesa', 'business_days': 1, 'created_at': '2026-11-22T20:50:54.064205+01:00'}
+
+======================================================================
+FAIL: test_inclusive_boundaries_against_pending_request (tests.team.api.test_w1_submission.OverlapTests.test_inclusive_boundaries_against_pending_request) (start='2026-12-04', end='2026-12-14')
+API-W1-004.01; FR-W1-04; BR-02: existing pending 12-07..11; touching endpoints block, neighbours pass.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 244, in test_inclusive_boundaries_against_pending_request
+    response = self.assert_rejected_without_insert(payload(start, end), "non_field_errors")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 37, in assert_rejected_without_insert
+    self.assertEqual(response.status_code, 400, response.data)
+AssertionError: 201 != 400 : {'id': 2, 'employee': {'id': 1, 'username': 'ov_e1', 'display_name': 'Synthetic e1', 'email': 'ov_e1@example.invalid', 'role': 'employee', 'team': 'ov-A'}, 'leave_type': 'vacation', 'leave_type_label': 'Ferie', 'start_date': '2026-12-04', 'end_date': '2026-12-14', 'note': 'Synthetic A2.1', 'status': 'pending', 'status_label': 'In attesa', 'business_days': 7, 'created_at': '2026-11-22T20:50:54.077013+01:00'}
+
+======================================================================
+FAIL: test_inclusive_boundaries_against_pending_request (tests.team.api.test_w1_submission.OverlapTests.test_inclusive_boundaries_against_pending_request) (start='2026-12-04', end='2026-12-07')
+API-W1-004.01; FR-W1-04; BR-02: existing pending 12-07..11; touching endpoints block, neighbours pass.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 244, in test_inclusive_boundaries_against_pending_request
+    response = self.assert_rejected_without_insert(payload(start, end), "non_field_errors")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 37, in assert_rejected_without_insert
+    self.assertEqual(response.status_code, 400, response.data)
+AssertionError: 201 != 400 : {'id': 2, 'employee': {'id': 1, 'username': 'ov_e1', 'display_name': 'Synthetic e1', 'email': 'ov_e1@example.invalid', 'role': 'employee', 'team': 'ov-A'}, 'leave_type': 'vacation', 'leave_type_label': 'Ferie', 'start_date': '2026-12-04', 'end_date': '2026-12-07', 'note': 'Synthetic A2.1', 'status': 'pending', 'status_label': 'In attesa', 'business_days': 2, 'created_at': '2026-11-22T20:50:54.083426+01:00'}
+
+----------------------------------------------------------------------
+Ran 40 tests in 33.590s
+
+FAILED (failures=7)
+Destroying test database for alias 'default'...
