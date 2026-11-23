@@ -101,7 +101,7 @@ Truth combinations count **atomic predicates**, not cyclomatic complexity or mea
 
 `hasattr(exc,'message_dict')` in serializers:35 is a **single** Boolean choosing field-dict vs message-list exception shape. Guards at views:68,71,79,81 and models:81,89 are simple decisions; membership sets should still receive enum/role EP and decision tables in combination with surrounding guards. Dashboard status-filtered counts are independent aggregate membership checks, not a compound Python condition. All of these remain in the coverage boundary.
 
-D1 is the critical rule candidate, but its missing-balance masking means “four combinations covered” cannot honestly be claimed using real domain values. D2 supplies four feasible rows and clear unique-cause MC/DC pairs (TT/FT for M, TT/TF for T); it does not substitute for D1 silently. See COVERAGE-BOUNDARY for critical-module choice and instructor decision.
+> **Superseded by [DR-001](../planning/DR-001-CRITICAL-MODULE.md) (24 Nov 2026):** D1's evaluable vectors (F,–), (T,F) and (T,T) were all executed; B is shown independent by masking MC/DC (pair T1/T3) and E by unique cause (T1/T2). D2 is also short-circuited: its two employee rows both evaluate as (F,–), so it gives no masking-free alternative. v0.1 text: D1 is the critical rule candidate, but its missing-balance masking means “four combinations covered” cannot honestly be claimed using real domain values. D2 supplies four feasible rows and clear unique-cause MC/DC pairs (TT/FT for M, TT/TF for T); it does not substitute for D1 silently. See COVERAGE-BOUNDARY for critical-module choice and instructor decision.
 
 ## State-transition inventory
 

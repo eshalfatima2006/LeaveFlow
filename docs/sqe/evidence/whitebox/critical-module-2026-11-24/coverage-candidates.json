@@ -1,0 +1,38 @@
+{
+  "serializers.py LeaveRequestSerializer.validate": {
+    "statements": "10/10",
+    "missing_lines": [],
+    "branches": "2/2",
+    "missing_branches": []
+  },
+  "models.py LeaveRequest.business_days": {
+    "statements": "9/9",
+    "missing_lines": [],
+    "branches": "4/4",
+    "missing_branches": []
+  },
+  "models.py LeaveRequest.clean": {
+    "statements": "6/6",
+    "missing_lines": [],
+    "branches": "4/4",
+    "missing_branches": []
+  },
+  "models.py LeaveBalance.approved_days": {
+    "statements": "3/3",
+    "missing_lines": [],
+    "branches": "0/0",
+    "missing_branches": []
+  },
+  "models.py LeaveBalance.available_days": {
+    "statements": "3/3",
+    "missing_lines": [],
+    "branches": "0/0",
+    "missing_branches": []
+  },
+  "views.py visible_requests": {
+    "statements": "6/6",
+    "missing_lines": [],
+    "branches": "4/4",
+    "missing_branches": []
+  }
+}

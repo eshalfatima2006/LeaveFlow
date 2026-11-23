@@ -1,0 +1,7 @@
+Name                           Stmts   Miss Branch BrPart  Cover   Missing
+--------------------------------------------------------------------------
+backend/leave/models.py           65      2      8      0    97%   12, 93
+backend/leave/serializers.py      30      0      2      0   100%
+backend/leave/views.py            86     16     20      0    81%   22-28, 113-132
+--------------------------------------------------------------------------
+TOTAL                            181     18     30      0    90%

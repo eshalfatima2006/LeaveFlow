@@ -78,7 +78,7 @@ Each row is a **definition**; all later mentions are references. Use meaningful 
 | REC-002 | Recovery | Decision atomic rollback/failure/restoration/retry and after-commit Redis outage/lost response distinguished; same k/no double charge/audit corruption | FR-W2-04, FR-W2-05, FR-W2-06 | BR-03, BR-05 | PR-10, PR-12 |
 | UT-EVT-001 | Unit | Exercise event builder/publisher/nested callback: names/fallback, all recipient classes, Redis disabled/success/error, commit/rollback and original ID/payload | FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | PR-12 |
 | MUT-001 | Mutation | Run approved business-rule mutations, ≥2 custom rule operators, ≥15 genuine survivor classifications and killable survivors killed; raw/adjusted score and timeouts | FR-W1-01, FR-W1-02, FR-W1-03, FR-W1-04, FR-W1-05, FR-W1-06, FR-W2-01, FR-W2-02, FR-W2-03, FR-W2-04, FR-W2-05, FR-W2-06 | BR-01, BR-02, BR-03, BR-04, BR-05, BR-06 | PR-01, PR-02, PR-04, PR-05, PR-12 |
-| MCC-001 | White-box | Complete approved critical-module MCC table with short-circuit/infeasible rationale, derive actual MC/DC pairs; serializer primary, visible_requests alternate requires approval | FR-W1-05, FR-W2-01, FR-W2-02 | BR-03, BR-04 | PR-01, PR-02 |
+| MCC-001 | White-box | Complete approved critical-module MCC table with short-circuit/infeasible rationale, derive actual MC/DC pairs; critical module per [DR-001](DR-001-CRITICAL-MODULE.md) (PROPOSED): W1 validation chain; D1 complete MCC = 3 evaluable vectors, MC/DC pairs T1/T2 (E) and T1/T3 (B, masking); `visible_requests` covered by DT-003, not critical | FR-W1-05, FR-W2-01, FR-W2-02 | BR-03, BR-04 | PR-01, PR-02 |
 | REG-001 | Regression | Retain each genuine defect regression and impacted team suites on fix candidate; real fail-before/pass-after; upstream smoke separately reported | FR-W1-01, FR-W1-02, FR-W1-03, FR-W1-04, FR-W1-05, FR-W1-06, FR-W2-01, FR-W2-02, FR-W2-03, FR-W2-04, FR-W2-05, FR-W2-06 | BR-01, BR-02, BR-03, BR-04, BR-05, BR-06 | PR-01, PR-02, PR-03, PR-04, PR-05, PR-06, PR-07, PR-08, PR-09, PR-10, PR-11, PR-12 |
 | E2E-UC01-01 | Browser | **v0.1 — mapped → TC-UC01-M.** UC-01 Employee submit leave: Submit valid modal→pending original k. Conditional on accepted UC/flow specification. | FR-W1-01, FR-W1-02, FR-W1-03, FR-W1-04, FR-W1-05, FR-W1-06 | BR-01, BR-02, BR-03, BR-04, BR-05, BR-06 | PR-01, PR-04, PR-07, PR-08 |
 | E2E-UC01-02 | Browser | **v0.1 — retired (input-data variant; EP data, API-W1-002.01).** UC-01 Employee submit leave: Alternative: permit/personal type, same create rule. Conditional on accepted UC/flow specification. | FR-W1-01, FR-W1-02, FR-W1-03, FR-W1-04, FR-W1-05, FR-W1-06 | BR-01, BR-02, BR-03, BR-04, BR-05, BR-06 | PR-01, PR-04, PR-07, PR-08 |
@@ -150,7 +150,7 @@ Status as of 24 Nov 2026. Only executed evidence is reported here; everything el
 - **DT-003:** partly executed (role × team visibility sets in API-W2-001.01).
 - **SEC-001:** partly executed (browser allow decisions TC-UC02-M/A2 and deny TC-UC02-E2; the dedicated ≥4-decision access suite is still planned).
 
-**Not started:** UT-*, API-INT-001/002, GEN-001, DT-001/002/004/005, SEC-002/003, ACC-*, PERF-001, REC-*, UT-EVT-001, MUT-001, MCC-001 and REG-001.
+**Not started:** UT-*, API-INT-001/002, GEN-001, DT-001/002/004/005, SEC-002/003, ACC-*, PERF-001, REC-*, UT-EVT-001, MUT-001, MCC-001 and REG-001. *(MCC-001: feasibility evidence only — `docs/sqe/evidence/whitebox/critical-module-2026-11-24/`; no team white-box test exists yet.)*
 
 ## Browser use-case flow catalog (v0.2)
 

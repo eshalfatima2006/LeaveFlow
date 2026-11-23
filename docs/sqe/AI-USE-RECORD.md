@@ -236,3 +236,19 @@ Students must review source safety/fixtures/assertions/evidence, retain prompts,
   - decide the decision-feedback oracle, the over-allowance error contract and the TCL target;
   - review the auto-release guard;
   - each owner reviews and explains the B1 tests assigned to them.
+
+
+# PR #2 review remediation — critical-module decision (24 November 2026)
+
+- **Tool:** Claude Code (Claude Opus 5.5), at the student's instruction. No reviewer approval, instructor decision or team agreement is claimed.
+- **Concern addressed:** the PR #2 reviewer asked for a documented decision process for selecting one critical module (serializer `validate` vs `visible_requests`). PR #2's merge commit is not present locally (no fetch); the concern text was supplied by the student.
+- **Analysis and evidence:** written to `docs/sqe/evidence/whitebox/critical-module-2026-11-24/`.
+  - radon 6.0.1 cyclomatic complexity;
+  - coverage.py 7.6.10 branch coverage of the existing A2.1 API suite (40/40 passed) on the candidate files;
+  - `feasibility_probe.py`, which executes every evaluable truth row of D1, H and D2 on the in-memory test database.
+  - The tools were installed with `pip --target` into `/tmp`; the project `.venv` was not modified.
+- **Created:** `docs/sqe/planning/DR-001-CRITICAL-MODULE.md` (PROPOSED: W1 validation chain; `visible_requests` rejected as an alternative).
+- **Modified:** COVERAGE-BOUNDARY, TEST-STRATEGY, BUSINESS-RULES (v0.1 text kept, marked superseded), RTM (MCC-001), RISK-REGISTER (JR-03), ENTRY-EXIT-CRITERIA (EC-04), EXECUTION-ROADMAP (WP-09), SCOPE (open decision 2), TEST-PLAN (M0).
+- **Not changed:** application code, tests, existing evidence; no business rule.
+- **Development database:** unchanged (metadata only).
+- **Student review required:** confirm DR-001; obtain instructor confirmation of the critical module; reply to the PR #2 reviewer.

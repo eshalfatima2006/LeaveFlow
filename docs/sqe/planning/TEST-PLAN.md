@@ -63,7 +63,7 @@ No external service credentials or real personnel data in fixtures/evidence. Red
 
 Detailed work packages, person-hours and dependencies are in [EFFORT-ESTIMATION](EFFORT-ESTIMATION.md) and [EXECUTION-ROADMAP](EXECUTION-ROADMAP.md). Milestones are relative, not invented dates:
 
-1. **M0 planning review:** confirm scope/critical module/oracles/ownership/UC feasibility, budgets and risk ranking. Archive this Phase2 prompt and retain Phase1 prompt from original chat/copy.
+1. **M0 planning review:** confirm scope/critical module/oracles/ownership/UC feasibility, budgets and risk ranking. Archive this Phase2 prompt and retain Phase1 prompt from original chat/copy. *v0.2: critical module PROPOSED in [DR-001](DR-001-CRITICAL-MODULE.md).*
 2. **M1 reproducible foundation:** compatible tools, isolated fixture/reset proof, exact source/lock/environment capture; reproduce PR-01 candidate and verify PR-02 access decisions early. Source reviews/spec drafting can proceed while tools/PR reviews are pending.
 3. **M2 functional foundation:** Sonar/CFG and team unit/API tests, generated data, MCC/MC/DC, decision/state/integration tests; persist real defects and baseline/fix evidence.
 4. **M3 integrated automation:** approved UC Playwright flows, mutation, strict CI gates, actual blocked/fixed PR evidence; accessibility/security alongside stable browser work.
