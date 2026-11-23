@@ -20,7 +20,7 @@ All E values are proposed aggregate person-hours (including all participants), n
 | WP-02 Strategy/test-plan/criteria and ownership review | M0 | Shared | 5.17 | WP-01 | Reviewed strategy/plan/criteria/ownership acknowledgments with revision record | JR-03/04: approval/capacity unknown |
 | WP-03 Risk register, matrix and prioritization | M0 | Shared | 4.17 | WP-01 | Reviewed16-risk register/matrix/rank and accepted provisional scores | PR-01/02 priorities; JR-03 scope |
 | WP-04 Forward/backward RTM and case catalog | M0 | A2 | 4.17 | WP-01, WP-03 | Reviewed12FR/6BR forward/backward catalog with all planned links | GEN/UC execution evidence not yet present |
-| WP-05 Isolated environments, fixed fixtures and reset proof | M1 | A2 | 7.33 | WP-02 | Tool/lock/version manifest, disposable target guard, repeat fixed-fixture reset proof | JR-01/02: unsafe seed, current Node/npm failure, PostgreSQL availability |
+| WP-05 Isolated environments, fixed fixtures and reset proof | M1 | A2 | 7.33 | WP-02 | Tool/lock/version manifest, disposable target guard, repeat fixed-fixture reset proof | JR-01/02: unsafe seed, Node/npm failure (v0.2: resolved; versions verified in B1), PostgreSQL availability |
 | WP-06 Sonar deployment, scan and metric interpretation | M2-A1 | A1 | 5.50 | WP-05 | Genuine Sonar task and full metrics/ratings/debt interpretation with source SHA | JR-02: free OSS server/runner capacity/PR-gate features |
 | WP-07 Manual CFG/cyclomatic comparison | M2-A1 | A1 | 3.17 | WP-06 | Hand CFG nodes/edges/V(G), corresponding Sonar function comparison | JR-03: agreed function and metric convention |
 | WP-08 Team unit/white-box tests, full coverage and assertions | M2-A1 | A1 | 14.67 | WP-05 | Team-owned meaningful assertions and raw100/100 coverage/approved exceptions; early PR-01/02 probes | PR-01/02; JR-03 denominator; tools/fixtures |
@@ -30,7 +30,7 @@ All E values are proposed aggregate person-hours (including all participants), n
 | WP-12 EP/BVA generator, API consumption and two-constraint demo | M2-A2 | A2 | 10.67 | WP-10, WP-11 | Reproducible generator cases consumed by APIs; two constraint-change/regeneration diffs | PR-06/07: approved spec; no fake fixed maxDays26 |
 | WP-13 Decision tables and feasible/infeasible row tests | M2-A2 | A2 | 5.33 | WP-10 | All applicable compound-rule rows mapped to executions with feasibility justifications | PR-04/07; SQL vs Python branch distinction |
 | WP-14 State transitions, repeated decisions and duplicates | M2-A2 | A2 | 5.33 | WP-10 | Both allowed decision transitions and ≥1 disallowed event per state; repeat/no-duplicate assertions | PR-03/05: same-k metadata and real locking DB |
-| WP-15 Six accepted UCs and all Playwright flows | M3 | A3 (all implement two UCs) | 21.00 | WP-10, WP-11 | Six accepted UCs/two per member, every main/≥2alt/≥2exception flow automated with UI/persistence evidence | JR-03/PR-08: actor-goal feasibility and missing decision error feedback |
+| WP-15 Six accepted UCs and all Playwright flows | M3 | A3 (all implement two UCs) | 21.00 | WP-10, WP-11 | Six accepted UCs/two per member, every main/≥2alt/≥2exception flow automated with UI/persistence evidence | JR-03/PR-08: actor-goal feasibility and missing decision error feedback (v0.2: 10/30 flows passed; UC-07/08/09 depend on D-1/D-2) |
 | WP-16 Mutation tool, custom operators and survivor analysis | M3 | A1 | 11.67 | WP-08, WP-09 | Tool results, ≥2 custom rule operators, ≥15 real survivor analyses/reruns and adjusted/raw score | JR-02/03: mutation runtime/compatibility/fewer-than15 survivors |
 | WP-17 Strict PR CI gates and real blocked/fix PR evidence | M3 | A1 | 8.67 | WP-06, WP-12, WP-15, WP-16 | Required PR test/Sonar/mutation gates; genuine blocked PR and corrected fail-before/pass-after fix evidence | JR-02/04: student Git/protected checks, full-job release linkage |
 | WP-18 Task/keyboard, Lighthouse/axe and before/after improvement | M4 | A3 | 8.50 | WP-15 | Two task tests/error-correction/keyboard, Lighthouse3 categories+axe per UC screen, one before/after improvement | PR-08: later authorized screen change and repeatable logged-in scans |
@@ -43,6 +43,14 @@ All E values are proposed aggregate person-hours (including all participants), n
 | WP-25 Completion, residual risk and release/hold report | M5 | Shared | 5.33 | WP-17, WP-18, WP-19, WP-20, WP-21, WP-23, WP-24 | Tested/not-tested/deviations/open defects/residual risk per risk; EC actual-vs-target and release/hold | All10 gates evaluated; EC-01/02/04 headline three; mandatory gaps HOLD |
 | WP-26 Final PDF/ZIP, source/evidence/link checks | M5 | Shared | 5.17 | WP-25 | PDF/ZIP with .git, public team link, evidence/scripts/config/versions/AI record; naming and integrity checks | Section/confirmed rolls/deadline not supplied; sanitize secrets not history evidence |
 | WP-27 Individual viva reruns and live-rule/spec rehearsal | M5 final; practice earlier | Shared | 7.33 | WP-26 | Each member reruns own/peer test and live rule/spec change prediction→failure→fix/gate explanation | JR-04: genuine contribution/understanding across all components |
+
+**v0.2 progress (24 Nov 2026, executed evidence only):**
+
+- **WP-05 partly done:** `sqe-memory-v1` and `sqe-browser-v1` disposable profiles and the PR #1 reproduction tooling. The PostgreSQL profile and reset proof remain.
+- **WP-10 partly done:** A2.1 API functional tests, 40/40 passed. API-INT-001/002 are not started.
+- **WP-15 in progress:** 10/30 flows passed (B1).
+- **WP-04:** RTM reconciled to v0.2.
+- **Not started:** white-box, Sonar, generator, mutation, CI gates, usability, security, performance, recovery and management reporting.
 
 Total E across packages **210.67 person-hours**, counted once. This includes completion/reporting/review, not just test coding. Use actual availability and package dependencies to set later calendar commitments. Individual phases may overlap; do not add parallel-lane durations as calendar time. Weekly reviews compare real effort and blockers with the original baseline, revise remaining forecasts with rationale and retain prior estimates.
 
