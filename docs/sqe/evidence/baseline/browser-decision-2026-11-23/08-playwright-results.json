@@ -1,0 +1,107 @@
+{
+  "config": {
+    "configFile": "/home/pc/projects/sqe-final/LeaveFlow/scripts/sqe/baseline-browser/playwright.config.ts",
+    "rootDir": "/home/pc/projects/sqe-final/LeaveFlow/scripts/sqe/baseline-browser",
+    "forbidOnly": true,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/home/pc/projects/sqe-final/LeaveFlow/docs/sqe/evidence/baseline/browser-decision-2026-11-23/08-playwright-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 15000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/tmp/leaveflow-baseline-browser-q368mfzw/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/home/pc/projects/sqe-final/LeaveFlow/scripts/sqe/baseline-browser",
+        "testIgnore": [],
+        "testMatch": [
+          "manager-decision.spec.ts"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "version": "1.49.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "manager-decision.spec.ts",
+      "file": "manager-decision.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "PR1-BL-UI-04 manager approves a request that the employee submitted in the browser",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "status": "passed",
+                  "duration": 5615,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-23T18:18:47.484Z",
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3e004aaa4e72b1866146-48806c7b2bad3c650abb",
+          "file": "manager-decision.spec.ts",
+          "line": 29,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-23T18:18:46.647Z",
+    "duration": 6672.497,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

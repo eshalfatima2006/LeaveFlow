@@ -1,0 +1,28 @@
+Command: /home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python manage.py runserver 127.0.0.1:8798 --noreload
+Working directory: /home/pc/projects/sqe-final/LeaveFlow/backend
+----- output -----
+[23/Nov/2026 19:18:42] "GET /health/ HTTP/1.1" 200 16
+[23/Nov/2026 19:18:48] "OPTIONS /api/me/ HTTP/1.1" 200 0
+Unauthorized: /api/me/
+[23/Nov/2026 19:18:48] "GET /api/me/ HTTP/1.1" 401 69
+[23/Nov/2026 19:18:49] "OPTIONS /api/auth/login/ HTTP/1.1" 200 0
+[23/Nov/2026 19:18:49] "POST /api/auth/login/ HTTP/1.1" 200 174
+[23/Nov/2026 19:18:49] "OPTIONS /api/dashboard/ HTTP/1.1" 200 0
+[23/Nov/2026 19:18:49] "OPTIONS /api/requests/ HTTP/1.1" 200 0
+[23/Nov/2026 19:18:49] "OPTIONS /api/team/ HTTP/1.1" 200 0
+[23/Nov/2026 19:18:49] "GET /api/requests/ HTTP/1.1" 200 2
+[23/Nov/2026 19:18:49] "GET /api/team/ HTTP/1.1" 200 335
+[23/Nov/2026 19:18:49] "GET /api/dashboard/ HTTP/1.1" 200 110
+[23/Nov/2026 19:18:50] "POST /api/requests/ HTTP/1.1" 201 387
+[23/Nov/2026 19:18:50] "GET /api/requests/ HTTP/1.1" 200 389
+[23/Nov/2026 19:18:50] "GET /api/dashboard/ HTTP/1.1" 200 497
+[23/Nov/2026 19:18:50] "GET /api/team/ HTTP/1.1" 200 335
+[23/Nov/2026 19:18:51] "POST /api/auth/login/ HTTP/1.1" 200 172
+[23/Nov/2026 19:18:51] "GET /api/requests/ HTTP/1.1" 200 389
+[23/Nov/2026 19:18:51] "GET /api/team/ HTTP/1.1" 200 335
+[23/Nov/2026 19:18:51] "GET /api/dashboard/ HTTP/1.1" 200 497
+[23/Nov/2026 19:18:52] "OPTIONS /api/requests/1/decision/ HTTP/1.1" 200 0
+[23/Nov/2026 19:18:52] "POST /api/requests/1/decision/ HTTP/1.1" 200 388
+[23/Nov/2026 19:18:52] "GET /api/requests/ HTTP/1.1" 200 390
+[23/Nov/2026 19:18:52] "GET /api/team/ HTTP/1.1" 200 381
+[23/Nov/2026 19:18:52] "GET /api/dashboard/ HTTP/1.1" 200 498

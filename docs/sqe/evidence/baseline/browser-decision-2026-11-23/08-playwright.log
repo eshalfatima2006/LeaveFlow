@@ -1,0 +1,14 @@
+Command: npx playwright test --config playwright.config.ts
+Working directory: scripts/sqe/baseline-browser
+Django settings: baseline_repro_settings (disposable SQLite inside /tmp/leaveflow-baseline-browser-q368mfzw)
+Started (UTC): 2026-11-23T18:18:45+00:00
+Finished (UTC): 2026-11-23T18:18:53+00:00
+Exit code: 0
+Note: Credentials are passed through the environment and are not recorded.
+----- output (stdout+stderr, unedited) -----
+
+Running 1 test using 1 worker
+
+  ✓  1 [chromium] › manager-decision.spec.ts:29:1 › PR1-BL-UI-04 manager approves a request that the employee submitted in the browser (5.6s)
+
+  1 passed (6.7s)

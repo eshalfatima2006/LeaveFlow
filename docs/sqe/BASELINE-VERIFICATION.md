@@ -172,6 +172,8 @@ Historical artifacts (21 November 2026, unedited):
 - [evidence/baseline/frontend-build.log](evidence/baseline/frontend-build.log)
 - Screenshots in [screenshots/](screenshots/) (section 12)
 
+Newly captured browser evidence (23 November 2026, remediation): [evidence/baseline/browser-decision-2026-11-23/](evidence/baseline/browser-decision-2026-11-23/) — BL-UI-04 screenshot, Playwright results and log, database readback and `execution-record.json`.
+
 Newly reproduced artifacts (23 November 2026): [evidence/baseline/reproduction-2026-11-23/](evidence/baseline/reproduction-2026-11-23/) — `summary.json`, `01-environment.json`, and logs 02–10 (one file per command, each with the command, timestamps, exit code and unedited output). This set was produced by the script at commit `32410bc`. An earlier, equally passing set from commit `b647f37` had trailing whitespace in two log headers; it was replaced by this complete re-run rather than edited, and it remains in Git history at commit `7fa1583`.
 
 ## 12. Browser Screenshots
@@ -183,11 +185,37 @@ The following screenshots were captured on 21 November 2026 (the dashboards show
 | BL-UI-01 | Employee overview ("Demo Employee"): 25 of 26 days available; counters 1 pending, 1 approved, 3 total | [screenshots/employee-dashboard.png](screenshots/employee-dashboard.png) |
 | BL-UI-02 | New-request form: Vacation, 11/03/2026–11/24/2026, preview "16 working days" | [screenshots/new-request-form.png](screenshots/new-request-form.png) |
 | BL-UI-03 | Manager overview ("Demo Manager"): team requests, including a pending row with approve/reject buttons | [screenshots/manager-dashboard.png](screenshots/manager-dashboard.png) |
-| BL-UI-04 | Manager's decision result for a leave request | **Not captured.** No screenshot of a decision result exists. The decision is evidenced instead by the newly reproduced API smoke test (section 7, S11–S13) |
+| BL-UI-04 | Manager's decision result for a leave request | **Not captured in the original run.** Newly captured during remediation on 23 November 2026 — see below |
 | BL-UI-05 | Administrator overview ("Demo Admin") | [screenshots/admin-dashboard.png](screenshots/admin-dashboard.png) |
 | BL-ENV-01 | Terminal: remote configuration and `git rev-parse HEAD` = baseline commit | [screenshots/baseline.png](screenshots/baseline.png) |
 
 These screenshots provide preliminary browser evidence only. Automated browser assertions and persisted-database verification are performed separately in the team's Playwright and integration testing phases.
+
+### BL-UI-04 — manager decision result (newly captured, 23 November 2026)
+
+The original baseline run produced no screenshot of a decision result. This one was captured during the PR #1 remediation, **not** during the original run, by an automated Playwright test (Chromium 131.0.6778.33, Playwright 1.49.1) against a disposable SQLite database with synthetic users. The development database was not used. Sequence:
+
+1. The employee (`bl-employee`, allowance 10) logs in and submits 2027-03-01..05 through the request form. The browser receives `201` with request ID 1, `pending`, 5 business days.
+2. The employee logs out. The manager of the same team (`bl-manager`) logs in, opens **Requests → Pending**, and clicks **Approve** on that row. The browser receives `200` from `POST /api/requests/1/decision/` with the same ID, `approved`.
+3. The UI shows the single row as **Approved** with no decision buttons left. The summary counters settle at 1 request, 5 days, 0 to decide, and the filters read Pending 0 / Approved 1. The screenshot is taken only after these assertions pass.
+
+![Manager view after approving the employee's request: the single row is marked Approved](evidence/baseline/browser-decision-2026-11-23/manager-decision-approved.png)
+
+Database readback after the browser run ([10-db-readback.log](evidence/baseline/browser-decision-2026-11-23/10-db-readback.log)), all passed:
+- exactly one request, with the same primary key in W1 and W2;
+- owner `bl-employee`; status `approved`; `decided_by` `bl-manager`; `decided_at` set;
+- dates and business days unchanged;
+- balance: allowance 10, used 5, available 5;
+- exactly one submission POST and one decision POST in the server log.
+
+Full record: [execution-record.json](evidence/baseline/browser-decision-2026-11-23/execution-record.json), with exit codes, browser and Playwright versions, UI assertions, database assertions and SHA-256 hashes of the scripts that ran. Test log: [08-playwright.log](evidence/baseline/browser-decision-2026-11-23/08-playwright.log) (1 passed, exit 0).
+
+Reproduce (repository root, inside WSL):
+
+```bash
+(cd scripts/sqe/baseline-browser && npm ci)
+.venv/bin/python scripts/sqe/capture_decision_screenshot.py --evidence-dir docs/sqe/evidence/baseline/browser-decision-<date>
+```
 
 ## 13. PR #1 Review Remediation (23 November 2026)
 
@@ -195,7 +223,7 @@ The text of the GitHub issue that tracks the PR #1 findings was not available lo
 
 | Finding | Problem found | Change | Status |
 |---|---|---|---|
-| A — Screenshot/evidence paths | Section 12 pointed to `evidence/baseline/screenshots/0N-*.png`, which never existed; the real files are in `screenshots/` under other names; BL-UI-04 was never captured; two committed screenshots were unreferenced | Paths corrected to working relative links; descriptions checked against each image; BL-UI-04 marked not captured; BL-UI-05 and BL-ENV-01 added | Partially resolved — links fixed and verified; no browser screenshot of a decision result exists (API evidence substitutes) |
+| A — Screenshot/evidence paths | Section 12 pointed to `evidence/baseline/screenshots/0N-*.png`, which never existed; the real files are in `screenshots/` under other names; BL-UI-04 was never captured; two committed screenshots were unreferenced | Paths corrected to working relative links; descriptions checked against each image; BL-UI-05 and BL-ENV-01 added; BL-UI-04 newly captured in a real browser (manager approval of a browser-submitted request) with database readback, clearly labelled as remediation evidence | Fixed (links verified; BL-UI-04 newly captured and verified) |
 | B — Migration evidence | `migrations.log` is a hand-written `migrate --check` summary, not migration output | `showmigrations` / `migrate` / `showmigrations` / `migrate --check` executed on a disposable SQLite database with logs | Fixed (newly reproduced) |
 | C — Environment versions | Historical `environment.txt` has no Django version; DRF never recorded | Full environment captured in `01-environment.json`; section 3 now states the source of each value | Fixed (newly reproduced; historical gap kept visible) |
 | D — API smoke evidence | API table based on server logs that were not retained | Real HTTP smoke test with synthetic users, redacted tokens and DB readback of the same request | Fixed (newly reproduced) |

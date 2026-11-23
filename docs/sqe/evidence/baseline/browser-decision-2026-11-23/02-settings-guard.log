@@ -1,0 +1,10 @@
+Command: /home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python -c 'import django; django.setup(); from django.db import connection; from django.conf import settings; print(connection.settings_dict['"'"'NAME'"'"']); print('"'"'REDIS_URL='"'"' + repr(settings.REDIS_URL)); print('"'"'CORS_ALLOWED_ORIGINS='"'"' + repr(settings.CORS_ALLOWED_ORIGINS))'
+Working directory: backend
+Django settings: baseline_repro_settings (disposable SQLite inside /tmp/leaveflow-baseline-browser-q368mfzw)
+Started (UTC): 2026-11-23T18:18:38+00:00
+Finished (UTC): 2026-11-23T18:18:39+00:00
+Exit code: 0
+----- output (stdout+stderr, unedited) -----
+/tmp/leaveflow-baseline-browser-q368mfzw/baseline-repro.sqlite3
+REDIS_URL=''
+CORS_ALLOWED_ORIGINS=['http://127.0.0.1:4798']
