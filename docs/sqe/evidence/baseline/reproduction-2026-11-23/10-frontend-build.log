@@ -1,0 +1,23 @@
+Command: npm run build
+Working directory: /tmp/leaveflow-baseline-repro-r4hs_3ih/frontend
+Django settings: baseline_repro_settings (disposable SQLite inside /tmp/leaveflow-baseline-repro-r4hs_3ih)
+Started (UTC): 2026-11-23T17:39:33+00:00
+Finished (UTC): 2026-11-23T17:39:38+00:00
+Exit code: 0
+Note: Run in a temporary copy of frontend/ (node_modules symlinked) so the repository tree is not written.
+----- output (stdout+stderr, unedited) -----
+
+> frontend@0.0.0 build
+> vue-tsc -b && vite build
+
+vite v8.1.4 building client environment for production...
+[2K
+transforming...✓ 1575 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                             0.65 kB │ gzip:  0.39 kB
+dist/assets/team-portraits-2qZKby5S.webp   45.37 kB
+dist/assets/index-8Ykhl8Xn.css             37.55 kB │ gzip:  8.64 kB
+dist/assets/index-DfagG5xt.js             107.60 kB │ gzip: 39.32 kB
+
+✓ built in 651ms
