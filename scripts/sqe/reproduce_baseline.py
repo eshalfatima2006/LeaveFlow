@@ -32,6 +32,7 @@ import os
 from pathlib import Path
 import re
 import secrets
+import shlex
 import shutil
 import socket
 import subprocess
@@ -83,8 +84,10 @@ class Recorder:
         completed = subprocess.run(command, cwd=cwd, env=env, capture_output=True, text=True)
         finished = utc()
         output = completed.stdout + completed.stderr
+        # shlex.join quotes multi-line `-c` code; strip line ends so headers carry no trailing whitespace.
+        command_text = "\n".join(line.rstrip() for line in shlex.join(command).splitlines())
         header = [
-            f"Command: {' '.join(command)}",
+            f"Command: {command_text}",
             f"Working directory: {Path(cwd).relative_to(ROOT) if Path(cwd).is_relative_to(ROOT) else cwd}",
             f"Django settings: {SETTINGS_MODULE} (disposable SQLite inside {self.run_dir})",
             f"Started (UTC): {started}",
@@ -94,7 +97,7 @@ class Recorder:
         if note:
             header.append(f"Note: {note}")
         (self.evidence / f"{name}.log").write_text("\n".join(header) + "\n----- output (stdout+stderr, unedited) -----\n" + output)
-        self.steps.append({"step": name, "command": " ".join(command), "exit_code": completed.returncode})
+        self.steps.append({"step": name, "command": shlex.join(command), "exit_code": completed.returncode})
         return completed.returncode, output
 
 
