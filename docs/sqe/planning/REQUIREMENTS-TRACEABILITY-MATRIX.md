@@ -117,7 +117,8 @@ Status as of 24 Nov 2026. Only executed evidence is reported here; everything el
 
 - **A2.0:** `docs/sqe/evidence/foundation/a20/` and `a20-reverify-20261123/` (12/12).
 - **A2.1:** [A21-EXECUTION-MAPPING.md](../testing/A21-EXECUTION-MAPPING.md), evidence `docs/sqe/evidence/api/a21/final/` (API 40/40; team 52/52).
-- **B1:** [BROWSER-USE-CASE-TESTING.md](../testing/BROWSER-USE-CASE-TESTING.md), evidence `docs/sqe/evidence/browser/b1/` (10/10 UC-01/UC-02 flows; OBJ-UC02-01 skipped as blocked).
+- **B1:** [BROWSER-USE-CASE-TESTING.md](../testing/BROWSER-USE-CASE-TESTING.md), evidence `docs/sqe/evidence/browser/b1/` (10/10 UC-01/UC-02 flows; OBJ-UC02-01 skipped as blocked); re-run from committed sources at `73cfc93`: `docs/sqe/evidence/browser/b1-provenance-2026-11-24/` (10/10, 1 skipped).
+- **Regression at `73cfc93`:** `docs/sqe/evidence/regression/r5-2026-11-24/` — check exit 0, upstream 9/9, team 52/52.
 - **Upstream:** the nine `backend/leave/tests.py` tests are reported separately and earn no team credit.
 
 | FR | Executed API tests (A2.1) | Executed browser flows (B1) | Still planned |

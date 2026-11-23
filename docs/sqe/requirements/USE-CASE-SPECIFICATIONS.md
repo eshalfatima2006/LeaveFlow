@@ -28,7 +28,7 @@ Version 0.2 — 24 November 2026. Supersedes the Phase 1 candidate table in [WOR
 
 | UC | Actor goal | Owner | Workflow link | Flows specified | Automated | Passed (evidence) | Scope status |
 |---|---|---|---|---|---|---|---|
-| UC-01 | Employee submits a leave request | Member 1 | W1 | 5 | 5 | 5 ([b1/run-1](../evidence/browser/b1/run-1/flow-coverage.md), [run-2](../evidence/browser/b1/run-2/flow-coverage.md)) | In scope |
+| UC-01 | Employee submits a leave request | Member 1 | W1 | 5 | 5 | 5 ([b1/run-1](../evidence/browser/b1/run-1/flow-coverage.md), [run-2](../evidence/browser/b1/run-2/flow-coverage.md), [committed-source re-run](../evidence/browser/b1-provenance-2026-11-24/flow-coverage.md)) | In scope |
 | UC-02 | Manager/admin decides a pending request (approve or reject) | Member 2 | W2 | 5 (+1 blocked objective) | 5 | 5 (same runs) | In scope |
 | UC-04 | Employee reviews own leave record and remaining entitlement | Member 3 | W1/W2 outcome (read-only) | 5 | 0 | 0 | In scope |
 | UC-07 | Recipient receives leave notifications | Member 2 | W1/W2 events | 5 | 0 | 0 | **Conditional on D-2** |
