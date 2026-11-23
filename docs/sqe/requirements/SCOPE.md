@@ -14,11 +14,13 @@ Analysis date: 21 November 2026 (Asia/Karachi). Course: SE3002 Software Quality 
 | Local repository | `/home/pc/projects/sqe-final/LeaveFlow` |
 | Current branch and HEAD verified | `docs/requirements-and-scope`; HEAD equals the pinned baseline |
 | Assignment actually read | Local `SQE_Final_Project Fall 2026.pdf`, all seven pages |
-| Lecture PDFs | None found in the workspace; none claimed as consulted |
+| Lecture PDFs | None found in the workspace; none claimed as consulted. *Update 24 Nov 2026 (v0.2): SE3002 Lectures 15, 16, 18, 20–23 were later located outside the repository and are used from v0.2 onward (see [USE-CASE-SPECIFICATIONS.md](USE-CASE-SPECIFICATIONS.md)).* |
 
 The pre-existing `.gitignore` edit and untracked `prompt.md` were preserved. The requirements directory existed and contained no files before this work. No tracked application file differed from the baseline.
 
 The baseline report is **absent from this branch's working tree**. It was read through `git show 81e677a:docs/sqe/BASELINE-VERIFICATION.md`; the original report and environment/test/build logs were also read from commit `7948f74`. Those commits exist locally on other history. They are historical evidence, not newly generated results. The report's “frontend build outstanding” conclusion conflicts with its successful build log; its screenshot paths also differ from the later tree. Students must reconcile these on their documentation branch. No history or branch was changed here.
+
+> **Update 24 Nov 2026 (v0.2), status: RESOLVED on the PR #1 branch.** The baseline report was corrected on `setup/local-baseline` (PR #1, commits `7fa1583`–`d615ff4`): the screenshot links were repaired, the frontend-build contradiction was removed, and migration, upstream-test, API-smoke and manager-decision browser evidence was newly reproduced. After PR #1 is integrated, the report is `docs/sqe/BASELINE-VERIFICATION.md` (§13 lists the resolved findings). The paragraph above is kept as the historical Phase 1 observation.
 
 ## Selected workflows
 
@@ -72,6 +74,18 @@ No Vue Router exists in the inspected frontend: `frontend/src/main.ts:1–4` mou
 
 Exclude Django Admin CRUD, user/team provisioning, health probes, Kubernetes/deployment administration, notification worker/gateway internal algorithms and future features (holidays, cancellation, delegation, exports, SSO). These are not either actor goal. **Include** event production/failure paths, auth, dashboard and team helpers because the selected UI actually calls them. Notification feed/SSE presentation is an external service dependency, not an extra selected workflow; its independent endpoints are mapped in WORKFLOW-TRACE. Any broader instructor interpretation of “all server-side business logic” needs approval of this proposed boundary, not silent exclusion of those services.
 
+**v0.2 use-case scope (24 Nov 2026, PROPOSED — exclusion changes are conditional, not approved).** The core workflows remain W1 and W2 on the same persisted request. The proposed use-case catalog is UC-01, UC-02, UC-04, UC-07, UC-08 and UC-09 ([USE-CASE-SPECIFICATIONS.md](USE-CASE-SPECIFICATIONS.md)). Changes to the exclusion list above:
+
+| Item | Phase 1 status | v0.2 status | Depends on |
+|---|---|---|---|
+| Django Admin **LeaveBalance** maintenance (UC-08) | Excluded ("Django Admin CRUD") | **Conditionally in scope** for browser use-case testing only | Instructor decision D-1 |
+| Django Admin **User team/role** change (UC-09) | Excluded ("user/team provisioning") | **Conditionally in scope** for browser use-case testing only | D-1 |
+| Notification-centre delivery: feed and live events as secondary actors (UC-07) | External dependency | **Conditionally in scope** as black-box secondary actors | Instructor decision D-2 |
+| Django Admin **LeaveRequest** editing, Team CRUD, other provisioning | Excluded | **Still excluded.** Direct status edits are recorded as a security gap (TEST-BASIS GAP-12), not as an allowed flow | — |
+| Notification worker/gateway internal algorithms (white-box) | Excluded | **Still excluded** from the server-side unit denominator ([COVERAGE-BOUNDARY.md](COVERAGE-BOUNDARY.md)) | — |
+
+If D-1 or D-2 is refused, the affected use cases leave the catalog and the reserve UC-06 (team availability) or a separately reviewed alternative is reconsidered. No production feature is added for scope reasons.
+
 Dependencies include Django/DRF authentication and serializer behavior, SQLite or PostgreSQL transaction semantics, browser localStorage and fetch, Vue's refresh of three APIs, optional Redis, and downstream notification services. Server business dates use Europe/Rome; seed uses machine `date.today()`; reports use Asia/Karachi. Test fixtures must fix dates explicitly rather than rely on these clocks. Requirements pins are in `requirements.txt`; preserve npm locks. Python 3.12.7 was confirmed in the supplied environment; compatibility/support review belongs to the later toolchain plan (upstream CI requests Python 3.13). Do not claim local success proves vendor support.
 
 ## Setup, seed and reset basis (instructions only)
@@ -117,8 +131,8 @@ Future student tests belong in a separate `tests/team/` hierarchy, with distinct
 1. Confirm registration, three member identities and area ownership; none inferred.
 2. Confirm the scope interpretation of assignment page 2's **all server-side business logic**, including notification-service exclusion and whether the critical module may be serializer validation as proposed.
 3. Approve a desired policy for approval-time insufficiency (error code, atomicity and unchanged persisted state). The code currently allows it. Also decide missing balance, year/type accounting and zero-day policy before changing requirements.
-4. Confirm whether six actor goals in this narrow module meet the use-case rubric; three distinct goals are strong, the other three are supporting/overlapping goals (see WORKFLOW-TRACE). Do not expand the MIS or invent screens without review.
-5. Reconcile absent baseline documents, stale conclusions and screenshot filenames using the team's own history workflow. Verify automated browser smoke and deterministic reset later.
+4. Confirm whether six actor goals in this narrow module meet the use-case rubric; three distinct goals are strong, the other three are supporting/overlapping goals (see WORKFLOW-TRACE). Do not expand the MIS or invent screens without review. *v0.2 status: a Lecture 16-aligned catalog is PROPOSED in [USE-CASE-SPECIFICATIONS.md](USE-CASE-SPECIFICATIONS.md). Still open: instructor decisions D-1 (Django Admin screens, UC-08/UC-09) and D-2 (notification services, UC-07).*
+5. Reconcile absent baseline documents, stale conclusions and screenshot filenames using the team's own history workflow. Verify automated browser smoke and deterministic reset later. *v0.2 status: baseline reconciliation RESOLVED on the PR #1 branch (see the update under "Identity and evidence"); isolated browser runs exist (B1). A deterministic reset of the development database is still not provided (disposable databases are used instead).*
 6. Supply a reviewed OpenAPI contract, including manual decision/login schemas and cross-field rules. No schema endpoint/spec exists here; default inference is incomplete.
 
 Later work must still deliver test management (including ≥8 product/≥2 project risks), SonarQube/CFG, full scoped statement/branch coverage, MCC/MC/DC, API generation, Playwright flows, mutations, CI gates, accessibility, passive security, k6/recovery and final reports. Pages 2–7 of the assignment were read to keep these foundations compatible, not implemented now. All student review, staging, commits, pushes, PRs and issues remain student-owned. AI assistance is disclosed in [AI-USE-RECORD.md](../AI-USE-RECORD.md).

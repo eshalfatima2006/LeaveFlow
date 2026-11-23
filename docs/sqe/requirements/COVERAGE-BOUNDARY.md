@@ -45,6 +45,8 @@ An API test that patches `leave.views.publish_leave_event` does **not** cover ev
 | Vue components/api/localization/notifications | Outside **server-side** unit denominator | Remain selected browser/contract behavior, later Playwright/accessibility tests; not claimed irrelevant or already covered |
 | Installed Django/DRF/Redis clients | Third-party implementation | Test contracts via caller behavior; do not attempt to claim own tests cover library internals |
 
+> **v0.2 note (24 Nov 2026):** the exclusions above apply to the **server-side unit/white-box denominator** only and are unchanged. If instructor decisions D-1/D-2 bring UC-07, UC-08 and UC-09 into scope, `admin.py` registrations and the notification worker/gateway are exercised **black-box** by browser use-case tests ([USE-CASE-SPECIFICATIONS.md](USE-CASE-SPECIFICATIONS.md)). That does not add them to the statement/branch, MCC or mutation denominators.
+
 No coverage exclusions, `pragma: no cover`, omit filters or source alterations were applied. A whole-file measurement of models/views will also include proposed excluded methods; report raw whole-file results and explicitly defended uncovered lines alongside any approved scoped denominator. Do not claim 100% whole-file coverage from a function-filtered figure.
 
 ## Critical module for MCC and derived MC/DC
