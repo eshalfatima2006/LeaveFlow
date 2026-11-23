@@ -1,8 +1,8 @@
 Command: /home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python manage.py showmigrations
 Working directory: backend
-Django settings: baseline_repro_settings (disposable SQLite inside /tmp/leaveflow-baseline-repro-r4hs_3ih)
-Started (UTC): 2026-11-23T17:39:21+00:00
-Finished (UTC): 2026-11-23T17:39:22+00:00
+Django settings: baseline_repro_settings (disposable SQLite inside /tmp/leaveflow-baseline-repro-b14irmfv)
+Started (UTC): 2026-11-23T17:42:56+00:00
+Finished (UTC): 2026-11-23T17:42:57+00:00
 Exit code: 0
 ----- output (stdout+stderr, unedited) -----
 admin

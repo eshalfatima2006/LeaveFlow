@@ -6,12 +6,12 @@
 
 ## 1. Project Information
 
-**Course:** SE3002 — Software Quality Engineering  
-**Project:** Automated Testing of LeaveFlow Management Information System  
-**Upstream Repository:** https://github.com/cmdr-chara/LeaveFlow  
-**Team Repository:** https://github.com/eshalfatima2006/LeaveFlow  
-**Baseline Commit:** `bada9a03ecec53ef6945827230e3594d825da87a`  
-**Baseline Date:** 21 November 2026  
+**Course:** SE3002 — Software Quality Engineering\
+**Project:** Automated Testing of LeaveFlow Management Information System\
+**Upstream Repository:** https://github.com/cmdr-chara/LeaveFlow\
+**Team Repository:** https://github.com/eshalfatima2006/LeaveFlow\
+**Baseline Commit:** `bada9a03ecec53ef6945827230e3594d825da87a`\
+**Baseline Date:** 21 November 2026\
 **Environment:** Windows with WSL Ubuntu
 
 ## 2. Objective
@@ -172,7 +172,7 @@ Historical artifacts (21 November 2026, unedited):
 - [evidence/baseline/frontend-build.log](evidence/baseline/frontend-build.log)
 - Screenshots in [screenshots/](screenshots/) (section 12)
 
-Newly reproduced artifacts (23 November 2026): [evidence/baseline/reproduction-2026-11-23/](evidence/baseline/reproduction-2026-11-23/) — `summary.json`, `01-environment.json`, and logs 02–10 (one file per command, each with the command, timestamps, exit code and unedited output).
+Newly reproduced artifacts (23 November 2026): [evidence/baseline/reproduction-2026-11-23/](evidence/baseline/reproduction-2026-11-23/) — `summary.json`, `01-environment.json`, and logs 02–10 (one file per command, each with the command, timestamps, exit code and unedited output). This set was produced by the script at commit `32410bc`. An earlier, equally passing set from commit `b647f37` had trailing whitespace in two log headers; it was replaced by this complete re-run rather than edited, and it remains in Git history at commit `7fa1583`.
 
 ## 12. Browser Screenshots
 

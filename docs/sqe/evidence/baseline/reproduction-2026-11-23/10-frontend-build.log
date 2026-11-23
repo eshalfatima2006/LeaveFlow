@@ -1,8 +1,8 @@
 Command: npm run build
-Working directory: /tmp/leaveflow-baseline-repro-r4hs_3ih/frontend
-Django settings: baseline_repro_settings (disposable SQLite inside /tmp/leaveflow-baseline-repro-r4hs_3ih)
-Started (UTC): 2026-11-23T17:39:33+00:00
-Finished (UTC): 2026-11-23T17:39:38+00:00
+Working directory: /tmp/leaveflow-baseline-repro-b14irmfv/frontend
+Django settings: baseline_repro_settings (disposable SQLite inside /tmp/leaveflow-baseline-repro-b14irmfv)
+Started (UTC): 2026-11-23T17:43:09+00:00
+Finished (UTC): 2026-11-23T17:43:14+00:00
 Exit code: 0
 Note: Run in a temporary copy of frontend/ (node_modules symlinked) so the repository tree is not written.
 ----- output (stdout+stderr, unedited) -----
@@ -20,4 +20,4 @@ dist/assets/team-portraits-2qZKby5S.webp   45.37 kB
 dist/assets/index-8Ykhl8Xn.css             37.55 kB │ gzip:  8.64 kB
 dist/assets/index-DfagG5xt.js             107.60 kB │ gzip: 39.32 kB
 
-✓ built in 651ms
+✓ built in 692ms

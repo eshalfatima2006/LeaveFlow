@@ -1,5 +1,5 @@
 {
-  "started_at_utc": "2026-11-23T17:39:17+00:00",
+  "started_at_utc": "2026-11-23T17:42:52+00:00",
   "evidence_dir": "docs/sqe/evidence/baseline/reproduction-2026-11-23",
   "development_database_before": {
     "db.sqlite3": {
@@ -18,7 +18,7 @@
       "exists": false
     }
   },
-  "disposable_database": "/tmp/leaveflow-baseline-repro-r4hs_3ih/baseline-repro.sqlite3",
+  "disposable_database": "/tmp/leaveflow-baseline-repro-b14irmfv/baseline-repro.sqlite3",
   "upstream_tests": {
     "exit_code": 0,
     "found": 9,
@@ -30,7 +30,7 @@
   "steps": [
     {
       "step": "02-settings-guard",
-      "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python -c import django; django.setup(); from django.db import connection; from django.conf import settings; print(connection.settings_dict['NAME']); print('REDIS_URL=' + repr(settings.REDIS_URL))",
+      "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python -c 'import django; django.setup(); from django.db import connection; from django.conf import settings; print(connection.settings_dict['\"'\"'NAME'\"'\"']); print('\"'\"'REDIS_URL='\"'\"' + repr(settings.REDIS_URL))'",
       "exit_code": 0
     },
     {
@@ -65,12 +65,12 @@
     },
     {
       "step": "09a-api-fixture",
-      "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python manage.py shell -c \nimport json, os\nfrom leave.models import LeaveBalance, Team, User\nteam = Team.objects.create(name='Smoke Team')\nemployee = User.objects.create_user(username='smoke-employee', password=os.environ['SMOKE_EMPLOYEE_PASSWORD'], first_name='Sam', last_name='Smoke', role='employee', team=team)\nmanager = User.objects.create_user(username='smoke-manager', password=os.environ['SMOKE_MANAGER_PASSWORD'], first_name='Max', last_name='Smoke', role='manager', team=team)\nLeaveBalance.objects.create(user=employee, allowance=10)\nLeaveBalance.objects.create(user=manager, allowance=10)\nprint(json.dumps({'employee_id': employee.id, 'manager_id': manager.id, 'team': team.name}))\n",
+      "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python manage.py shell -c '\nimport json, os\nfrom leave.models import LeaveBalance, Team, User\nteam = Team.objects.create(name='\"'\"'Smoke Team'\"'\"')\nemployee = User.objects.create_user(username='\"'\"'smoke-employee'\"'\"', password=os.environ['\"'\"'SMOKE_EMPLOYEE_PASSWORD'\"'\"'], first_name='\"'\"'Sam'\"'\"', last_name='\"'\"'Smoke'\"'\"', role='\"'\"'employee'\"'\"', team=team)\nmanager = User.objects.create_user(username='\"'\"'smoke-manager'\"'\"', password=os.environ['\"'\"'SMOKE_MANAGER_PASSWORD'\"'\"'], first_name='\"'\"'Max'\"'\"', last_name='\"'\"'Smoke'\"'\"', role='\"'\"'manager'\"'\"', team=team)\nLeaveBalance.objects.create(user=employee, allowance=10)\nLeaveBalance.objects.create(user=manager, allowance=10)\nprint(json.dumps({'\"'\"'employee_id'\"'\"': employee.id, '\"'\"'manager_id'\"'\"': manager.id, '\"'\"'team'\"'\"': team.name}))\n'",
       "exit_code": 0
     },
     {
       "step": "09c-api-db-readback",
-      "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python manage.py shell -c \nimport json, os\nfrom leave.models import LeaveBalance, LeaveRequest\nk = int(os.environ['SMOKE_REQUEST_ID'])\nitem = LeaveRequest.objects.select_related('employee', 'decided_by').get(pk=k)\nbalance = LeaveBalance.objects.get(user__username='smoke-employee')\nprint(json.dumps({'request_count': LeaveRequest.objects.count(), 'id': item.id, 'employee': item.employee.username,\n  'status': item.status, 'decided_by': item.decided_by.username if item.decided_by_id else None,\n  'decided_at_set': item.decided_at is not None, 'start_date': str(item.start_date), 'end_date': str(item.end_date),\n  'business_days': item.business_days,\n  'balance': {'allowance': balance.allowance, 'used': balance.approved_days, 'available': balance.available_days}}))\n",
+      "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python manage.py shell -c '\nimport json, os\nfrom leave.models import LeaveBalance, LeaveRequest\nk = int(os.environ['\"'\"'SMOKE_REQUEST_ID'\"'\"'])\nitem = LeaveRequest.objects.select_related('\"'\"'employee'\"'\"', '\"'\"'decided_by'\"'\"').get(pk=k)\nbalance = LeaveBalance.objects.get(user__username='\"'\"'smoke-employee'\"'\"')\nprint(json.dumps({'\"'\"'request_count'\"'\"': LeaveRequest.objects.count(), '\"'\"'id'\"'\"': item.id, '\"'\"'employee'\"'\"': item.employee.username,\n  '\"'\"'status'\"'\"': item.status, '\"'\"'decided_by'\"'\"': item.decided_by.username if item.decided_by_id else None,\n  '\"'\"'decided_at_set'\"'\"': item.decided_at is not None, '\"'\"'start_date'\"'\"': str(item.start_date), '\"'\"'end_date'\"'\"': str(item.end_date),\n  '\"'\"'business_days'\"'\"': item.business_days,\n  '\"'\"'balance'\"'\"': {'\"'\"'allowance'\"'\"': balance.allowance, '\"'\"'used'\"'\"': balance.approved_days, '\"'\"'available'\"'\"': balance.available_days}}))\n'",
       "exit_code": 0
     },
     {
@@ -97,6 +97,6 @@
     }
   },
   "development_database_unchanged": true,
-  "finished_at_utc": "2026-11-23T17:39:38+00:00",
+  "finished_at_utc": "2026-11-23T17:43:14+00:00",
   "overall_pass": true
 }
