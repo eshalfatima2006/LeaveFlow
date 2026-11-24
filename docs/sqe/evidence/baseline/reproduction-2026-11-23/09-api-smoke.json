@@ -1,0 +1,223 @@
+{
+  "fixture": {
+    "employee_id": 1,
+    "manager_id": 2,
+    "team": "Smoke Team"
+  },
+  "http_checks": [
+    {
+      "step": "S01",
+      "description": "Unauthenticated current-user lookup is refused",
+      "request": "GET /api/me/",
+      "authenticated_as": null,
+      "expected_status": 401,
+      "actual_status": 401,
+      "response_fields": {
+        "detail_present": true
+      },
+      "pass": true
+    },
+    {
+      "step": "S02",
+      "description": "Login with a wrong password is refused",
+      "request": "POST /api/auth/login/",
+      "authenticated_as": null,
+      "expected_status": 400,
+      "actual_status": 400,
+      "response_fields": {
+        "detail": "Credenziali non valide."
+      },
+      "pass": true
+    },
+    {
+      "step": "S03",
+      "description": "Synthetic employee logs in",
+      "request": "POST /api/auth/login/",
+      "expected_status": 200,
+      "actual_status": 200,
+      "response_fields": {
+        "user.username": "smoke-employee",
+        "user.role": "employee",
+        "token": "<redacted>",
+        "token_is_40_hex": true
+      },
+      "pass": true
+    },
+    {
+      "step": "S04",
+      "description": "Synthetic manager logs in",
+      "request": "POST /api/auth/login/",
+      "expected_status": 200,
+      "actual_status": 200,
+      "response_fields": {
+        "user.username": "smoke-manager",
+        "user.role": "manager",
+        "token": "<redacted>",
+        "token_is_40_hex": true
+      },
+      "pass": true
+    },
+    {
+      "step": "S05",
+      "description": "Token identity resolves to the employee",
+      "request": "GET /api/me/",
+      "authenticated_as": "employee",
+      "expected_status": 200,
+      "actual_status": 200,
+      "response_fields": {
+        "username": "smoke-employee",
+        "role": "employee",
+        "team": "Smoke Team"
+      },
+      "pass": true
+    },
+    {
+      "step": "S06",
+      "description": "Employee dashboard before submission",
+      "request": "GET /api/dashboard/",
+      "authenticated_as": "employee",
+      "expected_status": 200,
+      "actual_status": 200,
+      "response_fields": {
+        "balance": {
+          "allowance": 10,
+          "used": 0,
+          "available": 10
+        },
+        "counts": {
+          "total": 0,
+          "pending": 0,
+          "approved": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "step": "S07",
+      "description": "Employee submits a leave request (W1)",
+      "request": "POST /api/requests/",
+      "authenticated_as": "employee",
+      "expected_status": 201,
+      "actual_status": 201,
+      "response_fields": {
+        "id": 1,
+        "status": "pending",
+        "employee.username": "smoke-employee",
+        "business_days": 5
+      },
+      "pass": true
+    },
+    {
+      "step": "S08",
+      "description": "Invalid submission (end before start) is rejected",
+      "request": "POST /api/requests/",
+      "authenticated_as": "employee",
+      "expected_status": 400,
+      "actual_status": 400,
+      "response_fields": {
+        "error_keys": [
+          "end_date"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "step": "S09",
+      "description": "Employee cannot decide a request",
+      "request": "POST /api/requests/1/decision/",
+      "authenticated_as": "employee",
+      "expected_status": 403,
+      "actual_status": 403,
+      "response_fields": {
+        "detail": "Operazione non consentita."
+      },
+      "pass": true
+    },
+    {
+      "step": "S10",
+      "description": "Manager sees the same request k in the team list",
+      "request": "GET /api/requests/",
+      "authenticated_as": "manager",
+      "expected_status": 200,
+      "actual_status": 200,
+      "response_fields": {
+        "contains_k": true
+      },
+      "pass": true
+    },
+    {
+      "step": "S11",
+      "description": "Manager approves the same persisted request k (W2)",
+      "request": "POST /api/requests/1/decision/",
+      "authenticated_as": "manager",
+      "expected_status": 200,
+      "actual_status": 200,
+      "response_fields": {
+        "id": 1,
+        "same_request": true,
+        "status": "approved"
+      },
+      "pass": true
+    },
+    {
+      "step": "S12",
+      "description": "Repeated decision on k is refused",
+      "request": "POST /api/requests/1/decision/",
+      "authenticated_as": "manager",
+      "expected_status": 409,
+      "actual_status": 409,
+      "response_fields": {
+        "detail": "La richiesta \u00e8 gi\u00e0 stata decisa."
+      },
+      "pass": true
+    },
+    {
+      "step": "S13",
+      "description": "Employee dashboard after approval",
+      "request": "GET /api/dashboard/",
+      "authenticated_as": "employee",
+      "expected_status": 200,
+      "actual_status": 200,
+      "response_fields": {
+        "balance": {
+          "allowance": 10,
+          "used": 5,
+          "available": 5
+        },
+        "counts": {
+          "total": 1,
+          "pending": 0,
+          "approved": 1
+        }
+      },
+      "pass": true
+    }
+  ],
+  "db_readback": {
+    "request_count": 1,
+    "id": 1,
+    "employee": "smoke-employee",
+    "status": "approved",
+    "decided_by": "smoke-manager",
+    "decided_at_set": true,
+    "start_date": "2027-03-01",
+    "end_date": "2027-03-05",
+    "business_days": 5,
+    "balance": {
+      "allowance": 10,
+      "used": 5,
+      "available": 5
+    }
+  },
+  "db_checks": {
+    "same_request_id": true,
+    "owner_is_employee": true,
+    "status_approved": true,
+    "decided_by_manager": true,
+    "decided_at_set": true,
+    "one_request_only": true,
+    "available_reduced_by_5": true
+  },
+  "credentials": "random per run, never written; tokens shown as <redacted>",
+  "pass": true
+}

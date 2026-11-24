@@ -1,0 +1,4 @@
+Command: npx vite preview --outDir dist --host 127.0.0.1 --port 4798 --strictPort
+Working directory: /tmp/leaveflow-baseline-browser-q368mfzw/frontend
+----- output -----
+  ➜  Local:   http://127.0.0.1:4798/

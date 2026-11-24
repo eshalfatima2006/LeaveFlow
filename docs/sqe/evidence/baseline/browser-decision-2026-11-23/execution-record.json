@@ -1,0 +1,153 @@
+{
+  "scenario": "PR1-BL-UI-04",
+  "started_at_utc": "2026-11-23T18:18:38+00:00",
+  "development_database_before": {
+    "db.sqlite3": {
+      "exists": true,
+      "size": 180224,
+      "mtime_ns": 1795271953841933236,
+      "inode": 222502
+    },
+    "db.sqlite3-wal": {
+      "exists": false
+    },
+    "db.sqlite3-shm": {
+      "exists": false
+    },
+    "db.sqlite3-journal": {
+      "exists": false
+    }
+  },
+  "source_sha256": {
+    "scripts/sqe/capture_decision_screenshot.py": "171c067ceae88674188c9bdffbaf801b57cf5e05116f3f33ddb31c54eef92fec",
+    "scripts/sqe/reproduce_baseline.py": "754609cbd1b79c27990119201b5090d0a799c17cff5c54a1255242f5892af109",
+    "scripts/sqe/baseline-browser/manager-decision.spec.ts": "c653bf189fad3b912f0df914a8e82763f9c48a61628315791d344a32282afa38",
+    "scripts/sqe/baseline-browser/playwright.config.ts": "d2ca1238680e6ba6ece783a9598388c9d1003293bc01857184f665ad226ce18a",
+    "scripts/sqe/baseline-browser/package-lock.json": "8832e7ecc619736ed9655718fe1a56fc26e8428355443232ce744a117f5530c1"
+  },
+  "backend_url": "http://127.0.0.1:8798",
+  "frontend_url": "http://127.0.0.1:4798",
+  "screenshot": "docs/sqe/evidence/baseline/browser-decision-2026-11-23/manager-decision-approved.png",
+  "disposable_database": "/tmp/leaveflow-baseline-browser-q368mfzw/baseline-repro.sqlite3",
+  "fixture": {
+    "team": "Evidence Team",
+    "employee": "bl-employee",
+    "manager": "bl-manager",
+    "employee_allowance": 10
+  },
+  "playwright_exit_code": 0,
+  "request_id": 1,
+  "browser": "chromium 131.0.6778.33",
+  "playwright": "1.49.1",
+  "browser_result": {
+    "scenario": "PR1-BL-UI-04",
+    "browser": "chromium 131.0.6778.33",
+    "request_id": 1,
+    "w1_submit": {
+      "status": 201,
+      "body_status": "pending",
+      "business_days": 5,
+      "owner": "bl-employee"
+    },
+    "w2_decision": {
+      "status": 200,
+      "path": "/api/requests/1/decision/",
+      "body_status": "approved",
+      "body_id": 1
+    },
+    "ui_assertions_passed": [
+      "W1 POST /api/requests/ -> 201, id 1, pending, 5 business days, owner bl-employee",
+      "Manager sees exactly one Pending row for the submitted request",
+      "W2 POST /api/requests/1/decision/ -> 200, same id, approved",
+      "UI shows the row as Approved with no remaining decision buttons (single row)",
+      "Summary settled: 1 request, 5 days involved, 0 to decide; filters Pending 0 / Approved 1"
+    ],
+    "screenshot_taken_after": "row status \"Approved\" asserted visible"
+  },
+  "db_readback": {
+    "request_count": 1,
+    "request_ids": [
+      1
+    ],
+    "id": 1,
+    "employee": "bl-employee",
+    "status": "approved",
+    "decided_by": "bl-manager",
+    "decided_at": "2026-11-23T18:18:52.244870+00:00",
+    "start_date": "2027-03-01",
+    "end_date": "2027-03-05",
+    "note": "PR1 BL-UI-04 decision evidence",
+    "business_days": 5,
+    "balance": {
+      "allowance": 10,
+      "used": 5,
+      "available": 5
+    }
+  },
+  "db_assertions": {
+    "single_request_created": true,
+    "same_primary_key_w1_w2": true,
+    "owner_is_employee": true,
+    "status_approved": true,
+    "decided_by_manager": true,
+    "decided_at_not_null": true,
+    "dates_and_days_unchanged": true,
+    "balance_allowance_10_used_5_available_5": true,
+    "exactly_one_submission_post": true,
+    "exactly_one_decision_post": true
+  },
+  "steps": [
+    {
+      "step": "02-settings-guard",
+      "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python -c 'import django; django.setup(); from django.db import connection; from django.conf import settings; print(connection.settings_dict['\"'\"'NAME'\"'\"']); print('\"'\"'REDIS_URL='\"'\"' + repr(settings.REDIS_URL)); print('\"'\"'CORS_ALLOWED_ORIGINS='\"'\"' + repr(settings.CORS_ALLOWED_ORIGINS))'",
+      "exit_code": 0
+    },
+    {
+      "step": "03-migrate",
+      "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python manage.py migrate --no-input",
+      "exit_code": 0
+    },
+    {
+      "step": "04-fixture",
+      "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python manage.py shell -c '\nimport json, os\nfrom leave.models import LeaveBalance, Team, User\nteam = Team.objects.create(name='\"'\"'Evidence Team'\"'\"')\nemployee = User.objects.create_user(username='\"'\"'bl-employee'\"'\"', password=os.environ['\"'\"'BL_EMPLOYEE_PASSWORD'\"'\"'], first_name='\"'\"'Sam'\"'\"', last_name='\"'\"'Example'\"'\"', role='\"'\"'employee'\"'\"', team=team)\nmanager = User.objects.create_user(username='\"'\"'bl-manager'\"'\"', password=os.environ['\"'\"'BL_MANAGER_PASSWORD'\"'\"'], first_name='\"'\"'Max'\"'\"', last_name='\"'\"'Example'\"'\"', role='\"'\"'manager'\"'\"', team=team)\nLeaveBalance.objects.create(user=employee, allowance=10)\nLeaveBalance.objects.create(user=manager, allowance=10)\nprint(json.dumps({'\"'\"'team'\"'\"': team.name, '\"'\"'employee'\"'\"': employee.username, '\"'\"'manager'\"'\"': manager.username, '\"'\"'employee_allowance'\"'\"': 10}))\n'",
+      "exit_code": 0
+    },
+    {
+      "step": "06-frontend-build",
+      "command": "npx vite build --outDir dist --emptyOutDir",
+      "exit_code": 0
+    },
+    {
+      "step": "08-playwright",
+      "command": "npx playwright test --config playwright.config.ts",
+      "exit_code": 0
+    },
+    {
+      "step": "10-db-readback",
+      "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python manage.py shell -c '\nimport json, os\nfrom leave.models import LeaveBalance, LeaveRequest\nk = int(os.environ['\"'\"'BL_REQUEST_ID'\"'\"'])\nrows = list(LeaveRequest.objects.select_related('\"'\"'employee'\"'\"', '\"'\"'decided_by'\"'\"').order_by('\"'\"'id'\"'\"'))\nitem = next((r for r in rows if r.id == k), None)\nbalance = LeaveBalance.objects.get(user__username='\"'\"'bl-employee'\"'\"')\nprint(json.dumps({'\"'\"'request_count'\"'\"': len(rows), '\"'\"'request_ids'\"'\"': [r.id for r in rows],\n  '\"'\"'id'\"'\"': item.id if item else None, '\"'\"'employee'\"'\"': item.employee.username if item else None,\n  '\"'\"'status'\"'\"': item.status if item else None,\n  '\"'\"'decided_by'\"'\"': item.decided_by.username if item and item.decided_by_id else None,\n  '\"'\"'decided_at'\"'\"': item.decided_at.isoformat() if item and item.decided_at else None,\n  '\"'\"'start_date'\"'\"': str(item.start_date) if item else None, '\"'\"'end_date'\"'\"': str(item.end_date) if item else None,\n  '\"'\"'note'\"'\"': item.note if item else None, '\"'\"'business_days'\"'\"': item.business_days if item else None,\n  '\"'\"'balance'\"'\"': {'\"'\"'allowance'\"'\"': balance.allowance, '\"'\"'used'\"'\"': balance.approved_days, '\"'\"'available'\"'\"': balance.available_days}}))\n'",
+      "exit_code": 0
+    }
+  ],
+  "development_database_after": {
+    "db.sqlite3": {
+      "exists": true,
+      "size": 180224,
+      "mtime_ns": 1795271953841933236,
+      "inode": 222502
+    },
+    "db.sqlite3-wal": {
+      "exists": false
+    },
+    "db.sqlite3-shm": {
+      "exists": false
+    },
+    "db.sqlite3-journal": {
+      "exists": false
+    }
+  },
+  "development_database_unchanged": true,
+  "finished_at_utc": "2026-11-23T18:18:53+00:00",
+  "screenshot_exists": true,
+  "credentials": "random per run, passed via environment only, never written",
+  "overall_pass": true
+}

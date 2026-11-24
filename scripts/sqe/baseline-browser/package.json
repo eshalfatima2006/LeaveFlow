@@ -1,0 +1,9 @@
+{
+  "name": "leaveflow-baseline-browser-evidence",
+  "private": true,
+  "description": "PR #1 baseline browser evidence (BL-UI-04). Run only through scripts/sqe/capture_decision_screenshot.py, which provides a disposable database.",
+  "type": "module",
+  "devDependencies": {
+    "@playwright/test": "1.49.1"
+  }
+}
