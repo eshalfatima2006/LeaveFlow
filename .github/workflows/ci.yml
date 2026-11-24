@@ -44,9 +44,26 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       - name: Run mutmut with project-specific operators
         run: |
-          python scripts/sqe/mutmut_custom.py run --max-children 2
+          set -o pipefail
+          python scripts/sqe/mutmut_custom.py run --max-children 2 2>&1 | tee mutmut-run.log
           python scripts/sqe/mutmut_custom.py export-cicd-stats
-          python scripts/sqe/check_mutation_threshold.py
+      - name: Generate surviving-mutant analysis table
+        if: always()
+        run: python scripts/sqe/export_surviving_mutants.py
+      - name: Upload Area1 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: area1-quality-evidence
+          path: |
+            coverage.json
+            coverage.xml
+            mutmut-run.log
+            mutants/mutmut-cicd-stats.json
+            docs/sqe/evidence/area1/mutation/surviving-mutants.md
+          if-no-files-found: warn
+      - name: Enforce mutation score threshold
+        run: python scripts/sqe/check_mutation_threshold.py
   frontend:
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: frontend } }
