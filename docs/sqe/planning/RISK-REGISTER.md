@@ -1,6 +1,6 @@
 # Proposed risk register and 5×5 matrix
 
-Version0.1 — 22 November 2026. **12 product risks and four project risks.** Scores/ranks/owners are transparent proposed planning judgments, not measured occurrence rates or confirmed defects. Risk is a possible adverse outcome; existing control code does not prove bypass occurred. S=static source observation; H=hypothesis; Q=unresolved policy/scope; V=verified command observation; Reported=unverified assertion from prompt/history. Evidence types are retained below, and genuine future execution replaces uncertainty only with artifacts.
+Version0.1 — 22 November 2026. **12 product risks and four project risks** (v0.2, 24 Nov 2026: five project risks — JR-05 added). Scores/ranks/owners are transparent proposed planning judgments, not measured occurrence rates or confirmed defects. Risk is a possible adverse outcome; existing control code does not prove bypass occurred. S=static source observation; H=hypothesis; Q=unresolved policy/scope; V=verified command observation; Reported=unverified assertion from prompt/history. Evidence types are retained below, and genuine future execution replaces uncertainty only with artifacts.
 
 ## Scales, score and priority
 
@@ -28,6 +28,7 @@ Score=L×I. Priority bands: critical20–25, high15–19, medium8–14, low1–7
 | JR-02 | Project / tooling and CI readiness | Tool/runner incompatibility, unavailable Node/Sonar or incomplete gates delay or falsely green work | All testing areas and EC-04/07 | 4 | 4 | 16 | 3 | A1 | OPEN — proposed assessment |
 | JR-03 | Project / assignment scope feasibility | Coverage denominator/MCC infeasibility and six actor-goal UCs remain unapproved | All FRs, BR-03/04; EC-04/06 | 4 | 5 | 20 | 1 | Shared | OPEN — proposed assessment |
 | JR-04 | Project / ownership, review and evidence retention | Unconfirmed allocation, review bottlenecks or lost prompts/evidence impair delivery/viva | All areas; shared management | 3 | 4 | 12 | 4 | Shared | OPEN — proposed assessment |
+| JR-05 | Project / release and CI side effects | Upstream `auto-release.yml` publishes a patch release after successful CI on `main`, so merging SQE work into the fork's `main` could create unintended tags/releases | All areas; EC-07 | 3 | 3 | 9 | 5 | A1 | OPEN — proposed assessment (v0.2) |
 
 ## 5×5 score matrix
 
@@ -37,7 +38,7 @@ Each cell gives score and risk IDs initially placed there; rows likelihood, colu
 |---|---|---|---|---|---|
 | 5 | 5 | 10 | 15 | 20 | 25 (PR-01) |
 | 4 | 4 | 8 | 12 (PR-06,PR-08) | 16 (JR-01,JR-02) | 20 (PR-02,JR-03) |
-| 3 | 3 | 6 | 9 (PR-11,PR-12) | 12 (PR-04,PR-05,PR-07,PR-09,JR-04) | 15 (PR-03,PR-10) |
+| 3 | 3 | 6 | 9 (PR-11,PR-12,JR-05) | 12 (PR-04,PR-05,PR-07,PR-09,JR-04) | 15 (PR-03,PR-10) |
 | 2 | 2 | 4 | 6 | 8 | 10 |
 | 1 | 1 | 2 | 3 | 4 | 5 |
 
@@ -107,7 +108,7 @@ All verification IDs below are **planned** objectives defined in [REQUIREMENTS-T
 
 - **Evidence / classification:** S: `frontend/src/RequestRow.vue:21–23` shows manager pending controls, `backend/leave/views.py:79–80` denies self; `frontend/src/App.vue:41–42` catches submit but not decision. No complete browser reproduction claimed.
 - **Mitigation:** Automate self/stale/invalid-token exceptions and network refresh faults; record actual feedback separately from server-correct denials. Later authorized UI improvement requires before/after evidence.
-- **Planned verification:** E2E-UC02-04/05, E2E-UC03-04/05, ACC-002 and SEC-001; assert rendered state and persistence, record missing actionable error; EC-06/08 as applicable.
+- **Planned verification:** E2E-UC02-04/05, E2E-UC03-04/05, ACC-002 and SEC-001; assert rendered state and persistence, record missing actionable error; EC-06/08 as applicable. *v0.2: executed as TC-UC02-E1 (409) and TC-UC02-E2 (403) in B1 run-1/run-2 — server denial correct, missing UI feedback **observed** (OBS-UC02-01); legacy IDs mapped in the RTM.*
 - **Contingency:** Do not invent a banner or call denied request a UI pass for usability; report severity by impact, keep mandatory task/exception paths blocked until addressed or explicitly resolved.
 - **Residual risk:** NOT MEASURED; original L=4, I=3 remains the planning assessment until verified controls justify a recorded revision. Owner A3 proposes actual residual values/rationale; peer reviews evidence. Status OPEN, no control completion claimed.
 
@@ -141,11 +142,11 @@ All verification IDs below are **planned** objectives defined in [REQUIREMENTS-T
 - **Mitigation:** Keep producer and nested callback in coverage, test admin/team/self recipient combinations and disabled/enabled/failing Redis, commit/rollback boundaries; label downstream-service exclusion for review.
 - **Planned verification:** UT-EVT-001, DT-004, REC-002; validate original request ID/recipients/payload, no publish before commit or on rollback, correct committed state during outage; EC-04/03.
 - **Contingency:** Core HTTP success need not imply feed delivery. Report notification residual risk and extend downstream tests if instructor includes services; never count mocked producer as full SSE coverage.
-- **Residual risk:** NOT MEASURED; original L=3, I=3 remains the planning assessment until verified controls justify a recorded revision. Owner A1 proposes actual residual values/rationale; peer reviews evidence. Status OPEN, no control completion claimed.
+- **Residual risk:** NOT MEASURED; original L=3, I=3 remains the planning assessment until verified controls justify a recorded revision. Owner A1 proposes actual residual values/rationale; peer reviews evidence. Status OPEN, no control completion claimed. *v0.2: ownership split — event producer and unit paths A1; end-to-end delivery (UC-07) Member 2.*
 
 ### JR-01 — Unsafe seed/reset, contaminated fixtures or incorrect generated constraints invalidate experiments
 
-- **Evidence / classification:** S: `backend/leave/management/commands/seed_demo.py:17–28` overwrites users/balances, deletes all requests and uses current-relative dates. Safe deterministic reset not verified. H: a future generator could encode false constraints/oracles and falsely certify coverage; no generator currently exists. This is a project/testware assurance risk, distinct from PR-07 product acceptance failure.
+- **Evidence / classification:** S: `backend/leave/management/commands/seed_demo.py:17–28` overwrites users/balances, deletes all requests and uses current-relative dates. Safe deterministic reset not verified. H: a future generator could encode false constraints/oracles and falsely certify coverage; no generator currently exists. This is a project/testware assurance risk, distinct from PR-07 product acceptance failure. *v0.2: the same hazard applies to Docker Compose (the backend image runs `seed_demo` at startup on named volumes); mitigated by the isolated UC-07 procedure (TEST-PLAN, SU-06). Controls now executed: fail-closed disposable profiles `sqe-memory-v1` and `sqe-browser-v1` with metadata-only development-database checks (A2.0, A2.1, B1).*
 - **Mitigation:** Isolate DB/Redis/browser workers, fixed dates/fixture hashes, fail-closed target guard, independent setup/teardown and repeat reset proof. Peer-review generated constraints against actual source/approved OpenAPI/rule manifest; do not infer maxDays26 or required leave_type from UI defaults.
 - **Planned verification:** EN-03 plus WP-05, WP-12 and GEN-001; demonstrate identical initial state twice without touching development DB, independently check generated EP/BVA and two constraint changes, and mark experiments invalid if fixtures or oracles differ from their reviewed manifests.
 - **Contingency:** Suspend affected tests SU-01/SU-04, preserve evidence, discard only owned disposable targets and repair reset/spec/generator; invalidate false conclusions and rerun. No valuable-data cleanup.
@@ -153,7 +154,7 @@ All verification IDs below are **planned** objectives defined in [REQUIREMENTS-T
 
 ### JR-02 — Tool/runner incompatibility, unavailable Node/Sonar or incomplete gates delay or falsely green work
 
-- **Evidence / classification:** V/S: current non-login node missing; npm version probe failed with WSL/install-directory error. `requirements.txt:1–6`, `.github/workflows/ci.yml:6–22` use differing local/CI toolchains; current CI lacks team/Sonar/mutation gates; auto-release follows successful main CI.
+- **Evidence / classification:** V/S: current non-login node missing; npm version probe failed with WSL/install-directory error. `requirements.txt:1–6`, `.github/workflows/ci.yml:6–22` use differing local/CI toolchains; current CI lacks team/Sonar/mutation gates; auto-release follows successful main CI. *v0.2: Node 22.23.3, npm 10.9.9 and Playwright 1.49.1 verified in B1; Sonar, mutation and team CI gates still absent; the auto-release side effect is tracked separately as JR-05.*
 - **Mitigation:** Record versions/support, repair compatible WSL runtime later, pilot free/open-source tools locally, add required jobs after functional pilots and tie release to tested SHA/full gate; reserve WP-05/06/17.
 - **Planned verification:** Record version and real PR/gate logs; missing/failed/skipped required jobs block; retain genuine blocked and corrected PR; EC-07.
 - **Contingency:** Continue source/spec/CFG planning while tools blocked; use local OSS services/runner capacity with genuine logs, not fake CI or success overrides.
@@ -161,7 +162,7 @@ All verification IDs below are **planned** objectives defined in [REQUIREMENTS-T
 
 ### JR-03 — Coverage denominator/MCC infeasibility and six actor-goal UCs remain unapproved
 
-- **Evidence / classification:** Q: assignment p2 says all server-side business logic and two UCs/member; Phase1 COVERAGE-BOUNDARY and WORKFLOW-TRACE disclose missing-balance MCC masking and only3 strong actor goals. Detailed API coverage checklist is unspecified in PDF.
+- **Evidence / classification:** Q: assignment p2 says all server-side business logic and two UCs/member; Phase1 COVERAGE-BOUNDARY and WORKFLOW-TRACE disclose missing-balance MCC masking and only3 strong actor goals. Detailed API coverage checklist is unspecified in PDF. *v0.2: the use-case catalog is PROPOSED (USE-CASE-SPECIFICATIONS.md). Instructor decision D-1 is a single point of failure for both UC-08 and UC-09 (fallback: reserve UC-06). The API checklist is no longer unspecified (Lecture 20 TCL criteria); denominator/MCC questions remain open.* *Critical module: PROPOSED in DR-001 (W1 validation chain) after the PR #2 review; instructor confirmation pending.*
 - **Mitigation:** Obtain instructor decisions on scope/critical module/infeasible rows/UC goals/API checklist; preserve counts and IDs; allocate WP-01/02/09/15 with review dependency.
 - **Planned verification:** Written actual approval/correction linked to denominator/UC specs; all six UCs and complete applicable MCC/derived MC/DC still required; EC-04/06.
 - **Contingency:** Escalate early, propose reviewed scope adjustment within LeaveFlow, continue independent tasks; no artificial goal inflation or silent denominator reduction.
@@ -169,11 +170,19 @@ All verification IDs below are **planned** objectives defined in [REQUIREMENTS-T
 
 ### JR-04 — Unconfirmed allocation, review bottlenecks or lost prompts/evidence impair delivery/viva
 
-- **Evidence / classification:** Q/S: complete named membership/area agreement not found; Phase1 historical baseline docs absent on current tree; prompt.md now Phase2 replaces Phase1 prompt location. No actual final deadline or availability supplied.
+- **Evidence / classification:** Q/S: complete named membership/area agreement not found; Phase1 historical baseline docs absent on current tree; prompt.md now Phase2 replaces Phase1 prompt location. No actual final deadline or availability supplied. *v0.2: every SQE commit to date is under one identity, while the assignment requires each member to commit their own work. Mitigation: the attribution rule in TEAM-OWNERSHIP v0.2.*
 - **Mitigation:** Confirm roster/areas/capacity and section registration; retain original prompts and raw results, session actual-effort logs; peer reviews and stacked branches student-managed.
 - **Planned verification:** Actual ownership acknowledgments, weekly GQM/effort/RTM link checks, final PDF/ZIP with .git, individual viva reruns and AI disclosure; EC-10.
 - **Contingency:** Reallocate with agreement, record pending reviews and residual risk, continue independent work on authorized local branch; no fabricated approvals/authorship or backfilled effort.
 - **Residual risk:** NOT MEASURED; original L=3, I=4 remains the planning assessment until verified controls justify a recorded revision. Owner Shared proposes actual residual values/rationale; peer reviews evidence. Status OPEN, no control completion claimed.
+
+### JR-05 — Unintended releases from the fork's main
+
+- **Evidence / classification:** S: `.github/workflows/auto-release.yml` runs on `workflow_run` of CI with `contents: write` when the CI run on `main` succeeds. Whether Actions are enabled on the fork is not verifiable locally.
+- **Mitigation:** a guarded workflow condition restricting releases to the upstream repository (prepared on local branch `ci/fork-release-guard`), or disabling the workflow in the fork's Actions settings (student action). The guard must land before any SQE merge into `main`.
+- **Planned verification:** after merge, confirm on GitHub that a successful CI run on `main` produces no release or tag in the fork; record the run link.
+- **Contingency:** if a release is created, delete it through the GitHub UI (student) and record the incident; do not rewrite history.
+- **Residual risk:** NOT MEASURED; L=3, I=3 proposed. Owner A1 (Member 1). Status OPEN.
 
 ## Updating risk and control decisions
 

@@ -2,6 +2,8 @@
 
 Baseline: `bada9a03ecec53ef6945827230e3594d825da87a`; analysis 21 November 2026. **12 independently verifiable requirements, six per workflow.** These specify implemented baseline behavior unless explicitly labelled desired. References are repository-relative baseline line ranges; pinned links and acceptance oracles are in [TEST-BASIS.md](TEST-BASIS.md). BR definitions and input classes are in [BUSINESS-RULES.md](BUSINESS-RULES.md). Applicable test levels are plans, not completed tests.
 
+> **v0.2 (24 Nov 2026):** the 12 workflow requirements below are unchanged. Three **PROPOSED** supporting requirements for the conditional use cases UC-07, UC-08 and UC-09 are at the end ([Supporting requirements](#supporting-requirements-proposed)). They are not counted as accepted requirements until instructor decisions D-1/D-2 are recorded. Executed tests for the 12 FRs are mapped in [A21-EXECUTION-MAPPING.md](../testing/A21-EXECUTION-MAPPING.md) and the [RTM](../planning/REQUIREMENTS-TRACEABILITY-MATRIX.md).
+
 ## FR-W1-01 — Authenticate and bind ownership
 
 - **Statement:** The API shall require token authentication to submit a request and shall set its employee to the authenticated user, ignoring supplied read-only employee/status fields.
@@ -121,3 +123,74 @@ Baseline: `bada9a03ecec53ef6945827230e3594d825da87a`; analysis 21 November 2026.
 - **Evidence:** `backend/leave/views.py:74–89`; `backend/leave/models.py:35–43,83–90`; `backend/leave/events.py:18–63`; `frontend/src/App.vue:37,42,107–108`.
 - **Test levels:** Unit and API/integration state/balance/overlap readback; browser rejected filter and row state.
 - **Ambiguity/defect note:** No reason-for-rejection field or UI exists; do not invent one. Decision actor/time are stored but omitted from the response serializer, so verify them through ORM assertions later.
+
+## Supporting requirements (PROPOSED)
+
+Status: **PROPOSED, not accepted.** These requirements support the conditional use cases UC-07, UC-08 and UC-09 ([USE-CASE-SPECIFICATIONS.md](USE-CASE-SPECIFICATIONS.md)). They describe **existing baseline behaviour**: no production feature is implied. They become accepted only after instructor decisions D-1 (Django Admin screens) and D-2 (notification services) are recorded. Until then they are not counted in the "12 FRs" total or in requirements-coverage metrics.
+
+### FR-ADM-01 — Maintain employee leave entitlement (UC-08)
+
+- **Actor / trigger:** staff administrator (Django Admin session) / opens "Leave balances" to create or change an employee's entitlement.
+- **Preconditions:** the administrator is staff; the target user exists.
+- **Required behaviour:** the system shall allow a staff administrator to create or change an employee's `LeaveBalance.allowance` through Django Admin. Subsequent W1 balance checks (FR-W1-05) and the dashboard and team figures shall use the stored value.
+- **Alternative / error behaviour:**
+  - The allowance must be an integer ≥ 0. Its upper bound depends on the database engine: 32767 on PostgreSQL, 2^63−1 on SQLite (Django `integer_field_range`).
+  - Out-of-range or empty values are rejected with a field error.
+  - A second balance for the same user is rejected (OneToOne).
+  - The `year` field is stored but not used by the leave logic.
+- **Postconditions:** on success the stored allowance changes and no other balance changes; on error nothing is written.
+- **Acceptance criteria:**
+  - (a) A valid change persists and is shown in the employee's Overview.
+  - (b) −1 or an empty value is rejected with a field error and no write.
+  - (c) A duplicate balance is rejected and the count is unchanged.
+  - (d) Creating a missing balance makes the W1 balance check apply to that user (closes GAP-07 for that user).
+- **Business rules / use cases:** BR-03, BR-04 / UC-08.
+- **Evidence:** `backend/leave/admin.py:14`; `backend/leave/models.py:29–43`; installed Django model/form validators.
+- **Testing approach:** browser use-case tests TC-UC08-M/A1/A2/E1/E2 with database readback; BVA −1/0/1 and the engine-dependent maximum (PostgreSQL profile needed for 32767/32768).
+- **Approval:** PROPOSED — depends on D-1.
+
+### FR-ADM-02 — Change an employee's approving team or role (UC-09)
+
+- **Actor / trigger:** staff administrator / edits a user's team or role in Django Admin "Users".
+- **Preconditions:** staff administrator; teams and users exist.
+- **Required behaviour:** the system shall allow a staff administrator to change a user's team and role through Django Admin. Visibility of, and decision authority over, pending requests shall follow each user's role and team **at the time of each request** (`visible_requests`, `views.py:46–51`).
+- **Alternative / error behaviour:**
+  - If the selected team no longer exists when the form is saved, Django rejects the choice with no change.
+  - If the user no longer exists, Django Admin redirects with its missing-object warning and recreates nothing.
+  - Non-staff users cannot use Django Admin.
+- **Postconditions:** the user's team or role changed; existing requests keep their identity and status; decision authority follows the new team.
+- **Acceptance criteria:**
+  - (a) After moving employee E from team T to team U, U's manager lists and can decide E's pending request k, and T's manager receives 404 when deciding k.
+  - (b) Changing a team member's role to manager grants decision actions on that team's requests.
+  - (c) A deleted target team yields a validation error and no change.
+  - (d) A deleted employee yields the missing-object warning and nothing is recreated.
+  - (e) A non-staff user is refused at `/admin/`.
+- **Business rules / use cases:** BR-04, BR-05 / UC-09.
+- **Evidence:** `backend/leave/admin.py:7–10`; `backend/leave/views.py:46–51,75–80`; Django `ModelAdmin.changeform_view`.
+- **Testing approach:** browser use-case tests TC-UC09-* plus SUP-UC09-01 (former approver receives 404) with API/database readback.
+- **Known limitation (not a requirement):** no audit trail of the change; notifications already produced keep their original recipients (TEST-BASIS GAP-11).
+- **Approval:** PROPOSED — depends on D-1.
+
+### FR-NOTIF-01 — Deliver leave notifications (UC-07)
+
+- **Actor / trigger:** recipient (the employee for decisions; team managers and administrators for new requests) / a W1 submission or W2 decision commits.
+- **Preconditions:** Redis, the notification worker and the gateway are running; the recipient is signed in to the single-page app.
+- **Required behaviour:** when Redis is configured, after a successful W1 submission or W2 decision commits, the system shall deliver exactly one in-app notification per recipient:
+  - `leave.requested` → administrators and the employee's team managers, excluding the requester;
+  - `leave.approved` / `leave.rejected` → the employee.
+
+  The notification centre shall list stored notifications and receive new ones live.
+- **Alternative / error behaviour:**
+  - If the gateway is unavailable when the app loads, the notification centre shows "The notification service is unavailable." and leave operations are unaffected.
+  - Duplicate deliveries of the same event are stored once.
+- **Postconditions:** one feed item per recipient and event; leave data unchanged by notification failures.
+- **Acceptance criteria:**
+  - (a) A decision on k produces exactly one item with `request_id` k for the employee, and none for non-recipients.
+  - (b) A new request alerts the team's managers and the administrators but not the requester.
+  - (c) A recipient who was offline sees the stored item at the next sign-in.
+  - (d) The unavailable-service message appears when the gateway is down.
+- **Business rules / use cases:** BR-04, BR-05 / UC-07.
+- **Evidence:** `backend/leave/events.py:18–63`; `notification_worker/lib/leave_flow_worker/{domain,store,worker}.ex`; `notifications/src/{app,store}.ts`; `frontend/src/NotificationCenter.vue:32–58`.
+- **Testing approach:** browser use-case tests TC-UC07-* in an isolated notification environment, with feed/stream readback; SUP-UC07-01 for dedup.
+- **Known limitation (not a requirement):** a failed publish is logged and never retried (`events.py:57–61`, TEST-BASIS GAP-14).
+- **Approval:** PROPOSED — depends on D-2.

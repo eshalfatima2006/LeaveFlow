@@ -1,0 +1,34 @@
+{
+  "started_at": "2026-11-23T19:13:09.569Z",
+  "git_sha": "73cfc938a56c3b771d60e474477618252e78eaa4",
+  "git_branch": "docs/uc-reconciliation",
+  "git_status": [
+    "?? docs/sqe/evidence/browser/b1-provenance-2026-11-24/development-db-before.json",
+    "?? docs/sqe/evidence/regression/r5-2026-11-24/check/result.json",
+    "?? docs/sqe/evidence/regression/r5-2026-11-24/check/stderr.log",
+    "?? docs/sqe/evidence/regression/r5-2026-11-24/check/stdout.log",
+    "?? docs/sqe/evidence/regression/r5-2026-11-24/team/result.json",
+    "?? docs/sqe/evidence/regression/r5-2026-11-24/team/stderr.log",
+    "?? docs/sqe/evidence/regression/r5-2026-11-24/team/stdout.log",
+    "?? docs/sqe/evidence/regression/r5-2026-11-24/upstream/result.json",
+    "?? docs/sqe/evidence/regression/r5-2026-11-24/upstream/stderr.log",
+    "?? docs/sqe/evidence/regression/r5-2026-11-24/upstream/stdout.log",
+    "?? prompt.md"
+  ],
+  "node": "v22.23.3",
+  "playwright": "1.49.1",
+  "browser_project": "chromium (Playwright-managed build for this version)",
+  "backend": {
+    "url": "http://127.0.0.1:8765",
+    "profile": "sqe-browser-v1",
+    "python": "3.12.7",
+    "django": "6.0.7"
+  },
+  "frontend": {
+    "url": "http://127.0.0.1:4765",
+    "build": "vite build of frontend/src into the run directory"
+  },
+  "database": "/tmp/leaveflow-sqe-browser-kk5djqn9/browser.sqlite3",
+  "redis": "disabled (REDIS_URL empty in sqe-browser-v1)",
+  "sentinel_identity_check": "passed"
+}

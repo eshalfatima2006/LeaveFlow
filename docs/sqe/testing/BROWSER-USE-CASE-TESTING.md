@@ -84,3 +84,12 @@ Evidence: [`docs/sqe/evidence/browser/b1/`](../evidence/browser/b1/) — `run-1/
 ## Next steps (not started)
 
 UC-04 runtime probes (session invalid on reload; `/api/requests/` 500 at login) then automation; then UC-08/UC-09 once the instructor decides Django Admin scope (including the OBS-UC08-01 browser check and SQLite vs PostgreSQL upper bound); UC-07 after the notification-scope decision and Compose environment.
+
+## v0.2 reconciliation update (24 Nov 2026)
+
+- **Catalog and flows:** [USE-CASE-SPECIFICATIONS.md](../requirements/USE-CASE-SPECIFICATIONS.md) (PROPOSED; D-1/D-2 pending). The RTM catalog maps every v0.1 `E2E-UC*` ID to a TC flow or a disposition.
+- **Registry:** `flows.json` is now version `v0.2-2026-11-24`. It adds `owner` and `legacy_ids` to each flow and registers the included use cases INC-01/INC-02 (outside the 30). Test titles and IDs are unchanged.
+- **Proposed ownership:** UC-01 Member 1, UC-02 Member 2 (both already automated in B1, under one commit identity — see TEAM-OWNERSHIP v0.2 attribution rule), UC-04 Member 3, UC-07 Member 2, UC-08 Member 1, UC-09 Member 3.
+- **Provenance re-run (closes audit finding X-18):** run-1 and run-2 executed with uncommitted sources at `b65ca6a`. The suite was re-run unchanged from committed sources at `73cfc93`, where the recorded git status lists only new evidence files and the untracked `prompt.md`, into [`b1-provenance-2026-11-24`](../evidence/browser/b1-provenance-2026-11-24/flow-coverage.md). Result: 10 passed, OBJ-UC02-01 skipped (blocked), exit 0, development-database metadata unchanged, no token values in the evidence. The earlier runs are kept unchanged.
+- **Regression at the same commit:** [`r5-2026-11-24`](../evidence/regression/r5-2026-11-24/team/result.json) — Django check exit 0, upstream 9/9, team 52/52 (in-memory profile).
+- **Two Playwright packages:** `tests/team/browser/` (team tests) and `scripts/sqe/baseline-browser/` (PR #1 baseline evidence on `setup/local-baseline`) both pin `@playwright/test` 1.49.1. They stay separate by design; see [REPOSITORY-STRUCTURE.md](../REPOSITORY-STRUCTURE.md).

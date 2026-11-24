@@ -1,30 +1,55 @@
 # Operational test plan
 
-Controlled document LF-SQE-TP, version0.1; drafted 22 November 2026 (Asia/Karachi); approval **PENDING**. Project: LeaveFlow MIS Testing, SE3002, three-member group; MIT licence. Upstream: https://github.com/cmdr-chara/LeaveFlow; team fork: https://github.com/eshalfatima2006/LeaveFlow. A1/A2/A3 allocations are proposals. Change control: shared team owns revisions; peer reviewer records version, rationale, requirement/risk impact, proposed thresholds, approval and effective commit. No human approval or final deadline is recorded. Source baseline `bada9a03ecec53ef6945827230e3594d825da87a`; current planning input `f9fafbf1ce89e63701753cafcb18a5cd1616e6ca`.
+Controlled document LF-SQE-TP, version0.1; drafted 22 November 2026 (Asia/Karachi); approval **PENDING**. Project: LeaveFlow MIS Testing, SE3002, three-member group; MIT licence. Upstream: https://github.com/cmdr-chara/LeaveFlow; team fork: https://github.com/eshalfatima2006/LeaveFlow. A1/A2/A3 allocations are proposals. Change control: shared team owns revisions; peer reviewer records version, rationale, requirement/risk impact, proposed thresholds, approval and effective commit. No human approval or final deadline is recorded. Source baseline `bada9a03ecec53ef6945827230e3594d825da87a`; current planning input `f9fafbf1ce89e63701753cafcb18a5cd1616e6ca`. *v0.2 (24 Nov 2026): reconciled with executed A2.0/A2.1/B1 work and the PROPOSED use-case catalog; approval still PENDING.*
 
 ## Scope, approach and test items
 
-Test W1 employee submission and W2 manager decision of original request k, shared ownership and derived leave balance. Use [TEST-STRATEGY](TEST-STRATEGY.md) for all testing areas and [Phase 1 source boundary](../requirements/COVERAGE-BOUNDARY.md) for functions. All 12 FRs/six BRs feed the [RTM](REQUIREMENTS-TRACEABILITY-MATRIX.md); future tests are separate in planned `tests/team/` (path not yet implemented). Preserve upstream nine tests as separately reported smoke checks; they earn no student test marks.
+Test W1 employee submission and W2 manager decision of original request k, shared ownership and derived leave balance. Use [TEST-STRATEGY](TEST-STRATEGY.md) for all testing areas and [Phase 1 source boundary](../requirements/COVERAGE-BOUNDARY.md) for functions. All 12 FRs/six BRs feed the [RTM](REQUIREMENTS-TRACEABILITY-MATRIX.md); future tests are separate in `tests/team/` (v0.2: implemented — foundation, API and browser suites). Preserve upstream nine tests as separately reported smoke checks; they earn no student test marks.
 
 Highest risks PR-01/PR-02 receive first fixtures, unit/API assertions, defect reproduction and blocking EC-01/EC-02. Select technique/depth from the [risk register](RISK-REGISTER.md), not from the simplest available tool. Requirements planning coverage does not establish executed coverage. Permission changes, state/balance fixes and schema repair are later separately reviewed work, not part of this documentation phase.
 
 ## Responsibilities and environment
 
-[TEAM-OWNERSHIP](TEAM-OWNERSHIP.md) proposes A1 static/white-box/mutation/CI, A2 API/integration/generator, A3 browser/usability/security/performance/recovery. All members review requirements, triage, risk, metrics, evidence and final package, and own two approved browser use cases. Names/roll numbers/ownership have not been corroborated in existing records; do not infer them from commit author names.
+[TEAM-OWNERSHIP](TEAM-OWNERSHIP.md) proposes A1 static/white-box/mutation/CI, A2 API/integration/generator, A3 browser/usability/security/performance/recovery. All members review requirements, triage, risk, metrics, evidence and final package, and own two approved browser use cases. Names/roll numbers/ownership have not been corroborated in existing records; do not infer them from commit author names. *v0.2 use-case allocation: Member 1 UC-01/UC-08, Member 2 UC-02/UC-07, Member 3 UC-04/UC-09 (PROPOSED; see TEAM-OWNERSHIP).*
 
 | Environment item | Recorded state and provenance | Later verification / gap |
 |---|---|---|
 | Windows/WSL Ubuntu | Historical baseline report at commit81e677a; not a claimed current OS/hardware measurement | Record `uname -a`, `/etc/os-release`, WSL version, CPU/RAM, dedicated DB disk and runner limits before experiments; no invented builds |
 | Python | 3.12.7 historical and current interpreter probe | `.venv/bin/python --version`; validate pinned-package support; upstream CI requests3.13 |
 | Django / DRF | 6.0.7 /3.17.1 in current package metadata and pins | `.venv/bin/python -m pip show Django djangorestframework`; record exact environment and compatibility |
-| Node.js /npm | 22.23.3 /10.9.9 historical environment.txt at7948f74 | Current node unavailable in non-login PATH; npm probe failed with WSL/install-directory message. Restore verified WSL Node toolchain later; do not claim current versions confirmed |
-| Database | SQLite local development recorded; settings.py:81–98 has optional PostgreSQL env switch | Capture actual engine/version and safe disposable DB target without logging passwords; PostgreSQL required to substantiate row-lock behavior |
-| Browser | NOT VERIFIED | Install/record Playwright package, Chromium version and viewport/timezone when later authorized; no invented version |
-| Sonar/coverage/mutation/API/browser/a11y/security/k6 | Availability and versions NOT VERIFIED | Record version output or installed package metadata, configuration hash and commands; do not equate a tool named in prompt with configured infrastructure |
-| Notifications | Optional Redis + Elixir worker +TS gateway | Producer disabled with empty REDIS_URL in core profile; full-stack profile uses isolated Redis namespace/DB and synthetic recipients |
+| Node.js /npm | 22.23.3 /10.9.9 historical environment.txt at7948f74 | v0.2: **verified** 22.23.3 / 10.9.9 in the B1 browser runs (`docs/sqe/evidence/browser/b1/run-1/environment.json`) and the PR #1 reproduction (`setup/local-baseline`); the earlier non-login PATH failure no longer blocks work |
+| Database | SQLite local development recorded; settings.py:81–98 has optional PostgreSQL env switch | v0.2: disposable profiles in use — `sqe-memory-v1` (in-memory SQLite, A2.0/A2.1) and `sqe-browser-v1` (temporary-file SQLite, B1); the development database is never a target. PostgreSQL profile still required for row-lock and engine-dependent limits |
+| Browser | v0.2: **verified** Playwright 1.49.1 with Chromium 131.0.6778.33 (headless shell), en-GB, Europe/Rome, 1280×720 default viewport (B1; PR #1 BL-UI-04 used 1440×900) | Upgrade only with lock-file review; record versions per run |
+| Sonar/coverage/mutation/API/browser/a11y/security/k6 | Availability and versions NOT VERIFIED (v0.2: browser verified, see the Browser row; Django test runner verified in A2.0/A2.1; the others remain NOT VERIFIED) | Record version output or installed package metadata, configuration hash and commands; do not equate a tool named in prompt with configured infrastructure |
+| Notifications | Optional Redis + Elixir worker +TS gateway | See [Isolated notification environment (UC-07)](#isolated-notification-environment-uc-07); nothing run yet |
 | CI | Existing source inspected; remote protection/configuration not verified | Record runner/tool versions, actual required checks and tested SHA when students configure gates |
+| Django Admin session (UC-08/UC-09, conditional on D-1) | Not built | Staff synthetic users in the disposable browser database; session login through `/admin/`; Italian admin messages (`LANGUAGE_CODE=it-it`) |
 
 Future tool-version inventory should include `coverage --version`, `pytest --version`, mutation package metadata, Sonar server/scanner version, Playwright/Lighthouse/axe package versions, ZAP version, `pip-audit --version`, `k6 version`, Redis/PostgreSQL versions and relevant lock hashes. Commands are examples to run **after** tool setup, not results; installations are not performed here.
+
+## Isolated notification environment (UC-07)
+
+Status: **design only; not executed** (UC-07 is conditional on D-2). Hazards found on 24 Nov 2026:
+
+- **Seeding:** the backend image always runs `migrate && seed_demo` (`backend/Dockerfile:9`). `seed_demo` overwrites demo users and balances and deletes all leave requests.
+- **Persistent volumes:** `docker-compose.yml` declares named volumes `leaveflow_data` (PostgreSQL) and `leaveflow_redis`.
+- **Ports:** fixed host ports 8000, 3000 and 5173.
+- **Shared machine:** other, unrelated Compose projects run on the development machine and must never be touched.
+
+Verified fact (render only, `docker compose -p sqe-uc07-designcheck config`): a unique project name prefixes the named volumes (`sqe-uc07-designcheck_leaveflow_data`, `sqe-uc07-designcheck_leaveflow_redis`), so the project name alone separates the data from any default `leaveflow` project.
+
+Mandatory procedure before any UC-07 run (fail closed on any check):
+
+1. Use a unique project name per run, e.g. `sqe-uc07-<UTC timestamp>`. Never use the default project name.
+2. Before `up`, `docker compose -p <name> config` must show every volume prefixed with `<name>_`. `docker volume ls` and `docker ps -a --filter label=com.docker.compose.project=<name>` must return nothing for that project.
+3. Use a test-only override file (to be written with UC-07) that:
+   - replaces the backend command with `migrate` plus the server, so synthetic fixtures are loaded instead of `seed_demo`;
+   - remaps every host port to unused ports and verifies they are free;
+   - publishes no service on the default ports.
+4. Synthetic users only. Credentials are passed through the environment and never logged.
+5. Tear down with `docker compose -p <name> down -v` for **that project only**, and record the before/after resource listing as evidence. Never run `docker volume prune`, `docker system prune` or commands without `-p <name>`.
+
+Owner: Member 2, with Member 3 support. If any check cannot be proved, UC-07 is not run (SU-06).
 
 ## Isolated deterministic data contract
 
@@ -38,7 +63,7 @@ No external service credentials or real personnel data in fixtures/evidence. Red
 
 Detailed work packages, person-hours and dependencies are in [EFFORT-ESTIMATION](EFFORT-ESTIMATION.md) and [EXECUTION-ROADMAP](EXECUTION-ROADMAP.md). Milestones are relative, not invented dates:
 
-1. **M0 planning review:** confirm scope/critical module/oracles/ownership/UC feasibility, budgets and risk ranking. Archive this Phase2 prompt and retain Phase1 prompt from original chat/copy.
+1. **M0 planning review:** confirm scope/critical module/oracles/ownership/UC feasibility, budgets and risk ranking. Archive this Phase2 prompt and retain Phase1 prompt from original chat/copy. *v0.2: critical module PROPOSED in [DR-001](DR-001-CRITICAL-MODULE.md).*
 2. **M1 reproducible foundation:** compatible tools, isolated fixture/reset proof, exact source/lock/environment capture; reproduce PR-01 candidate and verify PR-02 access decisions early. Source reviews/spec drafting can proceed while tools/PR reviews are pending.
 3. **M2 functional foundation:** Sonar/CFG and team unit/API tests, generated data, MCC/MC/DC, decision/state/integration tests; persist real defects and baseline/fix evidence.
 4. **M3 integrated automation:** approved UC Playwright flows, mutation, strict CI gates, actual blocked/fixed PR evidence; accessibility/security alongside stable browser work.
@@ -63,7 +88,7 @@ Future planned evidence root: `docs/sqe/evidence/<area>/<run-id>/` (directories/
 |---|---|
 | Static/white-box | Full Sonar metrics and interpretation; manual CFG/complexity comparison; raw statement/branch reports, exclusions and MCC tables/MC/DC pairs |
 | API/generator | Accurate OpenAPI/rule manifest; generated cases/spec changes; case manifest and genuine request/response/DB assertions; full decision/state coverage |
-| Browser/accessibility | Six accepted UC specs with all flows; Playwright HTML/traces/screenshots; two task tests/error-correction/keyboard; Lighthouse+axe before/after with deduplicated findings |
+| Browser/accessibility | Six accepted UC specs with all flows (v0.2: PROPOSED catalog, 30 mandatory flows, 10 passed in B1); Playwright HTML/traces/screenshots; two task tests/error-correction/keyboard; Lighthouse+axe before/after with deduplicated findings |
 | Mutation/CI | Tool/config, ≥2 custom operators, raw and adjusted scores, ≥15 survivor classifications/reruns; candidate-SHA job/gate logs; real blocked/fix PR links |
 | Security/performance/recovery | Role matrix/≥4 decisions/≥2 controls, ZAP passive and package audit reports; four k6 steady-state runs and raw series; injected failure/restoration/retry persisted-state evidence |
 | Management/completion | Risk changes, RTM execution links, genuine issues/triage, ≥2 independently verified major-defect RCAs (5Whys/fishbone), Pareto, weekly GQM, actual effort, release/hold report |
@@ -80,9 +105,9 @@ Release/hold review is shared: A1 brings CI/white-box/mutation, A2 API/generator
 
 ## Contingencies and external decisions
 
-- JR-02: current Node/npm probe failed; repair student WSL environment before browser/build work; source/spec/CFG tasks can continue. Use compatible pinned/locked versions and capture any reviewed toolchain changes.
-- JR-03: instructor must resolve six distinct UC goals, server denominator/MCC infeasible rows and unspecified “all API coverage criteria.” Do not silently lower counts; retain blocked trace rows.
+- JR-02: current Node/npm probe failed; repair student WSL environment before browser/build work; source/spec/CFG tasks can continue. Use compatible pinned/locked versions and capture any reviewed toolchain changes. *v0.2: resolved for Node/npm/Playwright (versions verified in B1); Sonar, mutation tooling and team CI gates remain unverified.*
+- JR-03: instructor must resolve six distinct UC goals, server denominator/MCC infeasible rows and unspecified “all API coverage criteria.” Do not silently lower counts; retain blocked trace rows. *v0.2: the API coverage criteria are defined by Lecture 20 (TCL0–TCL7 plus technique coverage); the team must choose the TCL target level (EC-05). The use-case catalog is PROPOSED; instructor decisions D-1/D-2 and the denominator/MCC questions remain open.*
 - If PostgreSQL/Redis/Sonar/runners unavailable, continue isolated SQLite/source planning but mark engine/service-specific results blocked; arrange free/open-source local resources before final gates. No local result substitutes for a required PR check.
 - If mutation runtime exceeds budget, optimize fixtures/test selection and runner scheduling, preserve full approved rule scope, and rerun; no skipped survivors relabelled killed. If fewer than15 real survivors, follow strategy's instructor escalation.
 - If no second major defect is verified, broaden legitimate investigation of highest risks and seek instructor guidance; do not inflate UI severity. If deadline/availability becomes known, revise estimates/milestones transparently, not invent calendar commitments now.
-- Phase1 historical baseline evidence remains on other local history; reconcile references manually. Existing Phase1 “current branch/HEAD” statements are **historical 21November observations**, not current state. Root `prompt.md` now contains Phase2; original Phase1 prompt retention needs student action. No Phase1 file is rewritten to conceal these changes.
+- Phase1 historical baseline evidence remains on other local history; reconcile references manually. Existing Phase1 “current branch/HEAD” statements are **historical 21November observations**, not current state. Root `prompt.md` now contains Phase2; original Phase1 prompt retention needs student action. No Phase1 file is rewritten to conceal these changes. *v0.2: the corrected baseline report and newly reproduced evidence are on `setup/local-baseline` (PR #1, pushed); after integration they are `docs/sqe/BASELINE-VERIFICATION.md` and `docs/sqe/evidence/baseline/`.*

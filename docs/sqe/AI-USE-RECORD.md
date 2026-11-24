@@ -196,3 +196,59 @@ Students must review source safety/fixtures/assertions/evidence, retain prompts,
 - **Results:** run-1 and run-2: 10/10 mandatory UC-01/UC-02 flows passed, OBJ-UC02-01 skipped as blocked; mandatory coverage 10/30; A2 team suite 52/52; development database metadata unchanged in every run.
 - **Corrections made during the work:** `getByLabel` selectors replaced by role locators after an ARIA snapshot showed the real accessible names; the UC-09 second exception refined to an in-journey failure (deleted employee record) with the former-manager 404 kept as a supplementary check; an earlier claim that allowance 32768 is rejected was corrected (true on PostgreSQL only; SQLite accepts up to 2^63−1).
 - **Student review required:** decide whether missing decision feedback (OBS-UC02-01) becomes part of the expected result; review the harness safety controls and new dependency; confirm the scope questions with the instructor before UC-07/UC-08/UC-09; all Git/GitHub actions remain student-owned.
+
+
+# Cross-branch audit and v0.2 reconciliation (24 November 2026)
+
+- **Tool:** Claude Code (Claude Opus 5.5), at the student's instruction. AI-assisted audit, documentation reconciliation and test execution. No instructor decision, team approval, human review or authorship is claimed.
+- **Audit (read-only, 23 Nov):** cross-branch consistency and change-impact audit; report kept outside the repository. Runtime checks ran on a `git archive` export of `433a9e6` (team 52/52, upstream 9/9).
+- **Branches:** local branch `docs/uc-reconciliation` created from `433a9e6` for the documentation remediation; local branch `ci/fork-release-guard` created from `bada9a0` for the auto-release guard. No merge, rebase, reset, push, pull or fetch.
+- **Created:**
+  - `docs/sqe/requirements/USE-CASE-SPECIFICATIONS.md`;
+  - `docs/sqe/REPOSITORY-STRUCTURE.md`;
+  - `scripts/sqe/check_docs.py`;
+  - evidence `docs/sqe/evidence/browser/b1-provenance-2026-11-24/` and `docs/sqe/evidence/regression/r5-2026-11-24/`.
+- **Modified (v0.2 notes beside preserved v0.1 text):**
+  - SCOPE, FUNCTIONAL-REQUIREMENTS (PROPOSED FR-ADM-01/02, FR-NOTIF-01), BUSINESS-RULES (clarifications only), TEST-BASIS (GAP-04/09/10 updated; GAP-11–15 added), WORKFLOW-TRACE, COVERAGE-BOUNDARY;
+  - RTM, TEAM-OWNERSHIP, TEST-STRATEGY, TEST-PLAN, ENTRY-EXIT-CRITERIA (SU-06/RS-06), RISK-REGISTER (JR-05), EXECUTION-ROADMAP, EFFORT-ESTIMATION;
+  - BROWSER-USE-CASE-TESTING;
+  - `tests/team/browser/flows.json` (owners, legacy IDs, included use cases).
+- **Not changed:** application code, test behaviour, A2.0/A2.1/B1 evidence, `setup/local-baseline` (already pushed), `prompt.md`, the assignment PDF.
+- **Commands and checks:**
+  - pyflakes and reference scans for the cleanup inventory: no tracked file deleted or moved;
+  - `git clean -ndX` dry run (revealed that `git clean -X` would delete the development database);
+  - `docker compose -p sqe-uc07-designcheck config` render only, plus read-only `docker ps -a` and `docker volume ls` (no container or volume created, started or removed);
+  - `scripts/sqe/check_docs.py` with a negative test;
+  - `run_tests.py check/upstream/team`;
+  - the Playwright suite re-run;
+  - evidence token scans.
+
+  Development database checked by metadata only: unchanged.
+- **Process errors, honestly recorded:**
+  - A gated commit run stopped on `git diff --cached --check` (raw Playwright `console.log` ends with a blank line) **after** the evidence had been staged.
+  - The next run first committed `docs/sqe/evidence/.gitattributes` (`*.log -whitespace`, so raw logs stay byte-exact). That commit, `065fca0` "chore: exempt raw evidence logs from whitespace checks", therefore **also contains all 29 files of `browser/b1-provenance-2026-11-24/` and `regression/r5-2026-11-24/`**, although its message mentions only the attributes file.
+  - The content is correct and intended; the grouping and message are not. History was not rewritten (no amend or reset). Every later commit asserted an empty index first.
+  - Separately, two scripted edits briefly produced a missing or an extra final newline, which the whitespace gate caught before any commit.
+- **PR #1 AI record:** `docs/sqe/AI-USE-RECORD-PR1-REMEDIATION.md` exists only on `setup/local-baseline`. It is consolidated into this file after integration ([REPOSITORY-STRUCTURE.md](REPOSITORY-STRUCTURE.md)); it is not duplicated here.
+- **Student review required:**
+  - confirm the proposed catalog and ownership;
+  - ask the instructor D-1/D-2;
+  - decide the decision-feedback oracle, the over-allowance error contract and the TCL target;
+  - review the auto-release guard;
+  - each owner reviews and explains the B1 tests assigned to them.
+
+
+# PR #2 review remediation — critical-module decision (24 November 2026)
+
+- **Tool:** Claude Code (Claude Opus 5.5), at the student's instruction. No reviewer approval, instructor decision or team agreement is claimed.
+- **Concern addressed:** the PR #2 reviewer asked for a documented decision process for selecting one critical module (serializer `validate` vs `visible_requests`). PR #2's merge commit is not present locally (no fetch); the concern text was supplied by the student.
+- **Analysis and evidence:** written to `docs/sqe/evidence/whitebox/critical-module-2026-11-24/`.
+  - radon 6.0.1 cyclomatic complexity;
+  - coverage.py 7.6.10 branch coverage of the existing A2.1 API suite (40/40 passed) on the candidate files;
+  - `feasibility_probe.py`, which executes every evaluable truth row of D1, H and D2 on the in-memory test database.
+  - The tools were installed with `pip --target` into `/tmp`; the project `.venv` was not modified.
+- **Created:** `docs/sqe/planning/DR-001-CRITICAL-MODULE.md` (PROPOSED: W1 validation chain; `visible_requests` rejected as an alternative).
+- **Modified:** COVERAGE-BOUNDARY, TEST-STRATEGY, BUSINESS-RULES (v0.1 text kept, marked superseded), RTM (MCC-001), RISK-REGISTER (JR-03), ENTRY-EXIT-CRITERIA (EC-04), EXECUTION-ROADMAP (WP-09), SCOPE (open decision 2), TEST-PLAN (M0).
+- **Not changed:** application code, tests, existing evidence; no business rule.
+- **Development database:** unchanged (metadata only).
+- **Student review required:** confirm DR-001; obtain instructor confirmation of the critical module; reply to the PR #2 reviewer.

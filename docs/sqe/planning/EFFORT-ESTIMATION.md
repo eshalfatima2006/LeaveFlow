@@ -9,18 +9,18 @@ For each package: E=(O+4M+P)/6; standard deviation SD=(P−O)/6. O assumes compa
 | WP-01 | Scope/requirements and policy review | Shared | 4 | 6 | 10 | 6.33 | 1.00 | NOT MEASURED | NOT MEASURED | Draft review pending | None |
 | WP-02 | Strategy/test-plan/criteria and ownership review | Shared | 3 | 5 | 8 | 5.17 | 0.83 | NOT MEASURED | NOT MEASURED | Draft review pending | WP-01 |
 | WP-03 | Risk register, matrix and prioritization | Shared | 2 | 4 | 7 | 4.17 | 0.83 | NOT MEASURED | NOT MEASURED | Draft review pending | WP-01 |
-| WP-04 | Forward/backward RTM and case catalog | A2 | 2 | 4 | 7 | 4.17 | 0.83 | NOT MEASURED | NOT MEASURED | Draft review pending | WP-01, WP-03 |
-| WP-05 | Isolated environments, fixed fixtures and reset proof | A2 | 4 | 7 | 12 | 7.33 | 1.33 | NOT MEASURED | NOT MEASURED | Not started | WP-02 |
+| WP-04 | Forward/backward RTM and case catalog | A2 | 2 | 4 | 7 | 4.17 | 0.83 | NOT MEASURED | NOT MEASURED | v0.2 reconciliation drafted (24 Nov); review pending | WP-01, WP-03 |
+| WP-05 | Isolated environments, fixed fixtures and reset proof | A2 | 4 | 7 | 12 | 7.33 | 1.33 | NOT MEASURED | NOT MEASURED | Partly done: A2.0/B1 disposable profiles, PR #1 reproduction; PostgreSQL profile and reset proof outstanding | WP-02 |
 | WP-06 | Sonar deployment, scan and metric interpretation | A1 | 3 | 5 | 10 | 5.50 | 1.17 | NOT MEASURED | NOT MEASURED | Not started | WP-05 |
 | WP-07 | Manual CFG/cyclomatic comparison | A1 | 2 | 3 | 5 | 3.17 | 0.50 | NOT MEASURED | NOT MEASURED | Not started | WP-06 |
 | WP-08 | Team unit/white-box tests, full coverage and assertions | A1 | 8 | 14 | 24 | 14.67 | 2.67 | NOT MEASURED | NOT MEASURED | Not started | WP-05 |
 | WP-09 | Complete critical-module MCC and derived MC/DC | A1 | 4 | 7 | 12 | 7.33 | 1.33 | NOT MEASURED | NOT MEASURED | Not started | WP-07, WP-08 |
-| WP-10 | API tests and cross-workflow integration | A2 | 8 | 14 | 24 | 14.67 | 2.67 | NOT MEASURED | NOT MEASURED | Not started | WP-05, WP-11 |
+| WP-10 | API tests and cross-workflow integration | A2 | 8 | 14 | 24 | 14.67 | 2.67 | NOT MEASURED | NOT MEASURED | Partly done: A2.1 API 40/40 passed; integration API-INT-001/002 not started | WP-05, WP-11 |
 | WP-11 | Accurate OpenAPI and rule-manifest repair | A2 | 3 | 5 | 9 | 5.33 | 1.00 | NOT MEASURED | NOT MEASURED | Not started | WP-01 |
 | WP-12 | EP/BVA generator, API consumption and two-constraint demo | A2 | 6 | 10 | 18 | 10.67 | 2.00 | NOT MEASURED | NOT MEASURED | Not started | WP-10, WP-11 |
 | WP-13 | Decision tables and feasible/infeasible row tests | A2 | 3 | 5 | 9 | 5.33 | 1.00 | NOT MEASURED | NOT MEASURED | Not started | WP-10 |
 | WP-14 | State transitions, repeated decisions and duplicates | A2 | 3 | 5 | 9 | 5.33 | 1.00 | NOT MEASURED | NOT MEASURED | Not started | WP-10 |
-| WP-15 | Six accepted UCs and all Playwright flows | A3 (all implement two UCs) | 12 | 20 | 34 | 21.00 | 3.67 | NOT MEASURED | NOT MEASURED | Blocked on UC acceptance | WP-10, WP-11 |
+| WP-15 | Six accepted UCs and all Playwright flows | A3 (all implement two UCs) | 12 | 20 | 34 | 21.00 | 3.67 | NOT MEASURED | NOT MEASURED | In progress: 10/30 mandatory flows passed (B1, UC-01/UC-02); UC-07/08/09 blocked on D-1/D-2 | WP-10, WP-11 |
 | WP-16 | Mutation tool, custom operators and survivor analysis | A1 | 6 | 11 | 20 | 11.67 | 2.33 | NOT MEASURED | NOT MEASURED | Not started | WP-08, WP-09 |
 | WP-17 | Strict PR CI gates and real blocked/fix PR evidence | A1 | 5 | 8 | 15 | 8.67 | 1.67 | NOT MEASURED | NOT MEASURED | Not started | WP-06, WP-12, WP-15, WP-16 |
 | WP-18 | Task/keyboard, Lighthouse/axe and before/after improvement | A3 | 5 | 8 | 14 | 8.50 | 1.50 | NOT MEASURED | NOT MEASURED | Not started | WP-15 |
@@ -40,7 +40,7 @@ Total proposed expected effort: **210.67 person-hours**. Sum O=116h, M=199h, P=3
 
 Highest-risk PR-01/PR-02 investigation and persisted-state assertions are included in WP-08/10/22, with allocation recorded once per work session. WP-15 is aggregate work for six accepted goals/all flows across all three members, not six screenshots or only main paths. WP-16 includes ≥2 custom operators and ≥15 survivor analyses; unclear feasibility increases uncertainty rather than reducing the requirement. WP-22 includes bounded expected fixes/retests, not unlimited defect scope; major discoveries require a revised forecast. WP-18 includes one separately authorized before/after screen improvement. Student Git/PR review time is included in respective packages and WP-17, without assuming Codex performs it.
 
-Node/npm availability, Sonar runners, Python/tool compatibility, PostgreSQL/Redis isolation, scope/MCC approval and six-use-case acceptance are external dependencies from the risk register. WP-24 runs weekly alongside other packages; WP-22/23 start only with genuine findings and can overlap later execution. Rehearsal starts informally as tests become available; WP-27 estimates final consolidated rerun/live-task practice after packaging. See [EXECUTION-ROADMAP](EXECUTION-ROADMAP.md) for milestones/concurrent lanes.
+Node/npm availability, Sonar runners, Python/tool compatibility, PostgreSQL/Redis isolation, scope/MCC approval and six-use-case acceptance are external dependencies from the risk register. WP-24 runs weekly alongside other packages; WP-22/23 start only with genuine findings and can overlap later execution. Rehearsal starts informally as tests become available; WP-27 estimates final consolidated rerun/live-task practice after packaging. See [EXECUTION-ROADMAP](EXECUTION-ROADMAP.md) for milestones/concurrent lanes. *v0.2: Node/npm/Playwright are now verified; actual hours remain NOT MEASURED because AI-assisted time is not student effort and must be logged by members.*
 
 Preserve original O/M/P and estimate version. After learning changes, add revised remaining forecast with reason/date/approver, never overwrite historical actuals or retune original estimates to look accurate. Variance for completed package=actual−original E; positive means overrun. In-progress forecasts use actual-to-date+remaining estimate and are labelled forecasts. Unlogged hours stay NOT MEASURED, not0.
 

@@ -97,6 +97,8 @@ Django's producer payload includes UUID, event type, time, recipient IDs, actor 
 
 ## Six use-case candidates and feasibility
 
+> **Historical Phase 1 analysis (v0.1), superseded on 24 Nov 2026.** The current PROPOSED catalog (UC-01, UC-02, UC-04, UC-07, UC-08, UC-09), its numbered flows and the mapping of these candidate IDs are in [USE-CASE-SPECIFICATIONS.md](USE-CASE-SPECIFICATIONS.md). The table below is kept unchanged as the original record.
+
 These are **candidates**, not final use-case specifications or automation. Each lists two possible alternatives (A1/A2) and two exception paths (E1/E2). An alternative variation of a goal does not become another distinct use case merely to meet a count. Flows depending on faults need controlled browser/API doubles later; no UI action was invented.
 
 | Candidate / actor / goal / workflow | Main success path | Two potential alternatives | Two potential exceptions | Actual UI support / feasibility |

@@ -1,6 +1,6 @@
 # Proposed ownership and peer review
 
-Version0.1, 22 November 2026; **allocation NOT CONFIRMED**. Three members are required. No existing project record inspected confirms the complete membership/roll numbers or their agreed areas; consequently this plan uses Member1/Member2/Member3 and A1/A2/A3, rather than treating the names in prompt.md as confirmed records. Students must fill names/rolls/section and acknowledge allocation before implementation ownership is reported as agreed.
+Version0.1, 22 November 2026; **allocation NOT CONFIRMED**. Three members are required. No existing project record inspected confirms the complete membership/roll numbers or their agreed areas; consequently this plan uses Member1/Member2/Member3 and A1/A2/A3, rather than treating the names in prompt.md as confirmed records. Students must fill names/rolls/section and acknowledge allocation before implementation ownership is reported as agreed. *v0.2 (24 Nov 2026): use-case allocation updated below; still PROPOSED until all three members acknowledge it.*
 
 | Area / proposed member | Accountable outputs | Cross-review | Agreement |
 |---|---|---|---|
@@ -8,7 +8,24 @@ Version0.1, 22 November 2026; **allocation NOT CONFIRMED**. Three members are re
 | A2 / Member2, identity PENDING | Accurate OpenAPI, API EP/BVA/decision/state/integration tests, generator and two-constraint regeneration; returned-ID persistence readback | A1 reviews generator/rule combinations; A3 reviews HTTP/oracle evidence | PROPOSED |
 | A3 / Member3, identity PENDING | Playwright architecture/use cases, task/keyboard/accessibility, local passive security/dependency audit, k6 and recovery | A2 reviews persistence/load datasets; A1 reviews failure/transaction controls | PROPOSED |
 
-A3 coordinates browser infrastructure, **not all six UCs alone**. Proposed distribution preserving Phase1 candidates: Member1 UC-01/UC-04, Member2 UC-02/UC-05, Member3 UC-03/UC-06. UC-04–06 distinctness is unapproved; even UC-02/03 separation needs review under actor-goal interpretation. Allocation is conditional on six accepted goals and each member writing/automating two with main+≥2 alternatives+≥2 exceptions. Reallocate after scope/skill/capacity discussion without relabelling variations as new goals. Each author must explain their implementation and assertions in the viva; cross-area learning is mandatory.
+> **v0.1 allocation — superseded on 24 Nov 2026 (kept as record):** A3 coordinates browser infrastructure, **not all six UCs alone**. Proposed distribution preserving Phase1 candidates: Member1 UC-01/UC-04, Member2 UC-02/UC-05, Member3 UC-03/UC-06. UC-04–06 distinctness is unapproved; even UC-02/03 separation needs review under actor-goal interpretation. Allocation is conditional on six accepted goals and each member writing/automating two with main+≥2 alternatives+≥2 exceptions. Reallocate after scope/skill/capacity discussion without relabelling variations as new goals. Each author must explain their implementation and assertions in the viva; cross-area learning is mandatory.
+
+## Use-case allocation and shared responsibilities (v0.2, PROPOSED)
+
+Catalog and flows: [USE-CASE-SPECIFICATIONS.md](../requirements/USE-CASE-SPECIFICATIONS.md). Each member specifies, automates, explains and **commits** their own two use cases (5 flows each).
+
+| Member (area) | Use cases | Status 24 Nov 2026 | Shared responsibilities |
+|---|---|---|---|
+| Member 1 (A1: white-box, mutation, Sonar, CI) | UC-01 Submit leave; UC-08 Maintain entitlement (conditional on D-1) | UC-01 5/5 automated and passed in B1; UC-08 not started | Admin fixtures for UC-08/UC-09 with Member 3; INC-02 with Member 3; fork CI and auto-release guard (JR-05) |
+| Member 2 (A2: API, functional, integration, generated tests) | UC-02 Decide pending request; UC-07 Receive notifications (conditional on D-2) | UC-02 5/5 automated and passed in B1; UC-07 not started | Isolated notification environment for UC-07 (with Member 3 support); RTM upkeep; same-record integration API-INT-001/002 |
+| Member 3 (A3: browser infrastructure, usability, security, performance, reliability) | UC-04 Review own record; UC-09 Change approving team (conditional on D-1) | Not started | Playwright harness owner (`tests/team/browser/`); INC-01; browser evidence conventions; admin fixtures with Member 1 |
+
+**Attribution rule (assignment p5, "every member commits their own work").** As of 24 Nov 2026 every SQE commit in this repository is authored under a single identity, including the AI-assisted B1 automation of UC-01/UC-02. From now on:
+
+- each owner commits their own subsequent work from their own identity;
+- reviews are recorded on pull requests;
+- no history is rewritten and no co-author lines are added for attribution;
+- the owners of UC-01 (Member 1) and UC-02 (Member 2) must review, rerun and be able to explain the existing B1 tests, and record that review.
 
 ## RACI-style collaboration matrix
 
