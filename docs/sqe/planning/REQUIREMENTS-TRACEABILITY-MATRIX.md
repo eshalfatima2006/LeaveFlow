@@ -119,22 +119,25 @@ Status as of 24 Nov 2026. Only executed evidence is reported here; everything el
 - **A2.1:** [A21-EXECUTION-MAPPING.md](../testing/A21-EXECUTION-MAPPING.md), evidence `docs/sqe/evidence/api/a21/final/` (API 40/40; team 52/52).
 - **B1:** [BROWSER-USE-CASE-TESTING.md](../testing/BROWSER-USE-CASE-TESTING.md), evidence `docs/sqe/evidence/browser/b1/` (10/10 UC-01/UC-02 flows; OBJ-UC02-01 skipped as blocked); re-run from committed sources at `73cfc93`: `docs/sqe/evidence/browser/b1-provenance-2026-11-24/` (10/10, 1 skipped).
 - **Regression at `73cfc93`:** `docs/sqe/evidence/regression/r5-2026-11-24/` — check exit 0, upstream 9/9, team 52/52.
+- **A2.2:** evidence `docs/sqe/evidence/integration/a22-2026-11-24/` (7/7 API-INT-001 integration tests).
+- **A2.3:** evidence `docs/sqe/evidence/structural/a23-2026-11-24/` (65 tests: 48 EP/BVA, 10 decision-table, 7 state-transition).
+- **A2.4:** evidence `docs/sqe/evidence/generated/a24-2026-11-24/` (33 generated tests; the v2/v3 change demonstrations are recorded in the CHANGE documents).
 - **Upstream:** the nine `backend/leave/tests.py` tests are reported separately and earn no team credit.
 
-| FR | Executed API tests (A2.1) | Executed browser flows (B1) | Still planned |
-|---|---|---|---|
-| FR-W1-01 | API-W1-001.01–.05, .07 passed; .06 characterisation (manager/admin self-submission) | TC-UC01-* (sign-in steps), INC-01 via every B1 test | UT-W1-001 |
-| FR-W1-02 | API-W1-002.01–.05 passed | TC-UC01-M (valid fields) | UT-W1-002, GEN-001 |
-| FR-W1-03 | API-W1-003.01–.02 passed; .03/.04 characterisation (zero-day, past dates) | TC-UC01-A1 (preview/persisted agreement) | UT-W1-003, GEN-001 |
-| FR-W1-04 | API-W1-004.01–.04 passed | TC-UC01-E1 | UT-W1-004, DT-002, API-INT-002 |
-| FR-W1-05 | API-W1-005.01–.02 passed; .03 partly characterisation; .04/.05 characterisation (GAP-07, GAP-01) | TC-UC01-M (D = A), TC-UC01-E2 (D = A+1) | UT-W1-005, DT-001, MCC-001, API-INT-001 |
-| FR-W1-06 | API-W1-006.01 passed | TC-UC01-M | UT-W1-006, UT-EVT-001 (Redis disabled in profile) |
-| FR-W2-01 | API-W2-001.01, API-W2-002.04 passed | TC-UC02-A2 (admin sees all teams) | UT-W2-001, DT-003, DT-005 |
-| FR-W2-02 | API-W2-002.01–.07 passed | TC-UC02-E2 (self 403), TC-UC02-A2 | UT-W2-002, SEC-001 |
-| FR-W2-03 | API-W2-003.01–.03 passed (invalid values API-only) | TC-UC02-M/A1 (valid values) | UT-W2-003, GEN-001 |
-| FR-W2-04 | API-W2-004.01–.02 passed | TC-UC02-E1 (409, first decision preserved) | UT-W2-004, API-INT-002 |
-| FR-W2-05 | API-W2-002.02 + 005.01, 002.03 passed | TC-UC02-M | UT-W2-005, API-INT-001 (same-record + overdraw), OBJ-UC02-01 blocked |
-| FR-W2-06 | API-W2-006.01 passed | TC-UC02-A1 (no charge, dates released) | UT-W2-006 |
+| FR | Executed API tests (A2.1) | Executed browser flows (B1) | Executed structural/integration/generated (A2.2–A2.4) | Still planned |
+|---|---|---|---|---|
+| FR-W1-01 | API-W1-001.01–.05, .07 passed; .06 characterisation (manager/admin self-submission) | TC-UC01-* (sign-in steps), INC-01 via every B1 test | EP authentication: valid, no and wrong token (3); GEN-001 login cases (7) | UT-W1-001 |
+| FR-W1-02 | API-W1-002.01–.05 passed | TC-UC01-M (valid fields) | EP `leave_type` (6), `start_date` missing/non-date/null (3), `end_date` missing (1), `note` (4); BVA `note` 279/280/281 (3); GEN-001 W1 field cases (18) | UT-W1-002 |
+| FR-W1-03 | API-W1-003.01–.02 passed; .03/.04 characterisation (zero-day, past dates) | TC-UC01-A1 (preview/persisted agreement) | EP `start_date` future/today and `end_date` same/after/before (5); BVA end = start−1/start/start+1 (3); DT1 R1 (DT-001/002 table); GEN-001 `end_date >= start_date` BVA (2) | UT-W1-003 |
+| FR-W1-04 | API-W1-004.01–.04 passed | TC-UC01-E1 | BVA overlap start/end boundaries (5); DT1 R2 (DT-002); API-INT-001.02 (rejection releases the dates) | UT-W1-004, API-INT-002 |
+| FR-W1-05 | API-W1-005.01–.02 passed; .03 partly characterisation; .04/.05 characterisation (GAP-07, GAP-01) | TC-UC01-M (D = A), TC-UC01-E2 (D = A+1) | BVA balance D = A−1/A/A+1 (3); DT1 R3–R5 (DT-001; R3 characterisation GAP-07); API-INT-001.03 overdraw characterisation (GAP-01) | UT-W1-005, MCC-001, API-INT-001 desired overdraw regression (blocked, GAP-01) |
+| FR-W1-06 | API-W1-006.01 passed | TC-UC01-M | ST-001 none→pending; API-INT-001.01/.02 (same k read back through W2) | UT-W1-006, UT-EVT-001 (Redis disabled in profile) |
+| FR-W2-01 | API-W2-001.01, API-W2-002.04 passed | TC-UC02-A2 (admin sees all teams) | EP role manager of other team (404); DT2 R2 (DT-003 part); API-INT-001.01, .05 (list and scoped lookup) | UT-W2-001, DT-005 |
+| FR-W2-02 | API-W2-002.01–.07 passed | TC-UC02-E2 (self 403), TC-UC02-A2 | EP role (4) and nonexistent request id; DT2 R1–R3, R5 (DT-003 part); API-INT-001.04 (self/role), .05 (cross-team) | UT-W2-002, SEC-001 |
+| FR-W2-03 | API-W2-003.01–.03 passed (invalid values API-only) | TC-UC02-M/A1 (valid values) | EP `status` (5); GEN-001 W2 `status` cases (6) | UT-W2-003 |
+| FR-W2-04 | API-W2-004.01–.02 passed | TC-UC02-E1 (409, first decision preserved) | EP already-decided request id; DT2 R4; ST-001 final-state rows (4 × 409); API-INT-001.06/.07 (re-decide after approval/rejection) | UT-W2-004, API-INT-002 |
+| FR-W2-05 | API-W2-002.02 + 005.01, 002.03 passed | TC-UC02-M | EP `status` approved; DT2 R5; ST-001 pending→approved; API-INT-001.01 (approve path), .03 (overdraw characterisation) | UT-W2-005, API-INT-001 desired overdraw regression, OBJ-UC02-01 blocked |
+| FR-W2-06 | API-W2-006.01 passed | TC-UC02-A1 (no charge, dates released) | EP `status` rejected; ST-001 pending→rejected; API-INT-001.02 (reject path), .07 | UT-W2-006 |
 
 **Requirements coverage (Lecture 18: requirements with at least one executed test).**
 
@@ -146,11 +149,15 @@ Status as of 24 Nov 2026. Only executed evidence is reported here; everything el
 **Objective families with executed evidence:**
 
 - API-W1-001…006 and API-W2-001…006 (A2.1 child IDs).
-- **ST-001 — executed at API level:** creation→pending, pending→approved/rejected, approved/rejected × {approve, reject} → 409, and pending × invalid value → 400 (`FinalStateTests`, `DecisionValueTests`, `AuthorizedDecisionTests`). This meets Lecture 15 "all transitions" for the API state table; browser-level ST is partial.
-- **DT-003:** partly executed (role × team visibility sets in API-W2-001.01).
+- **ST-001 — executed at API level:** creation→pending, pending→approved/rejected, approved/rejected × {approve, reject} → 409, and pending × invalid value → 400 (`FinalStateTests`, `DecisionValueTests`, `AuthorizedDecisionTests`). This meets Lecture 15 "all transitions" for the API state table; browser-level ST is partial. A2.3 adds the dedicated 7-row state table (`tests/team/structural/test_state_transition.py`).
+- **API-INT-001 — executed (A2.2):** 7 integration tests, API-INT-001.01–.07 (`tests/team/integration/test_w1_w2_integration.py`). .03 is a characterisation of GAP-01 that passes on the baseline; the desired failing overapproval regression remains blocked until the approval-time error contract is approved.
+- **GEN-001 — executed (A2.4):** 33 tests generated from `docs/sqe/openapi/leaveflow-api.yaml` by `scripts/sqe/generate_api_tests.py` (7 login, 20 W1, 6 W2); both changed-constraint regenerations demonstrated (`docs/sqe/openapi/CHANGE-1-NOTE-LENGTH.md`, `CHANGE-2-SICK-TYPE.md`). Generated cases exercise FR-W1-01 (login), FR-W1-02, FR-W1-03 and FR-W2-03; FR-W1-04 and FR-W1-05 are linked to GEN-001 in the catalog but no generated case exercises overlap or balance.
+- **DT-001 — executed (A2.3):** code table DT1 rules R3–R5 (balance record × over-limit; the masked row R3 is a GAP-07 characterisation).
+- **DT-002 — executed (A2.3), rule level:** code DT1 R2 and the five overlap BVA cases, with A2.1 API-W1-004 for other-owner and rejected rows. The pk-exclusion condition is unreachable through W1 (unsaved candidate), as justified in BUSINESS-RULES D4.
+- **DT-003:** partly executed (role × team visibility sets in API-W2-001.01; A2.3 code table DT2 R1–R5: role, scoped lookup, self-decision and pending guard).
 - **SEC-001:** partly executed (browser allow decisions TC-UC02-M/A2 and deny TC-UC02-E2; the dedicated ≥4-decision access suite is still planned).
 
-**Not started:** UT-*, API-INT-001/002, GEN-001, DT-001/002/004/005, SEC-002/003, ACC-*, PERF-001, REC-*, UT-EVT-001, MUT-001, MCC-001 and REG-001. *(MCC-001: feasibility evidence only — `docs/sqe/evidence/whitebox/critical-module-2026-11-24/`; no team white-box test exists yet.)*
+**Not started:** UT-*, API-INT-002, DT-004/005, SEC-002/003, ACC-*, PERF-001, REC-*, UT-EVT-001, MUT-001, MCC-001 and REG-001. DT-003 is partially covered by code DT2 (5 rules); DT-004 (notification recipients) and DT-005 (upcoming-leave filter) are not started. *(MCC-001: feasibility evidence only — `docs/sqe/evidence/whitebox/critical-module-2026-11-24/`; no team white-box test exists yet.)*
 
 ## Browser use-case flow catalog (v0.2)
 
