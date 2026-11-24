@@ -11,6 +11,42 @@ jobs:
         with: { python-version: '3.13' }
       - run: pip install -r requirements.txt
       - run: python backend/manage.py test leave
+  area1-quality-gate:
+    name: Area1 quality gate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.13' }
+      - name: Install backend and SQE tools
+        run: pip install -r requirements.txt -r requirements-sqe.txt
+      - name: Run all tests with statement and branch coverage
+        run: |
+          python -m coverage erase
+          python -m coverage run --branch -m pytest
+          python -m coverage report -m
+          python -m coverage json -o coverage.json
+          python -m coverage xml -o coverage.xml
+      - name: Enforce critical-module coverage
+        run: python scripts/sqe/check_coverage.py
+      - name: Run SonarQube analysis
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      - name: Enforce SonarQube quality gate
+        uses: SonarSource/sonarqube-quality-gate-action@v1
+        timeout-minutes: 10
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      - name: Run mutmut with project-specific operators
+        run: |
+          python scripts/sqe/mutmut_custom.py run --max-children 2
+          python scripts/sqe/mutmut_custom.py export-cicd-stats
+          python scripts/sqe/check_mutation_threshold.py
   frontend:
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: frontend } }
