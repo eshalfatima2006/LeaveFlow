@@ -252,3 +252,32 @@ Students must review source safety/fixtures/assertions/evidence, retain prompts,
 - **Not changed:** application code, tests, existing evidence; no business rule.
 - **Development database:** unchanged (metadata only).
 - **Student review required:** confirm DR-001; obtain instructor confirmation of the critical module; reply to the PR #2 reviewer.
+
+# A2.2 — cross-workflow integration testing
+
+- **Date/tool:** 24 November 2026 (Asia/Karachi), Claude Code (Claude Opus 5.5) at the student's instruction. AI-assisted implementation and execution; no human review, approval or authorship is claimed.
+- **Sources read:** FUNCTIONAL-REQUIREMENTS (FR-W1-05, FR-W1-06, FR-W2-04, FR-W2-05, FR-W2-06), BUSINESS-RULES (BR-02, BR-03, BR-05), TEST-BASIS (GAP-01), RTM (API-INT-001), API-FUNCTIONAL-TESTING.md; `backend/leave/models.py`, `serializers.py`, `views.py`.
+- **Created:** `tests/team/integration/test_w1_w2_integration.py` (7 tests); `docs/sqe/evidence/integration/a22-2026-11-24/`.
+- **Tests:** 7 passed — approve path, reject path, overdraw characterization, self-decision forbidden, cross-team visibility, re-decide after approval (409), re-decide after rejection (409).
+- **Limitations:** the overdraw test (API-INT-001) is a characterization test pinning GAP-01 baseline behavior, not an approved oracle. Concurrency integration (API-INT-002) requires PostgreSQL and is not implemented.
+- **Student review required:** confirm characterization tests do not misrepresent baseline as correct behavior; all Git/GitHub actions remain student-owned.
+
+# A2.3 — EP/BVA, decision table and state transition testing
+
+- **Date/tool:** 24 November 2026 (Asia/Karachi), Claude Code (Claude Opus 5.5) at the student's instruction. AI-assisted implementation and execution; no human review, approval or authorship is claimed.
+- **Sources read:** FUNCTIONAL-REQUIREMENTS, BUSINESS-RULES, TEST-BASIS, COVERAGE-BOUNDARY, RTM structural families; `backend/leave/models.py`, `serializers.py`, `views.py`.
+- **Created:** `tests/team/structural/test_ep_bva.py` (48 tests: 22 W1 EP, 12 W2 EP, 14 BVA 3-point), `tests/team/structural/test_decision_table.py` (10 tests: DT1 W1 validation — 5 rules covering date order, overlap, balance record and balance amount; DT2 W2 authorisation — 5 rules covering role, visibility, self-decision and pending guard; each with ASCII truth table in docstring), `tests/team/structural/test_state_transition.py` (7 tests: full pending→approved/rejected transition table with invalid transitions).
+- **Total:** 65 tests, all passed.
+- **Techniques:** equivalence partitioning per FR, 3-point BVA on numeric/date/string boundaries, decision tables for compound business rules, state transition testing for leave request lifecycle.
+- **ID mapping note:** the code's DT1 (W1 validation) maps to RTM objectives DT-001 (balance boundary) and DT-002 (overlap predicate) combined. The code's DT2 (W2 authorisation) maps to parts of RTM DT-003 (visibility/role) and DT-004 (transition guard). DT-005 (approval effect) is not covered by either table.
+- **Limitations:** BVA uses 3-point (boundary, boundary−1, boundary+1). Decision tables DT-005 (approval effect) is planned but not implemented. EP classes derived from requirements, not from code paths.
+- **Student review required:** verify EP classes are complete for each FR; confirm 3-point BVA is acceptable per course guidelines; all Git/GitHub actions remain student-owned.
+
+# A2.4 — OpenAPI spec, automated test data generation, constraint change analysis
+
+- **Date/tool:** 24 November 2026 (Asia/Karachi), Claude Code (Claude Opus 5.5) at the student's instruction. AI-assisted implementation and execution; no human review, approval or authorship is claimed.
+- **Sources read:** FUNCTIONAL-REQUIREMENTS, BUSINESS-RULES, `backend/leave/models.py`, `serializers.py`, `views.py`, `urls.py`; OpenAPI 3.0 specification standard.
+- **Created:** `docs/sqe/openapi/leaveflow-api.yaml` (OpenAPI 3.0 spec covering all 7 endpoints with x-business-rules extensions), `scripts/sqe/generate_api_tests.py` (standalone script that reads the YAML spec and writes Django TestCase source files with one method per generated case, producing EP + 3-point BVA test cases), `tests/team/generated/test_generated_api.py` (33 generated tests: 7 login, 20 W1, 6 W2), `tests/team/generated/test_generated_api_v2.py` and `test_generated_api_v3.py` (constraint change demonstrations), `docs/sqe/openapi/CHANGE-1-NOTE-LENGTH.md`, `docs/sqe/openapi/CHANGE-2-SICK-TYPE.md`.
+- **Process:** spec written manually from source code and requirements, not auto-generated from DRF. Generator is a standalone Python script that writes Django TestCase source, not parameterized pytest cases. Two constraint changes demonstrated: (1) note maxLength 280→200 produces 1 expected failure, (2) adding "sick" leave type produces 1 expected failure. Demo files load only when `SQE_SPEC_CHANGE_DEMO=v2` (for v2) or `=v3` (for v3), not `=1`.
+- **Limitations:** generator produces EP and BVA cases only; it does not generate decision table, state transition or integration tests. The spec is a testing artifact, not a contract with the application. Admin endpoints are out of scope.
+- **Student review required:** verify spec matches actual API behavior; confirm constraint change demonstrations are sufficient for the rubric; all Git/GitHub actions remain student-owned.
