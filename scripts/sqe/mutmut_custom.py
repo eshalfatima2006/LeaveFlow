@@ -40,6 +40,16 @@ def operator_overlap_truth(node: cst.Call):
 
 def main() -> None:
     from mutmut.mutation import mutators
+    from mutmut.utils import format_utils
+
+    original_get_mutant_name = format_utils.get_mutant_name
+
+    def get_project_mutant_name(path, mutant_method_name):
+        """Match file-derived names to Django's runtime ``leave`` package."""
+        name = original_get_mutant_name(path, mutant_method_name)
+        return name.removeprefix("backend.")
+
+    format_utils.get_mutant_name = get_project_mutant_name
 
     mutators.mutation_operators.extend(
         [
