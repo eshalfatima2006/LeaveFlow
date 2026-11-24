@@ -1,0 +1,30 @@
+{
+  "recorded_at_utc": "2026-11-23T18:18:38+00:00",
+  "uname": "Linux DESKTOP-GH5EACM 6.6.114.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Mon Dec  1 20:46:23 UTC 2025 x86_64 GNU/Linux",
+  "os_release": "PRETTY_NAME=\"Ubuntu 26.04 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"26.04\"\nVERSION=\"26.04 (Resolute Raccoon)\"\nVERSION_CODENAME=resolute\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=resolute\nLOGO=ubuntu-logo",
+  "kernel_release": "6.6.114.1-microsoft-standard-WSL2",
+  "python": "3.12.7 (main, Sep 26 2026, 23:24:27) [GCC 15.2.0]",
+  "python_executable": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python",
+  "packages": {
+    "Django": "6.0.7",
+    "djangorestframework": "3.17.1",
+    "django-cors-headers": "4.9.0",
+    "redis": "6.4.0",
+    "psycopg": "3.3.4",
+    "gunicorn": "26.0.0",
+    "pip": "26.3"
+  },
+  "node": "v22.23.3",
+  "npm": "10.9.9",
+  "git": "git version 2.53.0",
+  "git_head": "6a40ab86a990c652f656a8504c11e1244b5da32d",
+  "git_branch": "setup/local-baseline",
+  "git_status_short": [
+    "?? \"SQE_Final_Project Fall 2026.pdf\"",
+    "?? prompt.md",
+    "?? scripts/sqe/baseline-browser/",
+    "?? scripts/sqe/capture_decision_screenshot.py"
+  ],
+  "database_engine_for_reproduction": "SQLite (disposable file in a new temporary directory)",
+  "redis": "disabled (REDIS_URL empty)"
+}

@@ -1,0 +1,28 @@
+LeaveFlow SQE Baseline Environment
+Recorded: 2026-11-21T18:43:51+05:00
+
+Operating system:
+Linux DESKTOP-GH5EACM 6.6.114.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Mon Dec  1 20:46:23 UTC 2025 x86_64 GNU/Linux
+
+Python:
+Python 3.12.7
+
+Git:
+git version 2.53.0
+
+Node.js:
+v22.23.3
+
+npm:
+10.9.9
+
+Django:
+
+Repository commit:
+bada9a03ecec53ef6945827230e3594d825da87a
+
+Current branch:
+setup/local-baseline
+
+Database engine:
+SQLite (local development configuration)

@@ -1,0 +1,25 @@
+{
+  "scenario": "PR1-BL-UI-04",
+  "browser": "chromium 131.0.6778.33",
+  "request_id": 1,
+  "w1_submit": {
+    "status": 201,
+    "body_status": "pending",
+    "business_days": 5,
+    "owner": "bl-employee"
+  },
+  "w2_decision": {
+    "status": 200,
+    "path": "/api/requests/1/decision/",
+    "body_status": "approved",
+    "body_id": 1
+  },
+  "ui_assertions_passed": [
+    "W1 POST /api/requests/ -> 201, id 1, pending, 5 business days, owner bl-employee",
+    "Manager sees exactly one Pending row for the submitted request",
+    "W2 POST /api/requests/1/decision/ -> 200, same id, approved",
+    "UI shows the row as Approved with no remaining decision buttons (single row)",
+    "Summary settled: 1 request, 5 days involved, 0 to decide; filters Pending 0 / Approved 1"
+  ],
+  "screenshot_taken_after": "row status \"Approved\" asserted visible"
+}
