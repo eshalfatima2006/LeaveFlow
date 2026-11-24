@@ -1,0 +1,137 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+test_dt1_r1 (tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r1)
+DT1 R1: C1=F (C2–C4 not evaluated) → 400 on end_date only, no row. ... ok
+test_dt1_r2 (tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r2)
+DT1 R2: C1=T, C2=F (C3/C4 not evaluated) → 400 overlap, no row. ... ok
+test_dt1_r3 (tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r3)
+DT1 R3: C1=T, C2=T, C3=F (C4 masked) → 201 although D is large. ... ok
+test_dt1_r4 (tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r4)
+DT1 R4: C1=T, C2=T, C3=T, C4=F → 400 'Saldo ferie insufficiente.', no row. ... ok
+test_dt1_r5 (tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r5)
+DT1 R5: all conditions true → 201 pending row; no allowance consumed. ... ok
+test_dt2_r1 (tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r1)
+DT2 R1: C1=F → 403 'Operazione non consentita.', unchanged. ... ok
+test_dt2_r2 (tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r2)
+DT2 R2: C1=T, C2=F → 404, unchanged. ... ok
+test_dt2_r3 (tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r3)
+DT2 R3: C1=T, C2=T, C3=F → 403 'Non puoi decidere una tua richiesta.', unchanged. ... ok
+test_dt2_r4 (tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r4)
+DT2 R4: C1=T, C2=T, C3=T, C4=F → 409 'La richiesta è già stata decisa.'. ... ok
+test_dt2_r5 (tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r5)
+DT2 R5: all conditions true → 200; the same row becomes approved by the admin. ... ok
+test_bva_balance_above (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_balance_above)
+BVA days vs available, A+1: Mon 12-14..Mon 12-21 (6 days) with A=5 → 400 'Saldo ferie insufficiente.', no row. ... ok
+test_bva_balance_at (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_balance_at)
+BVA days vs available, A: Mon 12-14..Fri 12-18 (5 days) with A=5 → 201 (equality is allowed). ... ok
+test_bva_balance_below (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_balance_below)
+BVA days vs available, A-1: Thu 12-17..Tue 12-22 (4 business days, 6 calendar days) with A=5 → 201. ... ok
+test_bva_date_range_above (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_date_range_above)
+BVA date range, end = start+1: Mon 12-21..Tue 12-22 → 201 with 2 business days. ... ok
+test_bva_date_range_at (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_date_range_at)
+BVA date range, end = start: Mon 12-21..12-21 → 201 with 1 business day. ... ok
+test_bva_date_range_below (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_date_range_below)
+BVA date range, end = start-1: Mon 12-21 → Sun 12-20 → 400 on end_date, no row. ... ok
+test_bva_note_length_above (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_note_length_above)
+BVA note length, just above the limit: 281 characters → 400 keyed note, no row created. ... ok
+test_bva_note_length_at (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_note_length_at)
+BVA note length, exactly at the limit: 280 characters → 201, stored with 280 characters. ... ok
+test_bva_note_length_below (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_note_length_below)
+BVA note length, just below the 280 limit: 279 characters → 201, stored with 279 characters. ... ok
+test_bva_overlap_end_above (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_end_above)
+BVA overlap end limit, one day after: Fri 12-11 → 201; the existing request is untouched. ... ok
+test_bva_overlap_end_at (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_end_at)
+BVA overlap end limit, at: Thu 12-10 (the existing end day) → 400 overlap, no row (inclusive). ... ok
+test_bva_overlap_start_above (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_start_above)
+BVA overlap start limit, one day after (also the end limit's 'below' point): Wed 12-09 → 400 overlap. ... ok
+test_bva_overlap_start_at (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_start_at)
+BVA overlap start limit, at: Tue 12-08 (the existing start day) → 400 overlap, no row (inclusive). ... ok
+test_bva_overlap_start_below (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_start_below)
+BVA overlap start limit, one day before: Mon 12-07 (ends the day before 12-08) → 201. ... ok
+test_ep_w1_auth_no_token (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_auth_no_token)
+EP W1 authentication, invalid class {no token}: 401 with WWW-Authenticate: Token, no insert. ... ok
+test_ep_w1_auth_valid_token (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_auth_valid_token)
+EP W1 authentication, valid class {valid token}: token from real login → 201 owned by the caller. ... ok
+test_ep_w1_auth_wrong_token (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_auth_wrong_token)
+EP W1 authentication, invalid class {wrong token}: unknown 40-hex token → 401, no insert. ... ok
+test_ep_w1_end_date_after_start (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_after_start)
+EP W1 end_date, valid class {after start}: Thu 12-17..Tue 12-22 → 201, 4 business days. ... ok
+test_ep_w1_end_date_before_start (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_before_start)
+EP W1 end_date, invalid class {before start}: Fri 12-18 → Mon 12-14 → 400 on end_date, no insert. ... ok
+test_ep_w1_end_date_missing (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_missing)
+EP W1 end_date, invalid class {missing}: field omitted → 400 keyed end_date, no insert. ... ok
+test_ep_w1_end_date_same_as_start (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_same_as_start)
+EP W1 end_date, valid class {same as start}: Wed 12-16..12-16 → 201, 1 business day. ... ok
+test_ep_w1_leave_type_empty (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_empty)
+EP W1 leave_type, invalid class {empty string}: 400 keyed leave_type, no insert (not a choice). ... ok
+test_ep_w1_leave_type_numeric (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_numeric)
+EP W1 leave_type, invalid class {numeric}: JSON number 7 → 400 keyed leave_type, no insert. ... ok
+test_ep_w1_leave_type_permit (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_permit)
+EP W1 leave_type, valid class {permit}: 201 and stored as permit. ... ok
+test_ep_w1_leave_type_personal (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_personal)
+EP W1 leave_type, valid class {personal}: 201 and stored as personal. ... ok
+test_ep_w1_leave_type_unknown (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_unknown)
+EP W1 leave_type, invalid class {unknown string}: 'sabbatical' → 400 keyed leave_type, no insert. ... ok
+test_ep_w1_leave_type_vacation (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_vacation)
+EP W1 leave_type, valid class {vacation}: 201 and stored as vacation. ... ok
+test_ep_w1_note_empty (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_empty)
+EP W1 note, valid class {empty}: '' → 201 and stored empty (note is optional). ... ok
+test_ep_w1_note_one_char (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_one_char)
+EP W1 note, valid class {1 character}: 'x' → 201 and stored unchanged. ... ok
+test_ep_w1_note_over_limit (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_over_limit)
+EP W1 note, invalid class {more than 280 characters}, representative 400 → 400 keyed note, no insert. ... ok
+test_ep_w1_note_within_limit (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_within_limit)
+EP W1 note, valid class {2..280 characters}, representative 200 → 201 stored intact. ... ok
+test_ep_w1_start_date_future_weekday (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_future_weekday)
+EP W1 start_date, valid class {future weekday}: Mon 2027-01-04..Tue 01-05 → 201, 2 business days. ... ok
+test_ep_w1_start_date_missing (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_missing)
+EP W1 start_date, invalid class {missing}: field omitted → 400 keyed start_date, no insert. ... ok
+test_ep_w1_start_date_non_date (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_non_date)
+EP W1 start_date, invalid class {non-date string}: 'next monday' → 400 keyed start_date, no insert. ... ok
+test_ep_w1_start_date_null (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_null)
+EP W1 start_date, invalid class {null}: JSON null → 400 keyed start_date, no insert. ... ok
+test_ep_w1_start_date_today (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_today)
+EP W1 start_date, valid class {today}: start = end = server local date → 201. ... ok
+test_ep_w2_request_id_already_decided (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_request_id_already_decided)
+EP W2 request_id, invalid class {already decided}: admin rejects a rejected request → 409, audit unchanged. ... ok
+test_ep_w2_request_id_existing_pending (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_request_id_existing_pending)
+EP W2 request_id, valid class {existing pending visible}: team B manager approves team B request → 200. ... ok
+test_ep_w2_request_id_nonexistent (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_request_id_nonexistent)
+EP W2 request_id, invalid class {nonexistent}: highest id + 1000 → 404, no row changed. ... ok
+test_ep_w2_role_admin (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_admin)
+EP W2 role, valid class {admin}: admin rejects team A request → 200. ... ok
+test_ep_w2_role_employee (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_employee)
+EP W2 role, invalid class {employee}: teammate employee approves → 403 (role guard), row unchanged. ... ok
+test_ep_w2_role_manager_other_team (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_manager_other_team)
+EP W2 role, invalid class {manager of another team}: team B manager on a team A request → 404. ... ok
+test_ep_w2_role_manager_same_team (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_manager_same_team)
+EP W2 role, valid class {manager of the same team}: team B manager rejects team B request → 200. ... ok
+test_ep_w2_status_approved (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_approved)
+EP W2 status, valid class {approved}: admin approves team A pending → 200, approved. ... ok
+test_ep_w2_status_empty (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_empty)
+EP W2 status, invalid class {empty}: '' → 400 'Decisione non valida.', row unchanged. ... ok
+test_ep_w2_status_pending (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_pending)
+EP W2 status, invalid class {'pending'}: not a decision → 400, row stays pending. ... ok
+test_ep_w2_status_random (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_random)
+EP W2 status, invalid class {random string}: 'maybe' → 400, row unchanged. ... ok
+test_ep_w2_status_rejected (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_rejected)
+EP W2 status, valid class {rejected}: admin rejects team B pending → 200, rejected. ... ok
+test_st_approved_approve_409 (tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_approved_approve_409)
+State transition approved --approve--> (disallowed): 409, approved record unchanged, no double charge. ... ok
+test_st_approved_reject_409 (tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_approved_reject_409)
+State transition approved --reject--> (disallowed): 409, an approval cannot be reversed. ... ok
+test_st_none_submit_pending (tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_none_submit_pending)
+W1 creation (none --submit--> pending) is independent of other requests' states. ... ok
+test_st_pending_approve_approved (tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_pending_approve_approved)
+State transition pending --approve--> approved (allowed, 0-switch edge). ... ok
+test_st_pending_reject_rejected (tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_pending_reject_rejected)
+State transition pending --reject--> rejected (allowed, 0-switch edge). ... ok
+test_st_rejected_approve_409 (tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_rejected_approve_409)
+State transition rejected --approve--> (disallowed): 409, the rejection stands and nothing is charged. ... ok
+test_st_rejected_reject_409 (tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_rejected_reject_409)
+State transition rejected --reject--> (disallowed): 409, a repeated rejection is refused. ... ok
+
+----------------------------------------------------------------------
+Ran 65 tests in 117.736s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...

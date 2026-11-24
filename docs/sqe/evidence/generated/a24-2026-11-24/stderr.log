@@ -1,0 +1,73 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+test_status_ep_invalid_missing_required (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_missing_required)
+Generated from spec: POST /api/requests/{id}/decision/ status EP invalid missing (required) ... ok
+test_status_ep_invalid_null_required (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_null_required)
+Generated from spec: POST /api/requests/{id}/decision/ status EP invalid null (required) ... ok
+test_status_ep_invalid_out_of_enum_zzz_not_in_enum (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_out_of_enum_zzz_not_in_enum)
+Generated from spec: POST /api/requests/{id}/decision/ status EP invalid out-of-enum 'zzz_not_in_enum' ... ok
+test_status_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/requests/{id}/decision/ status EP invalid wrong type (true) ... ok
+test_status_ep_valid_enum_value_approved (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_valid_enum_value_approved)
+Generated from spec: POST /api/requests/{id}/decision/ status EP valid enum value 'approved' ... ok
+test_status_ep_valid_enum_value_rejected (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_valid_enum_value_rejected)
+Generated from spec: POST /api/requests/{id}/decision/ status EP valid enum value 'rejected' ... ok
+test_password_ep_invalid_missing_required (tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_missing_required)
+Generated from spec: POST /api/auth/login/ password EP invalid missing (required) ... ok
+test_password_ep_invalid_null_required (tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_null_required)
+Generated from spec: POST /api/auth/login/ password EP invalid null (required) ... ok
+test_password_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/auth/login/ password EP invalid wrong type (true) ... ok
+test_username_ep_invalid_missing_required (tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_missing_required)
+Generated from spec: POST /api/auth/login/ username EP invalid missing (required) ... ok
+test_username_ep_invalid_null_required (tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_null_required)
+Generated from spec: POST /api/auth/login/ username EP invalid null (required) ... ok
+test_username_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/auth/login/ username EP invalid wrong type (true) ... ok
+test_username_ep_valid_string (tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_valid_string)
+Generated from spec: POST /api/auth/login/ username EP valid string ... ok
+test_end_date_bva_2026_12_06_below (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_bva_2026_12_06_below)
+Generated from spec: POST /api/requests/ end_date BVA 2026-12-06 (limit-1, end_date >= start_date) ... ok
+test_end_date_bva_2026_12_07_at (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_bva_2026_12_07_at)
+Generated from spec: POST /api/requests/ end_date BVA 2026-12-07 (limit, end_date >= start_date) ... ok
+test_end_date_ep_invalid_date_format_not_a_date (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_date_format_not_a_date)
+Generated from spec: POST /api/requests/ end_date EP invalid date format ('not-a-date') ... ok
+test_end_date_ep_invalid_missing_required (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_missing_required)
+Generated from spec: POST /api/requests/ end_date EP invalid missing (required) ... ok
+test_end_date_ep_invalid_null_required (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_null_required)
+Generated from spec: POST /api/requests/ end_date EP invalid null (required) ... ok
+test_end_date_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/requests/ end_date EP invalid wrong type (true) ... ok
+test_leave_type_ep_invalid_out_of_enum_zzz_not_in_enum (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_out_of_enum_zzz_not_in_enum)
+Generated from spec: POST /api/requests/ leave_type EP invalid out-of-enum 'zzz_not_in_enum' ... ok
+test_leave_type_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/requests/ leave_type EP invalid wrong type (true) ... ok
+test_leave_type_ep_valid_enum_value_permit (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_permit)
+Generated from spec: POST /api/requests/ leave_type EP valid enum value 'permit' ... ok
+test_leave_type_ep_valid_enum_value_personal (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_personal)
+Generated from spec: POST /api/requests/ leave_type EP valid enum value 'personal' ... ok
+test_leave_type_ep_valid_enum_value_vacation (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_vacation)
+Generated from spec: POST /api/requests/ leave_type EP valid enum value 'vacation' ... ok
+test_note_bva_279_below (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_279_below)
+Generated from spec: POST /api/requests/ note BVA 279 (limit-1, maxLength 280) ... ok
+test_note_bva_280_at (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_280_at)
+Generated from spec: POST /api/requests/ note BVA 280 (limit, maxLength 280) ... ok
+test_note_bva_281_above (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_281_above)
+Generated from spec: POST /api/requests/ note BVA 281 (limit+1, maxLength 280) ... ok
+test_note_ep_invalid_over_max_length_560_chars_280 (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_over_max_length_560_chars_280)
+Generated from spec: POST /api/requests/ note EP invalid over-max-length (560 chars > 280) ... ok
+test_note_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/requests/ note EP invalid wrong type (true) ... ok
+test_start_date_ep_invalid_date_format_not_a_date (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_date_format_not_a_date)
+Generated from spec: POST /api/requests/ start_date EP invalid date format ('not-a-date') ... ok
+test_start_date_ep_invalid_missing_required (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_missing_required)
+Generated from spec: POST /api/requests/ start_date EP invalid missing (required) ... ok
+test_start_date_ep_invalid_null_required (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_null_required)
+Generated from spec: POST /api/requests/ start_date EP invalid null (required) ... ok
+test_start_date_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/requests/ start_date EP invalid wrong type (true) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 54.298s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
