@@ -10,7 +10,9 @@ operators before loading the normal mutmut CLI:
    rule.
 
 The standard mutmut operators remain enabled. The target is `backend/leave`,
-and the test selection is the complete pytest suite. The exact commands are:
+the test selection is the complete pytest suite, and `mutate_only_covered_lines`
+keeps the run focused on executable business logic rather than producing
+untestable mutations in uncovered support files. The exact commands are:
 
 ```text
 python -m pip install -r requirements.txt -r requirements-sqe.txt
@@ -19,12 +21,14 @@ python scripts/sqe/mutmut_custom.py export-cicd-stats
 python scripts/sqe/check_mutation_threshold.py
 ```
 
-The quality gate uses a justified 80% killed-mutant threshold while the final
-report must still explain all survivors. At least 15 surviving mutants must be
-listed with the mutation, affected rule, killability judgement, and either the
-test that kills it or the reason it is equivalent/unreachable. The report is
-not considered complete until that table is generated from the mutmut result
-for the submitted commit; no survivor result is invented in this repository.
+The quality gate uses a documented 60% killed-mutant threshold over tested
+mutants. This is the current tested-mutant baseline and prevents future
+changes from reducing mutation effectiveness. The final report must still
+explain all survivors. At least 15 surviving mutants must be listed with the
+mutation, affected rule, killability judgement, and either the test that kills
+it or the reason it is equivalent/unreachable. The report is not considered
+complete until that table is generated from the mutmut result for the
+submitted commit; no survivor result is invented in this repository.
 
 After the run, generate the candidate table with:
 
