@@ -1,0 +1,319 @@
+{
+  "environment": {
+    "database_profile": "sqe-memory-v1",
+    "git_branch": "test/isolated-fixtures-and-baseline",
+    "git_sha": "b65ca6a4f59bdc0c543ed1cf3eed786e29bed24c",
+    "git_status": [
+      "M .gitignore",
+      " M scripts/sqe/run_tests.py",
+      " M tests/team/runner.py",
+      " M tests/team/safety.py",
+      "?? docs/sqe/evidence/api/a21/api/result.json",
+      "?? docs/sqe/evidence/api/a21/api/stderr.log",
+      "?? docs/sqe/evidence/api/a21/api/stdout.log",
+      "?? docs/sqe/evidence/api/a21/check/result.json",
+      "?? docs/sqe/evidence/api/a21/check/stderr.log",
+      "?? docs/sqe/evidence/api/a21/check/stdout.log",
+      "?? docs/sqe/evidence/api/a21/development-db-fingerprint.txt",
+      "?? docs/sqe/evidence/api/a21/final/api/stderr.log",
+      "?? docs/sqe/evidence/api/a21/final/api/stdout.log",
+      "?? docs/sqe/evidence/api/a21/final/check/result.json",
+      "?? docs/sqe/evidence/api/a21/final/check/stderr.log",
+      "?? docs/sqe/evidence/api/a21/final/check/stdout.log",
+      "?? docs/sqe/evidence/api/a21/final/development-db-fingerprint.txt",
+      "?? docs/sqe/evidence/api/a21/final/foundation/result.json",
+      "?? docs/sqe/evidence/api/a21/final/foundation/stderr.log",
+      "?? docs/sqe/evidence/api/a21/final/foundation/stdout.log",
+      "?? docs/sqe/evidence/api/a21/final/upstream/result.json",
+      "?? docs/sqe/evidence/api/a21/final/upstream/stderr.log",
+      "?? docs/sqe/evidence/api/a21/final/upstream/stdout.log",
+      "?? docs/sqe/evidence/api/a21/foundation/result.json",
+      "?? docs/sqe/evidence/api/a21/foundation/stderr.log",
+      "?? docs/sqe/evidence/api/a21/foundation/stdout.log",
+      "?? docs/sqe/evidence/api/a21/repeatability/result.json",
+      "?? docs/sqe/evidence/api/a21/repeatability/run-1/result.json",
+      "?? docs/sqe/evidence/api/a21/repeatability/run-1/stderr.log",
+      "?? docs/sqe/evidence/api/a21/repeatability/run-1/stdout.log",
+      "?? docs/sqe/evidence/api/a21/repeatability/run-2/result.json",
+      "?? docs/sqe/evidence/api/a21/repeatability/run-2/stderr.log",
+      "?? docs/sqe/evidence/api/a21/repeatability/run-2/stdout.log",
+      "?? docs/sqe/evidence/api/a21/repeatability/stderr.log",
+      "?? docs/sqe/evidence/api/a21/repeatability/stdout.log",
+      "?? docs/sqe/evidence/api/a21/sensitivity/count-weekends/result.json",
+      "?? docs/sqe/evidence/api/a21/sensitivity/count-weekends/stderr.log",
+      "?? docs/sqe/evidence/api/a21/sensitivity/count-weekends/stdout.log",
+      "?? docs/sqe/evidence/api/a21/sensitivity/no-balance-check/result.json",
+      "?? docs/sqe/evidence/api/a21/sensitivity/no-balance-check/stderr.log",
+      "?? docs/sqe/evidence/api/a21/sensitivity/no-balance-check/stdout.log",
+      "?? docs/sqe/evidence/api/a21/sensitivity/no-overlap-check/result.json",
+      "?? docs/sqe/evidence/api/a21/sensitivity/no-overlap-check/stderr.log",
+      "?? docs/sqe/evidence/api/a21/sensitivity/no-overlap-check/stdout.log",
+      "?? docs/sqe/evidence/api/a21/sensitivity/visibility-all/result.json",
+      "?? docs/sqe/evidence/api/a21/sensitivity/visibility-all/stderr.log",
+      "?? docs/sqe/evidence/api/a21/sensitivity/visibility-all/stdout.log",
+      "?? docs/sqe/evidence/api/a21/sensitivity_probe.py",
+      "?? docs/sqe/evidence/api/a21/summary.json",
+      "?? docs/sqe/evidence/api/a21/team/result.json",
+      "?? docs/sqe/evidence/api/a21/team/stderr.log",
+      "?? docs/sqe/evidence/api/a21/team/stdout.log",
+      "?? docs/sqe/evidence/api/a21/upstream/result.json",
+      "?? docs/sqe/evidence/api/a21/upstream/stderr.log",
+      "?? docs/sqe/evidence/api/a21/upstream/stdout.log",
+      "?? prompt.md",
+      "?? tests/__init__.py",
+      "?? tests/team/api/support.py",
+      "?? tests/team/api/test_authentication.py",
+      "?? tests/team/api/test_w1_submission.py",
+      "?? tests/team/api/test_w2_decisions.py"
+    ],
+    "packages": {
+      "Django": "6.0.7",
+      "django-cors-headers": "4.9.0",
+      "djangorestframework": "3.17.1",
+      "psycopg": "3.3.4",
+      "redis": "6.4.0"
+    },
+    "python": "3.12.7",
+    "sqlite_version": "3.46.1",
+    "tracked_diff_sha256": "78129f3160241721755e298a50316eeee696d1738a45a69535102e05bc18d2a0"
+  },
+  "repeat_case_outcomes_identical": true,
+  "repeatability_comparison": {
+    "both_development_database_checks_unchanged": true,
+    "mutation_then_independent_test_rollback": [
+      true,
+      true
+    ],
+    "normalization": "user/team logical keys, explicit dates/content/status/totals; no PKs, timestamps, passwords or token values",
+    "reference_equal": true,
+    "reference_sha256": [
+      "0ccd88034572d556a2f9eab7887af1841ca313422e2e88e475c9b68b358465c7",
+      "0ccd88034572d556a2f9eab7887af1841ca313422e2e88e475c9b68b358465c7"
+    ]
+  },
+  "runs": {
+    "api": {
+      "active_db": "file:memorydb_default?mode=memory&cache=shared",
+      "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python /home/pc/projects/sqe-final/LeaveFlow/scripts/sqe/run_tests.py team tests.team.api --evidence-dir docs/sqe/evidence/api/a21/final/api",
+      "counts": {
+        "errors": 0,
+        "executed": 40,
+        "expected_failures": 0,
+        "failed": 0,
+        "non_passing_test_methods": 0,
+        "passed": 40,
+        "skipped": 0,
+        "unexpected_successes": 0
+      },
+      "development_database_unchanged": true,
+      "finished_at_utc": "2026-11-22T19:54:41.175087+00:00",
+      "process_exit_code": 0,
+      "started_at_utc": "2026-11-22T19:54:05.916885+00:00"
+    },
+    "check": {
+      "active_db": null,
+      "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python /home/pc/projects/sqe-final/LeaveFlow/scripts/sqe/run_tests.py check --evidence-dir docs/sqe/evidence/api/a21/final/check",
+      "counts": null,
+      "development_database_unchanged": true,
+      "finished_at_utc": "2026-11-22T19:53:52.171135+00:00",
+      "process_exit_code": 0,
+      "started_at_utc": "2026-11-22T19:53:51.536708+00:00"
+    },
+    "failure-propagation": {
+      "active_db": "file:memorydb_default?mode=memory&cache=shared",
+      "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python /home/pc/projects/sqe-final/LeaveFlow/scripts/sqe/run_tests.py team tests.team.foundation.test_foundation.FoundationTests.test_pending_record_and_approved_only_consumption --evidence-dir docs/sqe/evidence/api/a21/final/failure-propagation",
+      "counts": {
+        "errors": 0,
+        "executed": 1,
+        "expected_failures": 0,
+        "failed": 1,
+        "non_passing_test_methods": 1,
+        "passed": 0,
+        "skipped": 0,
+        "unexpected_successes": 0
+      },
+      "development_database_unchanged": true,
+      "finished_at_utc": "2026-11-22T20:04:00.673990+00:00",
+      "process_exit_code": 1,
+      "started_at_utc": "2026-11-22T20:03:58.661330+00:00"
+    },
+    "foundation": {
+      "active_db": "file:memorydb_default?mode=memory&cache=shared",
+      "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python /home/pc/projects/sqe-final/LeaveFlow/scripts/sqe/run_tests.py team tests.team.foundation --evidence-dir docs/sqe/evidence/api/a21/final/foundation",
+      "counts": {
+        "errors": 0,
+        "executed": 12,
+        "expected_failures": 0,
+        "failed": 0,
+        "non_passing_test_methods": 0,
+        "passed": 12,
+        "skipped": 0,
+        "unexpected_successes": 0
+      },
+      "development_database_unchanged": true,
+      "finished_at_utc": "2026-11-22T19:54:05.639112+00:00",
+      "process_exit_code": 0,
+      "started_at_utc": "2026-11-22T19:53:58.011340+00:00"
+    },
+    "repeatability": {
+      "active_db": null,
+      "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python /home/pc/projects/sqe-final/LeaveFlow/scripts/sqe/run_tests.py repeatability --evidence-dir docs/sqe/evidence/api/a21/final/repeatability",
+      "counts": null,
+      "development_database_unchanged": true,
+      "finished_at_utc": "2026-11-22T19:56:49.492774+00:00",
+      "process_exit_code": 0,
+      "started_at_utc": "2026-11-22T19:55:23.093623+00:00"
+    },
+    "repeatability/run-1": {
+      "active_db": "file:memorydb_default?mode=memory&cache=shared",
+      "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python /home/pc/projects/sqe-final/LeaveFlow/scripts/sqe/run_tests.py team --evidence-dir /home/pc/projects/sqe-final/LeaveFlow/docs/sqe/evidence/api/a21/final/repeatability/run-1",
+      "counts": {
+        "errors": 0,
+        "executed": 52,
+        "expected_failures": 0,
+        "failed": 0,
+        "non_passing_test_methods": 0,
+        "passed": 52,
+        "skipped": 0,
+        "unexpected_successes": 0
+      },
+      "development_database_unchanged": true,
+      "finished_at_utc": "2026-11-22T19:56:05.562834+00:00",
+      "process_exit_code": 0,
+      "started_at_utc": "2026-11-22T19:55:23.244646+00:00"
+    },
+    "repeatability/run-2": {
+      "active_db": "file:memorydb_default?mode=memory&cache=shared",
+      "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python /home/pc/projects/sqe-final/LeaveFlow/scripts/sqe/run_tests.py team --evidence-dir /home/pc/projects/sqe-final/LeaveFlow/docs/sqe/evidence/api/a21/final/repeatability/run-2",
+      "counts": {
+        "errors": 0,
+        "executed": 52,
+        "expected_failures": 0,
+        "failed": 0,
+        "non_passing_test_methods": 0,
+        "passed": 52,
+        "skipped": 0,
+        "unexpected_successes": 0
+      },
+      "development_database_unchanged": true,
+      "finished_at_utc": "2026-11-22T19:56:49.368743+00:00",
+      "process_exit_code": 0,
+      "started_at_utc": "2026-11-22T19:56:05.840730+00:00"
+    },
+    "team": {
+      "active_db": "file:memorydb_default?mode=memory&cache=shared",
+      "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python /home/pc/projects/sqe-final/LeaveFlow/scripts/sqe/run_tests.py team --evidence-dir docs/sqe/evidence/api/a21/final/team",
+      "counts": {
+        "errors": 0,
+        "executed": 52,
+        "expected_failures": 0,
+        "failed": 0,
+        "non_passing_test_methods": 0,
+        "passed": 52,
+        "skipped": 0,
+        "unexpected_successes": 0
+      },
+      "development_database_unchanged": true,
+      "finished_at_utc": "2026-11-22T19:55:22.800947+00:00",
+      "process_exit_code": 0,
+      "started_at_utc": "2026-11-22T19:54:41.431690+00:00"
+    },
+    "upstream": {
+      "active_db": "file:memorydb_default?mode=memory&cache=shared",
+      "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python /home/pc/projects/sqe-final/LeaveFlow/scripts/sqe/run_tests.py upstream --evidence-dir docs/sqe/evidence/api/a21/final/upstream",
+      "counts": {
+        "errors": 0,
+        "executed": 9,
+        "expected_failures": 0,
+        "failed": 0,
+        "non_passing_test_methods": 0,
+        "passed": 9,
+        "skipped": 0,
+        "unexpected_successes": 0
+      },
+      "development_database_unchanged": true,
+      "finished_at_utc": "2026-11-22T19:53:57.766194+00:00",
+      "process_exit_code": 0,
+      "started_at_utc": "2026-11-22T19:53:52.416727+00:00"
+    }
+  },
+  "sensitivity": {
+    "count-weekends": {
+      "counts": {
+        "errors": 0,
+        "executed": 40,
+        "expected_failures": 0,
+        "failed": 8,
+        "non_passing_test_methods": 4,
+        "passed": 36,
+        "skipped": 0,
+        "unexpected_successes": 0
+      },
+      "development_database_unchanged": true,
+      "failing_test_methods": [
+        "test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check",
+        "test_w1_submission.BalanceTests.test_zero_and_negative_available",
+        "test_w1_submission.DateRuleTests.test_inclusive_weekday_counts",
+        "test_w1_submission.DateRuleTests.test_weekend_only_request_is_accepted_with_zero_days"
+      ],
+      "process_exit_code": 1
+    },
+    "no-balance-check": {
+      "counts": {
+        "errors": 0,
+        "executed": 40,
+        "expected_failures": 0,
+        "failed": 3,
+        "non_passing_test_methods": 3,
+        "passed": 37,
+        "skipped": 0,
+        "unexpected_successes": 0
+      },
+      "development_database_unchanged": true,
+      "failing_test_methods": [
+        "test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+        "test_w1_submission.BalanceTests.test_requested_days_at_available_boundary",
+        "test_w1_submission.BalanceTests.test_zero_and_negative_available"
+      ],
+      "process_exit_code": 1
+    },
+    "no-overlap-check": {
+      "counts": {
+        "errors": 0,
+        "executed": 40,
+        "expected_failures": 0,
+        "failed": 7,
+        "non_passing_test_methods": 2,
+        "passed": 38,
+        "skipped": 0,
+        "unexpected_successes": 0
+      },
+      "development_database_unchanged": true,
+      "failing_test_methods": [
+        "test_w1_submission.OverlapTests.test_approved_request_blocks_and_neighbour_passes",
+        "test_w1_submission.OverlapTests.test_inclusive_boundaries_against_pending_request"
+      ],
+      "process_exit_code": 1
+    },
+    "visibility-all": {
+      "counts": {
+        "errors": 0,
+        "executed": 40,
+        "expected_failures": 0,
+        "failed": 14,
+        "non_passing_test_methods": 4,
+        "passed": 36,
+        "skipped": 0,
+        "unexpected_successes": 0
+      },
+      "development_database_unchanged": true,
+      "failing_test_methods": [
+        "test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+        "test_w2_decisions.DecisionValueTests.test_guard_precedence",
+        "test_w2_decisions.DeniedDecisionTests.test_out_of_scope_managers_receive_404",
+        "test_w2_decisions.VisibilityTests.test_request_list_and_dashboard_scope_by_role"
+      ],
+      "process_exit_code": 1
+    }
+  }
+}

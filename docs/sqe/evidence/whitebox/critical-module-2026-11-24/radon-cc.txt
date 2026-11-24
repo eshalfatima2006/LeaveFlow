@@ -1,0 +1,29 @@
+backend/leave/serializers.py
+    M 30:4 LeaveRequestSerializer.validate - A (5)
+    C 16:0 LeaveRequestSerializer - A (4)
+    C 7:0 UserSerializer - A (1)
+    M 41:4 LeaveRequestSerializer.create - A (1)
+backend/leave/models.py
+    C 15:0 User - A (3)
+    C 29:0 LeaveBalance - A (3)
+    C 46:0 LeaveRequest - A (3)
+    M 71:4 LeaveRequest.business_days - A (3)
+    M 80:4 LeaveRequest.clean - A (3)
+    C 8:0 Team - A (2)
+    M 25:4 User.display_name - A (2)
+    M 35:4 LeaveBalance.approved_days - A (2)
+    M 11:4 Team.__str__ - A (1)
+    M 42:4 LeaveBalance.available_days - A (1)
+    M 92:4 LeaveRequest.__str__ - A (1)
+backend/leave/views.py
+    F 112:0 team_view - B (6)
+    F 67:0 decide_request - A (5)
+    F 46:0 visible_requests - A (4)
+    F 93:0 dashboard_view - A (4)
+    F 20:0 health_view - A (2)
+    F 33:0 login_view - A (2)
+    F 55:0 requests_view - A (2)
+    F 42:0 me_view - A (1)
+
+23 blocks (classes, functions, methods) analyzed.
+Average complexity: A (2.652173913043478)

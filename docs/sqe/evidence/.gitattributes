@@ -1,0 +1,3 @@
+# Run evidence is raw tool output and must stay byte-exact; whitespace
+# checks would otherwise require editing it. Maintained files stay checked.
+*.log -whitespace

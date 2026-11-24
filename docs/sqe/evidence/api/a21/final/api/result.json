@@ -1,0 +1,433 @@
+{
+  "action": "team",
+  "cases": [
+    {
+      "description": "API-W2-002.06; FR-W2-02; BR-04/05: employee decision on a teammate's request -> 403, GET 405, unchanged.",
+      "id": "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_employee_cannot_decide_or_reach_another_users_request",
+      "method_id": "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_employee_cannot_decide_or_reach_another_users_request",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-001.05; FR-W1-01, FR-W2-01; BR-04: /me and lists reflect only the token's user.",
+      "id": "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "method_id": "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-001.02; FR-W1-01; BR-04: wrong/unknown/missing/blank/inactive -> 400, no token.",
+      "id": "tests.team.api.test_authentication.LoginTests.test_invalid_credentials_are_refused_without_issuing_tokens",
+      "method_id": "tests.team.api.test_authentication.LoginTests.test_invalid_credentials_are_refused_without_issuing_tokens",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-001.01; FR-W1-01; BR-04: valid credentials yield the caller's own token.",
+      "id": "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+      "method_id": "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-001.04; FR-W1-01; BR-04: malformed header/unknown/inactive-user token -> 401, no row.",
+      "id": "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+      "method_id": "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-001.03; FR-W1-01, FR-W2-01, FR-W2-02; BR-04: no token -> 401, nothing exposed or written.",
+      "id": "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "method_id": "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-005.02; FR-W1-05; BR-03: A = 5 - approved 2; pending/rejected consume nothing -> D=3 ok, D=4 400.",
+      "id": "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "method_id": "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-005.04; FR-W1-05; BR-03. CHARACTERIZATION (GAP-07): no balance -> any D accepted, dashboard zeros.",
+      "id": "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check",
+      "method_id": "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-005.05; FR-W1-05, FR-W1-06; BR-03. CHARACTERIZATION (GAP-01): two 4-day pendings at A=5 both 201.",
+      "id": "tests.team.api.test_w1_submission.BalanceTests.test_pending_requests_reserve_no_allowance",
+      "method_id": "tests.team.api.test_w1_submission.BalanceTests.test_pending_requests_reserve_no_allowance",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-005.01; FR-W1-05; BR-03/01: A=5 -> D=4 and D=5 accepted, D=6 rejected (three-point BVA).",
+      "id": "tests.team.api.test_w1_submission.BalanceTests.test_requested_days_at_available_boundary",
+      "method_id": "tests.team.api.test_w1_submission.BalanceTests.test_requested_days_at_available_boundary",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-005.03; FR-W1-05; BR-03. A=0: D=1 400, D=0 accepted. A=-1: even D=0 400 (CHARACTERIZATION, GAP-01).",
+      "id": "tests.team.api.test_w1_submission.BalanceTests.test_zero_and_negative_available",
+      "method_id": "tests.team.api.test_w1_submission.BalanceTests.test_zero_and_negative_available",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-003.01; FR-W1-03; BR-01: end one day before start -> 400 end_date, no row.",
+      "id": "tests.team.api.test_w1_submission.DateRuleTests.test_end_before_start_rejected_on_end_date",
+      "method_id": "tests.team.api.test_w1_submission.DateRuleTests.test_end_before_start_rejected_on_end_date",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-003.02; FR-W1-03, FR-W1-06; BR-01: server business_days equals independent counts.",
+      "id": "tests.team.api.test_w1_submission.DateRuleTests.test_inclusive_weekday_counts",
+      "method_id": "tests.team.api.test_w1_submission.DateRuleTests.test_inclusive_weekday_counts",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-003.04; FR-W1-03; BR-01. CHARACTERIZATION (no date-relative-to-today rule; policy open).",
+      "id": "tests.team.api.test_w1_submission.DateRuleTests.test_past_dates_are_accepted",
+      "method_id": "tests.team.api.test_w1_submission.DateRuleTests.test_past_dates_are_accepted",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-003.03; FR-W1-03; BR-01. CHARACTERIZATION (no positive-day minimum; policy open).",
+      "id": "tests.team.api.test_w1_submission.DateRuleTests.test_weekend_only_request_is_accepted_with_zero_days",
+      "method_id": "tests.team.api.test_w1_submission.DateRuleTests.test_weekend_only_request_is_accepted_with_zero_days",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-004.02; FR-W1-04; BR-02/05: approved interval still blocks overlap.",
+      "id": "tests.team.api.test_w1_submission.OverlapTests.test_approved_request_blocks_and_neighbour_passes",
+      "method_id": "tests.team.api.test_w1_submission.OverlapTests.test_approved_request_blocks_and_neighbour_passes",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-004.01; FR-W1-04; BR-02: existing pending 12-07..11; touching endpoints block, neighbours pass.",
+      "id": "tests.team.api.test_w1_submission.OverlapTests.test_inclusive_boundaries_against_pending_request",
+      "method_id": "tests.team.api.test_w1_submission.OverlapTests.test_inclusive_boundaries_against_pending_request",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-004.04; FR-W1-04, FR-W1-01; BR-02/04: overlap is per employee only.",
+      "id": "tests.team.api.test_w1_submission.OverlapTests.test_other_employee_may_request_same_dates",
+      "method_id": "tests.team.api.test_w1_submission.OverlapTests.test_other_employee_may_request_same_dates",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-004.03; FR-W1-04; BR-02/05: rejected history does not block; a NEW row is created.",
+      "id": "tests.team.api.test_w1_submission.OverlapTests.test_rejected_request_dates_can_be_reused_as_new_row",
+      "method_id": "tests.team.api.test_w1_submission.OverlapTests.test_rejected_request_dates_can_be_reused_as_new_row",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-002.04; FR-W1-02; BR-06: unparseable/impossible dates, unknown types, nonstring note -> 400.",
+      "id": "tests.team.api.test_w1_submission.PayloadValidationTests.test_invalid_date_type_and_note_values_rejected",
+      "method_id": "tests.team.api.test_w1_submission.PayloadValidationTests.test_invalid_date_type_and_note_values_rejected",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-002.05; FR-W1-02; BR-06: protocol partitions -> 400 parse error / 415, no insert.",
+      "id": "tests.team.api.test_w1_submission.PayloadValidationTests.test_malformed_json_and_unsupported_media_type",
+      "method_id": "tests.team.api.test_w1_submission.PayloadValidationTests.test_malformed_json_and_unsupported_media_type",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-002.03; FR-W1-02; BR-06: omitted/null required dates, null type/note -> 400 on that field.",
+      "id": "tests.team.api.test_w1_submission.PayloadValidationTests.test_missing_and_null_fields_rejected_without_insert",
+      "method_id": "tests.team.api.test_w1_submission.PayloadValidationTests.test_missing_and_null_fields_rejected_without_insert",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-002.01; FR-W1-02; BR-06: vacation/permit/personal accepted; omitted defaults to vacation.",
+      "id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_each_leave_type_and_omitted_default",
+      "method_id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_each_leave_type_and_omitted_default",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-001.06; FR-W1-01, FR-W1-06; BR-04. CHARACTERIZATION (FR-W1-01 note): role is not restricted.",
+      "id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_manager_and_admin_self_submission_is_owned_by_caller",
+      "method_id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_manager_and_admin_self_submission_is_owned_by_caller",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-002.02; FR-W1-02; BR-06: omitted/blank/whitespace -> '', trimmed 279/280 ok, 281 -> 400.",
+      "id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_note_optional_blank_and_length_boundaries",
+      "method_id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_note_optional_blank_and_length_boundaries",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-001.07; FR-W1-01, FR-W1-02; BR-04/05/06: injected employee/status/id/days are ignored.",
+      "id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_read_only_and_unknown_fields_cannot_set_owner_or_state",
+      "method_id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_read_only_and_unknown_fields_cannot_set_owner_or_state",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W1-006.01; FR-W1-01, FR-W1-06; BR-04/05/06: 201, returned k readable, balance unchanged.",
+      "id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row",
+      "method_id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W2-002.03; FR-W2-02, FR-W2-05, FR-W2-06; BR-04/05: admin approves Team B, rejects Team A.",
+      "id": "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team",
+      "method_id": "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W2-003.03; FR-W2-03, FR-W2-05; BR-05/06: injected decider/time/owner/note are ignored.",
+      "id": "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_extra_body_keys_cannot_override_audit_or_content",
+      "method_id": "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_extra_body_keys_cannot_override_audit_or_content",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W2-002.02, API-W2-005.01; FR-W2-02, FR-W2-04, FR-W2-05; BR-03/04/05: 200, actor/time, used +D.",
+      "id": "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_same_team_manager_approves_pending_and_balance_is_derived",
+      "method_id": "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_same_team_manager_approves_pending_and_balance_is_derived",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W2-006.01; FR-W2-02, FR-W2-04, FR-W2-06; BR-03/04/05: 200 rejected, used unchanged.",
+      "id": "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_same_team_manager_rejects_pending_without_charging_allowance",
+      "method_id": "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_same_team_manager_rejects_pending_without_charging_allowance",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W2-003.02; FR-W2-02, FR-W2-03; BR-04/05/06: role before value before lookup before self/state.",
+      "id": "tests.team.api.test_w2_decisions.DecisionValueTests.test_guard_precedence",
+      "method_id": "tests.team.api.test_w2_decisions.DecisionValueTests.test_guard_precedence",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W2-003.01; FR-W2-03; BR-05/06: only approved/rejected accepted; others -> 400, unchanged.",
+      "id": "tests.team.api.test_w2_decisions.DecisionValueTests.test_missing_null_and_invalid_status_values",
+      "method_id": "tests.team.api.test_w2_decisions.DecisionValueTests.test_missing_null_and_invalid_status_values",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W2-002.01; FR-W2-02; BR-04: employee -> 403 for teammate's and own requests, unchanged.",
+      "id": "tests.team.api.test_w2_decisions.DeniedDecisionTests.test_employee_role_cannot_decide",
+      "method_id": "tests.team.api.test_w2_decisions.DeniedDecisionTests.test_employee_role_cannot_decide",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W2-002.07; FR-W2-02; BR-04: absent IDs -> 404 even for admin; non-integer path does not route.",
+      "id": "tests.team.api.test_w2_decisions.DeniedDecisionTests.test_nonexistent_and_unroutable_ids",
+      "method_id": "tests.team.api.test_w2_decisions.DeniedDecisionTests.test_nonexistent_and_unroutable_ids",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W2-002.04; FR-W2-01, FR-W2-02; BR-04: other-team and teamless managers cannot reach target.",
+      "id": "tests.team.api.test_w2_decisions.DeniedDecisionTests.test_out_of_scope_managers_receive_404",
+      "method_id": "tests.team.api.test_w2_decisions.DeniedDecisionTests.test_out_of_scope_managers_receive_404",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W2-002.05; FR-W2-02; BR-04/05: own pending request -> 403 for manager, admin, teamless manager.",
+      "id": "tests.team.api.test_w2_decisions.DeniedDecisionTests.test_self_decision_forbidden_for_every_privileged_role",
+      "method_id": "tests.team.api.test_w2_decisions.DeniedDecisionTests.test_self_decision_forbidden_for_every_privileged_role",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W2-004.01; FR-W2-04; BR-05: final states -> 409 for both values; audit and balance preserved.",
+      "id": "tests.team.api.test_w2_decisions.FinalStateTests.test_approved_and_rejected_requests_cannot_be_decided_again",
+      "method_id": "tests.team.api.test_w2_decisions.FinalStateTests.test_approved_and_rejected_requests_cannot_be_decided_again",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W2-004.02; FR-W2-04; BR-05: pending->approved once; later approve/reject -> 409, same actor/time.",
+      "id": "tests.team.api.test_w2_decisions.FinalStateTests.test_repeat_after_successful_decision_conflicts",
+      "method_id": "tests.team.api.test_w2_decisions.FinalStateTests.test_repeat_after_successful_decision_conflicts",
+      "outcome": "passed"
+    },
+    {
+      "description": "API-W2-001.01; FR-W2-01; BR-04: employee own, team manager team, teamless own, admin all.",
+      "id": "tests.team.api.test_w2_decisions.VisibilityTests.test_request_list_and_dashboard_scope_by_role",
+      "method_id": "tests.team.api.test_w2_decisions.VisibilityTests.test_request_list_and_dashboard_scope_by_role",
+      "outcome": "passed"
+    }
+  ],
+  "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python /home/pc/projects/sqe-final/LeaveFlow/scripts/sqe/run_tests.py team tests.team.api --evidence-dir docs/sqe/evidence/api/a21/final/api",
+  "counts": {
+    "errors": 0,
+    "executed": 40,
+    "expected_failures": 0,
+    "failed": 0,
+    "non_passing_test_methods": 0,
+    "passed": 40,
+    "skipped": 0,
+    "unexpected_successes": 0
+  },
+  "database": {
+    "active_name": "file:memorydb_default?mode=memory&cache=shared",
+    "engine": "django.db.backends.sqlite3",
+    "redis_disabled": true
+  },
+  "development_database_after": {
+    "db.sqlite3": {
+      "exists": true,
+      "sha256": "70155559be6dc448fa8eb05e804ff7a60532afbac881bac21bc42de47cbcd33d",
+      "size": 180224
+    },
+    "db.sqlite3-journal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-shm": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-wal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    }
+  },
+  "development_database_before": {
+    "db.sqlite3": {
+      "exists": true,
+      "sha256": "70155559be6dc448fa8eb05e804ff7a60532afbac881bac21bc42de47cbcd33d",
+      "size": 180224
+    },
+    "db.sqlite3-journal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-shm": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-wal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    }
+  },
+  "development_database_unchanged": true,
+  "elapsed_seconds": 35.258032,
+  "environment": {
+    "database_profile": "sqe-memory-v1",
+    "external_database_environment_ignored": false,
+    "git_branch": "test/isolated-fixtures-and-baseline",
+    "git_sha": "b65ca6a4f59bdc0c543ed1cf3eed786e29bed24c",
+    "git_status": [
+      "M .gitignore",
+      " M scripts/sqe/run_tests.py",
+      " M tests/team/runner.py",
+      " M tests/team/safety.py",
+      "?? docs/sqe/evidence/api/a21/api/result.json",
+      "?? docs/sqe/evidence/api/a21/api/stderr.log",
+      "?? docs/sqe/evidence/api/a21/api/stdout.log",
+      "?? docs/sqe/evidence/api/a21/check/result.json",
+      "?? docs/sqe/evidence/api/a21/check/stderr.log",
+      "?? docs/sqe/evidence/api/a21/check/stdout.log",
+      "?? docs/sqe/evidence/api/a21/development-db-fingerprint.txt",
+      "?? docs/sqe/evidence/api/a21/final/api/stderr.log",
+      "?? docs/sqe/evidence/api/a21/final/api/stdout.log",
+      "?? docs/sqe/evidence/api/a21/final/check/result.json",
+      "?? docs/sqe/evidence/api/a21/final/check/stderr.log",
+      "?? docs/sqe/evidence/api/a21/final/check/stdout.log",
+      "?? docs/sqe/evidence/api/a21/final/development-db-fingerprint.txt",
+      "?? docs/sqe/evidence/api/a21/final/foundation/result.json",
+      "?? docs/sqe/evidence/api/a21/final/foundation/stderr.log",
+      "?? docs/sqe/evidence/api/a21/final/foundation/stdout.log",
+      "?? docs/sqe/evidence/api/a21/final/upstream/result.json",
+      "?? docs/sqe/evidence/api/a21/final/upstream/stderr.log",
+      "?? docs/sqe/evidence/api/a21/final/upstream/stdout.log",
+      "?? docs/sqe/evidence/api/a21/foundation/result.json",
+      "?? docs/sqe/evidence/api/a21/foundation/stderr.log",
+      "?? docs/sqe/evidence/api/a21/foundation/stdout.log",
+      "?? docs/sqe/evidence/api/a21/repeatability/result.json",
+      "?? docs/sqe/evidence/api/a21/repeatability/run-1/result.json",
+      "?? docs/sqe/evidence/api/a21/repeatability/run-1/stderr.log",
+      "?? docs/sqe/evidence/api/a21/repeatability/run-1/stdout.log",
+      "?? docs/sqe/evidence/api/a21/repeatability/run-2/result.json",
+      "?? docs/sqe/evidence/api/a21/repeatability/run-2/stderr.log",
+      "?? docs/sqe/evidence/api/a21/repeatability/run-2/stdout.log",
+      "?? docs/sqe/evidence/api/a21/repeatability/stderr.log",
+      "?? docs/sqe/evidence/api/a21/repeatability/stdout.log",
+      "?? docs/sqe/evidence/api/a21/sensitivity/count-weekends/result.json",
+      "?? docs/sqe/evidence/api/a21/sensitivity/count-weekends/stderr.log",
+      "?? docs/sqe/evidence/api/a21/sensitivity/count-weekends/stdout.log",
+      "?? docs/sqe/evidence/api/a21/sensitivity/no-balance-check/result.json",
+      "?? docs/sqe/evidence/api/a21/sensitivity/no-balance-check/stderr.log",
+      "?? docs/sqe/evidence/api/a21/sensitivity/no-balance-check/stdout.log",
+      "?? docs/sqe/evidence/api/a21/sensitivity/no-overlap-check/result.json",
+      "?? docs/sqe/evidence/api/a21/sensitivity/no-overlap-check/stderr.log",
+      "?? docs/sqe/evidence/api/a21/sensitivity/no-overlap-check/stdout.log",
+      "?? docs/sqe/evidence/api/a21/sensitivity/visibility-all/result.json",
+      "?? docs/sqe/evidence/api/a21/sensitivity/visibility-all/stderr.log",
+      "?? docs/sqe/evidence/api/a21/sensitivity/visibility-all/stdout.log",
+      "?? docs/sqe/evidence/api/a21/sensitivity_probe.py",
+      "?? docs/sqe/evidence/api/a21/summary.json",
+      "?? docs/sqe/evidence/api/a21/team/result.json",
+      "?? docs/sqe/evidence/api/a21/team/stderr.log",
+      "?? docs/sqe/evidence/api/a21/team/stdout.log",
+      "?? docs/sqe/evidence/api/a21/upstream/result.json",
+      "?? docs/sqe/evidence/api/a21/upstream/stderr.log",
+      "?? docs/sqe/evidence/api/a21/upstream/stdout.log",
+      "?? prompt.md",
+      "?? tests/__init__.py",
+      "?? tests/team/api/support.py",
+      "?? tests/team/api/test_authentication.py",
+      "?? tests/team/api/test_w1_submission.py",
+      "?? tests/team/api/test_w2_decisions.py"
+    ],
+    "packages": {
+      "Django": "6.0.7",
+      "django-cors-headers": "4.9.0",
+      "djangorestframework": "3.17.1",
+      "psycopg": "3.3.4",
+      "redis": "6.4.0"
+    },
+    "python": "3.12.7",
+    "python_executable": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python",
+    "redis_environment_ignored": false,
+    "runner": "Django DiscoverRunner + unittest; version is the Django/Python version above",
+    "source_sha256": {
+      "backend/config/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/config/asgi.py": "f23d09f7cded8ce1239e5fbb32961ea409103501b9958934dbd77e92d4a8db21",
+      "backend/config/settings.py": "280ef4c3681431f604f132324c3f8bfd1ab00ed189799478e9e65efa4d6d2a7e",
+      "backend/config/urls.py": "ffd0aafd7a1d40d02be8bb99429d0058adfa4983568e9faf90fda22020d81bf5",
+      "backend/config/wsgi.py": "a7b47958708160e7ebcb377d677f5f2081640fb5dc4478bb486743055a85e192",
+      "backend/leave/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/admin.py": "7ce699328024faa2509a344b00c4edc255bd0bb7baeb4430bfbc4f40fc733acc",
+      "backend/leave/apps.py": "83e25d15a9e284383927712d3e065ab41882f7d22b995a7a44e1f271c364901a",
+      "backend/leave/events.py": "5f7d0c07bfbbfed9d30275a7b2dc7312399529afcf89965fd79240683c93c494",
+      "backend/leave/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/management/commands/seed_demo.py": "5f2e5db904c68eb03f89b1616404cb5f38d1758f79720a91f67191aaf44edd59",
+      "backend/leave/migrations/0001_initial.py": "ee7a9ad789bed3726e5b5b027f43dfc6fbe613e05d5e95d3acf69515f26d7f91",
+      "backend/leave/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/models.py": "bd1f0dbea11e0d7a665d9b17bd17c2d01c3ce7da7985d9deff0a7ca405711f57",
+      "backend/leave/serializers.py": "8dbfd179d7a85198cd0fac5b209c7fe6dfd740d50d110bd8e9c5a521089a7d88",
+      "backend/leave/tests.py": "61be0822d9c51929efdcde2f401d055deab8b0c0919b697078cc768413563c1c",
+      "backend/leave/urls.py": "81630a31adc7c02c33c92218b7f08b91bc9068f924661b17e80228a7126245e3",
+      "backend/leave/views.py": "86f214b1d1e775c1610f0d6377702b7a1569970068205a7c7c39d2f9c8f2c971",
+      "backend/manage.py": "b30eeb4890cb6f315cc238313808f636db29e9906b61cc6f6051567156a0097b",
+      "requirements.txt": "ca409861c6a962ba2b22754da08a531b1a4bf1c1f1f4c77e892e804532fe0a44",
+      "scripts/sqe/run_tests.py": "1c7124816207befa8aa5a6989377dfb668cc2e04bca15c801d5673fcbc2e474b",
+      "tests/__init__.py": "401c994404cf80c29753cd5ffcb9f5b4964f07e20d51a720ba7070f1b1c334c8",
+      "tests/team/__init__.py": "1a8c0583e7a59b76dc97c31ef6ea8205994c1482c6e4f3d8cc52a86de4815213",
+      "tests/team/api/__init__.py": "644e3a6aaa5b75fd9b949c84c69c6d6abd91c9cb61a1714263f8070e53b0b47e",
+      "tests/team/api/support.py": "03609059368fae69366e5419f58ef99a044837ac159f6a23959633cfd8ef7308",
+      "tests/team/api/test_authentication.py": "2d27fed69f52b404afca95d0c52e72895881475880e63b92f333425081c639fd",
+      "tests/team/api/test_w1_submission.py": "dc7ef8ce1250ce065b1255cef3c6b59965f9e793e94166af082be55075ef853b",
+      "tests/team/api/test_w2_decisions.py": "efa112e11ce983c906884ca1e555e42692af92071e86398e8209b051fd40a95f",
+      "tests/team/fixtures/__init__.py": "a4f3d78436c5ac0a1377fa08183f7ee299df67e7638f1e076e249b340dd0bcfe",
+      "tests/team/fixtures/leave_data.py": "db3f01290c00206db9d065c020582bab9bac8364b7fc7405ed6d5f3ef13c8a1a",
+      "tests/team/foundation/__init__.py": "a4a08308e5b6d25d67ba2b831993afe15c05265c12d6a789c566d013f090746b",
+      "tests/team/foundation/test_foundation.py": "4ce6683e4d3f9697c48e1b804f5010f1fcf1d513086056d804a4469e10a84c03",
+      "tests/team/generated/__init__.py": "f5090cc4ac9fcfba221f5dfc3e8807c6bfc675937d6949362e20a32e663462df",
+      "tests/team/integration/__init__.py": "b9728132e02d77de346980957b8ada6f25baa658e043382d59e4fb08ed68634f",
+      "tests/team/runner.py": "bf1ee1c4bd1e215e65822a93a3503c9ed97f16f1964205b82a60abb041bc9655",
+      "tests/team/safety.py": "0d07fd512e41b0c7d1f8147b2f3c44251a609dba9d2c8501bc568b17723f3592",
+      "tests/team/settings.py": "9281b859d7f4d9e9aac2667ce7a6ac719bbc5756b08c305bdc17a4babe0941fe"
+    },
+    "sqlite_version": "3.46.1",
+    "tracked_diff_sha256": "78129f3160241721755e298a50316eeee696d1738a45a69535102e05bc18d2a0"
+  },
+  "finished_at_utc": "2026-11-22T19:54:41.175087+00:00",
+  "process_exit_code": 0,
+  "snapshots": {},
+  "started_at_utc": "2026-11-22T19:54:05.916885+00:00"
+}

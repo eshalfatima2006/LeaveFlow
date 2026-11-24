@@ -1,0 +1,118 @@
+{
+  "profile": "sqe-memory-v1",
+  "database": "file:memorydb_default?mode=memory&cache=shared",
+  "D1": [
+    {
+      "row": "B=F, E=masked",
+      "fixture": "no LeaveBalance; 2027-03-01..05 (D=5)",
+      "valid": true,
+      "errors": {},
+      "available_days_evaluations": 0
+    },
+    {
+      "row": "B=T, E=F",
+      "fixture": "A=5; 2027-03-01..05 (D=5)",
+      "valid": true,
+      "errors": {},
+      "available_days_evaluations": 1
+    },
+    {
+      "row": "B=T, E=T",
+      "fixture": "A=5; 2027-03-01..08 (D=6)",
+      "valid": false,
+      "errors": {
+        "non_field_errors": [
+          "Saldo ferie insufficiente."
+        ]
+      },
+      "available_days_evaluations": 1
+    }
+  ],
+  "D1_infeasible": {
+    "rows": [
+      "B=F, E=T",
+      "B=F, E=F"
+    ],
+    "reason": "With B=F there is no LeaveBalance object, so available_days (and therefore E) has no domain value; Python short-circuit also skips E. Attempting to evaluate E: AttributeError: 'NoneType' object has no attribute 'available_days'"
+  },
+  "H": [
+    {
+      "row": "H=T (dict-shaped ValidationError)",
+      "fixture": "end before start",
+      "valid": false,
+      "errors": {
+        "end_date": [
+          "La data finale non pu\u00f2 precedere quella iniziale."
+        ]
+      },
+      "available_days_evaluations": 0
+    },
+    {
+      "row": "H=F (list-shaped ValidationError)",
+      "fixture": "overlap with pending 2027-04-05..09",
+      "valid": false,
+      "errors": {
+        "non_field_errors": [
+          "Esiste gi\u00e0 una richiesta sovrapposta."
+        ]
+      },
+      "available_days_evaluations": 0
+    }
+  ],
+  "D2": [
+    {
+      "actor": "admin",
+      "M": null,
+      "T": null,
+      "visible_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "outcome": "all requests (admin bypass)"
+    },
+    {
+      "actor": "manager+team",
+      "M": "T",
+      "T": "T",
+      "visible_ids": [
+        1,
+        3,
+        5
+      ],
+      "outcome": "team A requests (D2 true)"
+    },
+    {
+      "actor": "manager-noteam",
+      "M": "T",
+      "T": "F",
+      "visible_ids": [
+        4
+      ],
+      "outcome": "own requests only (D2 false / fallback)"
+    },
+    {
+      "actor": "employee+team",
+      "M": "F",
+      "T": "T",
+      "visible_ids": [
+        5
+      ],
+      "outcome": "own requests only (D2 false / fallback)"
+    },
+    {
+      "actor": "employee-noteam",
+      "M": "F",
+      "T": "F",
+      "visible_ids": [
+        6
+      ],
+      "outcome": "own requests only (D2 false / fallback)"
+    }
+  ],
+  "development_database_unchanged": true
+}

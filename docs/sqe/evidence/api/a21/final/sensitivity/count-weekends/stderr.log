@@ -1,0 +1,82 @@
+Creating test database for alias 'default'...
+.......F..F.FFF.FFF.........................
+======================================================================
+FAIL: test_missing_balance_record_skips_the_check (tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check)
+API-W1-005.04; FR-W1-05; BR-03. CHARACTERIZATION (GAP-07): no balance -> any D accepted, dashboard zeros.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 329, in test_missing_balance_record_skips_the_check
+    self.assertEqual(response.data["business_days"], 25)
+AssertionError: 33 != 25
+
+======================================================================
+FAIL: test_zero_and_negative_available (tests.team.api.test_w1_submission.BalanceTests.test_zero_and_negative_available)
+API-W1-005.03; FR-W1-05; BR-03. A=0: D=1 400, D=0 accepted. A=-1: even D=0 400 (CHARACTERIZATION, GAP-01).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 316, in test_zero_and_negative_available
+    response, _ = self.assert_created(payload("2026-12-12", "2026-12-12"), people.e1, client)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 46, in assert_created
+    self.assertEqual(response.status_code, 201, response.data)
+AssertionError: 400 != 201 : {'non_field_errors': [ErrorDetail(string='Saldo ferie insufficiente.', code='invalid')]}
+
+======================================================================
+FAIL: test_inclusive_weekday_counts (tests.team.api.test_w1_submission.DateRuleTests.test_inclusive_weekday_counts) (start='2026-12-11', end='2026-12-14')
+API-W1-003.02; FR-W1-03, FR-W1-06; BR-01: server business_days equals independent counts.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 202, in test_inclusive_weekday_counts
+    self.assertEqual(response.data["business_days"], days)
+AssertionError: 4 != 2
+
+======================================================================
+FAIL: test_inclusive_weekday_counts (tests.team.api.test_w1_submission.DateRuleTests.test_inclusive_weekday_counts) (start='2026-12-07', end='2026-12-14')
+API-W1-003.02; FR-W1-03, FR-W1-06; BR-01: server business_days equals independent counts.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 202, in test_inclusive_weekday_counts
+    self.assertEqual(response.data["business_days"], days)
+AssertionError: 8 != 6
+
+======================================================================
+FAIL: test_inclusive_weekday_counts (tests.team.api.test_w1_submission.DateRuleTests.test_inclusive_weekday_counts) (start='2026-12-31', end='2027-01-04')
+API-W1-003.02; FR-W1-03, FR-W1-06; BR-01: server business_days equals independent counts.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 202, in test_inclusive_weekday_counts
+    self.assertEqual(response.data["business_days"], days)
+AssertionError: 5 != 3
+
+======================================================================
+FAIL: test_weekend_only_request_is_accepted_with_zero_days (tests.team.api.test_w1_submission.DateRuleTests.test_weekend_only_request_is_accepted_with_zero_days) (start='2026-12-12', end='2026-12-12')
+API-W1-003.03; FR-W1-03; BR-01. CHARACTERIZATION (no positive-day minimum; policy open).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 210, in test_weekend_only_request_is_accepted_with_zero_days
+    self.assertEqual(response.data["business_days"], 0)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_weekend_only_request_is_accepted_with_zero_days (tests.team.api.test_w1_submission.DateRuleTests.test_weekend_only_request_is_accepted_with_zero_days) (start='2026-12-13', end='2026-12-13')
+API-W1-003.03; FR-W1-03; BR-01. CHARACTERIZATION (no positive-day minimum; policy open).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 210, in test_weekend_only_request_is_accepted_with_zero_days
+    self.assertEqual(response.data["business_days"], 0)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_weekend_only_request_is_accepted_with_zero_days (tests.team.api.test_w1_submission.DateRuleTests.test_weekend_only_request_is_accepted_with_zero_days) (start='2026-12-12', end='2026-12-13')
+API-W1-003.03; FR-W1-03; BR-01. CHARACTERIZATION (no positive-day minimum; policy open).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/api/test_w1_submission.py", line 210, in test_weekend_only_request_is_accepted_with_zero_days
+    self.assertEqual(response.data["business_days"], 0)
+AssertionError: 2 != 0
+
+----------------------------------------------------------------------
+Ran 40 tests in 34.444s
+
+FAILED (failures=8)
+Destroying test database for alias 'default'...

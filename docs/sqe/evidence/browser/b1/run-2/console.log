@@ -1,0 +1,196 @@
+[2m[WebServer] [22m[23/Nov/2026 16:06:49] "GET /health/ HTTP/1.1" 200 16
+[2m[WebServer] [22m[23/Nov/2026 16:06:51] "POST /api/auth/login/ HTTP/1.1" 200 183
+
+Running 11 tests using 1 worker
+
+[2m[WebServer] [22m[23/Nov/2026 16:06:53] "OPTIONS /api/me/ HTTP/1.1" 200 0
+[2m[WebServer] [22mUnauthorized: /api/me/
+[2m[WebServer] [22m[23/Nov/2026 16:06:53] "GET /api/me/ HTTP/1.1" 401 69
+[2m[WebServer] [22m[23/Nov/2026 16:06:54] "OPTIONS /api/auth/login/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:06:54] "POST /api/auth/login/ HTTP/1.1" 200 159
+[2m[WebServer] [22m[23/Nov/2026 16:06:54] "OPTIONS /api/dashboard/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:06:54] "OPTIONS /api/requests/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:06:54] "OPTIONS /api/team/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:06:54] "GET /api/requests/ HTTP/1.1" 200 367
+[2m[WebServer] [22m[23/Nov/2026 16:06:54] "GET /api/team/ HTTP/1.1" 200 152
+[2m[WebServer] [22m[23/Nov/2026 16:06:54] "GET /api/dashboard/ HTTP/1.1" 200 473
+[2m[WebServer] [22m[23/Nov/2026 16:06:55] "POST /api/requests/ HTTP/1.1" 201 360
+[2m[WebServer] [22m[23/Nov/2026 16:06:55] "GET /api/requests/ HTTP/1.1" 200 728
+[2m[WebServer] [22m[23/Nov/2026 16:06:55] "GET /api/team/ HTTP/1.1" 200 152
+[2m[WebServer] [22m[23/Nov/2026 16:06:55] "GET /api/dashboard/ HTTP/1.1" 200 834
+  ✓  1 [chromium] › uc01-submit-leave.spec.ts:59:3 › UC-01 Submit leave request › TC-UC01-M main: employee submits a valid request at the allowance boundary (D = A = 5) (4.3s)
+[2m[WebServer] [22m[23/Nov/2026 16:06:58] "OPTIONS /api/me/ HTTP/1.1" 200 0
+[2m[WebServer] [22mUnauthorized: /api/me/
+[2m[WebServer] [22m[23/Nov/2026 16:06:58] "GET /api/me/ HTTP/1.1" 401 69
+[2m[WebServer] [22m[23/Nov/2026 16:06:58] "OPTIONS /api/auth/login/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:06:58] "POST /api/auth/login/ HTTP/1.1" 200 159
+[2m[WebServer] [22m[23/Nov/2026 16:06:58] "OPTIONS /api/requests/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:06:58] "OPTIONS /api/dashboard/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:06:58] "OPTIONS /api/team/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:06:58] "GET /api/requests/ HTTP/1.1" 200 367
+[2m[WebServer] [22m[23/Nov/2026 16:06:58] "GET /api/team/ HTTP/1.1" 200 152
+[2m[WebServer] [22m[23/Nov/2026 16:06:58] "GET /api/dashboard/ HTTP/1.1" 200 473
+[2m[WebServer] [22m[23/Nov/2026 16:06:59] "POST /api/requests/ HTTP/1.1" 201 363
+[2m[WebServer] [22m[23/Nov/2026 16:06:59] "GET /api/team/ HTTP/1.1" 200 152
+[2m[WebServer] [22m[23/Nov/2026 16:06:59] "GET /api/dashboard/ HTTP/1.1" 200 837
+[2m[WebServer] [22m[23/Nov/2026 16:06:59] "GET /api/requests/ HTTP/1.1" 200 731
+  ✓  2 [chromium] › uc01-submit-leave.spec.ts:86:3 › UC-01 Submit leave request › TC-UC01-A1 alternative: employee revises the dates after the working-day preview (3.3s)
+[2m[WebServer] [22m[23/Nov/2026 16:07:01] "OPTIONS /api/me/ HTTP/1.1" 200 0
+[2m[WebServer] [22mUnauthorized: /api/me/
+[2m[WebServer] [22m[23/Nov/2026 16:07:01] "GET /api/me/ HTTP/1.1" 401 69
+[2m[WebServer] [22m[23/Nov/2026 16:07:01] "OPTIONS /api/auth/login/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:01] "POST /api/auth/login/ HTTP/1.1" 200 159
+[2m[WebServer] [22m[23/Nov/2026 16:07:01] "OPTIONS /api/dashboard/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:01] "OPTIONS /api/requests/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:01] "OPTIONS /api/team/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:01] "GET /api/team/ HTTP/1.1" 200 152
+[2m[WebServer] [22m[23/Nov/2026 16:07:01] "GET /api/requests/ HTTP/1.1" 200 367
+[2m[WebServer] [22m[23/Nov/2026 16:07:01] "GET /api/dashboard/ HTTP/1.1" 200 473
+  ✓  3 [chromium] › uc01-submit-leave.spec.ts:106:3 › UC-01 Submit leave request › TC-UC01-A2 alternative: employee abandons the request before submitting (3.7s)
+[2m[WebServer] [22m[23/Nov/2026 16:07:05] "OPTIONS /api/me/ HTTP/1.1" 200 0
+[2m[WebServer] [22mUnauthorized: /api/me/
+[2m[WebServer] [22m[23/Nov/2026 16:07:05] "GET /api/me/ HTTP/1.1" 401 69
+[2m[WebServer] [22m[23/Nov/2026 16:07:05] "OPTIONS /api/auth/login/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:05] "POST /api/auth/login/ HTTP/1.1" 200 159
+[2m[WebServer] [22m[23/Nov/2026 16:07:05] "OPTIONS /api/dashboard/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:05] "OPTIONS /api/team/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:05] "OPTIONS /api/requests/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:05] "GET /api/team/ HTTP/1.1" 200 152
+[2m[WebServer] [22m[23/Nov/2026 16:07:05] "GET /api/requests/ HTTP/1.1" 200 367
+[2m[WebServer] [22m[23/Nov/2026 16:07:05] "GET /api/dashboard/ HTTP/1.1" 200 473
+[2m[WebServer] [22mBad Request: /api/requests/
+[2m[WebServer] [22m[23/Nov/2026 16:07:06] "POST /api/requests/ HTTP/1.1" 400 63
+[2m[WebServer] [22m[23/Nov/2026 16:07:07] "POST /api/requests/ HTTP/1.1" 201 367
+[2m[WebServer] [22m[23/Nov/2026 16:07:07] "GET /api/team/ HTTP/1.1" 200 152
+[2m[WebServer] [22m[23/Nov/2026 16:07:07] "GET /api/requests/ HTTP/1.1" 200 735
+[2m[WebServer] [22m[23/Nov/2026 16:07:07] "GET /api/dashboard/ HTTP/1.1" 200 841
+  ✓  4 [chromium] › uc01-submit-leave.spec.ts:131:3 › UC-01 Submit leave request › TC-UC01-E1 exception: overlap with an active request at the inclusive boundary, then corrected (4.1s)
+[2m[WebServer] [22m[23/Nov/2026 16:07:09] "OPTIONS /api/me/ HTTP/1.1" 200 0
+[2m[WebServer] [22mUnauthorized: /api/me/
+[2m[WebServer] [22m[23/Nov/2026 16:07:09] "GET /api/me/ HTTP/1.1" 401 69
+[2m[WebServer] [22m[23/Nov/2026 16:07:09] "OPTIONS /api/auth/login/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:09] "POST /api/auth/login/ HTTP/1.1" 200 159
+[2m[WebServer] [22m[23/Nov/2026 16:07:09] "OPTIONS /api/dashboard/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:09] "OPTIONS /api/requests/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:09] "OPTIONS /api/team/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:09] "GET /api/team/ HTTP/1.1" 200 152
+[2m[WebServer] [22m[23/Nov/2026 16:07:09] "GET /api/requests/ HTTP/1.1" 200 367
+[2m[WebServer] [22m[23/Nov/2026 16:07:09] "GET /api/dashboard/ HTTP/1.1" 200 473
+[2m[WebServer] [22mBad Request: /api/requests/
+[2m[WebServer] [22m[23/Nov/2026 16:07:10] "POST /api/requests/ HTTP/1.1" 400 51
+[2m[WebServer] [22m[23/Nov/2026 16:07:11] "POST /api/requests/ HTTP/1.1" 201 366
+[2m[WebServer] [22m[23/Nov/2026 16:07:11] "GET /api/team/ HTTP/1.1" 200 152
+[2m[WebServer] [22m[23/Nov/2026 16:07:11] "GET /api/requests/ HTTP/1.1" 200 734
+[2m[WebServer] [22m[23/Nov/2026 16:07:11] "GET /api/dashboard/ HTTP/1.1" 200 840
+  ✓  5 [chromium] › uc01-submit-leave.spec.ts:153:3 › UC-01 Submit leave request › TC-UC01-E2 exception: requested days exceed the remaining entitlement (D = A + 1), then shortened (4.4s)
+[2m[WebServer] [22m[23/Nov/2026 16:07:13] "POST /api/auth/login/ HTTP/1.1" 200 159
+[2m[WebServer] [22m[23/Nov/2026 16:07:13] "POST /api/requests/ HTTP/1.1" 201 357
+[2m[WebServer] [22m[23/Nov/2026 16:07:14] "OPTIONS /api/me/ HTTP/1.1" 200 0
+[2m[WebServer] [22mUnauthorized: /api/me/
+[2m[WebServer] [22m[23/Nov/2026 16:07:14] "GET /api/me/ HTTP/1.1" 401 69
+[2m[WebServer] [22m[23/Nov/2026 16:07:14] "OPTIONS /api/auth/login/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:14] "POST /api/auth/login/ HTTP/1.1" 200 160
+[2m[WebServer] [22m[23/Nov/2026 16:07:14] "OPTIONS /api/dashboard/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:14] "OPTIONS /api/requests/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:14] "OPTIONS /api/team/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:14] "GET /api/team/ HTTP/1.1" 200 306
+[2m[WebServer] [22m[23/Nov/2026 16:07:14] "GET /api/requests/ HTTP/1.1" 200 730
+[2m[WebServer] [22m[23/Nov/2026 16:07:14] "GET /api/dashboard/ HTTP/1.1" 200 838
+[2m[WebServer] [22m[23/Nov/2026 16:07:15] "OPTIONS /api/requests/12/decision/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:15] "POST /api/requests/12/decision/ HTTP/1.1" 200 358
+[2m[WebServer] [22m[23/Nov/2026 16:07:15] "GET /api/team/ HTTP/1.1" 200 353
+[2m[WebServer] [22m[23/Nov/2026 16:07:15] "GET /api/requests/ HTTP/1.1" 200 731
+[2m[WebServer] [22m[23/Nov/2026 16:07:15] "GET /api/dashboard/ HTTP/1.1" 200 839
+  ✓  6 [chromium] › uc02-decide-leave.spec.ts:60:3 › UC-02 Decide pending leave request › TC-UC02-M main: team manager approves pending request k at the balance boundary (D = available) (5.2s)
+[2m[WebServer] [22m[23/Nov/2026 16:07:18] "POST /api/auth/login/ HTTP/1.1" 200 160
+[2m[WebServer] [22m[23/Nov/2026 16:07:18] "POST /api/requests/ HTTP/1.1" 201 358
+[2m[WebServer] [22m[23/Nov/2026 16:07:19] "OPTIONS /api/me/ HTTP/1.1" 200 0
+[2m[WebServer] [22mUnauthorized: /api/me/
+[2m[WebServer] [22m[23/Nov/2026 16:07:19] "GET /api/me/ HTTP/1.1" 401 69
+[2m[WebServer] [22m[23/Nov/2026 16:07:19] "OPTIONS /api/auth/login/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:19] "POST /api/auth/login/ HTTP/1.1" 200 161
+[2m[WebServer] [22m[23/Nov/2026 16:07:19] "OPTIONS /api/dashboard/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:19] "OPTIONS /api/requests/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:19] "OPTIONS /api/team/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:19] "GET /api/team/ HTTP/1.1" 200 308
+[2m[WebServer] [22m[23/Nov/2026 16:07:19] "GET /api/requests/ HTTP/1.1" 200 732
+[2m[WebServer] [22m[23/Nov/2026 16:07:19] "GET /api/dashboard/ HTTP/1.1" 200 840
+[2m[WebServer] [22m[23/Nov/2026 16:07:20] "OPTIONS /api/requests/15/decision/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:20] "POST /api/requests/15/decision/ HTTP/1.1" 200 359
+[2m[WebServer] [22m[23/Nov/2026 16:07:20] "GET /api/requests/ HTTP/1.1" 200 733
+[2m[WebServer] [22m[23/Nov/2026 16:07:20] "GET /api/team/ HTTP/1.1" 200 308
+[2m[WebServer] [22m[23/Nov/2026 16:07:20] "GET /api/dashboard/ HTTP/1.1" 200 841
+[2m[WebServer] [22m[23/Nov/2026 16:07:21] "POST /api/auth/login/ HTTP/1.1" 200 160
+[2m[WebServer] [22m[23/Nov/2026 16:07:21] "POST /api/requests/ HTTP/1.1" 201 368
+  ✓  7 [chromium] › uc02-decide-leave.spec.ts:92:3 › UC-02 Decide pending leave request › TC-UC02-A1 alternative: team manager rejects k; no allowance is charged and the dates are released (4.2s)
+[2m[WebServer] [22m[23/Nov/2026 16:07:22] "POST /api/auth/login/ HTTP/1.1" 200 160
+[2m[WebServer] [22m[23/Nov/2026 16:07:22] "POST /api/requests/ HTTP/1.1" 201 358
+[2m[WebServer] [22m[23/Nov/2026 16:07:23] "OPTIONS /api/me/ HTTP/1.1" 200 0
+[2m[WebServer] [22mUnauthorized: /api/me/
+[2m[WebServer] [22m[23/Nov/2026 16:07:23] "GET /api/me/ HTTP/1.1" 401 69
+[2m[WebServer] [22m[23/Nov/2026 16:07:23] "OPTIONS /api/auth/login/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:23] "POST /api/auth/login/ HTTP/1.1" 200 151
+[2m[WebServer] [22m[23/Nov/2026 16:07:23] "OPTIONS /api/dashboard/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:23] "OPTIONS /api/requests/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:23] "OPTIONS /api/team/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:23] "GET /api/team/ HTTP/1.1" 200 2
+[2m[WebServer] [22m[23/Nov/2026 16:07:23] "GET /api/requests/ HTTP/1.1" 200 1100
+[2m[WebServer] [22m[23/Nov/2026 16:07:23] "GET /api/dashboard/ HTTP/1.1" 200 1208
+[2m[WebServer] [22m[23/Nov/2026 16:07:24] "OPTIONS /api/requests/18/decision/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:24] "POST /api/requests/18/decision/ HTTP/1.1" 200 368
+[2m[WebServer] [22m[23/Nov/2026 16:07:24] "GET /api/team/ HTTP/1.1" 200 2
+[2m[WebServer] [22m[23/Nov/2026 16:07:24] "GET /api/requests/ HTTP/1.1" 200 1101
+[2m[WebServer] [22m[23/Nov/2026 16:07:24] "GET /api/dashboard/ HTTP/1.1" 200 1209
+  ✓  8 [chromium] › uc02-decide-leave.spec.ts:120:3 › UC-02 Decide pending leave request › TC-UC02-A2 alternative: administrator approves a pending request of another team (3.7s)
+[2m[WebServer] [22m[23/Nov/2026 16:07:26] "POST /api/auth/login/ HTTP/1.1" 200 160
+[2m[WebServer] [22m[23/Nov/2026 16:07:26] "POST /api/requests/ HTTP/1.1" 201 358
+[2m[WebServer] [22m[23/Nov/2026 16:07:26] "OPTIONS /api/me/ HTTP/1.1" 200 0
+[2m[WebServer] [22mUnauthorized: /api/me/
+[2m[WebServer] [22m[23/Nov/2026 16:07:26] "GET /api/me/ HTTP/1.1" 401 69
+[2m[WebServer] [22m[23/Nov/2026 16:07:27] "OPTIONS /api/auth/login/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:27] "POST /api/auth/login/ HTTP/1.1" 200 161
+[2m[WebServer] [22m[23/Nov/2026 16:07:27] "OPTIONS /api/dashboard/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:27] "OPTIONS /api/requests/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:27] "OPTIONS /api/team/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:27] "GET /api/requests/ HTTP/1.1" 200 732
+[2m[WebServer] [22m[23/Nov/2026 16:07:27] "GET /api/team/ HTTP/1.1" 200 308
+[2m[WebServer] [22m[23/Nov/2026 16:07:27] "GET /api/dashboard/ HTTP/1.1" 200 840
+[2m[WebServer] [22m[23/Nov/2026 16:07:27] "POST /api/auth/login/ HTTP/1.1" 200 151
+[2m[WebServer] [22m[23/Nov/2026 16:07:27] "POST /api/requests/22/decision/ HTTP/1.1" 200 359
+[2m[WebServer] [22m[23/Nov/2026 16:07:28] "OPTIONS /api/requests/22/decision/ HTTP/1.1" 200 0
+[2m[WebServer] [22mConflict: /api/requests/22/decision/
+[2m[WebServer] [22m[23/Nov/2026 16:07:28] "POST /api/requests/22/decision/ HTTP/1.1" 409 47
+[2m[WebServer] [22m[23/Nov/2026 16:07:29] "GET /api/me/ HTTP/1.1" 200 101
+[2m[WebServer] [22m[23/Nov/2026 16:07:29] "GET /api/requests/ HTTP/1.1" 200 733
+[2m[WebServer] [22m[23/Nov/2026 16:07:29] "GET /api/team/ HTTP/1.1" 200 308
+[2m[WebServer] [22m[23/Nov/2026 16:07:29] "GET /api/dashboard/ HTTP/1.1" 200 841
+  ✓  9 [chromium] › uc02-decide-leave.spec.ts:139:3 › UC-02 Decide pending leave request › TC-UC02-E1 exception: k was decided by another approver after the page loaded (stale view) (4.5s)
+[2m[WebServer] [22m[23/Nov/2026 16:07:30] "POST /api/auth/login/ HTTP/1.1" 200 160
+[2m[WebServer] [22m[23/Nov/2026 16:07:30] "POST /api/requests/ HTTP/1.1" 201 358
+[2m[WebServer] [22m[23/Nov/2026 16:07:31] "OPTIONS /api/me/ HTTP/1.1" 200 0
+[2m[WebServer] [22mUnauthorized: /api/me/
+[2m[WebServer] [22m[23/Nov/2026 16:07:31] "GET /api/me/ HTTP/1.1" 401 69
+[2m[WebServer] [22m[23/Nov/2026 16:07:31] "OPTIONS /api/auth/login/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:31] "POST /api/auth/login/ HTTP/1.1" 200 161
+[2m[WebServer] [22m[23/Nov/2026 16:07:32] "OPTIONS /api/dashboard/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:32] "OPTIONS /api/requests/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:32] "OPTIONS /api/team/ HTTP/1.1" 200 0
+[2m[WebServer] [22m[23/Nov/2026 16:07:32] "GET /api/requests/ HTTP/1.1" 200 732
+[2m[WebServer] [22m[23/Nov/2026 16:07:32] "GET /api/team/ HTTP/1.1" 200 308
+[2m[WebServer] [22m[23/Nov/2026 16:07:32] "GET /api/dashboard/ HTTP/1.1" 200 840
+[2m[WebServer] [22m[23/Nov/2026 16:07:32] "OPTIONS /api/requests/23/decision/ HTTP/1.1" 200 0
+[2m[WebServer] [22mForbidden: /api/requests/23/decision/
+[2m[WebServer] [22m[23/Nov/2026 16:07:32] "POST /api/requests/23/decision/ HTTP/1.1" 403 49
+  ✓  10 [chromium] › uc02-decide-leave.spec.ts:171:3 › UC-02 Decide pending leave request › TC-UC02-E2 exception: manager attempts to decide their own pending request (4.1s)
+  -  11 [chromium] › uc02-decide-leave.spec.ts:196:8 › UC-02 Decide pending leave request › OBJ-UC02-01 blocked: approval that exceeds the employee remaining entitlement is refused
+
+  Slow test file: [chromium] › uc02-decide-leave.spec.ts (21.6s)
+  Slow test file: [chromium] › uc01-submit-leave.spec.ts (19.8s)
+  Consider splitting slow test files to speed up parallel execution
+  1 skipped
+  10 passed (46.1s)
+
+To open last HTML report run:
+
+  npx playwright show-report ../../../docs/sqe/evidence/browser/b1/run-2/html-report
+
