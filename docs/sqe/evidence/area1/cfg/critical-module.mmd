@@ -1,0 +1,11 @@
+flowchart TD
+    S([entry]) --> C[create LeaveRequest]
+    C --> P1{clean raises?}
+    P1 -- yes --> P2{message_dict exists?}
+    P2 -- yes --> E1[raise field errors]
+    P2 -- no --> E2[raise message list]
+    P1 -- no --> P3{balance exists?}
+    P3 -- no --> R[return attrs]
+    P3 -- yes --> P4{days > available?}
+    P4 -- yes --> E3[raise insufficient balance]
+    P4 -- no --> R
