@@ -41,8 +41,10 @@ The assignment (p2, unit level) requires 100% statement and branch coverage of a
 | `business_days` | 3 |
 | `approved_days` | 2 |
 | `available_days` | 1 |
-| **Chain A total** | **14** |
+| **Chain A aggregate** (5 functions) | **14** |
 | `visible_requests` (candidate B) | 4 |
+
+Note: Chain A aggregate is the sum of five cooperating functions that form a single validation path. Candidate B is a single function. The comparison illustrates decision density across the full validation chain, not equivalent units.
 
 **Existing coverage by the A2.1 API suite** (coverage.py 7.6.10 `--branch`): both candidates are already at 100% statements and 100% coverage.py branches.
 
@@ -52,6 +54,8 @@ The assignment (p2, unit level) requires 100% statement and branch coverage of a
 | `clean` | 6/6 | 4/4 |
 | `business_days` | 9/9 | 4/4 |
 | `visible_requests` | 6/6 | 4/4 |
+
+**Important distinction:** These figures show coverage achieved incidentally by the Area 2 API integration tests, not the assignment's required 100% statement and branch coverage for white-box testing. The white-box unit tests achieving that requirement are Member 1's deliverable under Area 1 (WP-07/08). The numbers above demonstrate that the validation chain is exercisable and observable through the API, supporting its selection as the critical module.
 
 This proves that **branch coverage does not settle condition coverage**. coverage.py measures the `if` arcs at serializers:37, not the two conditions inside `balance and …`.
 
@@ -121,7 +125,7 @@ The two abstract rows (B=F, E=T/F) are **infeasible** with real domain objects, 
 
 ## 9. Approval and traceability
 
-- **Status:** PROPOSED until the instructor confirms the critical module. If the instructor requires four evaluated combinations without masking, no decision in this codebase satisfies that, because every compound decision is a short-circuit `and`/`or` or an SQL predicate. The question would then go back to the instructor, rather than switching modules.
+- **Status:** PROPOSED. This document records the team's selection process and recommendation. It does not constitute final assignment evidence until: (a) the instructor confirms the critical-module choice, and (b) the instructor confirms that masking MC/DC under short-circuit evaluation is acceptable for this course. The hand-drawn CFG and SonarQube complexity comparison (WP-07) are Member 1's Area 1 deliverables and are not included in this PR.
 - **Traceability:**
   - RTM objective MCC-001;
   - FR-W1-02…05, BR-01/02/03/06;
