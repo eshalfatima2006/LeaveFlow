@@ -10,9 +10,10 @@ operators before loading the normal mutmut CLI:
    rule.
 
 The standard mutmut operators remain enabled. The target is the application
-code under `backend/leave`; migrations and the legacy upstream test module are
-excluded. The complete pytest suite is used so the report can identify both
-well-tested critical logic and under-tested supporting logic. The exact
+code under `backend/leave` plus the runtime configuration in
+`backend/config/settings.py`; migrations and the legacy upstream test module
+are excluded. The complete pytest suite is used so the report can identify
+both well-tested critical logic and under-tested supporting logic. The exact
 commands are:
 
 ```text
