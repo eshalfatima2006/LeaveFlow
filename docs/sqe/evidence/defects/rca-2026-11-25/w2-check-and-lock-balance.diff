@@ -1,0 +1,24 @@
+diff --git a/backend/leave/views.py b/backend/leave/views.py
+index 4809881..1df10aa 100644
+--- a/backend/leave/views.py
++++ b/backend/leave/views.py
+@@ -12,7 +12,7 @@ from rest_framework.permissions import AllowAny
+ from rest_framework.response import Response
+ 
+ from .events import publish_leave_event
+-from .models import LeaveRequest, User
++from .models import LeaveBalance, LeaveRequest, User
+ from .serializers import LeaveRequestSerializer, UserSerializer
+ 
+ 
+@@ -80,6 +80,10 @@ def decide_request(request, request_id):
+             return Response({'detail': 'Non puoi decidere una tua richiesta.'}, status=status.HTTP_403_FORBIDDEN)
+         if item.status != LeaveRequest.Status.PENDING:
+             return Response({'detail': 'La richiesta è già stata decisa.'}, status=status.HTTP_409_CONFLICT)
++        if decision == LeaveRequest.Status.APPROVED:
++            balance = LeaveBalance.objects.select_for_update().filter(user_id=item.employee_id).first()
++            if balance and item.business_days > balance.available_days:
++                return Response({'detail': 'EXPERIMENT: insufficient balance'}, status=status.HTTP_409_CONFLICT)
+         item.status = decision
+         item.decided_by = request.user
+         item.decided_at = timezone.now()

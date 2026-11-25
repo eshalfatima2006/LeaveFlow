@@ -1,0 +1,64 @@
+RCA {"variant": "baseline", "case": "W1 overlapping, gated between check and insert", "responses": ["201", "201"], "rows": 2}
+RCA {"variant": "baseline", "case": "W1 identical, 50 pairs, natural timing", "outcomes": {"201+201": 50}}
+RCA {"variant": "baseline", "case": "W1 sequential: first, overlapping, adjacent", "responses": ["201", "400", "201"]}
+RCA {"variant": "baseline", "case": "W2 sequential 4+4 days, allowance 5", "responses": ["200", "200"], "balance": [5, 8, -3], "second_row_unchanged": false}
+RCA {"variant": "baseline", "case": "W2 reject the over-allowance request", "responses": ["409"], "balance": [5, 8, -3]}
+RCA {"variant": "baseline", "case": "W2 equality: 5 days, allowance 5", "responses": ["200"], "balance": [5, 5, 0]}
+RCA {"variant": "baseline", "case": "W2 concurrent 4+4 days, gated before save", "responses": ["200", "200"], "balance": [5, 8, -3]}
+concurrency: exit code 0; container removed=True; development database unchanged=True
+RCA {"variant": "w1-atomic-only", "case": "W1 overlapping, gated between check and insert", "responses": ["201", "201"], "rows": 2}
+RCA {"variant": "w1-atomic-only", "case": "W1 identical, 50 pairs, natural timing", "outcomes": {"201+201": 50}}
+RCA {"variant": "w1-atomic-only", "case": "W1 sequential: first, overlapping, adjacent", "responses": ["201", "400", "201"]}
+RCA {"variant": "w1-atomic-only", "case": "W2 sequential 4+4 days, allowance 5", "responses": ["200", "200"], "balance": [5, 8, -3], "second_row_unchanged": false}
+RCA {"variant": "w1-atomic-only", "case": "W2 reject the over-allowance request", "responses": ["409"], "balance": [5, 8, -3]}
+RCA {"variant": "w1-atomic-only", "case": "W2 equality: 5 days, allowance 5", "responses": ["200"], "balance": [5, 5, 0]}
+RCA {"variant": "w1-atomic-only", "case": "W2 concurrent 4+4 days, gated before save", "responses": ["200", "200"], "balance": [5, 8, -3]}
+concurrency: exit code 0; container removed=True; development database unchanged=True
+RCA {"variant": "w1-lock-overlapping-rows", "case": "W1 overlapping, gated between check and insert", "responses": ["201", "201"], "rows": 2}
+RCA {"variant": "w1-lock-overlapping-rows", "case": "W1 identical, 50 pairs, natural timing", "outcomes": {"201+201": 1, "201+400": 49}}
+RCA {"variant": "w1-lock-overlapping-rows", "case": "W1 sequential: first, overlapping, adjacent", "responses": ["201", "400", "201"]}
+RCA {"variant": "w1-lock-overlapping-rows", "case": "W2 sequential 4+4 days, allowance 5", "responses": ["200", "200"], "balance": [5, 8, -3], "second_row_unchanged": false}
+RCA {"variant": "w1-lock-overlapping-rows", "case": "W2 reject the over-allowance request", "responses": ["409"], "balance": [5, 8, -3]}
+RCA {"variant": "w1-lock-overlapping-rows", "case": "W2 equality: 5 days, allowance 5", "responses": ["200"], "balance": [5, 5, 0]}
+RCA {"variant": "w1-lock-overlapping-rows", "case": "W2 concurrent 4+4 days, gated before save", "responses": ["200", "200"], "balance": [5, 8, -3]}
+concurrency: exit code 0; container removed=True; development database unchanged=True
+RCA {"variant": "w1-lock-employee-row", "case": "W1 overlapping, gated between check and insert", "responses": ["201", "400"], "rows": 1}
+RCA {"variant": "w1-lock-employee-row", "case": "W1 identical, 50 pairs, natural timing", "outcomes": {"201+400": 50}}
+RCA {"variant": "w1-lock-employee-row", "case": "W1 sequential: first, overlapping, adjacent", "responses": ["201", "400", "201"]}
+RCA {"variant": "w1-lock-employee-row", "case": "W2 sequential 4+4 days, allowance 5", "responses": ["200", "200"], "balance": [5, 8, -3], "second_row_unchanged": false}
+RCA {"variant": "w1-lock-employee-row", "case": "W2 reject the over-allowance request", "responses": ["409"], "balance": [5, 8, -3]}
+RCA {"variant": "w1-lock-employee-row", "case": "W2 equality: 5 days, allowance 5", "responses": ["200"], "balance": [5, 5, 0]}
+RCA {"variant": "w1-lock-employee-row", "case": "W2 concurrent 4+4 days, gated before save", "responses": ["200", "200"], "balance": [5, 8, -3]}
+concurrency: exit code 0; container removed=True; development database unchanged=True
+RCA {"variant": "w1-serializable", "case": "W1 overlapping, gated between check and insert", "responses": ["201", "500 OperationalError sqlstate=40001"], "rows": 1}
+RCA {"variant": "w1-serializable", "case": "W1 identical, 50 pairs, natural timing", "outcomes": {"201+500 OperationalError sqlstate=40001": 50}}
+RCA {"variant": "w1-serializable", "case": "W1 sequential: first, overlapping, adjacent", "responses": ["201", "400", "201"]}
+RCA {"variant": "w1-serializable", "case": "W2 sequential 4+4 days, allowance 5", "responses": ["200", "200"], "balance": [5, 8, -3], "second_row_unchanged": false}
+RCA {"variant": "w1-serializable", "case": "W2 reject the over-allowance request", "responses": ["409"], "balance": [5, 8, -3]}
+RCA {"variant": "w1-serializable", "case": "W2 equality: 5 days, allowance 5", "responses": ["200"], "balance": [5, 5, 0]}
+RCA {"variant": "w1-serializable", "case": "W2 concurrent 4+4 days, gated before save", "responses": ["200", "200"], "balance": [5, 8, -3]}
+concurrency: exit code 0; container removed=True; development database unchanged=True
+RCA {"variant": "w1-exclusion-constraint", "case": "W1 overlapping, gated between check and insert", "responses": ["201", "500 OperationalError sqlstate=40P01"], "rows": 1}
+RCA {"variant": "w1-exclusion-constraint", "case": "W1 identical, 50 pairs, natural timing", "outcomes": {"201+500 IntegrityError sqlstate=23P01": 50}}
+RCA {"variant": "w1-exclusion-constraint", "case": "W1 sequential: first, overlapping, adjacent", "responses": ["201", "400", "201"]}
+RCA {"variant": "w1-exclusion-constraint", "case": "W2 sequential 4+4 days, allowance 5", "responses": ["200", "200"], "balance": [5, 8, -3], "second_row_unchanged": false}
+RCA {"variant": "w1-exclusion-constraint", "case": "W2 reject the over-allowance request", "responses": ["409"], "balance": [5, 8, -3]}
+RCA {"variant": "w1-exclusion-constraint", "case": "W2 equality: 5 days, allowance 5", "responses": ["200"], "balance": [5, 5, 0]}
+RCA {"variant": "w1-exclusion-constraint", "case": "W2 concurrent 4+4 days, gated before save", "responses": ["200", "200"], "balance": [5, 8, -3]}
+concurrency: exit code 0; container removed=True; development database unchanged=True
+RCA {"variant": "w2-check-only", "case": "W1 overlapping, gated between check and insert", "responses": ["201", "201"], "rows": 2}
+RCA {"variant": "w2-check-only", "case": "W1 identical, 50 pairs, natural timing", "outcomes": {"201+201": 50}}
+RCA {"variant": "w2-check-only", "case": "W1 sequential: first, overlapping, adjacent", "responses": ["201", "400", "201"]}
+RCA {"variant": "w2-check-only", "case": "W2 sequential 4+4 days, allowance 5", "responses": ["200", "409"], "balance": [5, 4, 1], "second_row_unchanged": true}
+RCA {"variant": "w2-check-only", "case": "W2 reject the over-allowance request", "responses": ["200"], "balance": [5, 4, 1]}
+RCA {"variant": "w2-check-only", "case": "W2 equality: 5 days, allowance 5", "responses": ["200"], "balance": [5, 5, 0]}
+RCA {"variant": "w2-check-only", "case": "W2 concurrent 4+4 days, gated before save", "responses": ["200", "200"], "balance": [5, 8, -3]}
+concurrency: exit code 0; container removed=True; development database unchanged=True
+RCA {"variant": "w2-check-and-lock-balance", "case": "W1 overlapping, gated between check and insert", "responses": ["201", "201"], "rows": 2}
+RCA {"variant": "w2-check-and-lock-balance", "case": "W1 identical, 50 pairs, natural timing", "outcomes": {"201+201": 50}}
+RCA {"variant": "w2-check-and-lock-balance", "case": "W1 sequential: first, overlapping, adjacent", "responses": ["201", "400", "201"]}
+RCA {"variant": "w2-check-and-lock-balance", "case": "W2 sequential 4+4 days, allowance 5", "responses": ["200", "409"], "balance": [5, 4, 1], "second_row_unchanged": true}
+RCA {"variant": "w2-check-and-lock-balance", "case": "W2 reject the over-allowance request", "responses": ["200"], "balance": [5, 4, 1]}
+RCA {"variant": "w2-check-and-lock-balance", "case": "W2 equality: 5 days, allowance 5", "responses": ["200"], "balance": [5, 5, 0]}
+RCA {"variant": "w2-check-and-lock-balance", "case": "W2 concurrent 4+4 days, gated before save", "responses": ["200", "409"], "balance": [5, 4, 1]}
+concurrency: exit code 0; container removed=True; development database unchanged=True

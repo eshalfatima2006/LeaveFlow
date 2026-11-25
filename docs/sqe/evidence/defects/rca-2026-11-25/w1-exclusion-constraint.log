@@ -1,0 +1,51 @@
+Creating test database for alias 'default' ('test_sqe_disposable_25e1c89fe10f')...
+PostgreSQL 17.12 in container leaveflow-sqe-25e1c89fe10f
+Found 2 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: corsheaders, messages, rest_framework, staticfiles
+  Apply all migrations: admin, auth, authtoken, contenttypes, leave, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying leave.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying authtoken.0001_initial... OK
+  Applying authtoken.0002_auto_20160226_1747... OK
+  Applying authtoken.0003_tokenproxy... OK
+  Applying authtoken.0004_alter_tokenproxy_options... OK
+  Applying leave.0002_rca_experiment... OK
+  Applying sessions.0001_initial...test_w1 (tests.team.concurrency.test_rca.Rca.test_w1) ...  OK
+System check identified no issues (0 silenced).
+RCA {"variant": "w1-exclusion-constraint", "case": "W1 overlapping, gated between check and insert", "responses": ["201", "500 OperationalError sqlstate=40P01"], "rows": 1}
+RCA {"variant": "w1-exclusion-constraint", "case": "W1 identical, 50 pairs, natural timing", "outcomes": {"201+500 IntegrityError sqlstate=23P01": 50}}
+RCA {"variant": "w1-exclusion-constraint", "case": "W1 sequential: first, overlapping, adjacent", "responses": ["201", "400", "201"]}
+ok
+test_w2 (tests.team.concurrency.test_rca.Rca.test_w2) ... RCA {"variant": "w1-exclusion-constraint", "case": "W2 sequential 4+4 days, allowance 5", "responses": ["200", "200"], "balance": [5, 8, -3], "second_row_unchanged": false}
+RCA {"variant": "w1-exclusion-constraint", "case": "W2 reject the over-allowance request", "responses": ["409"], "balance": [5, 8, -3]}
+RCA {"variant": "w1-exclusion-constraint", "case": "W2 equality: 5 days, allowance 5", "responses": ["200"], "balance": [5, 5, 0]}
+RCA {"variant": "w1-exclusion-constraint", "case": "W2 concurrent 4+4 days, gated before save", "responses": ["200", "200"], "balance": [5, 8, -3]}
+ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 4.809s
+
+OK
+Destroying test database for alias 'default' ('test_sqe_disposable_25e1c89fe10f')...
+concurrency: exit code 0; container removed=True; development database unchanged=True
