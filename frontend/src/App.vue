@@ -143,11 +143,58 @@ onMounted(boot)
     </main>
   </div>
 
-  <div v-if="formOpen" class="modal-backdrop" @click.self="formOpen=false"><form ref="requestDialog" class="modal" role="dialog" aria-modal="true" aria-labelledby="request-dialog-title" aria-describedby="request-dialog-description" @keydown.esc.stop="formOpen=false" @keydown.tab="keepRequestFocus" @submit.prevent="submit"><button class="modal-close" type="button" :aria-label="t('modal.close')" @click="formOpen=false"><X :size="19"/></button><p class="kicker">{{t('modal.eyebrow')}}</p><h2 id="request-dialog-title">{{t('modal.title')}}</h2><p id="request-dialog-description" class="muted">{{t('modal.description')}}</p><label>{{t('modal.type')}}<select v-model="form.leave_type"><option value="vacation">{{t('leaveType.vacation')}}</option><option value="permit">{{t('leaveType.permit')}}</option><option value="personal">{{t('leaveType.personal')}}</option></select></label><div class="date-grid"><label>{{t('modal.from')}}<input v-model="form.start_date" type="date" required></label><label>{{t('modal.to')}}<input v-model="form.end_date" type="date" required></label></div><div v-if="previewDays" class="date-preview"><CalendarDays :size="18"/><span>{{t('modal.preview')}}</span><strong>{{previewDays}} {{workingDayLabel(previewDays)}}</strong></div><label>{{t('modal.note')}} <span class="optional">{{t('modal.optional')}}</span><textarea v-model="form.note" maxlength="280" :placeholder="t('modal.placeholder')"></textarea></label><p v-if="error" class="form-error" role="alert">{{error}}</p><button class="primary wide" type="submit">{{t('modal.submit')}} <ArrowRight :size="18"/></button></form></div>
+  <div
+    v-if="formOpen"
+    class="modal-backdrop"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="request-dialog-title"
+    aria-describedby="request-dialog-description"
+    @click.self="formOpen=false"
+  >
+    <form
+      ref="requestDialog"
+      class="modal"
+      @keydown.esc.stop="formOpen=false"
+      @keydown.tab="keepRequestFocus"
+      @submit.prevent="submit"
+    >
+      <button class="modal-close" type="button" :aria-label="t('modal.close')" @click="formOpen=false">
+        <X :size="19"/>
+      </button>
+      <p class="kicker">{{t('modal.eyebrow')}}</p>
+      <h2 id="request-dialog-title">{{t('modal.title')}}</h2>
+      <p id="request-dialog-description" class="muted">{{t('modal.description')}}</p>
+      <label>
+        {{t('modal.type')}}
+        <select v-model="form.leave_type">
+          <option value="vacation">{{t('leaveType.vacation')}}</option>
+          <option value="permit">{{t('leaveType.permit')}}</option>
+          <option value="personal">{{t('leaveType.personal')}}</option>
+        </select>
+      </label>
+      <div class="date-grid">
+        <label>{{t('modal.from')}}<input v-model="form.start_date" type="date" required></label>
+        <label>{{t('modal.to')}}<input v-model="form.end_date" type="date" required></label>
+      </div>
+      <div v-if="previewDays" class="date-preview">
+        <CalendarDays :size="18"/>
+        <span>{{t('modal.preview')}}</span>
+        <strong>{{previewDays}} {{workingDayLabel(previewDays)}}</strong>
+      </div>
+      <label>
+        {{t('modal.note')}} <span class="optional">{{t('modal.optional')}}</span>
+        <textarea v-model="form.note" maxlength="280" :placeholder="t('modal.placeholder')"></textarea>
+      </label>
+      <p v-if="error" class="form-error" role="alert">{{error}}</p>
+      <button class="primary wide" type="submit">{{t('modal.submit')}} <ArrowRight :size="18"/></button>
+    </form>
+  </div>
 </template>
 
 <style scoped>
-.modal .muted {
+.modal .muted,
+.modal .optional {
   color: var(--ink);
 }
 </style>
