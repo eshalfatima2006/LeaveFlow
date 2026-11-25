@@ -11,6 +11,11 @@ info:
     desired policy, the x-business-rules entry says so (field "gap"); the schema
     does not invent enforcement that the application lacks.
 
+    Media: JSON, URL-encoded and multipart request bodies are accepted and
+    documented. Responses are documented as JSON; the HTML browsable API (Accept:
+    text/html) and its 406 are framework features outside the selected scope, as
+    are HEAD and OPTIONS.
+
     Error messages are the Italian strings produced with LANGUAGE_CODE it-it.
 
     Vendor extensions:
@@ -22,6 +27,11 @@ info:
                         classes that schema keywords do not express).
       x-rule-boundaries business-rule limits that depend on stored records
                         (balance, overlap), expressed against x-sqe-fixture.
+      x-trimmed-max-length  length limit applied after trimming surrounding
+                        whitespace. There is no limit on the raw value, so maxLength
+                        would contradict the application.
+      x-context-cases   actor and target-record classes of an operation.
+      x-operation-flows operation sequences for the operation-flow criterion.
       x-sqe-fixture     records that the generated tests create first.
       x-sqe-test        test bindings for scripts/sqe/generate_api_tests.py:
                         acting fixture user, path parameters, fixture-bound
@@ -40,6 +50,16 @@ x-sqe-fixture:
   pending:
     start: "2026-12-15"
     end: "2026-12-16"
+
+x-operation-flows:
+  - {name: login then profile, steps: [login, me]}
+  - {name: submit then own list, steps: [submitRequest, listRequests]}
+  - {name: submit then dashboard, steps: [submitRequest, dashboard]}
+  - {name: submit then approve or reject the same request, steps: [submitRequest, decideRequest]}
+  - {name: submit then decide then repeat the decision, steps: [submitRequest, decideRequest, decideRequest]}
+  - {name: decide then owner dashboard, steps: [decideRequest, dashboard]}
+  - {name: decide then team upcoming leave, steps: [decideRequest, team]}
+  - {name: reject then resubmit the dates, steps: [submitRequest, decideRequest, submitRequest]}
 
 tags:
   - name: auth
@@ -62,6 +82,12 @@ paths:
             example:
               username: employee.example
               password: example-password
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/LoginInput"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/LoginInput"
       responses:
         "200":
           description: Credentials valid; the existing or a new token is returned.
@@ -106,6 +132,9 @@ paths:
     get:
       tags: [overview]
       operationId: me
+      x-sqe-test:
+        actor: m1
+        readback: none
       summary: Profile of the authenticated user
       responses:
         "200":
@@ -125,6 +154,9 @@ paths:
     get:
       tags: [requests]
       operationId: listRequests
+      x-sqe-test:
+        actor: m1
+        readback: none
       summary: Leave requests visible to the caller (no filters, no pagination)
       responses:
         "200":
@@ -165,6 +197,12 @@ paths:
               start_date: "2026-12-07"
               end_date: "2026-12-08"
               note: Generated test
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/LeaveRequestInput"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/LeaveRequestInput"
       responses:
         "201":
           description: Created in state pending.
@@ -262,6 +300,12 @@ paths:
               $ref: "#/components/schemas/DecisionInput"
             example:
               status: approved
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/DecisionInput"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/DecisionInput"
       responses:
         "200":
           description: The same request, now approved or rejected; decided_by/decided_at are stored.
@@ -330,6 +374,17 @@ paths:
         - id: BR-06
           rule: status must be exactly approved or rejected.
           response: "400 {detail: 'Decisione non valida.'}"
+      x-context-cases:
+        - {name: manager of the team, actor: m1, path: {id: pending.id}, status: 200}
+        - {name: admin, actor: admin, path: {id: pending.id}, status: 200}
+        - {name: employee owner, actor: e1, path: {id: pending.id}, status: 403}
+        - {name: employee teammate, actor: e2, path: {id: pending.id}, status: 403}
+        - {name: manager of another team, actor: m2, path: {id: pending.id}, status: 404}
+        - {name: manager without a team, actor: teamless_manager, path: {id: pending.id}, status: 404}
+        - {name: manager own request, actor: m1, path: {id: own.id}, status: 403}
+        - {name: request out of scope, actor: m1, path: {id: other_team.id}, status: 404}
+        - {name: request already approved, actor: m1, path: {id: approved.id}, status: 409}
+        - {name: request already rejected, actor: m1, path: {id: rejected.id}, status: 409}
       x-sqe-test:
         actor: m1
         readback: decided
@@ -342,6 +397,9 @@ paths:
     get:
       tags: [overview]
       operationId: dashboard
+      x-sqe-test:
+        actor: m1
+        readback: none
       summary: Caller's balance, counts over visible requests and five most recent
       responses:
         "200":
@@ -364,6 +422,9 @@ paths:
     get:
       tags: [overview]
       operationId: team
+      x-sqe-test:
+        actor: m1
+        readback: none
       summary: Members of the caller's team with balance and next approved leave
       description: Available to every authenticated role; returns [] when the caller has no team.
       responses:
@@ -455,9 +516,11 @@ components:
         note:
           type: string
           minLength: 0
-          maxLength: 280
+          x-trimmed-max-length: 280
           default: ""
-          description: Leading/trailing whitespace is trimmed before the length check.
+          description: |
+            At most 280 characters after surrounding whitespace is trimmed; the raw
+            value may be longer. The trimmed value is stored.
 
     DecisionInput:
       type: object

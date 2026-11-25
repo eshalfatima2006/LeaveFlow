@@ -15,7 +15,7 @@ MANIFEST = json.loads((HERE / "generated_cases.json").read_text(encoding="utf-8"
 class GeneratedManifestTests(SimpleTestCase):
     def test_every_manifest_case_is_an_executed_test(self):
         """GEN-001: the manifest lists exactly the generated tests; none is dropped or added by hand."""
-        listed = [case["test"] for case in MANIFEST["cases"]]
+        listed = [case["id"].removeprefix(generated.__name__ + ".") for case in MANIFEST["cases"]]
         present = [
             f"{name}.{method}"
             for name, cls in vars(generated).items()

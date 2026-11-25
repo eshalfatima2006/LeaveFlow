@@ -1,223 +1,35 @@
 {
  "generated_by": "scripts/sqe/generate_api_tests.py",
+ "spec_sha256": "e5095486e105b397e3c32ea02c2ff7de6130100663dfa46218ced8159f042151",
  "operations": {
-  "dashboard": {
-   "method": "get",
-   "path": "/api/dashboard/",
-   "responses": {
-    "200": {
-     "application/json": {
-      "properties": {
-       "balance": {
-        "properties": {
-         "allowance": {
-          "type": "integer"
-         },
-         "available": {
-          "type": "integer"
-         },
-         "used": {
-          "type": "integer"
-         }
-        },
-        "required": [
-         "allowance",
-         "used",
-         "available"
-        ],
-        "type": "object"
-       },
-       "counts": {
-        "properties": {
-         "approved": {
-          "type": "integer"
-         },
-         "pending": {
-          "type": "integer"
-         },
-         "total": {
-          "type": "integer"
-         }
-        },
-        "required": [
-         "total",
-         "pending",
-         "approved"
-        ],
-        "type": "object"
-       },
-       "recent": {
-        "items": {
-         "properties": {
-          "business_days": {
-           "minimum": 0,
-           "type": "integer"
-          },
-          "created_at": {
-           "format": "date-time",
-           "type": "string"
-          },
-          "employee": {
-           "properties": {
-            "display_name": {
-             "description": "Full name, or the username when no name is set.",
-             "type": "string"
-            },
-            "email": {
-             "type": "string"
-            },
-            "id": {
-             "type": "integer"
-            },
-            "role": {
-             "enum": [
-              "employee",
-              "manager",
-              "admin"
-             ],
-             "type": "string"
-            },
-            "team": {
-             "nullable": true,
-             "type": "string"
-            },
-            "username": {
-             "type": "string"
-            }
-           },
-           "required": [
-            "id",
-            "username",
-            "display_name",
-            "email",
-            "role",
-            "team"
-           ],
-           "type": "object"
-          },
-          "end_date": {
-           "format": "date",
-           "type": "string"
-          },
-          "id": {
-           "type": "integer"
-          },
-          "leave_type": {
-           "enum": [
-            "vacation",
-            "permit",
-            "personal"
-           ],
-           "type": "string"
-          },
-          "leave_type_label": {
-           "type": "string"
-          },
-          "note": {
-           "maxLength": 280,
-           "type": "string"
-          },
-          "start_date": {
-           "format": "date",
-           "type": "string"
-          },
-          "status": {
-           "enum": [
-            "pending",
-            "approved",
-            "rejected"
-           ],
-           "type": "string"
-          },
-          "status_label": {
-           "type": "string"
-          }
-         },
-         "required": [
-          "id",
-          "employee",
-          "leave_type",
-          "leave_type_label",
-          "start_date",
-          "end_date",
-          "note",
-          "status",
-          "status_label",
-          "business_days",
-          "created_at"
-         ],
-         "type": "object"
-        },
-        "maxItems": 5,
-        "type": "array"
-       }
-      },
-      "required": [
-       "balance",
-       "counts",
-       "recent"
-      ],
-      "type": "object"
-     }
-    },
-    "401": {
-     "application/json": {
-      "properties": {
-       "detail": {
-        "type": "string"
-       }
-      },
-      "required": [
-       "detail"
-      ],
-      "type": "object"
-     }
-    }
-   }
-  },
-  "decideRequest": {
+  "login": {
    "method": "post",
-   "path": "/api/requests/{id}/decision/",
+   "path": "/api/auth/login/",
+   "secured": false,
+   "parameters": [],
+   "request_media": [
+    "application/json",
+    "application/x-www-form-urlencoded",
+    "multipart/form-data"
+   ],
+   "request_fields": {
+    "username": null,
+    "password": null
+   },
    "responses": {
     "200": {
      "application/json": {
+      "type": "object",
+      "required": [
+       "token",
+       "user"
+      ],
       "properties": {
-       "business_days": {
-        "minimum": 0,
-        "type": "integer"
-       },
-       "created_at": {
-        "format": "date-time",
+       "token": {
         "type": "string"
        },
-       "employee": {
-        "properties": {
-         "display_name": {
-          "description": "Full name, or the username when no name is set.",
-          "type": "string"
-         },
-         "email": {
-          "type": "string"
-         },
-         "id": {
-          "type": "integer"
-         },
-         "role": {
-          "enum": [
-           "employee",
-           "manager",
-           "admin"
-          ],
-          "type": "string"
-         },
-         "team": {
-          "nullable": true,
-          "type": "string"
-         },
-         "username": {
-          "type": "string"
-         }
-        },
+       "user": {
+        "type": "object",
         "required": [
          "id",
          "username",
@@ -226,141 +38,137 @@
          "role",
          "team"
         ],
-        "type": "object"
-       },
-       "end_date": {
-        "format": "date",
-        "type": "string"
-       },
-       "id": {
-        "type": "integer"
-       },
-       "leave_type": {
-        "enum": [
-         "vacation",
-         "permit",
-         "personal"
-        ],
-        "type": "string"
-       },
-       "leave_type_label": {
-        "type": "string"
-       },
-       "note": {
-        "maxLength": 280,
-        "type": "string"
-       },
-       "start_date": {
-        "format": "date",
-        "type": "string"
-       },
-       "status": {
-        "enum": [
-         "pending",
-         "approved",
-         "rejected"
-        ],
-        "type": "string"
-       },
-       "status_label": {
-        "type": "string"
+        "properties": {
+         "id": {
+          "type": "integer"
+         },
+         "username": {
+          "type": "string"
+         },
+         "display_name": {
+          "type": "string",
+          "description": "Full name, or the username when no name is set."
+         },
+         "email": {
+          "type": "string"
+         },
+         "role": {
+          "type": "string",
+          "enum": [
+           "employee",
+           "manager",
+           "admin"
+          ]
+         },
+         "team": {
+          "type": "string",
+          "nullable": true
+         }
+        }
        }
-      },
-      "required": [
-       "id",
-       "employee",
-       "leave_type",
-       "leave_type_label",
-       "start_date",
-       "end_date",
-       "note",
-       "status",
-       "status_label",
-       "business_days",
-       "created_at"
-      ],
-      "type": "object"
+      }
      }
     },
     "400": {
      "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
       "properties": {
        "detail": {
         "type": "string"
        }
-      },
-      "required": [
-       "detail"
-      ],
-      "type": "object"
+      }
      }
     },
     "401": {
      "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
       "properties": {
        "detail": {
         "type": "string"
        }
-      },
-      "required": [
-       "detail"
-      ],
-      "type": "object"
-     }
-    },
-    "403": {
-     "application/json": {
-      "properties": {
-       "detail": {
-        "type": "string"
-       }
-      },
-      "required": [
-       "detail"
-      ],
-      "type": "object"
-     }
-    },
-    "404": {
-     "application/json": {
-      "properties": {
-       "detail": {
-        "type": "string"
-       }
-      },
-      "required": [
-       "detail"
-      ],
-      "type": "object"
-     },
-     "text/html": {
-      "type": "string"
-     }
-    },
-    "409": {
-     "application/json": {
-      "properties": {
-       "detail": {
-        "type": "string"
-       }
-      },
-      "required": [
-       "detail"
-      ],
-      "type": "object"
+      }
      }
     },
     "415": {
      "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
       "properties": {
        "detail": {
         "type": "string"
        }
-      },
+      }
+     }
+    }
+   }
+  },
+  "me": {
+   "method": "get",
+   "path": "/api/me/",
+   "secured": true,
+   "parameters": [],
+   "request_media": [],
+   "request_fields": {},
+   "responses": {
+    "200": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "id",
+       "username",
+       "display_name",
+       "email",
+       "role",
+       "team"
+      ],
+      "properties": {
+       "id": {
+        "type": "integer"
+       },
+       "username": {
+        "type": "string"
+       },
+       "display_name": {
+        "type": "string",
+        "description": "Full name, or the username when no name is set."
+       },
+       "email": {
+        "type": "string"
+       },
+       "role": {
+        "type": "string",
+        "enum": [
+         "employee",
+         "manager",
+         "admin"
+        ]
+       },
+       "team": {
+        "type": "string",
+        "nullable": true
+       }
+      }
+     }
+    },
+    "401": {
+     "application/json": {
+      "type": "object",
       "required": [
        "detail"
       ],
-      "type": "object"
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
      }
     }
    }
@@ -368,95 +176,16 @@
   "listRequests": {
    "method": "get",
    "path": "/api/requests/",
+   "secured": true,
+   "parameters": [],
+   "request_media": [],
+   "request_fields": {},
    "responses": {
     "200": {
      "application/json": {
+      "type": "array",
       "items": {
-       "properties": {
-        "business_days": {
-         "minimum": 0,
-         "type": "integer"
-        },
-        "created_at": {
-         "format": "date-time",
-         "type": "string"
-        },
-        "employee": {
-         "properties": {
-          "display_name": {
-           "description": "Full name, or the username when no name is set.",
-           "type": "string"
-          },
-          "email": {
-           "type": "string"
-          },
-          "id": {
-           "type": "integer"
-          },
-          "role": {
-           "enum": [
-            "employee",
-            "manager",
-            "admin"
-           ],
-           "type": "string"
-          },
-          "team": {
-           "nullable": true,
-           "type": "string"
-          },
-          "username": {
-           "type": "string"
-          }
-         },
-         "required": [
-          "id",
-          "username",
-          "display_name",
-          "email",
-          "role",
-          "team"
-         ],
-         "type": "object"
-        },
-        "end_date": {
-         "format": "date",
-         "type": "string"
-        },
-        "id": {
-         "type": "integer"
-        },
-        "leave_type": {
-         "enum": [
-          "vacation",
-          "permit",
-          "personal"
-         ],
-         "type": "string"
-        },
-        "leave_type_label": {
-         "type": "string"
-        },
-        "note": {
-         "maxLength": 280,
-         "type": "string"
-        },
-        "start_date": {
-         "format": "date",
-         "type": "string"
-        },
-        "status": {
-         "enum": [
-          "pending",
-          "approved",
-          "rejected"
-         ],
-         "type": "string"
-        },
-        "status_label": {
-         "type": "string"
-        }
-       },
+       "type": "object",
        "required": [
         "id",
         "employee",
@@ -470,178 +199,105 @@
         "business_days",
         "created_at"
        ],
-       "type": "object"
-      },
-      "type": "array"
-     }
-    },
-    "401": {
-     "application/json": {
-      "properties": {
-       "detail": {
-        "type": "string"
-       }
-      },
-      "required": [
-       "detail"
-      ],
-      "type": "object"
-     }
-    }
-   }
-  },
-  "login": {
-   "method": "post",
-   "path": "/api/auth/login/",
-   "responses": {
-    "200": {
-     "application/json": {
-      "properties": {
-       "token": {
-        "type": "string"
-       },
-       "user": {
-        "properties": {
-         "display_name": {
-          "description": "Full name, or the username when no name is set.",
-          "type": "string"
-         },
-         "email": {
-          "type": "string"
-         },
-         "id": {
-          "type": "integer"
-         },
-         "role": {
-          "enum": [
-           "employee",
-           "manager",
-           "admin"
-          ],
-          "type": "string"
-         },
-         "team": {
-          "nullable": true,
-          "type": "string"
-         },
-         "username": {
-          "type": "string"
+       "properties": {
+        "id": {
+         "type": "integer"
+        },
+        "employee": {
+         "type": "object",
+         "required": [
+          "id",
+          "username",
+          "display_name",
+          "email",
+          "role",
+          "team"
+         ],
+         "properties": {
+          "id": {
+           "type": "integer"
+          },
+          "username": {
+           "type": "string"
+          },
+          "display_name": {
+           "type": "string",
+           "description": "Full name, or the username when no name is set."
+          },
+          "email": {
+           "type": "string"
+          },
+          "role": {
+           "type": "string",
+           "enum": [
+            "employee",
+            "manager",
+            "admin"
+           ]
+          },
+          "team": {
+           "type": "string",
+           "nullable": true
+          }
          }
         },
-        "required": [
-         "id",
-         "username",
-         "display_name",
-         "email",
-         "role",
-         "team"
-        ],
-        "type": "object"
+        "leave_type": {
+         "type": "string",
+         "enum": [
+          "vacation",
+          "permit",
+          "personal"
+         ]
+        },
+        "leave_type_label": {
+         "type": "string"
+        },
+        "start_date": {
+         "type": "string",
+         "format": "date"
+        },
+        "end_date": {
+         "type": "string",
+         "format": "date"
+        },
+        "note": {
+         "type": "string",
+         "maxLength": 280
+        },
+        "status": {
+         "type": "string",
+         "enum": [
+          "pending",
+          "approved",
+          "rejected"
+         ]
+        },
+        "status_label": {
+         "type": "string"
+        },
+        "business_days": {
+         "type": "integer",
+         "minimum": 0
+        },
+        "created_at": {
+         "type": "string",
+         "format": "date-time"
+        }
        }
-      },
-      "required": [
-       "token",
-       "user"
-      ],
-      "type": "object"
-     }
-    },
-    "400": {
-     "application/json": {
-      "properties": {
-       "detail": {
-        "type": "string"
-       }
-      },
-      "required": [
-       "detail"
-      ],
-      "type": "object"
-     }
-    },
-    "401": {
-     "application/json": {
-      "properties": {
-       "detail": {
-        "type": "string"
-       }
-      },
-      "required": [
-       "detail"
-      ],
-      "type": "object"
-     }
-    },
-    "415": {
-     "application/json": {
-      "properties": {
-       "detail": {
-        "type": "string"
-       }
-      },
-      "required": [
-       "detail"
-      ],
-      "type": "object"
-     }
-    }
-   }
-  },
-  "me": {
-   "method": "get",
-   "path": "/api/me/",
-   "responses": {
-    "200": {
-     "application/json": {
-      "properties": {
-       "display_name": {
-        "description": "Full name, or the username when no name is set.",
-        "type": "string"
-       },
-       "email": {
-        "type": "string"
-       },
-       "id": {
-        "type": "integer"
-       },
-       "role": {
-        "enum": [
-         "employee",
-         "manager",
-         "admin"
-        ],
-        "type": "string"
-       },
-       "team": {
-        "nullable": true,
-        "type": "string"
-       },
-       "username": {
-        "type": "string"
-       }
-      },
-      "required": [
-       "id",
-       "username",
-       "display_name",
-       "email",
-       "role",
-       "team"
-      ],
-      "type": "object"
+      }
      }
     },
     "401": {
      "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
       "properties": {
        "detail": {
         "type": "string"
        }
-      },
-      "required": [
-       "detail"
-      ],
-      "type": "object"
+      }
      }
     }
    }
@@ -649,94 +305,27 @@
   "submitRequest": {
    "method": "post",
    "path": "/api/requests/",
+   "secured": true,
+   "parameters": [],
+   "request_media": [
+    "application/json",
+    "application/x-www-form-urlencoded",
+    "multipart/form-data"
+   ],
+   "request_fields": {
+    "leave_type": [
+     "vacation",
+     "permit",
+     "personal"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "note": null
+   },
    "responses": {
     "201": {
      "application/json": {
-      "properties": {
-       "business_days": {
-        "minimum": 0,
-        "type": "integer"
-       },
-       "created_at": {
-        "format": "date-time",
-        "type": "string"
-       },
-       "employee": {
-        "properties": {
-         "display_name": {
-          "description": "Full name, or the username when no name is set.",
-          "type": "string"
-         },
-         "email": {
-          "type": "string"
-         },
-         "id": {
-          "type": "integer"
-         },
-         "role": {
-          "enum": [
-           "employee",
-           "manager",
-           "admin"
-          ],
-          "type": "string"
-         },
-         "team": {
-          "nullable": true,
-          "type": "string"
-         },
-         "username": {
-          "type": "string"
-         }
-        },
-        "required": [
-         "id",
-         "username",
-         "display_name",
-         "email",
-         "role",
-         "team"
-        ],
-        "type": "object"
-       },
-       "end_date": {
-        "format": "date",
-        "type": "string"
-       },
-       "id": {
-        "type": "integer"
-       },
-       "leave_type": {
-        "enum": [
-         "vacation",
-         "permit",
-         "personal"
-        ],
-        "type": "string"
-       },
-       "leave_type_label": {
-        "type": "string"
-       },
-       "note": {
-        "maxLength": 280,
-        "type": "string"
-       },
-       "start_date": {
-        "format": "date",
-        "type": "string"
-       },
-       "status": {
-        "enum": [
-         "pending",
-         "approved",
-         "rejected"
-        ],
-        "type": "string"
-       },
-       "status_label": {
-        "type": "string"
-       }
-      },
+      "type": "object",
       "required": [
        "id",
        "employee",
@@ -750,60 +339,527 @@
        "business_days",
        "created_at"
       ],
-      "type": "object"
+      "properties": {
+       "id": {
+        "type": "integer"
+       },
+       "employee": {
+        "type": "object",
+        "required": [
+         "id",
+         "username",
+         "display_name",
+         "email",
+         "role",
+         "team"
+        ],
+        "properties": {
+         "id": {
+          "type": "integer"
+         },
+         "username": {
+          "type": "string"
+         },
+         "display_name": {
+          "type": "string",
+          "description": "Full name, or the username when no name is set."
+         },
+         "email": {
+          "type": "string"
+         },
+         "role": {
+          "type": "string",
+          "enum": [
+           "employee",
+           "manager",
+           "admin"
+          ]
+         },
+         "team": {
+          "type": "string",
+          "nullable": true
+         }
+        }
+       },
+       "leave_type": {
+        "type": "string",
+        "enum": [
+         "vacation",
+         "permit",
+         "personal"
+        ]
+       },
+       "leave_type_label": {
+        "type": "string"
+       },
+       "start_date": {
+        "type": "string",
+        "format": "date"
+       },
+       "end_date": {
+        "type": "string",
+        "format": "date"
+       },
+       "note": {
+        "type": "string",
+        "maxLength": 280
+       },
+       "status": {
+        "type": "string",
+        "enum": [
+         "pending",
+         "approved",
+         "rejected"
+        ]
+       },
+       "status_label": {
+        "type": "string"
+       },
+       "business_days": {
+        "type": "integer",
+        "minimum": 0
+       },
+       "created_at": {
+        "type": "string",
+        "format": "date-time"
+       }
+      }
      }
     },
     "400": {
      "application/json": {
       "oneOf": [
        {
+        "type": "object",
+        "description": "DRF field errors keyed by field name, or non_field_errors.",
         "additionalProperties": {
+         "type": "array",
          "items": {
           "type": "string"
-         },
-         "type": "array"
-        },
-        "description": "DRF field errors keyed by field name, or non_field_errors.",
-        "type": "object"
+         }
+        }
        },
        {
+        "type": "object",
+        "required": [
+         "detail"
+        ],
         "properties": {
          "detail": {
           "type": "string"
          }
-        },
-        "required": [
-         "detail"
-        ],
-        "type": "object"
+        }
        }
       ]
      }
     },
     "401": {
      "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
       "properties": {
        "detail": {
         "type": "string"
        }
-      },
-      "required": [
-       "detail"
-      ],
-      "type": "object"
+      }
      }
     },
     "415": {
      "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
       "properties": {
        "detail": {
         "type": "string"
        }
-      },
+      }
+     }
+    }
+   }
+  },
+  "decideRequest": {
+   "method": "post",
+   "path": "/api/requests/{id}/decision/",
+   "secured": true,
+   "parameters": [
+    "id"
+   ],
+   "request_media": [
+    "application/json",
+    "application/x-www-form-urlencoded",
+    "multipart/form-data"
+   ],
+   "request_fields": {
+    "status": [
+     "approved",
+     "rejected"
+    ]
+   },
+   "responses": {
+    "200": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "id",
+       "employee",
+       "leave_type",
+       "leave_type_label",
+       "start_date",
+       "end_date",
+       "note",
+       "status",
+       "status_label",
+       "business_days",
+       "created_at"
+      ],
+      "properties": {
+       "id": {
+        "type": "integer"
+       },
+       "employee": {
+        "type": "object",
+        "required": [
+         "id",
+         "username",
+         "display_name",
+         "email",
+         "role",
+         "team"
+        ],
+        "properties": {
+         "id": {
+          "type": "integer"
+         },
+         "username": {
+          "type": "string"
+         },
+         "display_name": {
+          "type": "string",
+          "description": "Full name, or the username when no name is set."
+         },
+         "email": {
+          "type": "string"
+         },
+         "role": {
+          "type": "string",
+          "enum": [
+           "employee",
+           "manager",
+           "admin"
+          ]
+         },
+         "team": {
+          "type": "string",
+          "nullable": true
+         }
+        }
+       },
+       "leave_type": {
+        "type": "string",
+        "enum": [
+         "vacation",
+         "permit",
+         "personal"
+        ]
+       },
+       "leave_type_label": {
+        "type": "string"
+       },
+       "start_date": {
+        "type": "string",
+        "format": "date"
+       },
+       "end_date": {
+        "type": "string",
+        "format": "date"
+       },
+       "note": {
+        "type": "string",
+        "maxLength": 280
+       },
+       "status": {
+        "type": "string",
+        "enum": [
+         "pending",
+         "approved",
+         "rejected"
+        ]
+       },
+       "status_label": {
+        "type": "string"
+       },
+       "business_days": {
+        "type": "integer",
+        "minimum": 0
+       },
+       "created_at": {
+        "type": "string",
+        "format": "date-time"
+       }
+      }
+     }
+    },
+    "400": {
+     "application/json": {
+      "type": "object",
       "required": [
        "detail"
       ],
-      "type": "object"
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     }
+    },
+    "401": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     }
+    },
+    "403": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     }
+    },
+    "404": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     },
+     "text/html": {
+      "type": "string"
+     }
+    },
+    "409": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     }
+    },
+    "415": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     }
+    }
+   }
+  },
+  "dashboard": {
+   "method": "get",
+   "path": "/api/dashboard/",
+   "secured": true,
+   "parameters": [],
+   "request_media": [],
+   "request_fields": {},
+   "responses": {
+    "200": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "balance",
+       "counts",
+       "recent"
+      ],
+      "properties": {
+       "balance": {
+        "type": "object",
+        "required": [
+         "allowance",
+         "used",
+         "available"
+        ],
+        "properties": {
+         "allowance": {
+          "type": "integer"
+         },
+         "used": {
+          "type": "integer"
+         },
+         "available": {
+          "type": "integer"
+         }
+        }
+       },
+       "counts": {
+        "type": "object",
+        "required": [
+         "total",
+         "pending",
+         "approved"
+        ],
+        "properties": {
+         "total": {
+          "type": "integer"
+         },
+         "pending": {
+          "type": "integer"
+         },
+         "approved": {
+          "type": "integer"
+         }
+        }
+       },
+       "recent": {
+        "type": "array",
+        "maxItems": 5,
+        "items": {
+         "type": "object",
+         "required": [
+          "id",
+          "employee",
+          "leave_type",
+          "leave_type_label",
+          "start_date",
+          "end_date",
+          "note",
+          "status",
+          "status_label",
+          "business_days",
+          "created_at"
+         ],
+         "properties": {
+          "id": {
+           "type": "integer"
+          },
+          "employee": {
+           "type": "object",
+           "required": [
+            "id",
+            "username",
+            "display_name",
+            "email",
+            "role",
+            "team"
+           ],
+           "properties": {
+            "id": {
+             "type": "integer"
+            },
+            "username": {
+             "type": "string"
+            },
+            "display_name": {
+             "type": "string",
+             "description": "Full name, or the username when no name is set."
+            },
+            "email": {
+             "type": "string"
+            },
+            "role": {
+             "type": "string",
+             "enum": [
+              "employee",
+              "manager",
+              "admin"
+             ]
+            },
+            "team": {
+             "type": "string",
+             "nullable": true
+            }
+           }
+          },
+          "leave_type": {
+           "type": "string",
+           "enum": [
+            "vacation",
+            "permit",
+            "personal"
+           ]
+          },
+          "leave_type_label": {
+           "type": "string"
+          },
+          "start_date": {
+           "type": "string",
+           "format": "date"
+          },
+          "end_date": {
+           "type": "string",
+           "format": "date"
+          },
+          "note": {
+           "type": "string",
+           "maxLength": 280
+          },
+          "status": {
+           "type": "string",
+           "enum": [
+            "pending",
+            "approved",
+            "rejected"
+           ]
+          },
+          "status_label": {
+           "type": "string"
+          },
+          "business_days": {
+           "type": "integer",
+           "minimum": 0
+          },
+          "created_at": {
+           "type": "string",
+           "format": "date-time"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "401": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
      }
     }
    }
@@ -811,39 +867,18 @@
   "team": {
    "method": "get",
    "path": "/api/team/",
+   "secured": true,
+   "parameters": [],
+   "request_media": [],
+   "request_fields": {},
    "responses": {
     "200": {
      "application/json": {
+      "type": "array",
       "items": {
        "allOf": [
         {
-         "properties": {
-          "display_name": {
-           "description": "Full name, or the username when no name is set.",
-           "type": "string"
-          },
-          "email": {
-           "type": "string"
-          },
-          "id": {
-           "type": "integer"
-          },
-          "role": {
-           "enum": [
-            "employee",
-            "manager",
-            "admin"
-           ],
-           "type": "string"
-          },
-          "team": {
-           "nullable": true,
-           "type": "string"
-          },
-          "username": {
-           "type": "string"
-          }
-         },
+         "type": "object",
          "required": [
           "id",
           "username",
@@ -852,62 +887,146 @@
           "role",
           "team"
          ],
-         "type": "object"
+         "properties": {
+          "id": {
+           "type": "integer"
+          },
+          "username": {
+           "type": "string"
+          },
+          "display_name": {
+           "type": "string",
+           "description": "Full name, or the username when no name is set."
+          },
+          "email": {
+           "type": "string"
+          },
+          "role": {
+           "type": "string",
+           "enum": [
+            "employee",
+            "manager",
+            "admin"
+           ]
+          },
+          "team": {
+           "type": "string",
+           "nullable": true
+          }
+         }
         },
         {
-         "properties": {
-          "allowance": {
-           "type": "integer"
-          },
-          "available_days": {
-           "type": "integer"
-          },
-          "next_leave": {
-           "nullable": true,
-           "properties": {
-            "end_date": {
-             "format": "date",
-             "type": "string"
-            },
-            "start_date": {
-             "format": "date",
-             "type": "string"
-            }
-           },
-           "required": [
-            "start_date",
-            "end_date"
-           ],
-           "type": "object"
-          }
-         },
+         "type": "object",
          "required": [
           "available_days",
           "allowance",
           "next_leave"
          ],
-         "type": "object"
+         "properties": {
+          "available_days": {
+           "type": "integer"
+          },
+          "allowance": {
+           "type": "integer"
+          },
+          "next_leave": {
+           "type": "object",
+           "nullable": true,
+           "required": [
+            "start_date",
+            "end_date"
+           ],
+           "properties": {
+            "start_date": {
+             "type": "string",
+             "format": "date"
+            },
+            "end_date": {
+             "type": "string",
+             "format": "date"
+            }
+           }
+          }
+         }
         }
        ]
-      },
-      "type": "array"
+      }
      }
     },
     "401": {
      "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
       "properties": {
        "detail": {
         "type": "string"
        }
-      },
-      "required": [
-       "detail"
-      ],
-      "type": "object"
+      }
      }
     }
    }
   }
  },
- "spec_sha256": "00167b42eee65d5ae1ae55c1e56c6efff110aebea8fe50444a25fa48eb7fb61a"
+ "flows": [
+  {
+   "name": "login then profile",
+   "steps": [
+    "login",
+    "me"
+   ]
+  },
+  {
+   "name": "submit then own list",
+   "steps": [
+    "submitRequest",
+    "listRequests"
+   ]
+  },
+  {
+   "name": "submit then dashboard",
+   "steps": [
+    "submitRequest",
+    "dashboard"
+   ]
+  },
+  {
+   "name": "submit then approve or reject the same request",
+   "steps": [
+    "submitRequest",
+    "decideRequest"
+   ]
+  },
+  {
+   "name": "submit then decide then repeat the decision",
+   "steps": [
+    "submitRequest",
+    "decideRequest",
+    "decideRequest"
+   ]
+  },
+  {
+   "name": "decide then owner dashboard",
+   "steps": [
+    "decideRequest",
+    "dashboard"
+   ]
+  },
+  {
+   "name": "decide then team upcoming leave",
+   "steps": [
+    "decideRequest",
+    "team"
+   ]
+  },
+  {
+   "name": "reject then resubmit the dates",
+   "steps": [
+    "submitRequest",
+    "decideRequest",
+    "submitRequest"
+   ]
+  }
+ ]
 }

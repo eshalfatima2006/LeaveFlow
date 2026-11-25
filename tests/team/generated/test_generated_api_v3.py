@@ -1,20 +1,15 @@
 # =============================================================================
 # GENERATED FILE - DO NOT EDIT BY HAND.
 # Generator: scripts/sqe/generate_api_tests.py
-# Spec:      docs/sqe/openapi/leaveflow-api.yaml
-# Spec SHA-256: 60ad933a87f6ced0f7dfb6a78ecbc3b3bb143e4ac6edc2f99bafaceab0a49400
-# Command:   python3 scripts/sqe/generate_api_tests.py docs/sqe/openapi/leaveflow-api.yaml --output tests/team/generated/test_generated_api_v3.py --demo-env SQE_SPEC_CHANGE_DEMO=v3
+# Spec:      docs/sqe/openapi/leaveflow-api.yaml + docs/sqe/openapi/changes/change-2-sick-type.patch
+# Spec SHA-256: ff887cd86d9667c3cc6b15f4db1339dc5a16d05670fac5f99ebb02928c33e400
+# Command:   python3 scripts/sqe/generate_api_tests.py docs/sqe/openapi/leaveflow-api.yaml --patch docs/sqe/openapi/changes/change-2-sick-type.patch --output tests/team/generated/test_generated_api_v3.py --demo-env SQE_SPEC_CHANGE_DEMO=v3
 #
-# Test design (from the spec's constraints, one input varied per test, all
-# other inputs at the operation's example values):
-#   EP  valid: each enum value / the declared type / omitted optional field;
-#       invalid: wrong type, out-of-enum, invalid format, null, missing required
-#       field, over-max-length, x-invalid-examples, missing/unknown token.
-#   BVA 3-point (limit-1, limit, limit+1) for maxLength/minLength/minimum/
-#       maximum, x-relational and x-rule-boundaries constraints.
-# Identical requests are generated once; the docstring lists every
-# class the test covers (count each executable case once).
-# Tests: 69
+# One input varies per test; the rest is the operation's example request.
+# EP and 3-point BVA classes: see the generator's module docstring. Identical
+# requests are generated once; the docstring lists every class the test covers
+# (count each executable case once).
+# Tests: 128
 #
 # DEMONSTRATION MODULE: its tests load only when SQE_SPEC_CHANGE_DEMO=v3.
 # It encodes a changed spec and is expected to fail against the unchanged
@@ -24,16 +19,19 @@
 
 import os
 from datetime import date
+from urllib.parse import urlencode
 
 from django.test import TestCase
+from django.utils import timezone
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 
 from leave.models import LeaveRequest
-from tests.team.api.support import token_client
+from tests.team.api.contract import response_errors
+from tests.team.api.support import all_rows, balance_view, token_client
 from tests.team.fixtures.leave_data import TEST_PASSWORD, build_people, make_request
 
-SPEC_SHA256 = '60ad933a87f6ced0f7dfb6a78ecbc3b3bb143e4ac6edc2f99bafaceab0a49400'
+SPEC_SHA256 = 'ff887cd86d9667c3cc6b15f4db1339dc5a16d05670fac5f99ebb02928c33e400'
 FIXTURE = {'allowance': 10, 'pending': {'start': '2026-12-15', 'end': '2026-12-16'}}
 DEMO_ENABLED = os.environ.get('SQE_SPEC_CHANGE_DEMO') == 'v3'
 
@@ -44,7 +42,7 @@ def load_tests(loader, tests, pattern):
 
 
 class F:
-    """Fixture-bound value (x-sqe-test binding), resolved inside the test."""
+    """Fixture-bound value, resolved inside the test."""
 
     def __init__(self, ref):
         self.ref = ref
@@ -53,82 +51,130 @@ class F:
 class GeneratedApiTestCase(TestCase):
     """Runtime harness emitted by the generator; uses the A2.1 fixtures and token clients."""
 
-    METHOD = PATH = READBACK = None
-    ACTOR = None
+    OPERATION = METHOD = PATH = READBACK = ACTOR = None
     PATH_PARAMS = {}
+    DEFAULTS = {}
     SUCCESS = 200
 
     def setUp(self):
-        # x-sqe-fixture: every allowance, and the W2 target / overlap interval, a
-        # pending team A request of e1 that m1 may decide.
-        self.people = build_people("gen", allowance=FIXTURE["allowance"])
-        self.pending = make_request(
-            self.people.e1, start=date.fromisoformat(FIXTURE["pending"]["start"]),
-            end=date.fromisoformat(FIXTURE["pending"]["end"]),
-        )
+        # x-sqe-fixture: every allowance, and e1's pending request (W2 target, overlap interval).
+        self.people = p = build_people("gen", allowance=FIXTURE["allowance"])
+        start, end = (date.fromisoformat(FIXTURE["pending"][k]) for k in ("start", "end"))
+        self.records = {
+            "pending": make_request(p.e1, start=start, end=end),
+            "approved": make_request(p.e2, start=date(2026, 12, 21), end=date(2026, 12, 22),
+                                     status=LeaveRequest.Status.APPROVED, decided_by=p.m1),
+            "rejected": make_request(p.e2, start=date(2026, 12, 23), end=date(2026, 12, 23),
+                                     status=LeaveRequest.Status.REJECTED, decided_by=p.m1),
+            "other_team": make_request(p.m2, start=start, end=end),
+            "own": make_request(p.m1, start=start, end=end),
+        }
 
     def ref(self, ref):
         root, *attrs = ref.split(".")
-        value = {"pending": self.pending, "password": TEST_PASSWORD}.get(root)
-        if value is None:
-            value = getattr(self.people, root)
+        value = TEST_PASSWORD if root == "password" else self.records.get(root) or getattr(self.people, root)
         for attr in attrs:
             value = getattr(value, attr)
         return value
 
-    def resolve(self, body):
-        return {k: self.ref(v.ref) if isinstance(v, F) else v for k, v in body.items()}
+    def resolve(self, values):
+        return {k: self.ref(v.ref) if isinstance(v, F) else v for k, v in values.items()}
 
-    def url(self, path):
-        return self.PATH.format(**{**{k: self.ref(v) for k, v in self.PATH_PARAMS.items()}, **path})
-
-    def client_for(self, auth):
-        if auth == "actor" and self.ACTOR:
-            return token_client(self.ref(self.ACTOR))
+    def client_for(self, auth, actor):
+        if auth == "actor" and actor:
+            return token_client(self.ref(actor))
         client = APIClient()
         if auth == "invalid":
             client.credentials(HTTP_AUTHORIZATION="Token " + "0" * 40)
         return client
 
-    def snapshot(self):
-        if self.READBACK == "created":
-            return LeaveRequest.objects.filter(employee=self.ref(self.ACTOR)).count()
-        if self.READBACK == "decided":
-            return LeaveRequest.objects.filter(pk=self.pending.pk).values("status", "decided_by_id").get()
-        return Token.objects.count()
+    def balances(self):
+        return {user.pk: balance_view(user) for user in vars(self.people).values() if hasattr(user, "role")}
 
-    def check(self, body, *, status, path=None, auth="actor", error=None):
-        """One real API call with one generated request; assert status, error key and persisted outcome."""
-        client = self.client_for(auth)
-        body = self.resolve(body)
-        before = self.snapshot()
-        response = getattr(client, self.METHOD)(self.url(path or {}), body, format="json")
+    def state(self):
+        return all_rows(), self.balances(), set(Token.objects.values_list("key", flat=True))
+
+    def send(self, client, method, url, body, media, raw):
+        call = getattr(client, method)
+        if method == "get":
+            return call(url)
+        if raw is not None:
+            return call(url, raw, content_type=media)
+        if media == "application/json":
+            return call(url, body, format="json")
+        if media == "multipart/form-data":
+            return call(url, body, format="multipart")
+        return call(url, urlencode(body), content_type=media)
+
+    def check(self, body, *, status, path=None, auth="actor", actor=None, method=None,
+              media="application/json", raw=None, error=None):
+        """One real API call; assert exact status, error key, response schema and stored state."""
+        actor, method = actor or self.ACTOR, method or self.METHOD
+        client, body = self.client_for(auth, actor), self.resolve(body)
+        target = {**{k: self.ref(v) for k, v in self.PATH_PARAMS.items()}, **self.resolve(path or {})}
+        before, started = self.state(), timezone.now()
+        response = self.send(client, method, self.PATH.format(**target), body, media, raw)
         data = getattr(response, "data", None)
-        shown = "(login body hidden)" if self.READBACK == "token" else repr(data)
-        detail = f"{self.METHOD.upper()} {self.PATH} -> {response.status_code}, expected {status}: {shown}"
-        self.assertEqual(response.status_code, status, detail)
-        valid = status == self.SUCCESS
+        shown = "(login response hidden)" if self.READBACK == "token" else repr(data)
+        self.assertEqual(response.status_code, status, f"{method.upper()} {self.PATH}, expected {status}: {shown}")
+        if status != 405:  # OpenAPI documents implemented methods only
+            self.assertEqual(response_errors(self.OPERATION, response), [])
         if error is not None:
-            self.assertEqual(set(data), {error}, detail)
-        after = self.snapshot()
-        if self.READBACK == "created":
-            self.assertEqual(after - before, 1 if valid else 0, "LeaveRequest rows created")
-        elif self.READBACK == "decided":
-            expected = {"status": body["status"], "decided_by_id": self.ref(self.ACTOR).pk} if valid else before
-            self.assertEqual(after, expected, "decision persisted state")
+            self.assertEqual(set(data), {error}, shown)
+        after = self.state()
+        if status == self.SUCCESS and self.READBACK != "none":
+            getattr(self, "assert_" + self.READBACK)(body, before, after, response, actor, target, started)
         else:
-            self.assertEqual("token" in data, valid, "token in response")
-            self.assertEqual(after - before, 1 if valid else 0, "tokens created")
-        return response
+            self.assertTrue(after == before, "a refused or read-only call changed stored state")
+
+    def assert_created(self, body, before, after, response, actor, target, started):
+        """Exactly one new row, as submitted, pending and owned by the caller; nothing else changed."""
+        expected = {**self.DEFAULTS, **body}
+        new = [row for row in after[0] if row not in before[0]]
+        self.assertEqual((len(new), len(after[0])), (1, len(before[0]) + 1))
+        row = new[0]
+        self.assertEqual(
+            (row["id"], row["employee_id"], row["status"], row["decided_by_id"], row["decided_at"]),
+            (response.json()["id"], self.ref(actor).pk, LeaveRequest.Status.PENDING, None, None),
+        )
+        self.assertEqual(
+            (row["leave_type"], row["start_date"].isoformat(), row["end_date"].isoformat(), row["note"]),
+            (expected["leave_type"], expected["start_date"], expected["end_date"], expected["note"].strip()),
+        )
+        self.assertTrue(after[1:] == before[1:], "balance or tokens changed")
+
+    def assert_decided(self, body, before, after, response, actor, target, started):
+        """Same row and content, new status, decider and time; only the owner's balance moves, on approval."""
+        old = next(row for row in before[0] if row["id"] == target["id"])
+        new = next(row for row in after[0] if row["id"] == target["id"])
+        self.assertEqual(response.json()["id"], target["id"])
+        self.assertTrue(started <= new["decided_at"] <= timezone.now())
+        self.assertEqual(new, {**old, "status": body["status"], "decided_by_id": self.ref(actor).pk,
+                               "decided_at": new["decided_at"]})
+        self.assertEqual([r for r in after[0] if r["id"] != target["id"]], [r for r in before[0] if r["id"] != target["id"]])
+        days = LeaveRequest.objects.get(pk=target["id"]).business_days if body["status"] == "approved" else 0
+        allowance, used, available = before[1][old["employee_id"]]
+        self.assertEqual(after[1], {**before[1], old["employee_id"]: (allowance, used + days, available - days)})
+        self.assertTrue(after[2] == before[2], "tokens changed")
+
+    def assert_token(self, body, before, after, response, actor, target, started):
+        """One token, returned by the call and bound to the user who logged in; requests unchanged."""
+        created = after[2] - before[2]
+        self.assertTrue(created == {response.json()["token"]}, "the returned token is the only new one")
+        user = Token.objects.get(key=created.pop()).user
+        self.assertEqual((user.username, response.json()["user"]["id"]), (body["username"], user.pk))
+        self.assertTrue(after[:2] == before[:2], "requests or balances changed")
 
 
 class GeneratedLoginTests(GeneratedApiTestCase):
-    """POST /api/auth/login/: 11 generated tests."""
+    """POST /api/auth/login/: 19 generated tests."""
 
+    OPERATION = 'login'
     METHOD = 'post'
     PATH = '/api/auth/login/'
     ACTOR = None
     PATH_PARAMS = {}
+    DEFAULTS = {}
     READBACK = 'token'
     SUCCESS = 200
 
@@ -136,6 +182,7 @@ class GeneratedLoginTests(GeneratedApiTestCase):
         """Generated from spec: POST /api/auth/login/ username EP valid string
 
         Also generated from spec: POST /api/auth/login/ password EP valid string (password)
+        Also generated from spec: POST /api/auth/login/ media EP valid application/json
 
         Expect 200.
         """
@@ -148,8 +195,8 @@ class GeneratedLoginTests(GeneratedApiTestCase):
         """
         self.check({'username': True, 'password': F('password')}, status=400, error='detail')
 
-    def test_username_ep_invalid_null_required(self):
-        """Generated from spec: POST /api/auth/login/ username EP invalid null (required)
+    def test_username_ep_invalid_null_not_nullable(self):
+        """Generated from spec: POST /api/auth/login/ username EP invalid null (not nullable)
 
         Expect 400, error key detail.
         """
@@ -183,8 +230,8 @@ class GeneratedLoginTests(GeneratedApiTestCase):
         """
         self.check({'username': F('e1.username'), 'password': True}, status=400, error='detail')
 
-    def test_password_ep_invalid_null_required(self):
-        """Generated from spec: POST /api/auth/login/ password EP invalid null (required)
+    def test_password_ep_invalid_null_not_nullable(self):
+        """Generated from spec: POST /api/auth/login/ password EP invalid null (not nullable)
 
         Expect 400, error key detail.
         """
@@ -211,14 +258,189 @@ class GeneratedLoginTests(GeneratedApiTestCase):
         """
         self.check({'username': F('e1.username'), 'password': 'wrong-password'}, status=400, error='detail')
 
+    def test_media_ep_valid_application_x_www_form_urlencoded(self):
+        """Generated from spec: POST /api/auth/login/ media EP valid application/x-www-form-urlencoded
+
+        Expect 200.
+        """
+        self.check({'username': F('e1.username'), 'password': F('password')}, status=200, media='application/x-www-form-urlencoded')
+
+    def test_media_ep_valid_multipart_form_data(self):
+        """Generated from spec: POST /api/auth/login/ media EP valid multipart/form-data
+
+        Expect 200.
+        """
+        self.check({'username': F('e1.username'), 'password': F('password')}, status=200, media='multipart/form-data')
+
+    def test_media_ep_invalid_malformed_json(self):
+        """Generated from spec: POST /api/auth/login/ media EP invalid malformed JSON
+
+        Expect 400, error key detail.
+        """
+        self.check({'username': F('e1.username'), 'password': F('password')}, status=400, raw='{', error='detail')
+
+    def test_media_ep_invalid_text_plain(self):
+        """Generated from spec: POST /api/auth/login/ media EP invalid text/plain
+
+        Expect 415, error key detail.
+        """
+        self.check({'username': F('e1.username'), 'password': F('password')}, status=415, media='text/plain', raw='x', error='detail')
+
+    def test_method_ep_invalid_get(self):
+        """Generated from spec: POST /api/auth/login/ method EP invalid GET
+
+        Expect 405, error key detail.
+        """
+        self.check({'username': F('e1.username'), 'password': F('password')}, status=405, method='get', error='detail')
+
+    def test_method_ep_invalid_put(self):
+        """Generated from spec: POST /api/auth/login/ method EP invalid PUT
+
+        Expect 405, error key detail.
+        """
+        self.check({'username': F('e1.username'), 'password': F('password')}, status=405, method='put', error='detail')
+
+    def test_method_ep_invalid_patch(self):
+        """Generated from spec: POST /api/auth/login/ method EP invalid PATCH
+
+        Expect 405, error key detail.
+        """
+        self.check({'username': F('e1.username'), 'password': F('password')}, status=405, method='patch', error='detail')
+
+    def test_method_ep_invalid_delete(self):
+        """Generated from spec: POST /api/auth/login/ method EP invalid DELETE
+
+        Expect 405, error key detail.
+        """
+        self.check({'username': F('e1.username'), 'password': F('password')}, status=405, method='delete', error='detail')
+
+
+class GeneratedMeTests(GeneratedApiTestCase):
+    """GET /api/me/: 7 generated tests."""
+
+    OPERATION = 'me'
+    METHOD = 'get'
+    PATH = '/api/me/'
+    ACTOR = 'm1'
+    PATH_PARAMS = {}
+    DEFAULTS = {}
+    READBACK = 'none'
+    SUCCESS = 200
+
+    def test_authorization_ep_valid_token(self):
+        """Generated from spec: GET /api/me/ Authorization EP valid token
+
+        Expect 200.
+        """
+        self.check({}, status=200)
+
+    def test_authorization_ep_invalid_no_token(self):
+        """Generated from spec: GET /api/me/ Authorization EP invalid no token
+
+        Expect 401, error key detail.
+        """
+        self.check({}, status=401, auth='none', error='detail')
+
+    def test_authorization_ep_invalid_unknown_token(self):
+        """Generated from spec: GET /api/me/ Authorization EP invalid unknown token
+
+        Expect 401, error key detail.
+        """
+        self.check({}, status=401, auth='invalid', error='detail')
+
+    def test_method_ep_invalid_post(self):
+        """Generated from spec: GET /api/me/ method EP invalid POST
+
+        Expect 405, error key detail.
+        """
+        self.check({}, status=405, method='post', error='detail')
+
+    def test_method_ep_invalid_put(self):
+        """Generated from spec: GET /api/me/ method EP invalid PUT
+
+        Expect 405, error key detail.
+        """
+        self.check({}, status=405, method='put', error='detail')
+
+    def test_method_ep_invalid_patch(self):
+        """Generated from spec: GET /api/me/ method EP invalid PATCH
+
+        Expect 405, error key detail.
+        """
+        self.check({}, status=405, method='patch', error='detail')
+
+    def test_method_ep_invalid_delete(self):
+        """Generated from spec: GET /api/me/ method EP invalid DELETE
+
+        Expect 405, error key detail.
+        """
+        self.check({}, status=405, method='delete', error='detail')
+
+
+class GeneratedListRequestsTests(GeneratedApiTestCase):
+    """GET /api/requests/: 6 generated tests."""
+
+    OPERATION = 'listRequests'
+    METHOD = 'get'
+    PATH = '/api/requests/'
+    ACTOR = 'm1'
+    PATH_PARAMS = {}
+    DEFAULTS = {}
+    READBACK = 'none'
+    SUCCESS = 200
+
+    def test_authorization_ep_valid_token(self):
+        """Generated from spec: GET /api/requests/ Authorization EP valid token
+
+        Expect 200.
+        """
+        self.check({}, status=200)
+
+    def test_authorization_ep_invalid_no_token(self):
+        """Generated from spec: GET /api/requests/ Authorization EP invalid no token
+
+        Expect 401, error key detail.
+        """
+        self.check({}, status=401, auth='none', error='detail')
+
+    def test_authorization_ep_invalid_unknown_token(self):
+        """Generated from spec: GET /api/requests/ Authorization EP invalid unknown token
+
+        Expect 401, error key detail.
+        """
+        self.check({}, status=401, auth='invalid', error='detail')
+
+    def test_method_ep_invalid_put(self):
+        """Generated from spec: GET /api/requests/ method EP invalid PUT
+
+        Expect 405, error key detail.
+        """
+        self.check({}, status=405, method='put', error='detail')
+
+    def test_method_ep_invalid_patch(self):
+        """Generated from spec: GET /api/requests/ method EP invalid PATCH
+
+        Expect 405, error key detail.
+        """
+        self.check({}, status=405, method='patch', error='detail')
+
+    def test_method_ep_invalid_delete(self):
+        """Generated from spec: GET /api/requests/ method EP invalid DELETE
+
+        Expect 405, error key detail.
+        """
+        self.check({}, status=405, method='delete', error='detail')
+
 
 class GeneratedSubmitRequestTests(GeneratedApiTestCase):
-    """POST /api/requests/: 43 generated tests."""
+    """POST /api/requests/: 50 generated tests."""
 
+    OPERATION = 'submitRequest'
     METHOD = 'post'
     PATH = '/api/requests/'
     ACTOR = 'e1'
     PATH_PARAMS = {}
+    DEFAULTS = {'leave_type': 'vacation', 'note': ''}
     READBACK = 'created'
     SUCCESS = 201
 
@@ -230,6 +452,7 @@ class GeneratedSubmitRequestTests(GeneratedApiTestCase):
         Also generated from spec: POST /api/requests/ end_date BVA 2026-12-08 (limit+1, end_date >= start_date)
         Also generated from spec: POST /api/requests/ note EP valid string
         Also generated from spec: POST /api/requests/ Authorization EP valid token
+        Also generated from spec: POST /api/requests/ media EP valid application/json
 
         Expect 201.
         """
@@ -270,8 +493,8 @@ class GeneratedSubmitRequestTests(GeneratedApiTestCase):
         """
         self.check({'leave_type': True, 'start_date': '2026-12-07', 'end_date': '2026-12-08', 'note': 'Generated test'}, status=400, error='leave_type')
 
-    def test_leave_type_ep_invalid_null_optional(self):
-        """Generated from spec: POST /api/requests/ leave_type EP invalid null (optional)
+    def test_leave_type_ep_invalid_null_not_nullable(self):
+        """Generated from spec: POST /api/requests/ leave_type EP invalid null (not nullable)
 
         Expect 400, error key leave_type.
         """
@@ -305,8 +528,8 @@ class GeneratedSubmitRequestTests(GeneratedApiTestCase):
         """
         self.check({'leave_type': 'vacation', 'start_date': 'not-a-date', 'end_date': '2026-12-08', 'note': 'Generated test'}, status=400, error='start_date')
 
-    def test_start_date_ep_invalid_null_required(self):
-        """Generated from spec: POST /api/requests/ start_date EP invalid null (required)
+    def test_start_date_ep_invalid_null_not_nullable(self):
+        """Generated from spec: POST /api/requests/ start_date EP invalid null (not nullable)
 
         Expect 400, error key start_date.
         """
@@ -347,8 +570,8 @@ class GeneratedSubmitRequestTests(GeneratedApiTestCase):
         """
         self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': 'not-a-date', 'note': 'Generated test'}, status=400, error='end_date')
 
-    def test_end_date_ep_invalid_null_required(self):
-        """Generated from spec: POST /api/requests/ end_date EP invalid null (required)
+    def test_end_date_ep_invalid_null_not_nullable(self):
+        """Generated from spec: POST /api/requests/ end_date EP invalid null (not nullable)
 
         Expect 400, error key end_date.
         """
@@ -396,8 +619,8 @@ class GeneratedSubmitRequestTests(GeneratedApiTestCase):
         """
         self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': '2026-12-08', 'note': True}, status=400, error='note')
 
-    def test_note_ep_invalid_null_optional(self):
-        """Generated from spec: POST /api/requests/ note EP invalid null (optional)
+    def test_note_ep_invalid_null_not_nullable(self):
+        """Generated from spec: POST /api/requests/ note EP invalid null (not nullable)
 
         Expect 400, error key note.
         """
@@ -410,33 +633,54 @@ class GeneratedSubmitRequestTests(GeneratedApiTestCase):
         """
         self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': '2026-12-08'}, status=201)
 
-    def test_note_ep_invalid_over_max_length_560_chars_280(self):
-        """Generated from spec: POST /api/requests/ note EP invalid over-max-length (560 chars > 280)
+    def test_note_ep_invalid_over_x_trimmed_max_length_560_chars(self):
+        """Generated from spec: POST /api/requests/ note EP invalid over x-trimmed-max-length (560 chars)
 
         Expect 400, error key note.
         """
         self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': '2026-12-08', 'note': 'n' * 560}, status=400, error='note')
 
     def test_note_bva_279_below(self):
-        """Generated from spec: POST /api/requests/ note BVA 279 (limit-1, maxLength 280)
+        """Generated from spec: POST /api/requests/ note BVA 279 (limit-1, x-trimmed-max-length 280)
 
         Expect 201.
         """
         self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': '2026-12-08', 'note': 'n' * 279}, status=201)
 
     def test_note_bva_280_at(self):
-        """Generated from spec: POST /api/requests/ note BVA 280 (limit, maxLength 280)
+        """Generated from spec: POST /api/requests/ note BVA 280 (limit, x-trimmed-max-length 280)
 
         Expect 201.
         """
         self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': '2026-12-08', 'note': 'n' * 280}, status=201)
 
     def test_note_bva_281_above(self):
-        """Generated from spec: POST /api/requests/ note BVA 281 (limit+1, maxLength 280)
+        """Generated from spec: POST /api/requests/ note BVA 281 (limit+1, x-trimmed-max-length 280)
 
         Expect 400, error key note.
         """
         self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': '2026-12-08', 'note': 'n' * 281}, status=400, error='note')
+
+    def test_note_ep_valid_whitespace_only(self):
+        """Generated from spec: POST /api/requests/ note EP valid whitespace only
+
+        Expect 201.
+        """
+        self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': '2026-12-08', 'note': '   '}, status=201)
+
+    def test_note_ep_valid_padded_280_chars_after_trim(self):
+        """Generated from spec: POST /api/requests/ note EP valid padded 280 chars after trim
+
+        Expect 201.
+        """
+        self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': '2026-12-08', 'note': ' ' + 'n' * 280 + ' '}, status=201)
+
+    def test_note_ep_invalid_padded_281_chars_after_trim(self):
+        """Generated from spec: POST /api/requests/ note EP invalid padded 281 chars after trim
+
+        Expect 400, error key note.
+        """
+        self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': '2026-12-08', 'note': ' ' + 'n' * 281 + ' '}, status=400, error='note')
 
     def test_note_bva_0_at(self):
         """Generated from spec: POST /api/requests/ note BVA 0 (limit, minLength 0)
@@ -533,14 +777,44 @@ class GeneratedSubmitRequestTests(GeneratedApiTestCase):
         """
         self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': '2026-12-08', 'note': 'Generated test'}, status=401, auth='invalid', error='detail')
 
+    def test_media_ep_valid_application_x_www_form_urlencoded(self):
+        """Generated from spec: POST /api/requests/ media EP valid application/x-www-form-urlencoded
+
+        Expect 201.
+        """
+        self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': '2026-12-08', 'note': 'Generated test'}, status=201, media='application/x-www-form-urlencoded')
+
+    def test_media_ep_valid_multipart_form_data(self):
+        """Generated from spec: POST /api/requests/ media EP valid multipart/form-data
+
+        Expect 201.
+        """
+        self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': '2026-12-08', 'note': 'Generated test'}, status=201, media='multipart/form-data')
+
+    def test_media_ep_invalid_malformed_json(self):
+        """Generated from spec: POST /api/requests/ media EP invalid malformed JSON
+
+        Expect 400, error key detail.
+        """
+        self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': '2026-12-08', 'note': 'Generated test'}, status=400, raw='{', error='detail')
+
+    def test_media_ep_invalid_text_plain(self):
+        """Generated from spec: POST /api/requests/ media EP invalid text/plain
+
+        Expect 415, error key detail.
+        """
+        self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': '2026-12-08', 'note': 'Generated test'}, status=415, media='text/plain', raw='x', error='detail')
+
 
 class GeneratedDecideRequestTests(GeneratedApiTestCase):
-    """POST /api/requests/{id}/decision/: 15 generated tests."""
+    """POST /api/requests/{id}/decision/: 32 generated tests."""
 
+    OPERATION = 'decideRequest'
     METHOD = 'post'
     PATH = '/api/requests/{id}/decision/'
     ACTOR = 'm1'
     PATH_PARAMS = {'id': 'pending.id'}
+    DEFAULTS = {}
     READBACK = 'decided'
     SUCCESS = 200
 
@@ -548,7 +822,9 @@ class GeneratedDecideRequestTests(GeneratedApiTestCase):
         """Generated from spec: POST /api/requests/{id}/decision/ status EP valid enum value 'approved'
 
         Also generated from spec: POST /api/requests/{id}/decision/ id EP valid existing record
+        Also generated from spec: POST /api/requests/{id}/decision/ context EP valid manager of the team
         Also generated from spec: POST /api/requests/{id}/decision/ Authorization EP valid token
+        Also generated from spec: POST /api/requests/{id}/decision/ media EP valid application/json
 
         Expect 200.
         """
@@ -575,8 +851,8 @@ class GeneratedDecideRequestTests(GeneratedApiTestCase):
         """
         self.check({'status': True}, status=400, error='detail')
 
-    def test_status_ep_invalid_null_required(self):
-        """Generated from spec: POST /api/requests/{id}/decision/ status EP invalid null (required)
+    def test_status_ep_invalid_null_not_nullable(self):
+        """Generated from spec: POST /api/requests/{id}/decision/ status EP invalid null (not nullable)
 
         Expect 400, error key detail.
         """
@@ -638,6 +914,69 @@ class GeneratedDecideRequestTests(GeneratedApiTestCase):
         """
         self.check({'status': 'approved'}, status=404, path={'id': 1.5})
 
+    def test_context_ep_valid_admin(self):
+        """Generated from spec: POST /api/requests/{id}/decision/ context EP valid admin
+
+        Expect 200.
+        """
+        self.check({'status': 'approved'}, status=200, actor='admin')
+
+    def test_context_ep_invalid_employee_owner(self):
+        """Generated from spec: POST /api/requests/{id}/decision/ context EP invalid employee owner
+
+        Expect 403, error key detail.
+        """
+        self.check({'status': 'approved'}, status=403, actor='e1', error='detail')
+
+    def test_context_ep_invalid_employee_teammate(self):
+        """Generated from spec: POST /api/requests/{id}/decision/ context EP invalid employee teammate
+
+        Expect 403, error key detail.
+        """
+        self.check({'status': 'approved'}, status=403, actor='e2', error='detail')
+
+    def test_context_ep_invalid_manager_of_another_team(self):
+        """Generated from spec: POST /api/requests/{id}/decision/ context EP invalid manager of another team
+
+        Expect 404, error key detail.
+        """
+        self.check({'status': 'approved'}, status=404, actor='m2', error='detail')
+
+    def test_context_ep_invalid_manager_without_a_team(self):
+        """Generated from spec: POST /api/requests/{id}/decision/ context EP invalid manager without a team
+
+        Expect 404, error key detail.
+        """
+        self.check({'status': 'approved'}, status=404, actor='teamless_manager', error='detail')
+
+    def test_context_ep_invalid_manager_own_request(self):
+        """Generated from spec: POST /api/requests/{id}/decision/ context EP invalid manager own request
+
+        Expect 403, error key detail.
+        """
+        self.check({'status': 'approved'}, status=403, path={'id': F('own.id')}, error='detail')
+
+    def test_context_ep_invalid_request_out_of_scope(self):
+        """Generated from spec: POST /api/requests/{id}/decision/ context EP invalid request out of scope
+
+        Expect 404, error key detail.
+        """
+        self.check({'status': 'approved'}, status=404, path={'id': F('other_team.id')}, error='detail')
+
+    def test_context_ep_invalid_request_already_approved(self):
+        """Generated from spec: POST /api/requests/{id}/decision/ context EP invalid request already approved
+
+        Expect 409, error key detail.
+        """
+        self.check({'status': 'approved'}, status=409, path={'id': F('approved.id')}, error='detail')
+
+    def test_context_ep_invalid_request_already_rejected(self):
+        """Generated from spec: POST /api/requests/{id}/decision/ context EP invalid request already rejected
+
+        Expect 409, error key detail.
+        """
+        self.check({'status': 'approved'}, status=409, path={'id': F('rejected.id')}, error='detail')
+
     def test_authorization_ep_invalid_no_token(self):
         """Generated from spec: POST /api/requests/{id}/decision/ Authorization EP invalid no token
 
@@ -651,3 +990,183 @@ class GeneratedDecideRequestTests(GeneratedApiTestCase):
         Expect 401, error key detail.
         """
         self.check({'status': 'approved'}, status=401, auth='invalid', error='detail')
+
+    def test_media_ep_valid_application_x_www_form_urlencoded(self):
+        """Generated from spec: POST /api/requests/{id}/decision/ media EP valid application/x-www-form-urlencoded
+
+        Expect 200.
+        """
+        self.check({'status': 'approved'}, status=200, media='application/x-www-form-urlencoded')
+
+    def test_media_ep_valid_multipart_form_data(self):
+        """Generated from spec: POST /api/requests/{id}/decision/ media EP valid multipart/form-data
+
+        Expect 200.
+        """
+        self.check({'status': 'approved'}, status=200, media='multipart/form-data')
+
+    def test_media_ep_invalid_malformed_json(self):
+        """Generated from spec: POST /api/requests/{id}/decision/ media EP invalid malformed JSON
+
+        Expect 400, error key detail.
+        """
+        self.check({'status': 'approved'}, status=400, raw='{', error='detail')
+
+    def test_media_ep_invalid_text_plain(self):
+        """Generated from spec: POST /api/requests/{id}/decision/ media EP invalid text/plain
+
+        Expect 415, error key detail.
+        """
+        self.check({'status': 'approved'}, status=415, media='text/plain', raw='x', error='detail')
+
+    def test_method_ep_invalid_get(self):
+        """Generated from spec: POST /api/requests/{id}/decision/ method EP invalid GET
+
+        Expect 405, error key detail.
+        """
+        self.check({'status': 'approved'}, status=405, method='get', error='detail')
+
+    def test_method_ep_invalid_put(self):
+        """Generated from spec: POST /api/requests/{id}/decision/ method EP invalid PUT
+
+        Expect 405, error key detail.
+        """
+        self.check({'status': 'approved'}, status=405, method='put', error='detail')
+
+    def test_method_ep_invalid_patch(self):
+        """Generated from spec: POST /api/requests/{id}/decision/ method EP invalid PATCH
+
+        Expect 405, error key detail.
+        """
+        self.check({'status': 'approved'}, status=405, method='patch', error='detail')
+
+    def test_method_ep_invalid_delete(self):
+        """Generated from spec: POST /api/requests/{id}/decision/ method EP invalid DELETE
+
+        Expect 405, error key detail.
+        """
+        self.check({'status': 'approved'}, status=405, method='delete', error='detail')
+
+
+class GeneratedDashboardTests(GeneratedApiTestCase):
+    """GET /api/dashboard/: 7 generated tests."""
+
+    OPERATION = 'dashboard'
+    METHOD = 'get'
+    PATH = '/api/dashboard/'
+    ACTOR = 'm1'
+    PATH_PARAMS = {}
+    DEFAULTS = {}
+    READBACK = 'none'
+    SUCCESS = 200
+
+    def test_authorization_ep_valid_token(self):
+        """Generated from spec: GET /api/dashboard/ Authorization EP valid token
+
+        Expect 200.
+        """
+        self.check({}, status=200)
+
+    def test_authorization_ep_invalid_no_token(self):
+        """Generated from spec: GET /api/dashboard/ Authorization EP invalid no token
+
+        Expect 401, error key detail.
+        """
+        self.check({}, status=401, auth='none', error='detail')
+
+    def test_authorization_ep_invalid_unknown_token(self):
+        """Generated from spec: GET /api/dashboard/ Authorization EP invalid unknown token
+
+        Expect 401, error key detail.
+        """
+        self.check({}, status=401, auth='invalid', error='detail')
+
+    def test_method_ep_invalid_post(self):
+        """Generated from spec: GET /api/dashboard/ method EP invalid POST
+
+        Expect 405, error key detail.
+        """
+        self.check({}, status=405, method='post', error='detail')
+
+    def test_method_ep_invalid_put(self):
+        """Generated from spec: GET /api/dashboard/ method EP invalid PUT
+
+        Expect 405, error key detail.
+        """
+        self.check({}, status=405, method='put', error='detail')
+
+    def test_method_ep_invalid_patch(self):
+        """Generated from spec: GET /api/dashboard/ method EP invalid PATCH
+
+        Expect 405, error key detail.
+        """
+        self.check({}, status=405, method='patch', error='detail')
+
+    def test_method_ep_invalid_delete(self):
+        """Generated from spec: GET /api/dashboard/ method EP invalid DELETE
+
+        Expect 405, error key detail.
+        """
+        self.check({}, status=405, method='delete', error='detail')
+
+
+class GeneratedTeamTests(GeneratedApiTestCase):
+    """GET /api/team/: 7 generated tests."""
+
+    OPERATION = 'team'
+    METHOD = 'get'
+    PATH = '/api/team/'
+    ACTOR = 'm1'
+    PATH_PARAMS = {}
+    DEFAULTS = {}
+    READBACK = 'none'
+    SUCCESS = 200
+
+    def test_authorization_ep_valid_token(self):
+        """Generated from spec: GET /api/team/ Authorization EP valid token
+
+        Expect 200.
+        """
+        self.check({}, status=200)
+
+    def test_authorization_ep_invalid_no_token(self):
+        """Generated from spec: GET /api/team/ Authorization EP invalid no token
+
+        Expect 401, error key detail.
+        """
+        self.check({}, status=401, auth='none', error='detail')
+
+    def test_authorization_ep_invalid_unknown_token(self):
+        """Generated from spec: GET /api/team/ Authorization EP invalid unknown token
+
+        Expect 401, error key detail.
+        """
+        self.check({}, status=401, auth='invalid', error='detail')
+
+    def test_method_ep_invalid_post(self):
+        """Generated from spec: GET /api/team/ method EP invalid POST
+
+        Expect 405, error key detail.
+        """
+        self.check({}, status=405, method='post', error='detail')
+
+    def test_method_ep_invalid_put(self):
+        """Generated from spec: GET /api/team/ method EP invalid PUT
+
+        Expect 405, error key detail.
+        """
+        self.check({}, status=405, method='put', error='detail')
+
+    def test_method_ep_invalid_patch(self):
+        """Generated from spec: GET /api/team/ method EP invalid PATCH
+
+        Expect 405, error key detail.
+        """
+        self.check({}, status=405, method='patch', error='detail')
+
+    def test_method_ep_invalid_delete(self):
+        """Generated from spec: GET /api/team/ method EP invalid DELETE
+
+        Expect 405, error key detail.
+        """
+        self.check({}, status=405, method='delete', error='detail')
