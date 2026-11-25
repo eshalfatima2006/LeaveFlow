@@ -254,3 +254,38 @@ class InvalidTransitionTests(CrossWorkflowTestCase):
 
         self.assertEqual(row_state(k), decided)
         self.assertEqual(balance_view(self.e1), (10, 0, 10))
+
+
+class RepeatedSubmissionTests(CrossWorkflowTestCase):
+    def test_identical_submission_repeated_while_pending(self):
+        """API-INT-001.08; FR-W1-04, FR-W1-06; BR-02, BR-03: immediate repeat → overlap 400, one row, balance unchanged."""
+        first = self.submit(self.e1, FIRST, "A22 repeat")
+        before = row_state(first)
+        response = self.login(self.e1).post(
+            REQUESTS_URL, payload(FIRST["start"], FIRST["end"], note="A22 repeat"), format="json")
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json(), {"non_field_errors": ["Esiste già una richiesta sovrapposta."]})
+        self.assertEqual(list(LeaveRequest.objects.values_list("pk", flat=True)), [first])
+        self.assertEqual(row_state(first), before)
+        self.assertEqual(balance_view(self.e1), (10, 0, 10))
+
+
+class ExitCriterionScenarioTests(CrossWorkflowTestCase):
+    allowances = {"e1": 5}
+
+    def test_ec01_two_four_day_requests_characterization(self):
+        """API-INT-001.09 — CHARACTERIZATION of the EC-01 scenario (GAP-01, PR-01), not an approved oracle.
+
+        Allowance 5, two pending four-day requests. EC-01 expects the second
+        approval to be refused with 1 day remaining. The baseline accepts it and
+        the balance becomes −3. Replace this test when the rejection contract is agreed.
+        """
+        first = self.submit(self.e1, {"start": "2026-12-07", "end": "2026-12-10"}, "A22 EC-01 first")
+        second = self.submit(self.e1, {"start": "2026-12-14", "end": "2026-12-17"}, "A22 EC-01 second")
+        self.decide_ok(self.m1, first, LeaveRequest.Status.APPROVED)
+        self.assertEqual(balance_view(self.e1), (5, 4, 1))  # the EC-01 target
+        charged = row_state(first)
+
+        self.decide_ok(self.m1, second, LeaveRequest.Status.APPROVED)  # EC-01 expects a refusal here
+        self.assertEqual(balance_view(self.e1), (5, 8, -3))
+        self.assertEqual(row_state(first), charged)
