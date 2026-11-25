@@ -148,16 +148,33 @@ def fixture(action, payload):
         from redis import Redis
 
         log_path = run_dir / "notification-publish.log"
+        stream = "leaveflow:events"
+        group_name = "leaveflow-notifications"
         with Redis.from_url(settings.REDIS_URL, decode_responses=True) as client:
-            events = [json.loads(fields["payload"]) for _, fields in client.xrange("leaveflow:events")]
-            groups = client.xinfo_groups("leaveflow:events") if client.exists("leaveflow:events") else []
-        group = next((group for group in groups if group["name"] == "leaveflow-notifications"), None)
+            events = [
+                (entry_id, json.loads(fields["payload"]))
+                for entry_id, fields in client.xrange(stream)
+            ]
+            events = [(entry_id, event) for entry_id, event in events if event["request"]["id"] == payload["id"]]
+            groups = client.xinfo_groups(stream) if client.exists(stream) else []
+            group = next((group for group in groups if group["name"] == group_name), None)
+            unacknowledged = None
+            if group:
+                def stream_position(entry_id):
+                    return tuple(map(int, entry_id.split("-")))
+
+                last_delivered = stream_position(group["last-delivered-id"])
+                unacknowledged = sum(
+                    stream_position(entry_id) > last_delivered
+                    or bool(client.xpending_range(stream, group_name, entry_id, entry_id, 1))
+                    for entry_id, _ in events
+                )
         return {
             "events": [
                 {"id": event["id"], "type": event["type"], "recipients": event["recipients"]}
-                for event in events if event["request"]["id"] == payload["id"]
+                for _, event in events
             ],
-            "pending": group["pending"] if group else None,
+            "unacknowledged": unacknowledged,
             "publish_errors": log_path.read_text(encoding="utf-8").count("SQE controlled Redis outage")
             if log_path.exists() else 0,
         }

@@ -19,6 +19,8 @@ docker compose -p leaveflow-sqe-area3 -f tests/team/browser/notifications.compos
 
 Use a fresh Redis project for each full browser run. It prevents consecutive harness databases with independent primary-key sequences from sharing notification feeds. Keep operational logs and test evidence in a fresh directory. Playwright includes the JSON and HTML reports and the development database fingerprints.
 
+An isolated UC-07 run also lets you verify the whole group’s pending count with `docker compose -p leaveflow-sqe-area3 -f tests/team/browser/notifications.compose.yml exec -T redis redis-cli XINFO GROUPS leaveflow:events`. The browser cases verify delivery and acknowledgement of the specific stream entries they create.
+
 ## Accessibility and usability
 
 Set `SQE_ACCESSIBILITY_AUDIT=1` and run `accessibility-audit` with the browser runner. If the Lighthouse version requires a newer Chromium build than Playwright uses, set `SQE_AUDIT_CHROME` to a compatible installed Chrome executable. Each audit opens the authenticated state, saves a full axe report, and saves Lighthouse JSON and HTML for accessibility, best practices, and SEO. A snapshot targets the dialog, queue or panel after the user reaches it. Compare the same key screen, browser settings, and scenario before and after the fix, and count overlapping tool findings once.

@@ -47,7 +47,7 @@ async function feed(request: APIRequestContext, user: FixtureUser) {
 
 function state(id: number) {
   return fixture<{
-    events: Array<{ type: string; recipients: number[] }>; pending: number | null; publish_errors: number
+    events: Array<{ type: string; recipients: number[] }>; unacknowledged: number | null; publish_errors: number
   }>('notification-state', { id })
 }
 
@@ -75,7 +75,7 @@ test('TC-UC07-M employee receives one live approval without reloading', async ({
   const employeeFeed = await feed(request, users.employee)
   expect(await employeeFeed(id, 'leave.approved')).toHaveLength(1)
   expect(state(id).events.find(event => event.type === 'leave.approved')?.recipients).toEqual([users.employee.id])
-  await expect.poll(() => state(id).pending).toBe(0)
+  await expect.poll(() => state(id).unacknowledged).toBe(0)
   expect(readRequest(id)?.status).toBe('approved')
 })
 
@@ -90,7 +90,7 @@ test('TC-UC07-A1 new-request alerts reach the team manager and administrator onl
     await expect.poll(async () => (await getFeed(id, 'leave.requested')).length).toBe(count)
   }
   expect(new Set(state(id).events[0].recipients)).toEqual(new Set([users.manager.id, users.admin.id]))
-  await expect.poll(() => state(id).pending).toBe(0)
+  await expect.poll(() => state(id).unacknowledged).toBe(0)
   expect(readRequest(id)?.status).toBe('pending')
 })
 
@@ -105,7 +105,7 @@ test('TC-UC07-A2 offline recipient reads the stored approval on a later sign-in'
   const panel = await openPanel(page)
   await expect(panel.getByText('Request approved')).toBeVisible()
   await expect(panel.locator('article')).toHaveCount(1)
-  await expect.poll(() => state(id).pending).toBe(0)
+  await expect.poll(() => state(id).unacknowledged).toBe(0)
   expect(readRequests()).toEqual(before)
 })
 
@@ -137,5 +137,5 @@ test('TC-UC07-E2 a controlled publish failure preserves the approval but produce
   const getFeed = await feed(request, users.employee)
   expect(await getFeed(id, 'leave.approved')).toHaveLength(0)
   await expect(panel.locator('article')).toHaveCount(0)
-  await expect.poll(() => state(id).pending).toBe(0)
+  await expect.poll(() => state(id).unacknowledged).toBe(0)
 })
