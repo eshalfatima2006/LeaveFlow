@@ -291,3 +291,14 @@ Students must review source safety/fixtures/assertions/evidence, retain prompts,
 - **Checked:** 42/42 passed; full team suite 199/199; development database unchanged. Twelve faults injected one at a time in a throwaway copy of the application: 11 caught by this file. The twelfth (`start_date__lte` to `__lt` in the overlap query) is an exact-boundary fault that the table's mid-interval dates cannot see; `test_bva_overlap_start_at` catches it. The repository source was not changed.
 - **Limits:** DT-004 verifies who is in the event, not delivery through Redis, the worker or the gateway. The GAP-08 row is a characterisation. DT-001's W2 half stays blocked by GAP-01. Some rows repeat A2.1 case classes; the file header lists them so that each is counted once.
 - **Student review required:** check each table's infeasibility argument and be able to explain the recorder used for DT-004; all Git/GitHub actions remain student-owned.
+
+# PR #10 review — OpenAPI contract verification (25 November 2026)
+
+- **Date/tool:** 25 November 2026 (Asia/Karachi), Claude Code (Claude Opus 5.5) at the student's instruction. AI-assisted audit, implementation and execution; no human review, approval or authorship is claimed.
+- **Purpose:** check the PR #10 review claim that the API contract is not verified. Verdict: valid. No test compared a response with the spec, and the generated tests checked the status class and stored rows only.
+- **Correction of an earlier AI output:** the 24 November spec omitted responses the application really returns. Added: login 401 (invalid Authorization header), 415 on the three POST operations, W1 400 with `detail` (malformed JSON), W2 404 as HTML (id that does not match the route), and `x-known-deviations`.
+- **Created:** `tests/team/api/contract.py` (strict validator, standard library only), `tests/team/api/test_openapi_contract.py` (41 tests), `tests/team/generated/api_contract.json` (exported from the spec by the generator, because the test environment has no YAML parser); `docs/sqe/evidence/api/contract-2026-11-25/` (run on commit `2d02e9c`). RTM status updated.
+- **Found in the application (not changed):** 500 for a non-object JSON body on login and on W2 (`request.data.get`), and 500 for W1 `end_date` 9999-12-31 (date overflow in `business_days`). Pinned as characterisations.
+- **Checked:** 41/41 passed; full team suite 240/240 at that commit; spec validated with openapi-spec-validator; development database unchanged. Eight response faults injected one at a time in a throwaway copy of the application: all caught.
+- **Limits:** verifies response structure, not every business value. 405 responses are outside the spec, since OpenAPI lists only implemented methods. The spec types `note` as string, while the application also accepts a number.
+- **Student review required:** file the three defects, decide severity, and confirm the spec changes; all Git/GitHub actions remain student-owned.
