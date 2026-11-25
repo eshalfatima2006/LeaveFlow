@@ -112,7 +112,7 @@ Baseline: `bada9a03ecec53ef6945827230e3594d825da87a`; analysis 21 November 2026.
 - **Rules:** BR-03, BR-04, BR-05.
 - **Evidence:** `backend/leave/views.py:74–89,112–132`; `backend/leave/models.py:35–43`; `backend/leave/events.py:18–63`; `frontend/src/App.vue:37,42,108,115–116`.
 - **Test levels:** API/integration cross-workflow readback and transaction/event checks; browser team balance; model unit total.
-- **Ambiguity/defect note:** **Actual baseline:** approval can make available negative. **Desired, unimplemented:** reject approval when D exceeds remaining allowance, atomically preserving all state. Desired error code needs student/instructor confirmation; proposed failing test is in TEST-BASIS.
+- **Ambiguity/defect note:** **Actual baseline:** approval can make available negative. **Desired, unimplemented:** reject approval when D exceeds remaining allowance, atomically preserving all state. Contract agreed by the team 25 Nov 2026 (GAP-01): 400 `{"detail": "Insufficient leave balance"}`; request pending, `decided_by` null, balance unchanged. Proposed failing test is in TEST-BASIS.
 
 ## FR-W2-06 — Persist rejection without charging allowance
 

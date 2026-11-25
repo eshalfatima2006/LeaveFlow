@@ -51,7 +51,7 @@ All verification IDs below are **planned** objectives defined in [REQUIREMENTS-T
 ### PR-01 — Approval can overdraw employee allowance
 
 - **Evidence / classification:** S: `backend/leave/serializers.py:36–38` checks only submission; `backend/leave/views.py:81–86` saves approval with no balance check; `backend/leave/models.py:35–43` derives remaining from approved totals. Missing safeguard is statically confirmed, not a reproduced transaction.
-- **Mitigation:** Approve desired nonnegative rule/error contract, reproduce two nonoverlapping pending4-day requests against allowance5; retain original k values. Prioritize before broad automation (WP-08/10/22).
+- **Mitigation:** Approve desired nonnegative rule/error contract (agreed 25 Nov 2026: 400 `{"detail": "Insufficient leave balance"}`; GAP-01), reproduce two nonoverlapping pending4-day requests against allowance5; retain original k values. Prioritize before broad automation (WP-08/10/22).
 - **Planned verification:** API-INT-001, API-W2-005 and UT-W1-005: check second approval rejected under agreed desired policy, original row/audit unchanged and available1; characterize defective baseline separately; EC-01.
 - **Contingency:** Hold affected release; if reproduced, students triage genuine issue/fix with regression and fail-before/pass-after proof. Do not count characterization as desired-rule success.
 - **Residual risk:** NOT MEASURED; original L=5, I=5 remains the planning assessment until verified controls justify a recorded revision. Owner A2 proposes actual residual values/rationale; peer reviews evidence. Status OPEN, no control completion claimed.

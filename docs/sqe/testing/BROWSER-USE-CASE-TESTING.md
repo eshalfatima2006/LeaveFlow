@@ -17,7 +17,7 @@ Implemented and executed 23 November 2026 (Asia/Karachi). AI-assisted draft; stu
 The registry [`tests/team/browser/flows.json`](../../../tests/team/browser/flows.json) is the single source:
 
 - **30 mandatory flows** (6 use cases × main + 2 alternatives + 2 exceptions) — the only denominator for use-case flow coverage (Lecture 16 p10: flows tested ÷ total flows).
-- **Blocked regression objectives** — `OBJ-UC02-01` (approval exceeding remaining entitlement; blocked by the unapproved approval-time error contract, GAP-01). Visible in the run as a `fixme`/skipped test, never counted as a mandatory flow.
+- **Blocked regression objectives** — `OBJ-UC02-01` (approval exceeding remaining entitlement; error contract agreed 25 Nov 2026, 400, GAP-01; not written, and the baseline still approves). Visible in the run as a `fixme`/skipped test, never counted as a mandatory flow.
 - **Supplementary checks** — `SUP-UC09-01`, `SUP-UC07-01` (dedup). Separate.
 - **Observations** — `OBS-*`, never counted.
 

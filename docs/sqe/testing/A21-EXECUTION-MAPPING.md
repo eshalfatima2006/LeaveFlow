@@ -63,7 +63,7 @@ A reference from a test is not full verification. "API-level: exercised" means t
 | FR-W1-02 | Exercised: required/null/enum/default/note 279/280/281/trim, protocol 400/415 | Generated EP/BVA (A2.2 GEN-001); scalar-coercion edge cases not asserted |
 | FR-W1-03 | Exercised: reversed 400, 0/1/2/3/5/6-day counts, cross-year, leap day | UI preview agreement (browser); date.max/huge-span robustness (Blocked: robustness scope not approved) |
 | FR-W1-04 | Exercised: before/touch/inside/after/enclose vs pending; approved blocks; rejected reusable; other owner | Concurrent duplicate submission (later, PostgreSQL profile) |
-| FR-W1-05 | Exercised: A−1/A/A+1, approved-only aggregate, A=0, A<0, missing balance | MCC/MC/DC D1 (A1); policy decisions GAP-01/GAP-07 |
+| FR-W1-05 | Exercised: A−1/A/A+1, approved-only aggregate, A=0, A<0, missing balance | MCC/MC/DC D1 (A1); policy decision GAP-07 (GAP-01 rejection contract agreed 25 Nov 2026: 400) |
 | FR-W1-06 | Exercised: 201 contract, single pending row, list/dashboard readback, allowance unchanged | Event publication after commit (Redis disabled here — Blocked in this profile); UI refresh (browser) |
 | FR-W2-01 | Exercised: 7 roles/teams, exact ID sets, dashboard counts | People/team endpoint boundaries not asserted |
 | FR-W2-02 | Exercised: employee 403, out-of-scope/teamless 404, self 403 (3 roles), admin cross-team, missing IDs | UI self-decision button mismatch GAP-04 (browser) |

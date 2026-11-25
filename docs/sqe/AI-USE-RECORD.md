@@ -335,3 +335,14 @@ Students must review source safety/fixtures/assertions/evidence, retain prompts,
 - **External access:** the public A-TEST 2019 paper and a related preprint were downloaded and a web search was made. No project or personal data was sent.
 - **Limits:** three local servers stand in for Kubernetes replicas. Why the original authors omitted the rules is not known. Severity, priority and root-cause categories are proposals.
 - **Student review required:** reproduce both defects, be able to explain each Why and each refuted cause, have another member verify independently, file the issues, and fill the PENDING fields from real events. All Git/GitHub actions beyond local commits remain student-owned.
+
+# DEF-A2-01 — agreed rejection contract recorded (25 November 2026)
+
+- **Date/tool:** 25 November 2026 (Asia/Karachi), Claude Code (Claude Opus 5.5) at the student's instruction. AI-assisted documentation update; the decision is the team's, as stated by the student in the task prompt. The AI did not take part in it and saw no separate approval record.
+- **Contract recorded:** an over-balance approval returns 400 `{"detail": "Insufficient leave balance"}`; the request stays pending, `decided_by` null, balance unchanged.
+- **Changed (documents only):** ISSUE-MAJOR-01, RCA-MAJOR-01, DEFECT-RECORDS, PR-10-REVIEW-RESPONSE; ENTRY-EXIT-CRITERIA (EC-01, EC-05), RISK-REGISTER, TEST-STRATEGY, DEFECT-MANAGEMENT-PLAN, RTM; TEST-BASIS, BUSINESS-RULES, FUNCTIONAL-REQUIREMENTS, SCOPE, USE-CASE-SPECIFICATIONS; BROWSER-USE-CASE-TESTING, A21-EXECUTION-MAPPING, SHARED-TEST-FOUNDATION. Earlier entries of this record and all evidence files are kept as history.
+- **Statement of the task prompt corrected by the source:** submission does return 400, but with `{"non_field_errors": ["Saldo ferie insufficiente."]}`, not a `detail` body. The `detail` key matches the decision endpoint; the English text differs from the Italian messages of the application. The contract was recorded as given and the difference is noted in RCA 1.
+- **Interpretation:** GAP-01 is marked resolved as a specification gap only. The safeguard is still missing, DEF-A2-01 is open and EC-01 stays NOT MEASURED. Employees without a balance row are not covered (GAP-07).
+- **Not changed:** application code, tests (the characterizations, the `fixme` OBJ-UC02-01 and `flows.json`, whose comments still say the contract is not approved), the OpenAPI spec (describes the implemented behaviour) and the W2 half of DT-001.
+- **Not executed:** no test asserts the new contract, and the earlier experiments returned a placeholder 409.
+- **Student review required:** record who agreed and when, decide the message language and the missing-balance case, and confirm the wording. All Git/GitHub actions beyond local commits remain student-owned.

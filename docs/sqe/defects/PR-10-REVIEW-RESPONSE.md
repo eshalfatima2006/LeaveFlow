@@ -5,7 +5,7 @@ Thank you for the review. It covered head `0bf291a`. I checked each point agains
 
 | You asked for | What was done | Commits |
 |---|---|---|
-| Decision tables | DT-001 to DT-005: 52 tests, 42 of them new. The W2 half of DT-001 is still blocked by GAP-01 | `bbb3174` `48610b0` |
+| Decision tables | DT-001 to DT-005: 52 tests, 42 of them new. The W2 half of DT-001 is not written yet; its rejection contract is now agreed (GAP-01) | `bbb3174` `48610b0` |
 | API contract verification | 41 contract tests compare real responses with the spec; missing responses added to the spec | `2d02e9c` `91d4dfa` |
 | Complete generated inputs | 127 generated EP/BVA tests with a case manifest: paths, tokens, optional and null fields, whitespace, actor and record contexts, media types, methods. Exact status and error key; full row, balance and token readback | `3ebeb40` `a3d2e61` `ce0b53f` |
 | Constraint changes that change the cases | Three reproducible patches (length, enum, nullable) that each change the cases and fail on the predicted tests | `a3d2e61` `9bb76cb` |
@@ -26,7 +26,7 @@ I will file both as separate issues, each with its full RCA:
 
 **Still open:**
 - **Independent reproduction and triage** of both defects. Until another member reproduces them, EC-10 is not met. The commands are in each issue text; a reproduction from you would help.
-- The rejection contract for an over-allowance approval (EC-01, GAP-01), the TCL target, and the notification scope.
+- The TCL target and the notification scope. (The rejection contract for an over-allowance approval is agreed: 400 `{"detail": "Insufficient leave balance"}`, request unchanged. Its regression and the W2 half of DT-001 are still to be written.)
 - The fixes themselves, with independent retest.
 - CI still runs only the upstream backend tests; a proposed job is in `docs/sqe/openapi/README.md` (Member 1's area).
 - Delivery of notifications through the worker and browser (UC-07).

@@ -4,7 +4,7 @@
 
 | ID | Weakness | Severity / priority (proposed) | Risk | Test | Status |
 |---|---|---|---|---|---|
-| DEF-A2-01 | Approval overdraws the allowance | S2 / P1 | PR-01 | API-INT-001.03, .09; API-INT-002.05 | New — oracle (rejection contract) PENDING |
+| DEF-A2-01 | Approval overdraws the allowance | S2 / P1 | PR-01 | API-INT-001.03, .09; API-INT-002.05 | New — rejection contract agreed (400) |
 | DEF-A2-02 | Concurrent W1 submissions create overlapping or duplicate requests | S2 / P1 | PR-03 | API-INT-002.01, .02 | New |
 | DEF-A2-03 | Login returns 500 for a non-object JSON body | S3 / P2 | PR-06 | `test_login_non_object_json_characterization` | New |
 | DEF-A2-04 | W2 returns 500 for a non-object JSON body | S3 / P2 | PR-06 | `test_decide_non_object_json_characterization` | New |
@@ -16,11 +16,11 @@ Evidence: `docs/sqe/evidence/integration/completion-2026-11-25/` (01), `docs/sqe
 ## DEF-A2-01 — Approval overdraws the allowance (GAP-01, EC-01)
 
 - **Reproduce:** allowance 5; the employee submits 2026-12-07..10 and 2026-12-14..17 (four days each, both 201); a manager approves both.
-- **Expected (EC-01, contract not agreed yet):** the second approval is refused, the second request and its owner and audit fields are unchanged, the first approval is the only charge, 1 day remains.
+- **Expected (EC-01; contract agreed 25 Nov 2026):** the second approval returns 400 `{"detail": "Insufficient leave balance"}`, the second request stays pending with `decided_by` null, its owner and audit fields are unchanged, the first approval is the only charge, 1 day remains.
 - **Observed:** both 200; available −3. The three-day variant gives −1. Two approvers acting together give the same result on PostgreSQL.
 - **Root cause:** `decide_request` (`backend/leave/views.py`) has no balance check; W1 checks `available_days`, but pending requests reserve nothing.
 - **Proposed fix:** check the balance inside the decision transaction, with the owner's `LeaveBalance` row locked. Locking the request row alone would not serialize two different requests.
-- **Retest:** replace API-INT-001.03/.09 and API-INT-002.05 with the agreed refusal. **Residual risk:** open, score 25, release-blocking under EC-01.
+- **Retest:** replace API-INT-001.03/.09 and API-INT-002.05 with the agreed 400. **Residual risk:** open, score 25, release-blocking under EC-01.
 
 ## DEF-A2-02 — Concurrent submissions bypass the overlap rule
 
