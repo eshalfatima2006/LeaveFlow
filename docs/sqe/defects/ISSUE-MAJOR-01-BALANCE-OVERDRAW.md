@@ -3,7 +3,7 @@
 
 **Evidence classification:** executed (DEF-A2-01)
 
-**Tested commit and working diff:** `5e73356` for the cause experiments' evidence, run on `53c4da3`; `707a5b3` for the integration evidence. Application code is identical to baseline `bada9a0`; working diff: none in application code.
+**Tested commit and working diff:** `53c4da3` (cause experiments), `707a5b3` (integration run). Application code is identical to baseline `bada9a0`; working diff: none in application code.
 
 **Environment/profile, tool versions, DB/fixture/spec hashes:** Python 3.12.7, Django 6.0.7, DRF 3.17.1. Profile `sqe-memory-v1` (in-memory SQLite); also PostgreSQL 17.12 in a throwaway container. Fixture `tests/team/fixtures/leave_data.py` SHA-256 `db3f0129…`; OpenAPI spec `e5095486…`.
 
