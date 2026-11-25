@@ -1,0 +1,265 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+test_authorization_ep_invalid_no_token (tests.team.generated.test_generated_api.GeneratedDashboardTests.test_authorization_ep_invalid_no_token)
+Generated from spec: GET /api/dashboard/ Authorization EP invalid no token ... ok
+test_authorization_ep_invalid_unknown_token (tests.team.generated.test_generated_api.GeneratedDashboardTests.test_authorization_ep_invalid_unknown_token)
+Generated from spec: GET /api/dashboard/ Authorization EP invalid unknown token ... ok
+test_authorization_ep_valid_token (tests.team.generated.test_generated_api.GeneratedDashboardTests.test_authorization_ep_valid_token)
+Generated from spec: GET /api/dashboard/ Authorization EP valid token ... ok
+test_method_ep_invalid_delete (tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_delete)
+Generated from spec: GET /api/dashboard/ method EP invalid DELETE ... ok
+test_method_ep_invalid_patch (tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_patch)
+Generated from spec: GET /api/dashboard/ method EP invalid PATCH ... ok
+test_method_ep_invalid_post (tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_post)
+Generated from spec: GET /api/dashboard/ method EP invalid POST ... ok
+test_method_ep_invalid_put (tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_put)
+Generated from spec: GET /api/dashboard/ method EP invalid PUT ... ok
+test_authorization_ep_invalid_no_token (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_authorization_ep_invalid_no_token)
+Generated from spec: POST /api/requests/{id}/decision/ Authorization EP invalid no token ... ok
+test_authorization_ep_invalid_unknown_token (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_authorization_ep_invalid_unknown_token)
+Generated from spec: POST /api/requests/{id}/decision/ Authorization EP invalid unknown token ... ok
+test_context_ep_invalid_employee_owner (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_employee_owner)
+Generated from spec: POST /api/requests/{id}/decision/ context EP invalid employee owner ... ok
+test_context_ep_invalid_employee_teammate (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_employee_teammate)
+Generated from spec: POST /api/requests/{id}/decision/ context EP invalid employee teammate ... ok
+test_context_ep_invalid_manager_of_another_team (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_manager_of_another_team)
+Generated from spec: POST /api/requests/{id}/decision/ context EP invalid manager of another team ... ok
+test_context_ep_invalid_manager_own_request (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_manager_own_request)
+Generated from spec: POST /api/requests/{id}/decision/ context EP invalid manager own request ... ok
+test_context_ep_invalid_manager_without_a_team (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_manager_without_a_team)
+Generated from spec: POST /api/requests/{id}/decision/ context EP invalid manager without a team ... ok
+test_context_ep_invalid_request_already_approved (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_request_already_approved)
+Generated from spec: POST /api/requests/{id}/decision/ context EP invalid request already approved ... ok
+test_context_ep_invalid_request_already_rejected (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_request_already_rejected)
+Generated from spec: POST /api/requests/{id}/decision/ context EP invalid request already rejected ... ok
+test_context_ep_invalid_request_out_of_scope (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_request_out_of_scope)
+Generated from spec: POST /api/requests/{id}/decision/ context EP invalid request out of scope ... ok
+test_context_ep_valid_admin (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_valid_admin)
+Generated from spec: POST /api/requests/{id}/decision/ context EP valid admin ... ok
+test_id_ep_invalid_example_0 (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_0)
+Generated from spec: POST /api/requests/{id}/decision/ id EP invalid example 0 ... ok
+test_id_ep_invalid_example_1_5 (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_1_5)
+Generated from spec: POST /api/requests/{id}/decision/ id EP invalid example 1.5 ... ok
+test_id_ep_invalid_example_2147483647 (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_2147483647)
+Generated from spec: POST /api/requests/{id}/decision/ id EP invalid example 2147483647 ... ok
+test_id_ep_invalid_example_abc (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_abc)
+Generated from spec: POST /api/requests/{id}/decision/ id EP invalid example 'abc' ... ok
+test_id_ep_invalid_example_minus_1 (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_minus_1)
+Generated from spec: POST /api/requests/{id}/decision/ id EP invalid example -1 ... ok
+test_media_ep_invalid_malformed_json (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_invalid_malformed_json)
+Generated from spec: POST /api/requests/{id}/decision/ media EP invalid malformed JSON ... ok
+test_media_ep_invalid_text_plain (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_invalid_text_plain)
+Generated from spec: POST /api/requests/{id}/decision/ media EP invalid text/plain ... ok
+test_media_ep_valid_application_x_www_form_urlencoded (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_valid_application_x_www_form_urlencoded)
+Generated from spec: POST /api/requests/{id}/decision/ media EP valid application/x-www-form-urlencoded ... ok
+test_media_ep_valid_multipart_form_data (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_valid_multipart_form_data)
+Generated from spec: POST /api/requests/{id}/decision/ media EP valid multipart/form-data ... ok
+test_method_ep_invalid_delete (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_delete)
+Generated from spec: POST /api/requests/{id}/decision/ method EP invalid DELETE ... ok
+test_method_ep_invalid_get (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_get)
+Generated from spec: POST /api/requests/{id}/decision/ method EP invalid GET ... ok
+test_method_ep_invalid_patch (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_patch)
+Generated from spec: POST /api/requests/{id}/decision/ method EP invalid PATCH ... ok
+test_method_ep_invalid_put (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_put)
+Generated from spec: POST /api/requests/{id}/decision/ method EP invalid PUT ... ok
+test_status_ep_invalid_example_empty (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_example_empty)
+Generated from spec: POST /api/requests/{id}/decision/ status EP invalid example '' ... ok
+test_status_ep_invalid_example_pending (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_example_pending)
+Generated from spec: POST /api/requests/{id}/decision/ status EP invalid example 'pending' ... ok
+test_status_ep_invalid_missing_required (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_missing_required)
+Generated from spec: POST /api/requests/{id}/decision/ status EP invalid missing (required) ... ok
+test_status_ep_invalid_null_not_nullable (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_null_not_nullable)
+Generated from spec: POST /api/requests/{id}/decision/ status EP invalid null (not nullable) ... ok
+test_status_ep_invalid_out_of_enum_zzz_not_in_enum (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_out_of_enum_zzz_not_in_enum)
+Generated from spec: POST /api/requests/{id}/decision/ status EP invalid out-of-enum 'zzz_not_in_enum' ... ok
+test_status_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/requests/{id}/decision/ status EP invalid wrong type (true) ... ok
+test_status_ep_valid_enum_value_approved (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_valid_enum_value_approved)
+Generated from spec: POST /api/requests/{id}/decision/ status EP valid enum value 'approved' ... ok
+test_status_ep_valid_enum_value_rejected (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_valid_enum_value_rejected)
+Generated from spec: POST /api/requests/{id}/decision/ status EP valid enum value 'rejected' ... ok
+test_authorization_ep_invalid_no_token (tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_authorization_ep_invalid_no_token)
+Generated from spec: GET /api/requests/ Authorization EP invalid no token ... ok
+test_authorization_ep_invalid_unknown_token (tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_authorization_ep_invalid_unknown_token)
+Generated from spec: GET /api/requests/ Authorization EP invalid unknown token ... ok
+test_authorization_ep_valid_token (tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_authorization_ep_valid_token)
+Generated from spec: GET /api/requests/ Authorization EP valid token ... ok
+test_method_ep_invalid_delete (tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_method_ep_invalid_delete)
+Generated from spec: GET /api/requests/ method EP invalid DELETE ... ok
+test_method_ep_invalid_patch (tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_method_ep_invalid_patch)
+Generated from spec: GET /api/requests/ method EP invalid PATCH ... ok
+test_method_ep_invalid_put (tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_method_ep_invalid_put)
+Generated from spec: GET /api/requests/ method EP invalid PUT ... ok
+test_media_ep_invalid_malformed_json (tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_invalid_malformed_json)
+Generated from spec: POST /api/auth/login/ media EP invalid malformed JSON ... ok
+test_media_ep_invalid_text_plain (tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_invalid_text_plain)
+Generated from spec: POST /api/auth/login/ media EP invalid text/plain ... ok
+test_media_ep_valid_application_x_www_form_urlencoded (tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_valid_application_x_www_form_urlencoded)
+Generated from spec: POST /api/auth/login/ media EP valid application/x-www-form-urlencoded ... ok
+test_media_ep_valid_multipart_form_data (tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_valid_multipart_form_data)
+Generated from spec: POST /api/auth/login/ media EP valid multipart/form-data ... ok
+test_method_ep_invalid_delete (tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_delete)
+Generated from spec: POST /api/auth/login/ method EP invalid DELETE ... ok
+test_method_ep_invalid_get (tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_get)
+Generated from spec: POST /api/auth/login/ method EP invalid GET ... ok
+test_method_ep_invalid_patch (tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_patch)
+Generated from spec: POST /api/auth/login/ method EP invalid PATCH ... ok
+test_method_ep_invalid_put (tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_put)
+Generated from spec: POST /api/auth/login/ method EP invalid PUT ... ok
+test_password_ep_invalid_example_empty (tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_example_empty)
+Generated from spec: POST /api/auth/login/ password EP invalid example '' ... ok
+test_password_ep_invalid_example_wrong_password (tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_example_wrong_password)
+Generated from spec: POST /api/auth/login/ password EP invalid example 'wrong-password' ... ok
+test_password_ep_invalid_missing_required (tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_missing_required)
+Generated from spec: POST /api/auth/login/ password EP invalid missing (required) ... ok
+test_password_ep_invalid_null_not_nullable (tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_null_not_nullable)
+Generated from spec: POST /api/auth/login/ password EP invalid null (not nullable) ... ok
+test_password_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/auth/login/ password EP invalid wrong type (true) ... ok
+test_username_ep_invalid_example_empty (tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_example_empty)
+Generated from spec: POST /api/auth/login/ username EP invalid example '' ... ok
+test_username_ep_invalid_example_unknown_user (tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_example_unknown_user)
+Generated from spec: POST /api/auth/login/ username EP invalid example 'unknown-user' ... ok
+test_username_ep_invalid_missing_required (tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_missing_required)
+Generated from spec: POST /api/auth/login/ username EP invalid missing (required) ... ok
+test_username_ep_invalid_null_not_nullable (tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_null_not_nullable)
+Generated from spec: POST /api/auth/login/ username EP invalid null (not nullable) ... ok
+test_username_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/auth/login/ username EP invalid wrong type (true) ... ok
+test_username_ep_valid_string (tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_valid_string)
+Generated from spec: POST /api/auth/login/ username EP valid string ... ok
+test_authorization_ep_invalid_no_token (tests.team.generated.test_generated_api.GeneratedMeTests.test_authorization_ep_invalid_no_token)
+Generated from spec: GET /api/me/ Authorization EP invalid no token ... ok
+test_authorization_ep_invalid_unknown_token (tests.team.generated.test_generated_api.GeneratedMeTests.test_authorization_ep_invalid_unknown_token)
+Generated from spec: GET /api/me/ Authorization EP invalid unknown token ... ok
+test_authorization_ep_valid_token (tests.team.generated.test_generated_api.GeneratedMeTests.test_authorization_ep_valid_token)
+Generated from spec: GET /api/me/ Authorization EP valid token ... ok
+test_method_ep_invalid_delete (tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_delete)
+Generated from spec: GET /api/me/ method EP invalid DELETE ... ok
+test_method_ep_invalid_patch (tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_patch)
+Generated from spec: GET /api/me/ method EP invalid PATCH ... ok
+test_method_ep_invalid_post (tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_post)
+Generated from spec: GET /api/me/ method EP invalid POST ... ok
+test_method_ep_invalid_put (tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_put)
+Generated from spec: GET /api/me/ method EP invalid PUT ... ok
+test_authorization_ep_invalid_no_token (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_authorization_ep_invalid_no_token)
+Generated from spec: POST /api/requests/ Authorization EP invalid no token ... ok
+test_authorization_ep_invalid_unknown_token (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_authorization_ep_invalid_unknown_token)
+Generated from spec: POST /api/requests/ Authorization EP invalid unknown token ... ok
+test_end_date_bva_2026_12_06_below (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_bva_2026_12_06_below)
+Generated from spec: POST /api/requests/ end_date BVA 2026-12-06 (limit-1, end_date >= start_date) ... ok
+test_end_date_bva_2026_12_07_at (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_bva_2026_12_07_at)
+Generated from spec: POST /api/requests/ end_date BVA 2026-12-07 (limit, end_date >= start_date) ... ok
+test_end_date_ep_invalid_date_format_not_a_date (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_date_format_not_a_date)
+Generated from spec: POST /api/requests/ end_date EP invalid date format ('not-a-date') ... ok
+test_end_date_ep_invalid_example_2026_02_30 (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_example_2026_02_30)
+Generated from spec: POST /api/requests/ end_date EP invalid example '2026-02-30' ... ok
+test_end_date_ep_invalid_example_empty (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_example_empty)
+Generated from spec: POST /api/requests/ end_date EP invalid example '' ... ok
+test_end_date_ep_invalid_missing_required (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_missing_required)
+Generated from spec: POST /api/requests/ end_date EP invalid missing (required) ... ok
+test_end_date_ep_invalid_null_not_nullable (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_null_not_nullable)
+Generated from spec: POST /api/requests/ end_date EP invalid null (not nullable) ... ok
+test_end_date_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/requests/ end_date EP invalid wrong type (true) ... ok
+test_leave_type_ep_invalid_example_empty (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_example_empty)
+Generated from spec: POST /api/requests/ leave_type EP invalid example '' ... ok
+test_leave_type_ep_invalid_null_not_nullable (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_null_not_nullable)
+Generated from spec: POST /api/requests/ leave_type EP invalid null (not nullable) ... ok
+test_leave_type_ep_invalid_out_of_enum_zzz_not_in_enum (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_out_of_enum_zzz_not_in_enum)
+Generated from spec: POST /api/requests/ leave_type EP invalid out-of-enum 'zzz_not_in_enum' ... ok
+test_leave_type_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/requests/ leave_type EP invalid wrong type (true) ... ok
+test_leave_type_ep_valid_enum_value_permit (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_permit)
+Generated from spec: POST /api/requests/ leave_type EP valid enum value 'permit' ... ok
+test_leave_type_ep_valid_enum_value_personal (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_personal)
+Generated from spec: POST /api/requests/ leave_type EP valid enum value 'personal' ... ok
+test_leave_type_ep_valid_enum_value_vacation (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_vacation)
+Generated from spec: POST /api/requests/ leave_type EP valid enum value 'vacation' ... ok
+test_leave_type_ep_valid_omitted_optional (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_omitted_optional)
+Generated from spec: POST /api/requests/ leave_type EP valid omitted (optional) ... ok
+test_media_ep_invalid_malformed_json (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_invalid_malformed_json)
+Generated from spec: POST /api/requests/ media EP invalid malformed JSON ... ok
+test_media_ep_invalid_text_plain (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_invalid_text_plain)
+Generated from spec: POST /api/requests/ media EP invalid text/plain ... ok
+test_media_ep_valid_application_x_www_form_urlencoded (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_valid_application_x_www_form_urlencoded)
+Generated from spec: POST /api/requests/ media EP valid application/x-www-form-urlencoded ... ok
+test_media_ep_valid_multipart_form_data (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_valid_multipart_form_data)
+Generated from spec: POST /api/requests/ media EP valid multipart/form-data ... ok
+test_note_bva_0_at (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_0_at)
+Generated from spec: POST /api/requests/ note BVA 0 (limit, minLength 0) ... ok
+test_note_bva_1_above (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_1_above)
+Generated from spec: POST /api/requests/ note BVA 1 (limit+1, minLength 0) ... ok
+test_note_bva_279_below (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_279_below)
+Generated from spec: POST /api/requests/ note BVA 279 (limit-1, x-trimmed-max-length 280) ... ok
+test_note_bva_280_at (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_280_at)
+Generated from spec: POST /api/requests/ note BVA 280 (limit, x-trimmed-max-length 280) ... ok
+test_note_bva_281_above (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_281_above)
+Generated from spec: POST /api/requests/ note BVA 281 (limit+1, x-trimmed-max-length 280) ... ok
+test_note_ep_invalid_null_not_nullable (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_null_not_nullable)
+Generated from spec: POST /api/requests/ note EP invalid null (not nullable) ... ok
+test_note_ep_invalid_over_x_trimmed_max_length_560_chars (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_over_x_trimmed_max_length_560_chars)
+Generated from spec: POST /api/requests/ note EP invalid over x-trimmed-max-length (560 chars) ... ok
+test_note_ep_invalid_padded_281_chars_after_trim (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_padded_281_chars_after_trim)
+Generated from spec: POST /api/requests/ note EP invalid padded 281 chars after trim ... ok
+test_note_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/requests/ note EP invalid wrong type (true) ... ok
+test_note_ep_valid_omitted_optional (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_valid_omitted_optional)
+Generated from spec: POST /api/requests/ note EP valid omitted (optional) ... ok
+test_note_ep_valid_padded_280_chars_after_trim (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_valid_padded_280_chars_after_trim)
+Generated from spec: POST /api/requests/ note EP valid padded 280 chars after trim ... ok
+test_note_ep_valid_whitespace_only (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_valid_whitespace_only)
+Generated from spec: POST /api/requests/ note EP valid whitespace only ... ok
+test_start_date_end_date_bva_10_at_br_03_business_days_10 (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_10_at_br_03_business_days_10)
+Generated from spec: POST /api/requests/ start_date..end_date BVA 10 (limit, BR-03 business days <= 10) ... ok
+test_start_date_end_date_bva_11_above_br_03_business_days_10 (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_11_above_br_03_business_days_10)
+Generated from spec: POST /api/requests/ start_date..end_date BVA 11 (limit+1, BR-03 business days <= 10) ... ok
+test_start_date_end_date_bva_2026_12_14_below_br_02_existing_start (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_14_below_br_02_existing_start)
+Generated from spec: POST /api/requests/ start_date..end_date BVA 2026-12-14 (limit-1, BR-02 existing start) ... ok
+test_start_date_end_date_bva_2026_12_15_at_br_02_existing_start (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_15_at_br_02_existing_start)
+Generated from spec: POST /api/requests/ start_date..end_date BVA 2026-12-15 (limit, BR-02 existing start) ... ok
+test_start_date_end_date_bva_2026_12_16_above_br_02_existing_start (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_16_above_br_02_existing_start)
+Generated from spec: POST /api/requests/ start_date..end_date BVA 2026-12-16 (limit+1, BR-02 existing start) ... ok
+test_start_date_end_date_bva_2026_12_17_above_br_02_existing_end (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_17_above_br_02_existing_end)
+Generated from spec: POST /api/requests/ start_date..end_date BVA 2026-12-17 (limit+1, BR-02 existing end) ... ok
+test_start_date_end_date_bva_9_below_br_03_business_days_10 (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_9_below_br_03_business_days_10)
+Generated from spec: POST /api/requests/ start_date..end_date BVA 9 (limit-1, BR-03 business days <= 10) ... ok
+test_start_date_end_date_ep_invalid_br_02_encloses_existing (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_ep_invalid_br_02_encloses_existing)
+Generated from spec: POST /api/requests/ start_date..end_date EP invalid BR-02 encloses existing ... ok
+test_start_date_end_date_ep_invalid_br_03_20_business_days (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_ep_invalid_br_03_20_business_days)
+Generated from spec: POST /api/requests/ start_date..end_date EP invalid BR-03 20 business days ... ok
+test_start_date_ep_invalid_date_format_not_a_date (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_date_format_not_a_date)
+Generated from spec: POST /api/requests/ start_date EP invalid date format ('not-a-date') ... ok
+test_start_date_ep_invalid_example_2026_02_30 (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_example_2026_02_30)
+Generated from spec: POST /api/requests/ start_date EP invalid example '2026-02-30' ... ok
+test_start_date_ep_invalid_example_empty (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_example_empty)
+Generated from spec: POST /api/requests/ start_date EP invalid example '' ... ok
+test_start_date_ep_invalid_missing_required (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_missing_required)
+Generated from spec: POST /api/requests/ start_date EP invalid missing (required) ... ok
+test_start_date_ep_invalid_null_not_nullable (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_null_not_nullable)
+Generated from spec: POST /api/requests/ start_date EP invalid null (not nullable) ... ok
+test_start_date_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/requests/ start_date EP invalid wrong type (true) ... ok
+test_authorization_ep_invalid_no_token (tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_invalid_no_token)
+Generated from spec: GET /api/team/ Authorization EP invalid no token ... ok
+test_authorization_ep_invalid_unknown_token (tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_invalid_unknown_token)
+Generated from spec: GET /api/team/ Authorization EP invalid unknown token ... ok
+test_authorization_ep_valid_token (tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_valid_token)
+Generated from spec: GET /api/team/ Authorization EP valid token ... ok
+test_method_ep_invalid_delete (tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_delete)
+Generated from spec: GET /api/team/ method EP invalid DELETE ... ok
+test_method_ep_invalid_patch (tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_patch)
+Generated from spec: GET /api/team/ method EP invalid PATCH ... ok
+test_method_ep_invalid_post (tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_post)
+Generated from spec: GET /api/team/ method EP invalid POST ... ok
+test_method_ep_invalid_put (tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_put)
+Generated from spec: GET /api/team/ method EP invalid PUT ... ok
+test_every_manifest_case_is_an_executed_test (tests.team.generated.test_generated_manifest.GeneratedManifestTests.test_every_manifest_case_is_an_executed_test)
+GEN-001: the manifest lists exactly the generated tests; none is dropped or added by hand. ... ok
+test_module_is_the_unedited_generator_output (tests.team.generated.test_generated_manifest.GeneratedManifestTests.test_module_is_the_unedited_generator_output)
+GEN-001: module and spec hashes match the manifest (fails after a hand edit or a stale generation). ... ok
+
+----------------------------------------------------------------------
+Ran 129 tests in 14.019s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...

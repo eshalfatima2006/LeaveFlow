@@ -1,0 +1,695 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+test_employee_cannot_decide_or_reach_another_users_request (tests.team.api.test_authentication.IdentityAndOwnershipTests.test_employee_cannot_decide_or_reach_another_users_request)
+API-W2-002.06; FR-W2-02; BR-04/05: employee decision on a teammate's request -> 403, GET 405, unchanged. ... ok
+test_token_identity_is_the_authenticated_user_only (tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only)
+API-W1-001.05; FR-W1-01, FR-W2-01; BR-04: /me and lists reflect only the token's user. ... ok
+test_invalid_credentials_are_refused_without_issuing_tokens (tests.team.api.test_authentication.LoginTests.test_invalid_credentials_are_refused_without_issuing_tokens)
+API-W1-001.02; FR-W1-01; BR-04: wrong/unknown/missing/blank/inactive -> 400, no token. ... ok
+test_valid_login_returns_token_bound_to_that_user (tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user)
+API-W1-001.01; FR-W1-01; BR-04: valid credentials yield the caller's own token. ... ok
+test_malformed_and_invalid_tokens_return_401 (tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401)
+API-W1-001.04; FR-W1-01; BR-04: malformed header/unknown/inactive-user token -> 401, no row. ... ok
+test_protected_endpoints_return_401_without_credentials (tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials)
+API-W1-001.03; FR-W1-01, FR-W2-01, FR-W2-02; BR-04: no token -> 401, nothing exposed or written. ... ok
+test_decide_200_approved (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved)
+Contract decideRequest 200: approved LeaveRequest. ... ok
+test_decide_200_rejected (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected)
+Contract decideRequest 200: rejected LeaveRequest. ... ok
+test_decide_400_malformed_json (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_400_malformed_json)
+Contract decideRequest 400: malformed JSON. ... ok
+test_decide_400_value (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_400_value)
+Contract decideRequest 400: invalid decision value. ... ok
+test_decide_401 (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_401)
+Contract decideRequest 401: no token. ... ok
+test_decide_403_role (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_403_role)
+Contract decideRequest 403: employee. ... ok
+test_decide_403_self (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_403_self)
+Contract decideRequest 403: manager's own request. ... ok
+test_decide_404_html (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_404_html)
+Contract decideRequest 404: a non-numeric id does not match the route (HTML). ... ok
+test_decide_404_json (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_404_json)
+Contract decideRequest 404: request of another team (JSON). ... ok
+test_decide_409 (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_409)
+Contract decideRequest 409: already decided. ... ok
+test_decide_415 (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_415)
+Contract decideRequest 415: text/plain body. ... ok
+test_decide_non_object_json_characterization (tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_decide_non_object_json_characterization)
+Deviation: W2 with a JSON list body → 500 (contract: 400); the request stays pending. ... ok
+test_login_non_object_json_characterization (tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_login_non_object_json_characterization)
+Deviation: login with a JSON list body → 500 (contract: 400). ... ok
+test_submit_maximum_date_characterization (tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_submit_maximum_date_characterization)
+Deviation: W1 with end_date 9999-12-31 → 500 (date overflow in business_days); no row. ... ok
+test_login_200 (tests.team.api.test_openapi_contract.LoginContractTests.test_login_200)
+Contract login 200: token and user object. ... ok
+test_login_400_credentials (tests.team.api.test_openapi_contract.LoginContractTests.test_login_400_credentials)
+Contract login 400: wrong password. ... ok
+test_login_400_malformed_json (tests.team.api.test_openapi_contract.LoginContractTests.test_login_400_malformed_json)
+Contract login 400: malformed JSON. ... ok
+test_login_401_invalid_authorization_header (tests.team.api.test_openapi_contract.LoginContractTests.test_login_401_invalid_authorization_header)
+Contract login 401: an invalid token header is refused even with valid credentials. ... ok
+test_login_415 (tests.team.api.test_openapi_contract.LoginContractTests.test_login_415)
+Contract login 415: text/plain body. ... ok
+test_dashboard_200 (tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200)
+Contract dashboard 200: six visible requests, at most five recent. ... ok
+test_dashboard_401 (tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_401)
+Contract dashboard 401: no token. ... ok
+test_list_200 (tests.team.api.test_openapi_contract.ReadContractTests.test_list_200)
+Contract listRequests 200: pending and approved rows. ... ok
+test_list_401 (tests.team.api.test_openapi_contract.ReadContractTests.test_list_401)
+Contract listRequests 401: invalid token. ... ok
+test_me_200 (tests.team.api.test_openapi_contract.ReadContractTests.test_me_200)
+Contract me 200: profile with a team. ... ok
+test_me_200_without_team (tests.team.api.test_openapi_contract.ReadContractTests.test_me_200_without_team)
+Contract me 200: team is null for a user without a team. ... ok
+test_me_401 (tests.team.api.test_openapi_contract.ReadContractTests.test_me_401)
+Contract me 401: no token. ... ok
+test_team_200 (tests.team.api.test_openapi_contract.ReadContractTests.test_team_200)
+Contract team 200: members with and without an upcoming leave, and without a balance. ... ok
+test_team_200_without_team (tests.team.api.test_openapi_contract.ReadContractTests.test_team_200_without_team)
+Contract team 200: empty list for a caller without a team. ... ok
+test_team_401 (tests.team.api.test_openapi_contract.ReadContractTests.test_team_401)
+Contract team 401: no token. ... ok
+test_submit_201 (tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201)
+Contract submitRequest 201: created LeaveRequest. ... ok
+test_submit_400_balance (tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_balance)
+Contract submitRequest 400: non_field_errors (BR-03). ... ok
+test_submit_400_body_not_object (tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_body_not_object)
+Contract submitRequest 400: a JSON list body is refused. ... ok
+test_submit_400_end_before_start (tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_end_before_start)
+Contract submitRequest 400: end_date error (BR-01). ... ok
+test_submit_400_fields (tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_fields)
+Contract submitRequest 400: several field errors. ... ok
+test_submit_400_malformed_json (tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_malformed_json)
+Contract submitRequest 400: malformed JSON gives detail, not field errors. ... ok
+test_submit_400_overlap (tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_overlap)
+Contract submitRequest 400: non_field_errors (BR-02). ... ok
+test_submit_401 (tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_401)
+Contract submitRequest 401: no token. ... ok
+test_submit_415 (tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_415)
+Contract submitRequest 415: text/plain body. ... ok
+test_available_counts_approved_history_only (tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only)
+API-W1-005.02; FR-W1-05; BR-03: A = 5 - approved 2; pending/rejected consume nothing -> D=3 ok, D=4 400. ... ok
+test_missing_balance_record_skips_the_check (tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check)
+API-W1-005.04; FR-W1-05; BR-03. CHARACTERIZATION (GAP-07): no balance -> any D accepted, dashboard zeros. ... ok
+test_pending_requests_reserve_no_allowance (tests.team.api.test_w1_submission.BalanceTests.test_pending_requests_reserve_no_allowance)
+API-W1-005.05; FR-W1-05, FR-W1-06; BR-03. CHARACTERIZATION (GAP-01): two 4-day pendings at A=5 both 201. ... ok
+test_requested_days_at_available_boundary (tests.team.api.test_w1_submission.BalanceTests.test_requested_days_at_available_boundary)
+API-W1-005.01; FR-W1-05; BR-03/01: A=5 -> D=4 and D=5 accepted, D=6 rejected (three-point BVA). ... ok
+test_zero_and_negative_available (tests.team.api.test_w1_submission.BalanceTests.test_zero_and_negative_available)
+API-W1-005.03; FR-W1-05; BR-03. A=0: D=1 400, D=0 accepted. A=-1: even D=0 400 (CHARACTERIZATION, GAP-01). ... ok
+test_end_before_start_rejected_on_end_date (tests.team.api.test_w1_submission.DateRuleTests.test_end_before_start_rejected_on_end_date)
+API-W1-003.01; FR-W1-03; BR-01: end one day before start -> 400 end_date, no row. ... ok
+test_inclusive_weekday_counts (tests.team.api.test_w1_submission.DateRuleTests.test_inclusive_weekday_counts)
+API-W1-003.02; FR-W1-03, FR-W1-06; BR-01: server business_days equals independent counts. ... ok
+test_past_dates_are_accepted (tests.team.api.test_w1_submission.DateRuleTests.test_past_dates_are_accepted)
+API-W1-003.04; FR-W1-03; BR-01. CHARACTERIZATION (no date-relative-to-today rule; policy open). ... ok
+test_weekend_only_request_is_accepted_with_zero_days (tests.team.api.test_w1_submission.DateRuleTests.test_weekend_only_request_is_accepted_with_zero_days)
+API-W1-003.03; FR-W1-03; BR-01. CHARACTERIZATION (no positive-day minimum; policy open). ... ok
+test_approved_request_blocks_and_neighbour_passes (tests.team.api.test_w1_submission.OverlapTests.test_approved_request_blocks_and_neighbour_passes)
+API-W1-004.02; FR-W1-04; BR-02/05: approved interval still blocks overlap. ... ok
+test_inclusive_boundaries_against_pending_request (tests.team.api.test_w1_submission.OverlapTests.test_inclusive_boundaries_against_pending_request)
+API-W1-004.01; FR-W1-04; BR-02: existing pending 12-07..11; touching endpoints block, neighbours pass. ... ok
+test_other_employee_may_request_same_dates (tests.team.api.test_w1_submission.OverlapTests.test_other_employee_may_request_same_dates)
+API-W1-004.04; FR-W1-04, FR-W1-01; BR-02/04: overlap is per employee only. ... ok
+test_rejected_request_dates_can_be_reused_as_new_row (tests.team.api.test_w1_submission.OverlapTests.test_rejected_request_dates_can_be_reused_as_new_row)
+API-W1-004.03; FR-W1-04; BR-02/05: rejected history does not block; a NEW row is created. ... ok
+test_invalid_date_type_and_note_values_rejected (tests.team.api.test_w1_submission.PayloadValidationTests.test_invalid_date_type_and_note_values_rejected)
+API-W1-002.04; FR-W1-02; BR-06: unparseable/impossible dates, unknown types, nonstring note -> 400. ... ok
+test_malformed_json_and_unsupported_media_type (tests.team.api.test_w1_submission.PayloadValidationTests.test_malformed_json_and_unsupported_media_type)
+API-W1-002.05; FR-W1-02; BR-06: protocol partitions -> 400 parse error / 415, no insert. ... ok
+test_missing_and_null_fields_rejected_without_insert (tests.team.api.test_w1_submission.PayloadValidationTests.test_missing_and_null_fields_rejected_without_insert)
+API-W1-002.03; FR-W1-02; BR-06: omitted/null required dates, null type/note -> 400 on that field. ... ok
+test_each_leave_type_and_omitted_default (tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_each_leave_type_and_omitted_default)
+API-W1-002.01; FR-W1-02; BR-06: vacation/permit/personal accepted; omitted defaults to vacation. ... ok
+test_manager_and_admin_self_submission_is_owned_by_caller (tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_manager_and_admin_self_submission_is_owned_by_caller)
+API-W1-001.06; FR-W1-01, FR-W1-06; BR-04. CHARACTERIZATION (FR-W1-01 note): role is not restricted. ... ok
+test_note_optional_blank_and_length_boundaries (tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_note_optional_blank_and_length_boundaries)
+API-W1-002.02; FR-W1-02; BR-06: omitted/blank/whitespace -> '', trimmed 279/280 ok, 281 -> 400. ... ok
+test_read_only_and_unknown_fields_cannot_set_owner_or_state (tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_read_only_and_unknown_fields_cannot_set_owner_or_state)
+API-W1-001.07; FR-W1-01, FR-W1-02; BR-04/05/06: injected employee/status/id/days are ignored. ... ok
+test_valid_employee_submission_persists_one_pending_owned_row (tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row)
+API-W1-006.01; FR-W1-01, FR-W1-06; BR-04/05/06: 201, returned k readable, balance unchanged. ... ok
+test_admin_decides_requests_of_any_team (tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team)
+API-W2-002.03; FR-W2-02, FR-W2-05, FR-W2-06; BR-04/05: admin approves Team B, rejects Team A. ... ok
+test_extra_body_keys_cannot_override_audit_or_content (tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_extra_body_keys_cannot_override_audit_or_content)
+API-W2-003.03; FR-W2-03, FR-W2-05; BR-05/06: injected decider/time/owner/note are ignored. ... ok
+test_same_team_manager_approves_pending_and_balance_is_derived (tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_same_team_manager_approves_pending_and_balance_is_derived)
+API-W2-002.02, API-W2-005.01; FR-W2-02, FR-W2-04, FR-W2-05; BR-03/04/05: 200, actor/time, used +D. ... ok
+test_same_team_manager_rejects_pending_without_charging_allowance (tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_same_team_manager_rejects_pending_without_charging_allowance)
+API-W2-006.01; FR-W2-02, FR-W2-04, FR-W2-06; BR-03/04/05: 200 rejected, used unchanged. ... ok
+test_guard_precedence (tests.team.api.test_w2_decisions.DecisionValueTests.test_guard_precedence)
+API-W2-003.02; FR-W2-02, FR-W2-03; BR-04/05/06: role before value before lookup before self/state. ... ok
+test_missing_null_and_invalid_status_values (tests.team.api.test_w2_decisions.DecisionValueTests.test_missing_null_and_invalid_status_values)
+API-W2-003.01; FR-W2-03; BR-05/06: only approved/rejected accepted; others -> 400, unchanged. ... ok
+test_employee_role_cannot_decide (tests.team.api.test_w2_decisions.DeniedDecisionTests.test_employee_role_cannot_decide)
+API-W2-002.01; FR-W2-02; BR-04: employee -> 403 for teammate's and own requests, unchanged. ... ok
+test_nonexistent_and_unroutable_ids (tests.team.api.test_w2_decisions.DeniedDecisionTests.test_nonexistent_and_unroutable_ids)
+API-W2-002.07; FR-W2-02; BR-04: absent IDs -> 404 even for admin; non-integer path does not route. ... ok
+test_out_of_scope_managers_receive_404 (tests.team.api.test_w2_decisions.DeniedDecisionTests.test_out_of_scope_managers_receive_404)
+API-W2-002.04; FR-W2-01, FR-W2-02; BR-04: other-team and teamless managers cannot reach target. ... ok
+test_self_decision_forbidden_for_every_privileged_role (tests.team.api.test_w2_decisions.DeniedDecisionTests.test_self_decision_forbidden_for_every_privileged_role)
+API-W2-002.05; FR-W2-02; BR-04/05: own pending request -> 403 for manager, admin, teamless manager. ... ok
+test_approved_and_rejected_requests_cannot_be_decided_again (tests.team.api.test_w2_decisions.FinalStateTests.test_approved_and_rejected_requests_cannot_be_decided_again)
+API-W2-004.01; FR-W2-04; BR-05: final states -> 409 for both values; audit and balance preserved. ... ok
+test_repeat_after_successful_decision_conflicts (tests.team.api.test_w2_decisions.FinalStateTests.test_repeat_after_successful_decision_conflicts)
+API-W2-004.02; FR-W2-04; BR-05: pending->approved once; later approve/reject -> 409, same actor/time. ... ok
+test_request_list_and_dashboard_scope_by_role (tests.team.api.test_w2_decisions.VisibilityTests.test_request_list_and_dashboard_scope_by_role)
+API-W2-001.01; FR-W2-01; BR-04: employee own, team manager team, teamless own, admin all. ... ok
+test_01_mutate_own_records (tests.team.foundation.test_foundation.FixtureIsolationTests.test_01_mutate_own_records)
+FND-008; FR-W1-06; BR-03/05: mutate inside this test's savepoint. ... ok
+test_02_independent_test_starts_clean (tests.team.foundation.test_foundation.FixtureIsolationTests.test_02_independent_test_starts_clean)
+FND-009; FR-W1-06; BR-03/05: prior test's mutations rolled back. ... ok
+test_overlap_requires_explicit_fixture_opt_in (tests.team.foundation.test_foundation.FoundationTests.test_overlap_requires_explicit_fixture_opt_in)
+FND-006; FR-W1-04; BR-02: invalid fixture setup is deliberate only. ... ok
+test_pending_record_and_approved_only_consumption (tests.team.foundation.test_foundation.FoundationTests.test_pending_record_and_approved_only_consumption)
+FND-002; FR-W1-03/05/06; BR-01/03/05: persisted pending and totals. ... ok
+test_prepare_future_overapproval_scenario_without_deciding (tests.team.foundation.test_foundation.FoundationTests.test_prepare_future_overapproval_scenario_without_deciding)
+FND-007; FR-W1-05/06; BR-03/05: prepare future regression, no W2 call. ... ok
+test_real_login_and_token_authenticated_dashboard (tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard)
+FND-003; FR-W1-01/05, FR-W2-01; BR-03/04: real DRF token lookup. ... ok
+test_reference_logical_snapshot (tests.team.foundation.test_foundation.FoundationTests.test_reference_logical_snapshot)
+FND-004; FR-W1-06, FR-W2-01; BR-03/04/05: stable logical fixture. ... ok
+test_synthetic_identity_and_balance_relationships (tests.team.foundation.test_foundation.FoundationTests.test_synthetic_identity_and_balance_relationships)
+FND-001; FR-W1-01, FR-W2-01; BR-04: synthetic roles/teams/balances. ... ok
+test_zero_missing_and_exact_balance_fixture_variants (tests.team.foundation.test_foundation.FoundationTests.test_zero_missing_and_exact_balance_fixture_variants)
+FND-005; FR-W1-05; BR-03: reusable zero/missing/exact allowance setups. ... ok
+test_authorization_ep_invalid_no_token (tests.team.generated.test_generated_api.GeneratedDashboardTests.test_authorization_ep_invalid_no_token)
+Generated from spec: GET /api/dashboard/ Authorization EP invalid no token ... ok
+test_authorization_ep_invalid_unknown_token (tests.team.generated.test_generated_api.GeneratedDashboardTests.test_authorization_ep_invalid_unknown_token)
+Generated from spec: GET /api/dashboard/ Authorization EP invalid unknown token ... ok
+test_authorization_ep_valid_token (tests.team.generated.test_generated_api.GeneratedDashboardTests.test_authorization_ep_valid_token)
+Generated from spec: GET /api/dashboard/ Authorization EP valid token ... ok
+test_method_ep_invalid_delete (tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_delete)
+Generated from spec: GET /api/dashboard/ method EP invalid DELETE ... ok
+test_method_ep_invalid_patch (tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_patch)
+Generated from spec: GET /api/dashboard/ method EP invalid PATCH ... ok
+test_method_ep_invalid_post (tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_post)
+Generated from spec: GET /api/dashboard/ method EP invalid POST ... ok
+test_method_ep_invalid_put (tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_put)
+Generated from spec: GET /api/dashboard/ method EP invalid PUT ... ok
+test_authorization_ep_invalid_no_token (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_authorization_ep_invalid_no_token)
+Generated from spec: POST /api/requests/{id}/decision/ Authorization EP invalid no token ... ok
+test_authorization_ep_invalid_unknown_token (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_authorization_ep_invalid_unknown_token)
+Generated from spec: POST /api/requests/{id}/decision/ Authorization EP invalid unknown token ... ok
+test_context_ep_invalid_employee_owner (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_employee_owner)
+Generated from spec: POST /api/requests/{id}/decision/ context EP invalid employee owner ... ok
+test_context_ep_invalid_employee_teammate (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_employee_teammate)
+Generated from spec: POST /api/requests/{id}/decision/ context EP invalid employee teammate ... ok
+test_context_ep_invalid_manager_of_another_team (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_manager_of_another_team)
+Generated from spec: POST /api/requests/{id}/decision/ context EP invalid manager of another team ... ok
+test_context_ep_invalid_manager_own_request (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_manager_own_request)
+Generated from spec: POST /api/requests/{id}/decision/ context EP invalid manager own request ... ok
+test_context_ep_invalid_manager_without_a_team (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_manager_without_a_team)
+Generated from spec: POST /api/requests/{id}/decision/ context EP invalid manager without a team ... ok
+test_context_ep_invalid_request_already_approved (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_request_already_approved)
+Generated from spec: POST /api/requests/{id}/decision/ context EP invalid request already approved ... ok
+test_context_ep_invalid_request_already_rejected (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_request_already_rejected)
+Generated from spec: POST /api/requests/{id}/decision/ context EP invalid request already rejected ... ok
+test_context_ep_invalid_request_out_of_scope (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_request_out_of_scope)
+Generated from spec: POST /api/requests/{id}/decision/ context EP invalid request out of scope ... ok
+test_context_ep_valid_admin (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_valid_admin)
+Generated from spec: POST /api/requests/{id}/decision/ context EP valid admin ... ok
+test_id_ep_invalid_example_0 (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_0)
+Generated from spec: POST /api/requests/{id}/decision/ id EP invalid example 0 ... ok
+test_id_ep_invalid_example_1_5 (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_1_5)
+Generated from spec: POST /api/requests/{id}/decision/ id EP invalid example 1.5 ... ok
+test_id_ep_invalid_example_2147483647 (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_2147483647)
+Generated from spec: POST /api/requests/{id}/decision/ id EP invalid example 2147483647 ... ok
+test_id_ep_invalid_example_abc (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_abc)
+Generated from spec: POST /api/requests/{id}/decision/ id EP invalid example 'abc' ... ok
+test_id_ep_invalid_example_minus_1 (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_minus_1)
+Generated from spec: POST /api/requests/{id}/decision/ id EP invalid example -1 ... ok
+test_media_ep_invalid_malformed_json (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_invalid_malformed_json)
+Generated from spec: POST /api/requests/{id}/decision/ media EP invalid malformed JSON ... ok
+test_media_ep_invalid_text_plain (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_invalid_text_plain)
+Generated from spec: POST /api/requests/{id}/decision/ media EP invalid text/plain ... ok
+test_media_ep_valid_application_x_www_form_urlencoded (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_valid_application_x_www_form_urlencoded)
+Generated from spec: POST /api/requests/{id}/decision/ media EP valid application/x-www-form-urlencoded ... ok
+test_media_ep_valid_multipart_form_data (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_valid_multipart_form_data)
+Generated from spec: POST /api/requests/{id}/decision/ media EP valid multipart/form-data ... ok
+test_method_ep_invalid_delete (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_delete)
+Generated from spec: POST /api/requests/{id}/decision/ method EP invalid DELETE ... ok
+test_method_ep_invalid_get (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_get)
+Generated from spec: POST /api/requests/{id}/decision/ method EP invalid GET ... ok
+test_method_ep_invalid_patch (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_patch)
+Generated from spec: POST /api/requests/{id}/decision/ method EP invalid PATCH ... ok
+test_method_ep_invalid_put (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_put)
+Generated from spec: POST /api/requests/{id}/decision/ method EP invalid PUT ... ok
+test_status_ep_invalid_example_empty (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_example_empty)
+Generated from spec: POST /api/requests/{id}/decision/ status EP invalid example '' ... ok
+test_status_ep_invalid_example_pending (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_example_pending)
+Generated from spec: POST /api/requests/{id}/decision/ status EP invalid example 'pending' ... ok
+test_status_ep_invalid_missing_required (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_missing_required)
+Generated from spec: POST /api/requests/{id}/decision/ status EP invalid missing (required) ... ok
+test_status_ep_invalid_null_not_nullable (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_null_not_nullable)
+Generated from spec: POST /api/requests/{id}/decision/ status EP invalid null (not nullable) ... ok
+test_status_ep_invalid_out_of_enum_zzz_not_in_enum (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_out_of_enum_zzz_not_in_enum)
+Generated from spec: POST /api/requests/{id}/decision/ status EP invalid out-of-enum 'zzz_not_in_enum' ... ok
+test_status_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/requests/{id}/decision/ status EP invalid wrong type (true) ... ok
+test_status_ep_valid_enum_value_approved (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_valid_enum_value_approved)
+Generated from spec: POST /api/requests/{id}/decision/ status EP valid enum value 'approved' ... ok
+test_status_ep_valid_enum_value_rejected (tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_valid_enum_value_rejected)
+Generated from spec: POST /api/requests/{id}/decision/ status EP valid enum value 'rejected' ... ok
+test_authorization_ep_invalid_no_token (tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_authorization_ep_invalid_no_token)
+Generated from spec: GET /api/requests/ Authorization EP invalid no token ... ok
+test_authorization_ep_invalid_unknown_token (tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_authorization_ep_invalid_unknown_token)
+Generated from spec: GET /api/requests/ Authorization EP invalid unknown token ... ok
+test_authorization_ep_valid_token (tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_authorization_ep_valid_token)
+Generated from spec: GET /api/requests/ Authorization EP valid token ... ok
+test_method_ep_invalid_delete (tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_method_ep_invalid_delete)
+Generated from spec: GET /api/requests/ method EP invalid DELETE ... ok
+test_method_ep_invalid_patch (tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_method_ep_invalid_patch)
+Generated from spec: GET /api/requests/ method EP invalid PATCH ... ok
+test_method_ep_invalid_put (tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_method_ep_invalid_put)
+Generated from spec: GET /api/requests/ method EP invalid PUT ... ok
+test_media_ep_invalid_malformed_json (tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_invalid_malformed_json)
+Generated from spec: POST /api/auth/login/ media EP invalid malformed JSON ... ok
+test_media_ep_invalid_text_plain (tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_invalid_text_plain)
+Generated from spec: POST /api/auth/login/ media EP invalid text/plain ... ok
+test_media_ep_valid_application_x_www_form_urlencoded (tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_valid_application_x_www_form_urlencoded)
+Generated from spec: POST /api/auth/login/ media EP valid application/x-www-form-urlencoded ... ok
+test_media_ep_valid_multipart_form_data (tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_valid_multipart_form_data)
+Generated from spec: POST /api/auth/login/ media EP valid multipart/form-data ... ok
+test_method_ep_invalid_delete (tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_delete)
+Generated from spec: POST /api/auth/login/ method EP invalid DELETE ... ok
+test_method_ep_invalid_get (tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_get)
+Generated from spec: POST /api/auth/login/ method EP invalid GET ... ok
+test_method_ep_invalid_patch (tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_patch)
+Generated from spec: POST /api/auth/login/ method EP invalid PATCH ... ok
+test_method_ep_invalid_put (tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_put)
+Generated from spec: POST /api/auth/login/ method EP invalid PUT ... ok
+test_password_ep_invalid_example_empty (tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_example_empty)
+Generated from spec: POST /api/auth/login/ password EP invalid example '' ... ok
+test_password_ep_invalid_example_wrong_password (tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_example_wrong_password)
+Generated from spec: POST /api/auth/login/ password EP invalid example 'wrong-password' ... ok
+test_password_ep_invalid_missing_required (tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_missing_required)
+Generated from spec: POST /api/auth/login/ password EP invalid missing (required) ... ok
+test_password_ep_invalid_null_not_nullable (tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_null_not_nullable)
+Generated from spec: POST /api/auth/login/ password EP invalid null (not nullable) ... ok
+test_password_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/auth/login/ password EP invalid wrong type (true) ... ok
+test_username_ep_invalid_example_empty (tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_example_empty)
+Generated from spec: POST /api/auth/login/ username EP invalid example '' ... ok
+test_username_ep_invalid_example_unknown_user (tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_example_unknown_user)
+Generated from spec: POST /api/auth/login/ username EP invalid example 'unknown-user' ... ok
+test_username_ep_invalid_missing_required (tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_missing_required)
+Generated from spec: POST /api/auth/login/ username EP invalid missing (required) ... ok
+test_username_ep_invalid_null_not_nullable (tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_null_not_nullable)
+Generated from spec: POST /api/auth/login/ username EP invalid null (not nullable) ... ok
+test_username_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/auth/login/ username EP invalid wrong type (true) ... ok
+test_username_ep_valid_string (tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_valid_string)
+Generated from spec: POST /api/auth/login/ username EP valid string ... ok
+test_authorization_ep_invalid_no_token (tests.team.generated.test_generated_api.GeneratedMeTests.test_authorization_ep_invalid_no_token)
+Generated from spec: GET /api/me/ Authorization EP invalid no token ... ok
+test_authorization_ep_invalid_unknown_token (tests.team.generated.test_generated_api.GeneratedMeTests.test_authorization_ep_invalid_unknown_token)
+Generated from spec: GET /api/me/ Authorization EP invalid unknown token ... ok
+test_authorization_ep_valid_token (tests.team.generated.test_generated_api.GeneratedMeTests.test_authorization_ep_valid_token)
+Generated from spec: GET /api/me/ Authorization EP valid token ... ok
+test_method_ep_invalid_delete (tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_delete)
+Generated from spec: GET /api/me/ method EP invalid DELETE ... ok
+test_method_ep_invalid_patch (tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_patch)
+Generated from spec: GET /api/me/ method EP invalid PATCH ... ok
+test_method_ep_invalid_post (tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_post)
+Generated from spec: GET /api/me/ method EP invalid POST ... ok
+test_method_ep_invalid_put (tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_put)
+Generated from spec: GET /api/me/ method EP invalid PUT ... ok
+test_authorization_ep_invalid_no_token (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_authorization_ep_invalid_no_token)
+Generated from spec: POST /api/requests/ Authorization EP invalid no token ... ok
+test_authorization_ep_invalid_unknown_token (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_authorization_ep_invalid_unknown_token)
+Generated from spec: POST /api/requests/ Authorization EP invalid unknown token ... ok
+test_end_date_bva_2026_12_06_below (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_bva_2026_12_06_below)
+Generated from spec: POST /api/requests/ end_date BVA 2026-12-06 (limit-1, end_date >= start_date) ... ok
+test_end_date_bva_2026_12_07_at (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_bva_2026_12_07_at)
+Generated from spec: POST /api/requests/ end_date BVA 2026-12-07 (limit, end_date >= start_date) ... ok
+test_end_date_ep_invalid_date_format_not_a_date (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_date_format_not_a_date)
+Generated from spec: POST /api/requests/ end_date EP invalid date format ('not-a-date') ... ok
+test_end_date_ep_invalid_example_2026_02_30 (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_example_2026_02_30)
+Generated from spec: POST /api/requests/ end_date EP invalid example '2026-02-30' ... ok
+test_end_date_ep_invalid_example_empty (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_example_empty)
+Generated from spec: POST /api/requests/ end_date EP invalid example '' ... ok
+test_end_date_ep_invalid_missing_required (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_missing_required)
+Generated from spec: POST /api/requests/ end_date EP invalid missing (required) ... ok
+test_end_date_ep_invalid_null_not_nullable (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_null_not_nullable)
+Generated from spec: POST /api/requests/ end_date EP invalid null (not nullable) ... ok
+test_end_date_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/requests/ end_date EP invalid wrong type (true) ... ok
+test_leave_type_ep_invalid_example_empty (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_example_empty)
+Generated from spec: POST /api/requests/ leave_type EP invalid example '' ... ok
+test_leave_type_ep_invalid_null_not_nullable (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_null_not_nullable)
+Generated from spec: POST /api/requests/ leave_type EP invalid null (not nullable) ... ok
+test_leave_type_ep_invalid_out_of_enum_zzz_not_in_enum (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_out_of_enum_zzz_not_in_enum)
+Generated from spec: POST /api/requests/ leave_type EP invalid out-of-enum 'zzz_not_in_enum' ... ok
+test_leave_type_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/requests/ leave_type EP invalid wrong type (true) ... ok
+test_leave_type_ep_valid_enum_value_permit (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_permit)
+Generated from spec: POST /api/requests/ leave_type EP valid enum value 'permit' ... ok
+test_leave_type_ep_valid_enum_value_personal (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_personal)
+Generated from spec: POST /api/requests/ leave_type EP valid enum value 'personal' ... ok
+test_leave_type_ep_valid_enum_value_vacation (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_vacation)
+Generated from spec: POST /api/requests/ leave_type EP valid enum value 'vacation' ... ok
+test_leave_type_ep_valid_omitted_optional (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_omitted_optional)
+Generated from spec: POST /api/requests/ leave_type EP valid omitted (optional) ... ok
+test_media_ep_invalid_malformed_json (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_invalid_malformed_json)
+Generated from spec: POST /api/requests/ media EP invalid malformed JSON ... ok
+test_media_ep_invalid_text_plain (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_invalid_text_plain)
+Generated from spec: POST /api/requests/ media EP invalid text/plain ... ok
+test_media_ep_valid_application_x_www_form_urlencoded (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_valid_application_x_www_form_urlencoded)
+Generated from spec: POST /api/requests/ media EP valid application/x-www-form-urlencoded ... ok
+test_media_ep_valid_multipart_form_data (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_valid_multipart_form_data)
+Generated from spec: POST /api/requests/ media EP valid multipart/form-data ... ok
+test_note_bva_0_at (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_0_at)
+Generated from spec: POST /api/requests/ note BVA 0 (limit, minLength 0) ... ok
+test_note_bva_1_above (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_1_above)
+Generated from spec: POST /api/requests/ note BVA 1 (limit+1, minLength 0) ... ok
+test_note_bva_279_below (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_279_below)
+Generated from spec: POST /api/requests/ note BVA 279 (limit-1, x-trimmed-max-length 280) ... ok
+test_note_bva_280_at (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_280_at)
+Generated from spec: POST /api/requests/ note BVA 280 (limit, x-trimmed-max-length 280) ... ok
+test_note_bva_281_above (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_281_above)
+Generated from spec: POST /api/requests/ note BVA 281 (limit+1, x-trimmed-max-length 280) ... ok
+test_note_ep_invalid_null_not_nullable (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_null_not_nullable)
+Generated from spec: POST /api/requests/ note EP invalid null (not nullable) ... ok
+test_note_ep_invalid_over_x_trimmed_max_length_560_chars (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_over_x_trimmed_max_length_560_chars)
+Generated from spec: POST /api/requests/ note EP invalid over x-trimmed-max-length (560 chars) ... ok
+test_note_ep_invalid_padded_281_chars_after_trim (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_padded_281_chars_after_trim)
+Generated from spec: POST /api/requests/ note EP invalid padded 281 chars after trim ... ok
+test_note_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/requests/ note EP invalid wrong type (true) ... ok
+test_note_ep_valid_omitted_optional (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_valid_omitted_optional)
+Generated from spec: POST /api/requests/ note EP valid omitted (optional) ... ok
+test_note_ep_valid_padded_280_chars_after_trim (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_valid_padded_280_chars_after_trim)
+Generated from spec: POST /api/requests/ note EP valid padded 280 chars after trim ... ok
+test_note_ep_valid_whitespace_only (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_valid_whitespace_only)
+Generated from spec: POST /api/requests/ note EP valid whitespace only ... ok
+test_start_date_end_date_bva_10_at_br_03_business_days_10 (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_10_at_br_03_business_days_10)
+Generated from spec: POST /api/requests/ start_date..end_date BVA 10 (limit, BR-03 business days <= 10) ... ok
+test_start_date_end_date_bva_11_above_br_03_business_days_10 (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_11_above_br_03_business_days_10)
+Generated from spec: POST /api/requests/ start_date..end_date BVA 11 (limit+1, BR-03 business days <= 10) ... ok
+test_start_date_end_date_bva_2026_12_14_below_br_02_existing_start (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_14_below_br_02_existing_start)
+Generated from spec: POST /api/requests/ start_date..end_date BVA 2026-12-14 (limit-1, BR-02 existing start) ... ok
+test_start_date_end_date_bva_2026_12_15_at_br_02_existing_start (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_15_at_br_02_existing_start)
+Generated from spec: POST /api/requests/ start_date..end_date BVA 2026-12-15 (limit, BR-02 existing start) ... ok
+test_start_date_end_date_bva_2026_12_16_above_br_02_existing_start (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_16_above_br_02_existing_start)
+Generated from spec: POST /api/requests/ start_date..end_date BVA 2026-12-16 (limit+1, BR-02 existing start) ... ok
+test_start_date_end_date_bva_2026_12_17_above_br_02_existing_end (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_17_above_br_02_existing_end)
+Generated from spec: POST /api/requests/ start_date..end_date BVA 2026-12-17 (limit+1, BR-02 existing end) ... ok
+test_start_date_end_date_bva_9_below_br_03_business_days_10 (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_9_below_br_03_business_days_10)
+Generated from spec: POST /api/requests/ start_date..end_date BVA 9 (limit-1, BR-03 business days <= 10) ... ok
+test_start_date_end_date_ep_invalid_br_02_encloses_existing (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_ep_invalid_br_02_encloses_existing)
+Generated from spec: POST /api/requests/ start_date..end_date EP invalid BR-02 encloses existing ... ok
+test_start_date_end_date_ep_invalid_br_03_20_business_days (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_ep_invalid_br_03_20_business_days)
+Generated from spec: POST /api/requests/ start_date..end_date EP invalid BR-03 20 business days ... ok
+test_start_date_ep_invalid_date_format_not_a_date (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_date_format_not_a_date)
+Generated from spec: POST /api/requests/ start_date EP invalid date format ('not-a-date') ... ok
+test_start_date_ep_invalid_example_2026_02_30 (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_example_2026_02_30)
+Generated from spec: POST /api/requests/ start_date EP invalid example '2026-02-30' ... ok
+test_start_date_ep_invalid_example_empty (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_example_empty)
+Generated from spec: POST /api/requests/ start_date EP invalid example '' ... ok
+test_start_date_ep_invalid_missing_required (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_missing_required)
+Generated from spec: POST /api/requests/ start_date EP invalid missing (required) ... ok
+test_start_date_ep_invalid_null_not_nullable (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_null_not_nullable)
+Generated from spec: POST /api/requests/ start_date EP invalid null (not nullable) ... ok
+test_start_date_ep_invalid_wrong_type_true (tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_wrong_type_true)
+Generated from spec: POST /api/requests/ start_date EP invalid wrong type (true) ... ok
+test_authorization_ep_invalid_no_token (tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_invalid_no_token)
+Generated from spec: GET /api/team/ Authorization EP invalid no token ... ok
+test_authorization_ep_invalid_unknown_token (tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_invalid_unknown_token)
+Generated from spec: GET /api/team/ Authorization EP invalid unknown token ... ok
+test_authorization_ep_valid_token (tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_valid_token)
+Generated from spec: GET /api/team/ Authorization EP valid token ... ok
+test_method_ep_invalid_delete (tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_delete)
+Generated from spec: GET /api/team/ method EP invalid DELETE ... ok
+test_method_ep_invalid_patch (tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_patch)
+Generated from spec: GET /api/team/ method EP invalid PATCH ... ok
+test_method_ep_invalid_post (tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_post)
+Generated from spec: GET /api/team/ method EP invalid POST ... ok
+test_method_ep_invalid_put (tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_put)
+Generated from spec: GET /api/team/ method EP invalid PUT ... ok
+test_approval_is_published_after_commit (tests.team.integration.test_event_publication.EventPublicationTests.test_approval_is_published_after_commit)
+DT-004; FR-W2-05: approval is published only at commit, to the owner. ... ok
+test_redis_failure_does_not_undo_the_decision (tests.team.integration.test_event_publication.EventPublicationTests.test_redis_failure_does_not_undo_the_decision)
+BR-05: Redis failing at publication is logged; the committed decision stands. ... ok
+test_refused_calls_register_no_event (tests.team.integration.test_event_publication.EventPublicationTests.test_refused_calls_register_no_event)
+DT-004: W1 400, W2 403 and W2 400 register no commit callback. ... ok
+test_rejection_is_published_after_commit (tests.team.integration.test_event_publication.EventPublicationTests.test_rejection_is_published_after_commit)
+DT-004; FR-W2-06: rejection is published only at commit, to the owner. ... ok
+test_rolled_back_decision_publishes_nothing (tests.team.integration.test_event_publication.EventPublicationTests.test_rolled_back_decision_publishes_nothing)
+BR-05: a failure after the event was registered rolls the decision back and drops the event. ... ok
+test_submission_is_published_after_commit (tests.team.integration.test_event_publication.EventPublicationTests.test_submission_is_published_after_commit)
+DT-004; FR-W1-06: W1 registers one event and publishes it only at commit, to admin and team manager. ... ok
+test_second_approval_overdraws_allowance_characterization (tests.team.integration.test_w1_w2_integration.ApprovalOverdrawTests.test_second_approval_overdraws_allowance_characterization)
+API-INT-001.03 — CHARACTERIZATION of a known SUT defect (TEST-BASIS GAP-01, risk PR-01). ... ok
+test_other_team_request_is_invisible_to_manager (tests.team.integration.test_w1_w2_integration.CrossWorkflowAuthorizationTests.test_other_team_request_is_invisible_to_manager)
+API-INT-001.05; FR-W2-01, FR-W2-02; BR-04. ... ok
+test_requester_cannot_decide_own_w1_request (tests.team.integration.test_w1_w2_integration.CrossWorkflowAuthorizationTests.test_requester_cannot_decide_own_w1_request)
+API-INT-001.04; FR-W2-02; BR-04, BR-05. ... ok
+test_ec01_two_four_day_requests_characterization (tests.team.integration.test_w1_w2_integration.ExitCriterionScenarioTests.test_ec01_two_four_day_requests_characterization)
+API-INT-001.09 — CHARACTERIZATION of the EC-01 scenario (GAP-01, PR-01), not an approved oracle. ... ok
+test_decision_on_approved_request_conflicts (tests.team.integration.test_w1_w2_integration.InvalidTransitionTests.test_decision_on_approved_request_conflicts)
+API-INT-001.06; FR-W2-04; BR-03, BR-05. ... ok
+test_decision_on_rejected_request_conflicts (tests.team.integration.test_w1_w2_integration.InvalidTransitionTests.test_decision_on_rejected_request_conflicts)
+API-INT-001.07; FR-W2-04, FR-W2-06; BR-03, BR-05. ... ok
+test_identical_submission_repeated_while_pending (tests.team.integration.test_w1_w2_integration.RepeatedSubmissionTests.test_identical_submission_repeated_while_pending)
+API-INT-001.08; FR-W1-04, FR-W1-06; BR-02, BR-03: immediate repeat → overlap 400, one row, balance unchanged. ... ok
+test_w1_submission_then_w2_approval_consumes_allowance (tests.team.integration.test_w1_w2_integration.SameRecordApprovalTests.test_w1_submission_then_w2_approval_consumes_allowance)
+API-INT-001.01; FR-W1-06, FR-W2-01, FR-W2-04, FR-W2-05; BR-03, BR-04, BR-05. ... ok
+test_w1_submission_then_w2_rejection_consumes_nothing (tests.team.integration.test_w1_w2_integration.SameRecordRejectionTests.test_w1_submission_then_w2_rejection_consumes_nothing)
+API-INT-001.02; FR-W1-04, FR-W1-06, FR-W2-04, FR-W2-06; BR-02, BR-03, BR-05. ... ok
+test_dt1_r1 (tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r1)
+DT1 R1: C1=F (C2–C4 not evaluated) → 400 on end_date only, no row. ... ok
+test_dt1_r2 (tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r2)
+DT1 R2: C1=T, C2=F (C3/C4 not evaluated) → 400 overlap, no row. ... ok
+test_dt1_r3 (tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r3)
+DT1 R3: C1=T, C2=T, C3=F (C4 masked) → 201 although D is large. ... ok
+test_dt1_r4 (tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r4)
+DT1 R4: C1=T, C2=T, C3=T, C4=F → 400 'Saldo ferie insufficiente.', no row. ... ok
+test_dt1_r5 (tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r5)
+DT1 R5: all conditions true → 201 pending row; no allowance consumed. ... ok
+test_dt2_r1 (tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r1)
+DT2 R1: C1=F → 403 'Operazione non consentita.', unchanged. ... ok
+test_dt2_r2 (tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r2)
+DT2 R2: C1=T, C2=F → 404, unchanged. ... ok
+test_dt2_r3 (tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r3)
+DT2 R3: C1=T, C2=T, C3=F → 403 'Non puoi decidere una tua richiesta.', unchanged. ... ok
+test_dt2_r4 (tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r4)
+DT2 R4: C1=T, C2=T, C3=T, C4=F → 409 'La richiesta è già stata decisa.'. ... ok
+test_dt2_r5 (tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r5)
+DT2 R5: all conditions true → 200; the same row becomes approved by the admin. ... ok
+test_dt004_approval_notifies_owner_only (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_approval_notifies_owner_only)
+DT-004 decision branch: approval → one leave.approved event to the owner only. ... ok
+test_dt004_r1_admin_same_team (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r1_admin_same_team)
+DT-004 R1: A=T, T=T, O=F → notified. ... ok
+test_dt004_r2_admin_other_team (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r2_admin_other_team)
+DT-004 R2: A=T, T=F, O=F → notified. ... ok
+test_dt004_r3_manager_same_team (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r3_manager_same_team)
+DT-004 R3: M=T, T=T, O=F → notified. ... ok
+test_dt004_r4_manager_other_team (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r4_manager_other_team)
+DT-004 R4: M=T, T=F, O=F → not notified (other team's and teamless manager). ... ok
+test_dt004_r5_employee_same_team (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r5_employee_same_team)
+DT-004 R5: A=F, M=F, T=T, O=F → the teammate is not notified. ... ok
+test_dt004_r6_employee_other_team (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r6_employee_other_team)
+DT-004 R6: A=F, M=F, T=F, O=F → not notified. ... ok
+test_dt004_r7_admin_is_requester (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r7_admin_is_requester)
+DT-004 R7: A=T, O=T → the requesting admin is excluded; exactly the others remain. ... ok
+test_dt004_r8_manager_is_requester (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r8_manager_is_requester)
+DT-004 R8: M=T, T=T, O=T → the requesting manager is excluded; exactly the admins remain. ... ok
+test_dt004_r9_employee_is_requester (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r9_employee_is_requester)
+DT-004 R9: A=F, M=F, O=T → the requester is excluded; exactly both admins and m1 are notified. ... ok
+test_dt004_refused_calls_publish_nothing (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_refused_calls_publish_nothing)
+DT-004: a refused submission (400) and a refused decision (403) publish no event. ... ok
+test_dt004_rejection_notifies_owner_only (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_rejection_notifies_owner_only)
+DT-004 decision branch: rejection → one leave.rejected event to the owner only. ... ok
+test_dt004_teamless_requester_characterization (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_teamless_requester_characterization)
+DT-004, T with both teams null — CHARACTERIZATION (GAP-08), not an approved oracle. ... ok
+test_dt002_pk_excluded_rows (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_pk_excluded_rows)
+DT-002 P=F, 12 rows (model level): the saved row never blocks itself, whatever E,S,L,R are. ... ok
+test_dt002_r10 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r10)
+DT-002 R10: E and S false → 201. ... ok
+test_dt002_r11 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r11)
+DT-002 R11: E, S and L false → 201. ... ok
+test_dt002_r12 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r12)
+DT-002 R12: E, S and R false → 201. ... ok
+test_dt002_r1_approved_blocks (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r1_approved_blocks)
+DT-002 R1: E,S,L,R all true, X approved (second value of S) → 400 overlap, no row. ... ok
+test_dt002_r1_pending_blocks (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r1_pending_blocks)
+DT-002 R1: E,S,L,R all true, X pending → 400 overlap, no row. ... ok
+test_dt002_r2 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r2)
+DT-002 R2: only L false (candidate ends before X starts) → 201. ... ok
+test_dt002_r3 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r3)
+DT-002 R3: only R false (candidate starts after X ends) → 201. ... ok
+test_dt002_r4 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r4)
+DT-002 R4: only S false (X rejected) → 201. ... ok
+test_dt002_r5 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r5)
+DT-002 R5: S and L false → 201. ... ok
+test_dt002_r6 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r6)
+DT-002 R6: S and R false → 201. ... ok
+test_dt002_r7 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r7)
+DT-002 R7: only E false (X belongs to a colleague) → 201. ... ok
+test_dt002_r8 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r8)
+DT-002 R8: E and L false → 201. ... ok
+test_dt002_r9 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r9)
+DT-002 R9: E and R false → 201. ... ok
+test_dt005_approval_through_w2_becomes_upcoming (tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_approval_through_w2_becomes_upcoming)
+DT-005 with W2: pending (null) → manager approves → the same dates appear in /api/team/. ... ok
+test_dt005_earliest_start_selected (tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_earliest_start_selected)
+DT-005: two R1 rows, the later one stored first → the earlier start is returned. ... ok
+test_dt005_no_requests (tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_no_requests)
+DT-005: a member without any request → null. ... ok
+test_dt005_r1_end_after_today (tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r1_end_after_today)
+DT-005 R1: approved, end = today+1 (leave in progress) → shown. ... ok
+test_dt005_r1_end_today (tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r1_end_today)
+DT-005 R1: approved, end = today (inclusive limit) → shown. ... ok
+test_dt005_r2_end_yesterday (tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r2_end_yesterday)
+DT-005 R2: approved, end = today-1 → null. ... ok
+test_dt005_r3_pending_future (tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r3_pending_future)
+DT-005 R3: pending and future → null. ... ok
+test_dt005_r3_rejected_future (tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r3_rejected_future)
+DT-005 R3: rejected and future (second non-approved value of P) → null. ... ok
+test_dt005_r4_pending_past (tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r4_pending_past)
+DT-005 R4: pending and past → null. ... ok
+test_dt003_r1_admin_with_team (tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r1_admin_with_team)
+DT-003 R1: admin with a team → every request of every team. ... ok
+test_dt003_r1_admin_without_team (tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r1_admin_without_team)
+DT-003 R1: admin without a team → still every request (T does not matter). ... ok
+test_dt003_r2_manager_with_team (tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r2_manager_with_team)
+DT-003 R2: M=T, T=T → exactly the team's requests, own included. ... ok
+test_dt003_r3_manager_without_team (tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r3_manager_without_team)
+DT-003 R3: M=T, T=F → own only; another teamless user's request is not listed. ... ok
+test_dt003_r4_employee_with_team (tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r4_employee_with_team)
+DT-003 R4: M=F, T=T → own only; the teammate's request is not listed. ... ok
+test_dt003_r5_employee_without_team (tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r5_employee_without_team)
+DT-003 R5: M=F, T=F → own only (the row no earlier team test covered). ... ok
+test_bva_balance_above (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_balance_above)
+BVA days vs available, A+1: Mon 12-14..Mon 12-21 (6 days) with A=5 → 400 'Saldo ferie insufficiente.', no row. ... ok
+test_bva_balance_at (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_balance_at)
+BVA days vs available, A: Mon 12-14..Fri 12-18 (5 days) with A=5 → 201 (equality is allowed). ... ok
+test_bva_balance_below (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_balance_below)
+BVA days vs available, A-1: Thu 12-17..Tue 12-22 (4 business days, 6 calendar days) with A=5 → 201. ... ok
+test_bva_date_range_above (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_date_range_above)
+BVA date range, end = start+1: Mon 12-21..Tue 12-22 → 201 with 2 business days. ... ok
+test_bva_date_range_at (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_date_range_at)
+BVA date range, end = start: Mon 12-21..12-21 → 201 with 1 business day. ... ok
+test_bva_date_range_below (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_date_range_below)
+BVA date range, end = start-1: Mon 12-21 → Sun 12-20 → 400 on end_date, no row. ... ok
+test_bva_note_length_above (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_note_length_above)
+BVA note length, just above the limit: 281 characters → 400 keyed note, no row created. ... ok
+test_bva_note_length_at (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_note_length_at)
+BVA note length, exactly at the limit: 280 characters → 201, stored with 280 characters. ... ok
+test_bva_note_length_below (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_note_length_below)
+BVA note length, just below the 280 limit: 279 characters → 201, stored with 279 characters. ... ok
+test_bva_overlap_end_above (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_end_above)
+BVA overlap end limit, one day after: Fri 12-11 → 201; the existing request is untouched. ... ok
+test_bva_overlap_end_at (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_end_at)
+BVA overlap end limit, at: Thu 12-10 (the existing end day) → 400 overlap, no row (inclusive). ... ok
+test_bva_overlap_start_above (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_start_above)
+BVA overlap start limit, one day after (also the end limit's 'below' point): Wed 12-09 → 400 overlap. ... ok
+test_bva_overlap_start_at (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_start_at)
+BVA overlap start limit, at: Tue 12-08 (the existing start day) → 400 overlap, no row (inclusive). ... ok
+test_bva_overlap_start_below (tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_start_below)
+BVA overlap start limit, one day before: Mon 12-07 (ends the day before 12-08) → 201. ... ok
+test_ep_w1_auth_no_token (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_auth_no_token)
+EP W1 authentication, invalid class {no token}: 401 with WWW-Authenticate: Token, no insert. ... ok
+test_ep_w1_auth_valid_token (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_auth_valid_token)
+EP W1 authentication, valid class {valid token}: token from real login → 201 owned by the caller. ... ok
+test_ep_w1_auth_wrong_token (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_auth_wrong_token)
+EP W1 authentication, invalid class {wrong token}: unknown 40-hex token → 401, no insert. ... ok
+test_ep_w1_end_date_after_start (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_after_start)
+EP W1 end_date, valid class {after start}: Thu 12-17..Tue 12-22 → 201, 4 business days. ... ok
+test_ep_w1_end_date_before_start (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_before_start)
+EP W1 end_date, invalid class {before start}: Fri 12-18 → Mon 12-14 → 400 on end_date, no insert. ... ok
+test_ep_w1_end_date_missing (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_missing)
+EP W1 end_date, invalid class {missing}: field omitted → 400 keyed end_date, no insert. ... ok
+test_ep_w1_end_date_same_as_start (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_same_as_start)
+EP W1 end_date, valid class {same as start}: Wed 12-16..12-16 → 201, 1 business day. ... ok
+test_ep_w1_leave_type_empty (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_empty)
+EP W1 leave_type, invalid class {empty string}: 400 keyed leave_type, no insert (not a choice). ... ok
+test_ep_w1_leave_type_numeric (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_numeric)
+EP W1 leave_type, invalid class {numeric}: JSON number 7 → 400 keyed leave_type, no insert. ... ok
+test_ep_w1_leave_type_permit (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_permit)
+EP W1 leave_type, valid class {permit}: 201 and stored as permit. ... ok
+test_ep_w1_leave_type_personal (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_personal)
+EP W1 leave_type, valid class {personal}: 201 and stored as personal. ... ok
+test_ep_w1_leave_type_unknown (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_unknown)
+EP W1 leave_type, invalid class {unknown string}: 'sabbatical' → 400 keyed leave_type, no insert. ... ok
+test_ep_w1_leave_type_vacation (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_vacation)
+EP W1 leave_type, valid class {vacation}: 201 and stored as vacation. ... ok
+test_ep_w1_note_empty (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_empty)
+EP W1 note, valid class {empty}: '' → 201 and stored empty (note is optional). ... ok
+test_ep_w1_note_one_char (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_one_char)
+EP W1 note, valid class {1 character}: 'x' → 201 and stored unchanged. ... ok
+test_ep_w1_note_over_limit (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_over_limit)
+EP W1 note, invalid class {more than 280 characters}, representative 400 → 400 keyed note, no insert. ... ok
+test_ep_w1_note_within_limit (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_within_limit)
+EP W1 note, valid class {2..280 characters}, representative 200 → 201 stored intact. ... ok
+test_ep_w1_start_date_future_weekday (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_future_weekday)
+EP W1 start_date, valid class {future weekday}: Mon 2027-01-04..Tue 01-05 → 201, 2 business days. ... ok
+test_ep_w1_start_date_missing (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_missing)
+EP W1 start_date, invalid class {missing}: field omitted → 400 keyed start_date, no insert. ... ok
+test_ep_w1_start_date_non_date (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_non_date)
+EP W1 start_date, invalid class {non-date string}: 'next monday' → 400 keyed start_date, no insert. ... ok
+test_ep_w1_start_date_null (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_null)
+EP W1 start_date, invalid class {null}: JSON null → 400 keyed start_date, no insert. ... ok
+test_ep_w1_start_date_today (tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_today)
+EP W1 start_date, valid class {today}: start = end = server local date → 201. ... ok
+test_ep_w2_request_id_already_decided (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_request_id_already_decided)
+EP W2 request_id, invalid class {already decided}: admin rejects a rejected request → 409, audit unchanged. ... ok
+test_ep_w2_request_id_existing_pending (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_request_id_existing_pending)
+EP W2 request_id, valid class {existing pending visible}: team B manager approves team B request → 200. ... ok
+test_ep_w2_request_id_nonexistent (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_request_id_nonexistent)
+EP W2 request_id, invalid class {nonexistent}: highest id + 1000 → 404, no row changed. ... ok
+test_ep_w2_role_admin (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_admin)
+EP W2 role, valid class {admin}: admin rejects team A request → 200. ... ok
+test_ep_w2_role_employee (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_employee)
+EP W2 role, invalid class {employee}: teammate employee approves → 403 (role guard), row unchanged. ... ok
+test_ep_w2_role_manager_other_team (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_manager_other_team)
+EP W2 role, invalid class {manager of another team}: team B manager on a team A request → 404. ... ok
+test_ep_w2_role_manager_same_team (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_manager_same_team)
+EP W2 role, valid class {manager of the same team}: team B manager rejects team B request → 200. ... ok
+test_ep_w2_status_approved (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_approved)
+EP W2 status, valid class {approved}: admin approves team A pending → 200, approved. ... ok
+test_ep_w2_status_empty (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_empty)
+EP W2 status, invalid class {empty}: '' → 400 'Decisione non valida.', row unchanged. ... ok
+test_ep_w2_status_pending (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_pending)
+EP W2 status, invalid class {'pending'}: not a decision → 400, row stays pending. ... ok
+test_ep_w2_status_random (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_random)
+EP W2 status, invalid class {random string}: 'maybe' → 400, row unchanged. ... ok
+test_ep_w2_status_rejected (tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_rejected)
+EP W2 status, valid class {rejected}: admin rejects team B pending → 200, rejected. ... ok
+test_st_approved_approve_409 (tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_approved_approve_409)
+State transition approved --approve--> (disallowed): 409, approved record unchanged, no double charge. ... ok
+test_st_approved_reject_409 (tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_approved_reject_409)
+State transition approved --reject--> (disallowed): 409, an approval cannot be reversed. ... ok
+test_st_none_submit_pending (tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_none_submit_pending)
+W1 creation (none --submit--> pending) is independent of other requests' states. ... ok
+test_st_pending_approve_approved (tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_pending_approve_approved)
+State transition pending --approve--> approved (allowed, 0-switch edge). ... ok
+test_st_pending_reject_rejected (tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_pending_reject_rejected)
+State transition pending --reject--> rejected (allowed, 0-switch edge). ... ok
+test_st_rejected_approve_409 (tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_rejected_approve_409)
+State transition rejected --approve--> (disallowed): 409, the rejection stands and nothing is charged. ... ok
+test_st_rejected_reject_409 (tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_rejected_reject_409)
+State transition rejected --reject--> (disallowed): 409, a repeated rejection is refused. ... ok
+test_every_documented_response_is_exercised (tests.team.api.test_openapi_contract.ContractIntegrityTests.test_every_documented_response_is_exercised)
+Every documented (operation, status) has a contract test, and no test names an undocumented one. ... ok
+test_generated_artifacts_match_the_current_spec (tests.team.api.test_openapi_contract.ContractIntegrityTests.test_generated_artifacts_match_the_current_spec)
+The exported contract and the generated tests come from the spec as it is now (else: regenerate). ... ok
+test_validator_detects_violations (tests.team.api.test_openapi_contract.ContractIntegrityTests.test_validator_detects_violations)
+The validator reports each kind of violation (a validator that accepts everything proves nothing). ... ok
+test_file_external_and_custom_test_targets_are_refused (tests.team.foundation.test_foundation.SafetyGuardTests.test_file_external_and_custom_test_targets_are_refused)
+FND-011; infrastructure: reject dev SQLite, unknown files/URIs and PG. ... ok
+test_fixture_requires_active_django_memory_target (tests.team.foundation.test_foundation.SafetyGuardTests.test_fixture_requires_active_django_memory_target)
+FND-012; infrastructure: refuse fixture work before test DB selection. ... ok
+test_unknown_profiles_are_refused (tests.team.foundation.test_foundation.SafetyGuardTests.test_unknown_profiles_are_refused)
+FND-010; infrastructure: an explicit safe profile is mandatory. ... ok
+test_every_manifest_case_is_an_executed_test (tests.team.generated.test_generated_manifest.GeneratedManifestTests.test_every_manifest_case_is_an_executed_test)
+GEN-001: the manifest lists exactly the generated tests; none is dropped or added by hand. ... ok
+test_module_is_the_unedited_generator_output (tests.team.generated.test_generated_manifest.GeneratedManifestTests.test_module_is_the_unedited_generator_output)
+GEN-001: module and spec hashes match the manifest (fails after a hand edit or a stale generation). ... ok
+
+----------------------------------------------------------------------
+Ran 344 tests in 26.015s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
