@@ -96,3 +96,17 @@ The generator was extended after the PR #10 review (path, token, optional-field 
 | Result | 69 run, 68 passed, **1 failed** (exit code 1) |
 | Failing test | `test_leave_type_ep_valid_enum_value_sick`: expected 201, application returned 400 `invalid_choice` |
 | Evidence | `docs/sqe/evidence/generated/change-2-sick-type-2026-11-25/` |
+
+## 6. Final run on 25 November 2026 (current)
+
+Supersedes section 5. The limit is now applied after trimming in the spec, as the application does, and the change is applied with `--patch`, so the baseline spec is never edited. Commands: [README](README.md).
+
+| | |
+|---|---|
+| Change | `changes/change-2-sick-type.patch` |
+| Baseline spec SHA-256 (not edited) | `e5095486e105b397e3c32ea02c2ff7de6130100663dfa46218ced8159f042151` |
+| Changed spec SHA-256 | `ff887cd86d9667c3cc6b15f4db1339dc5a16d05670fac5f99ebb02928c33e400` |
+| Generated-test diff | `test_leave_type_ep_valid_enum_value_sick` added; 127 unchanged |
+| Result | 128 run, 127 passed, **1 failed** (exit code 1) |
+| Failing | `test_leave_type_ep_valid_enum_value_sick`: expected 201, application returned 400 `invalid_choice` |
+| Evidence | `docs/sqe/evidence/generated/change-2-sick-type-final-2026-11-25/` (commit `707a5b3`) |

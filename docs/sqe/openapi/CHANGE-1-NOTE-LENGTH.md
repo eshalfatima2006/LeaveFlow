@@ -94,3 +94,17 @@ The generator was extended after the PR #10 review (path, token, optional-field 
 | Result | 68 run, 67 passed, **1 failed** (exit code 1) |
 | Failing test | `test_note_bva_201_above`: expected 400, application returned 201 |
 | Evidence | `docs/sqe/evidence/generated/change-1-note-length-2026-11-25/` |
+
+## 6. Final run on 25 November 2026 (current)
+
+Supersedes section 5. The limit is now applied after trimming in the spec, as the application does, and the change is applied with `--patch`, so the baseline spec is never edited. Commands: [README](README.md).
+
+| | |
+|---|---|
+| Change | `changes/change-1-note-length.patch` |
+| Baseline spec SHA-256 (not edited) | `e5095486e105b397e3c32ea02c2ff7de6130100663dfa46218ced8159f042151` |
+| Changed spec SHA-256 | `3aaad1a3d296254fd34047d9b42982d4503252dbad693a7de12a64a36dfc8c38` |
+| Generated-test diff | 6 `note` tests replaced (279/280/281/560 and padded 280/281 → 199/200/201/400 and padded 200/201); 121 unchanged |
+| Result | 127 run, 125 passed, **2 failed** (exit code 1) |
+| Failing | `test_note_bva_201_above` and `test_note_ep_invalid_padded_201_chars_after_trim`: expected 400, application returned 201 |
+| Evidence | `docs/sqe/evidence/generated/change-1-note-length-final-2026-11-25/` (commit `707a5b3`) |
