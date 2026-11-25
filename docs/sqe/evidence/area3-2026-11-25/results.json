@@ -1,0 +1,631 @@
+{
+  "combined_playwright": {
+    "startTime": "2026-11-25T13:56:43.427Z",
+    "duration": 879256.288,
+    "expected": 37,
+    "skipped": 1,
+    "unexpected": 4,
+    "flaky": 0
+  },
+  "notification_retest": {
+    "startTime": "2026-11-25T14:11:43.773Z",
+    "duration": 182769.272,
+    "expected": 5,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "request_form_retest": {
+    "startTime": "2026-11-25T13:59:13.975Z",
+    "duration": 183934.109,
+    "expected": 7,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "mandatory_flow_coverage": {
+    "passed": 30,
+    "total": 30
+  },
+  "cases": [
+    {
+      "case": "authenticated accessibility audit UC-01 request form",
+      "status": "expected"
+    },
+    {
+      "case": "authenticated accessibility audit UC-02 review queue",
+      "status": "expected"
+    },
+    {
+      "case": "authenticated accessibility audit UC-04 own records",
+      "status": "expected"
+    },
+    {
+      "case": "authenticated accessibility audit UC-07 notification panel",
+      "status": "expected"
+    },
+    {
+      "case": "authenticated accessibility audit UC-08 entitlement form",
+      "status": "expected"
+    },
+    {
+      "case": "authenticated accessibility audit UC-09 user form",
+      "status": "expected"
+    },
+    {
+      "case": "employee corrects invalid dates and submits the form using the keyboard",
+      "status": "expected"
+    },
+    {
+      "case": "team manager approves a request and sees the persisted outcome",
+      "status": "expected"
+    },
+    {
+      "case": "INC-02 admin login enforces staff access and sets the expected local session cookie",
+      "status": "expected"
+    },
+    {
+      "case": "employee cannot decide their own request",
+      "status": "expected"
+    },
+    {
+      "case": "manager cannot decide an outside-team request",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC01-M main: employee submits a valid request at the allowance boundary (D = A = 5)",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC01-A1 alternative: employee revises the dates after the working-day preview",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC01-A2 alternative: employee abandons the request before submitting",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC01-E1 exception: overlap with an active request at the inclusive boundary, then corrected",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC01-E2 exception: requested days exceed the remaining entitlement (D = A + 1), then shortened",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC02-M main: team manager approves pending request k at the balance boundary (D = available)",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC02-A1 alternative: team manager rejects k; no allowance is charged and the dates are released",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC02-A2 alternative: administrator approves a pending request of another team",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC02-E1 exception: k was decided by another approver after the page loaded (stale view)",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC02-E2 exception: manager attempts to decide their own pending request",
+      "status": "expected"
+    },
+    {
+      "case": "OBJ-UC02-01 blocked: approval that exceeds the employee remaining entitlement is refused",
+      "status": "skipped"
+    },
+    {
+      "case": "TC-UC04-M employee sees own history, entitlement and status counts",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC04-A1 each outcome filter shows only its matching record",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC04-A2 reload refreshes a decision made by the manager",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC04-E1 revoked session returns to sign-in and clears the token",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC04-E2 read outage leaves records intact and reload restores their view",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC07-M employee receives one live approval without reloading",
+      "status": "expected",
+      "evidence": "isolated UC-07 retest"
+    },
+    {
+      "case": "TC-UC07-A1 new-request alerts reach the team manager and administrator only",
+      "status": "expected",
+      "evidence": "isolated UC-07 retest"
+    },
+    {
+      "case": "TC-UC07-A2 offline recipient reads the stored approval on a later sign-in",
+      "status": "expected",
+      "evidence": "isolated UC-07 retest"
+    },
+    {
+      "case": "TC-UC07-E1 an unavailable feed reports the outage while requests remain usable",
+      "status": "expected",
+      "evidence": "isolated UC-07 retest"
+    },
+    {
+      "case": "TC-UC07-E2 a controlled publish failure preserves the approval but produces no alert",
+      "status": "expected",
+      "evidence": "isolated UC-07 retest"
+    },
+    {
+      "case": "TC-UC08-M updated entitlement is reflected in the Overview and W1 limit",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC08-A1 added entitlement applies to the previously unbounded employee",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC08-A2 reducing below approved use persists a negative balance on the baseline",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC08-E1 invalid allowance is rejected server-side and zero is accepted",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC08-E2 adding a duplicate entitlement preserves the existing record",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC09-M changing teams transfers decision authority and preserves the request",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC09-A1 promotion grants manager controls for the current team",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC09-A2 teamless request remains visible to administrators",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC09-E1 a target team deleted during edit is rejected",
+      "status": "expected"
+    },
+    {
+      "case": "TC-UC09-E2 a user deleted during edit is never recreated",
+      "status": "expected"
+    }
+  ],
+  "request_form": {
+    "before": {
+      "scores": {
+        "accessibility": 0.96,
+        "best-practices": 1,
+        "seo": 0.8
+      },
+      "axe_violation_rules": 3,
+      "findings_by_rule": {
+        "color-contrast": {
+          "tools": [
+            "axe",
+            "Lighthouse"
+          ],
+          "elements": [
+            ".aside-balance > div:nth-child(1) > span",
+            ".aside-foot > div:nth-child(2) > span",
+            ".aside-next > div > span",
+            ".aside-today > span",
+            ".date-block > span",
+            ".eyebrow",
+            ".muted",
+            ".request-main > div > span",
+            ".stat-strip > div:nth-child(1) > span",
+            ".stat-strip > div:nth-child(2) > span",
+            "article.request-row > div.request-main > div > span",
+            "aside > div.aside-foot > div > span",
+            "aside > section.aside-context > div.aside-today > span",
+            "button[type=\"button\"]:nth-child(2)",
+            "div#app > div.modal-backdrop > form.modal > p.muted",
+            "div.modal-backdrop > form.modal > label > span.optional",
+            "div.request-list > article.request-row > div.date-block > span",
+            "div.workspace > header > div > p.eyebrow",
+            "div:nth-child(3) > span",
+            "header > div.header-actions > div.language-switch > button",
+            "section.aside-context > div.aside-balance > div > span",
+            "section.aside-context > div.aside-next > div > span",
+            "section.overview > div.stat-strip > div > span"
+          ],
+          "impact": "serious"
+        },
+        "label-content-name-mismatch": {
+          "tools": [
+            "axe",
+            "Lighthouse"
+          ],
+          "elements": [
+            ".wordmark",
+            "div#app > div.app-shell > aside > button.wordmark"
+          ],
+          "impact": "serious"
+        },
+        "region": {
+          "tools": [
+            "axe"
+          ],
+          "elements": [
+            ".balance-copy > .kicker",
+            ".balance-visual",
+            ".big-number",
+            ".date-grid",
+            ".muted",
+            ".request-list",
+            ".section-title > div",
+            ".stat-strip > div:nth-child(1) > span",
+            ".stat-strip > div:nth-child(2) > span",
+            "div:nth-child(3) > span",
+            "form > .kicker",
+            "form > h2",
+            "label:nth-child(5)",
+            "label:nth-child(7)",
+            "p:nth-child(3)"
+          ],
+          "impact": "moderate"
+        },
+        "robots-txt": {
+          "tools": [
+            "Lighthouse"
+          ],
+          "elements": []
+        }
+      }
+    },
+    "after": {
+      "scores": {
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 0.8
+      },
+      "axe_violation_rules": 0,
+      "findings_by_rule": {
+        "robots-txt": {
+          "tools": [
+            "Lighthouse"
+          ],
+          "elements": []
+        }
+      }
+    }
+  },
+  "authenticated_accessibility": {
+    "UC-01 request form": {
+      "scores": {
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 0.8
+      },
+      "axe_violation_rules": 0,
+      "findings_by_rule": {
+        "robots-txt": {
+          "tools": [
+            "Lighthouse"
+          ],
+          "elements": []
+        }
+      }
+    },
+    "UC-02 review queue": {
+      "scores": {
+        "accessibility": 0.95,
+        "best-practices": 1,
+        "seo": 0.8
+      },
+      "axe_violation_rules": 2,
+      "findings_by_rule": {
+        "color-contrast": {
+          "tools": [
+            "axe",
+            "Lighthouse"
+          ],
+          "elements": [
+            ".aside-balance > div:nth-child(1) > span",
+            ".aside-balance > div:nth-child(1) > strong",
+            ".aside-context > button",
+            ".aside-foot > div:nth-child(2) > span",
+            ".aside-next > div > span",
+            ".aside-today > span",
+            ".date-block > span",
+            ".eyebrow",
+            ".insight:nth-child(2) > div > small",
+            ".insight:nth-child(2) > div > span",
+            ".insight:nth-child(3) > div > small",
+            ".insight:nth-child(3) > div > span",
+            ".primary-insight > div > small",
+            ".primary-insight > div > span",
+            ".request-main > div > span",
+            ".request-toolbar > p",
+            "article.request-row > div.request-main > div > span",
+            "aside > div.aside-foot > div > span",
+            "aside > section.aside-context > div.aside-today > span",
+            "button[type=\"button\"]:nth-child(2)",
+            "div.request-insights > article.insight > div > small",
+            "div.request-insights > article.insight > div > span",
+            "div.request-list > article.request-row > div.date-block > span",
+            "header > div.header-actions > div.language-switch > button",
+            "main.workspace > header > div > p.eyebrow",
+            "main.workspace > section.requests-page > div.request-toolbar > p",
+            "section.aside-context > div.aside-balance > div > span",
+            "section.aside-context > div.aside-next > div > span"
+          ],
+          "impact": "serious"
+        },
+        "label-content-name-mismatch": {
+          "tools": [
+            "axe",
+            "Lighthouse"
+          ],
+          "elements": [
+            ".notification-trigger",
+            "header > div.header-actions > div.notification-center > button.notification-trigger"
+          ],
+          "impact": "serious"
+        },
+        "robots-txt": {
+          "tools": [
+            "Lighthouse"
+          ],
+          "elements": []
+        }
+      }
+    },
+    "UC-04 own records": {
+      "scores": {
+        "accessibility": 0.95,
+        "best-practices": 1,
+        "seo": 0.8
+      },
+      "axe_violation_rules": 1,
+      "findings_by_rule": {
+        "color-contrast": {
+          "tools": [
+            "axe",
+            "Lighthouse"
+          ],
+          "elements": [
+            ".aside-balance > div:nth-child(1) > span",
+            ".aside-balance > div:nth-child(1) > strong",
+            ".aside-context > button",
+            ".aside-foot > div:nth-child(2) > span",
+            ".aside-next > div > span",
+            ".aside-next > div > strong",
+            ".aside-today > span",
+            ".aside-today > strong",
+            ".date-block > span",
+            ".eyebrow",
+            ".insight:nth-child(2) > div > small",
+            ".insight:nth-child(2) > div > span",
+            ".insight:nth-child(3) > div > small",
+            ".insight:nth-child(3) > div > span",
+            ".primary-insight > div > small",
+            ".primary-insight > div > span",
+            ".request-main > div > span",
+            ".request-toolbar > p",
+            "article.request-row > div.request-main > div > span",
+            "aside > div.aside-foot > div > span",
+            "aside > section.aside-context > div.aside-today > span",
+            "button[type=\"button\"]:nth-child(2)",
+            "div.request-insights > article.insight > div > small",
+            "div.request-insights > article.insight > div > span",
+            "div.request-list > article.request-row > div.date-block > span",
+            "header > div.header-actions > div.language-switch > button",
+            "main.workspace > header > div > p.eyebrow",
+            "main.workspace > section.requests-page > div.request-toolbar > p",
+            "section.aside-context > div.aside-balance > div > span",
+            "section.aside-context > div.aside-next > div > span"
+          ],
+          "impact": "serious"
+        },
+        "robots-txt": {
+          "tools": [
+            "Lighthouse"
+          ],
+          "elements": []
+        }
+      }
+    },
+    "UC-07 notification panel": {
+      "scores": {
+        "accessibility": 0.95,
+        "best-practices": 1,
+        "seo": 0.8
+      },
+      "axe_violation_rules": 2,
+      "findings_by_rule": {
+        "color-contrast": {
+          "tools": [
+            "axe",
+            "Lighthouse"
+          ],
+          "elements": [
+            ".aside-balance > div:nth-child(1) > span",
+            ".aside-foot > div:nth-child(2) > span",
+            ".aside-next > div > span",
+            ".aside-today > span",
+            ".date-block > span",
+            ".eyebrow",
+            ".request-main > div > span",
+            ".stat-strip > div:nth-child(1) > span",
+            ".stat-strip > div:nth-child(2) > span",
+            "article.request-row > div.request-main > div > span",
+            "aside > div.aside-foot > div > span",
+            "aside > section.aside-context > div.aside-today > span",
+            "button[type=\"button\"]:nth-child(2)",
+            "div.notification-list > article.approved > div > time",
+            "div.request-list > article.request-row > div.date-block > span",
+            "div:nth-child(3) > span",
+            "header > div.header-actions > div.language-switch > button",
+            "main.workspace > header > div > p.eyebrow",
+            "section.aside-context > div.aside-balance > div > span",
+            "section.aside-context > div.aside-next > div > span",
+            "section.overview > div.stat-strip > div > span",
+            "time"
+          ],
+          "impact": "serious"
+        },
+        "label-content-name-mismatch": {
+          "tools": [
+            "axe",
+            "Lighthouse"
+          ],
+          "elements": [
+            ".notification-trigger",
+            "header > div.header-actions > div.notification-center > button.notification-trigger"
+          ],
+          "impact": "serious"
+        },
+        "robots-txt": {
+          "tools": [
+            "Lighthouse"
+          ],
+          "elements": []
+        }
+      }
+    },
+    "UC-08 entitlement form": {
+      "scores": {
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 0.8
+      },
+      "axe_violation_rules": 0,
+      "findings_by_rule": {
+        "meta-description": {
+          "tools": [
+            "Lighthouse"
+          ],
+          "elements": []
+        }
+      }
+    },
+    "UC-09 user form": {
+      "scores": {
+        "accessibility": 0.97,
+        "best-practices": 1,
+        "seo": 0.8
+      },
+      "axe_violation_rules": 1,
+      "findings_by_rule": {
+        "aria-prohibited-attr": {
+          "tools": [
+            "axe",
+            "Lighthouse"
+          ],
+          "elements": [
+            "#id_user_permissions_filter_selected > label > .help-tooltip.search-label-icon",
+            "div#id_groups_selector_chosen > p#id_groups_filter_selected > label > span.help-tooltip",
+            "div#id_user_permissions_selector_chosen > p#id_user_permissions_filter_selected > label > span.help-tooltip",
+            "div.selector-available > p#id_groups_filter > label > span.help-tooltip",
+            "div.selector-available > p#id_user_permissions_filter > label > span.help-tooltip",
+            "label[for=\"id_groups_input\"] > .help-tooltip.search-label-icon",
+            "label[for=\"id_groups_selected_input\"] > .help-tooltip.search-label-icon",
+            "label[for=\"id_user_permissions_input\"] > .help-tooltip.search-label-icon"
+          ],
+          "impact": "serious"
+        },
+        "meta-description": {
+          "tools": [
+            "Lighthouse"
+          ],
+          "elements": []
+        }
+      }
+    }
+  },
+  "passive_zap": {
+    "scanner": {
+      "version": "2.17.0"
+    },
+    "both_origins_captured": true,
+    "playwright": {
+      "startTime": "2026-11-25T13:56:56.914Z",
+      "duration": 65756.93299999999,
+      "expected": 5,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "findings": {
+      "Authentication Request Identified": 6,
+      "Missing Anti-clickjacking Header": 1,
+      "Session Management Response Identified": 6,
+      "Content Security Policy (CSP) Header Not Set": 4,
+      "Modern Web Application": 1,
+      "Server Leaks Version Information via \"Server\" HTTP Response Header Field": 21,
+      "X-Content-Type-Options Header Missing": 11,
+      "Cookie No HttpOnly Flag": 3,
+      "User Controllable HTML Element Attribute (Potential XSS)": 7
+    }
+  },
+  "performance": [
+    {
+      "run": "1vu-run-1",
+      "vus": 1,
+      "exit_code": 0,
+      "p95_ms": 42.632104999999996,
+      "requests_per_second": 4.386096306544772,
+      "unexpected_failure_percent": 0,
+      "dataset_unchanged": true
+    },
+    {
+      "run": "1vu-run-2",
+      "vus": 1,
+      "exit_code": 0,
+      "p95_ms": 155.94940499999998,
+      "requests_per_second": 3.9137659438040004,
+      "unexpected_failure_percent": 0,
+      "dataset_unchanged": true
+    },
+    {
+      "run": "5vu-run-1",
+      "vus": 5,
+      "exit_code": 99,
+      "p95_ms": 649.87802,
+      "requests_per_second": 10.217237293566955,
+      "unexpected_failure_percent": 0,
+      "dataset_unchanged": true
+    },
+    {
+      "run": "5vu-run-2",
+      "vus": 5,
+      "exit_code": 0,
+      "p95_ms": 260.9985799999999,
+      "requests_per_second": 16.376496873243834,
+      "unexpected_failure_percent": 0,
+      "dataset_unchanged": true
+    }
+  ],
+  "recovery": {
+    "errors": 0,
+    "executed": 1,
+    "expected_failures": 0,
+    "failed": 0,
+    "non_passing_test_methods": 0,
+    "passed": 1,
+    "skipped": 0,
+    "unexpected_successes": 0
+  },
+  "dependencies": {
+    "python": 1,
+    "frontend-inventory": 0,
+    "frontend-advisories": 1,
+    "gateway-inventory": 0,
+    "gateway-advisories": 1,
+    "browser-inventory": 0,
+    "browser-advisories": 1
+  }
+}

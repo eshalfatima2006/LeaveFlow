@@ -7,6 +7,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import re
 import socket
 import subprocess
 import sys
@@ -15,6 +16,15 @@ from urllib.error import URLError
 from urllib.request import urlopen
 
 from browser_harness import ROOT, fixture, init
+
+
+def redact_setup_authorization(summary):
+    """Keep the native k6 summary while masking its embedded setup token."""
+    return re.sub(
+        r'("Authorization"\s*:\s*)"(?:Token|Bearer) [^"]+"',
+        r'\1"[redacted fixture authorization]"',
+        summary,
+    )
 
 
 def wait_for_backend(url, process):
@@ -79,6 +89,7 @@ def main():
                 for repeat in (1, 2):
                     label = f"{vus}vu-run-{repeat}"
                     summary = output / f"{label}.json"
+                    raw_summary = Path(os.environ["SQE_BROWSER_RUN_DIR"]) / summary.name
                     env = {
                         **os.environ, "SQE_K6_URL": url, "SQE_K6_VUS": str(vus),
                         "SQE_K6_USER": user["username"], "SQE_K6_PASSWORD": user["password"],
@@ -86,11 +97,16 @@ def main():
                     print(f"Running {label} for 70 seconds", flush=True)
                     with (output / f"{label}.log").open("w", encoding="utf-8") as log:
                         result = subprocess.run(
-                            [k6, "run", "--summary-export", str(summary),
+                            [k6, "run", "--summary-export", str(raw_summary),
                              str(ROOT / "tests/team/performance/list-requests.js")],
                             cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT, check=False,
                         )
-                    metrics = json.loads(summary.read_text(encoding="utf-8")).get("metrics", {}) if summary.exists() else {}
+                    metrics = {}
+                    if raw_summary.exists():
+                        safe_summary = redact_setup_authorization(raw_summary.read_text(encoding="utf-8"))
+                        raw_summary.unlink()
+                        summary.write_text(safe_summary, encoding="utf-8")
+                        metrics = json.loads(safe_summary).get("metrics", {})
                     failure_rate = metrics.get("list_unexpected", {}).get("value")
                     runs.append({
                         "run": label, "vus": vus, "exit_code": result.returncode,
