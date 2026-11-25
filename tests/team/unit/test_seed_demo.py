@@ -49,7 +49,10 @@ class SeedDemoCommandTests(TestCase):
         )
         approved = requests.get(status=LeaveRequest.Status.APPROVED)
         self.assertEqual(approved.decided_by.username, "manager")
-        self.assertIn("Demo pronta", output)
+        self.assertEqual(
+            output,
+            "Demo pronta: employee / manager / admin · password demo1234\n",
+        )
 
     def test_seed_demo_is_repeatable_without_duplicate_users_or_requests(self):
         self.run_seed_command()
