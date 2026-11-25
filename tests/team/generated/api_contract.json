@@ -1,0 +1,913 @@
+{
+ "generated_by": "scripts/sqe/generate_api_tests.py",
+ "operations": {
+  "dashboard": {
+   "method": "get",
+   "path": "/api/dashboard/",
+   "responses": {
+    "200": {
+     "application/json": {
+      "properties": {
+       "balance": {
+        "properties": {
+         "allowance": {
+          "type": "integer"
+         },
+         "available": {
+          "type": "integer"
+         },
+         "used": {
+          "type": "integer"
+         }
+        },
+        "required": [
+         "allowance",
+         "used",
+         "available"
+        ],
+        "type": "object"
+       },
+       "counts": {
+        "properties": {
+         "approved": {
+          "type": "integer"
+         },
+         "pending": {
+          "type": "integer"
+         },
+         "total": {
+          "type": "integer"
+         }
+        },
+        "required": [
+         "total",
+         "pending",
+         "approved"
+        ],
+        "type": "object"
+       },
+       "recent": {
+        "items": {
+         "properties": {
+          "business_days": {
+           "minimum": 0,
+           "type": "integer"
+          },
+          "created_at": {
+           "format": "date-time",
+           "type": "string"
+          },
+          "employee": {
+           "properties": {
+            "display_name": {
+             "description": "Full name, or the username when no name is set.",
+             "type": "string"
+            },
+            "email": {
+             "type": "string"
+            },
+            "id": {
+             "type": "integer"
+            },
+            "role": {
+             "enum": [
+              "employee",
+              "manager",
+              "admin"
+             ],
+             "type": "string"
+            },
+            "team": {
+             "nullable": true,
+             "type": "string"
+            },
+            "username": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "id",
+            "username",
+            "display_name",
+            "email",
+            "role",
+            "team"
+           ],
+           "type": "object"
+          },
+          "end_date": {
+           "format": "date",
+           "type": "string"
+          },
+          "id": {
+           "type": "integer"
+          },
+          "leave_type": {
+           "enum": [
+            "vacation",
+            "permit",
+            "personal"
+           ],
+           "type": "string"
+          },
+          "leave_type_label": {
+           "type": "string"
+          },
+          "note": {
+           "maxLength": 280,
+           "type": "string"
+          },
+          "start_date": {
+           "format": "date",
+           "type": "string"
+          },
+          "status": {
+           "enum": [
+            "pending",
+            "approved",
+            "rejected"
+           ],
+           "type": "string"
+          },
+          "status_label": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "id",
+          "employee",
+          "leave_type",
+          "leave_type_label",
+          "start_date",
+          "end_date",
+          "note",
+          "status",
+          "status_label",
+          "business_days",
+          "created_at"
+         ],
+         "type": "object"
+        },
+        "maxItems": 5,
+        "type": "array"
+       }
+      },
+      "required": [
+       "balance",
+       "counts",
+       "recent"
+      ],
+      "type": "object"
+     }
+    },
+    "401": {
+     "application/json": {
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "detail"
+      ],
+      "type": "object"
+     }
+    }
+   }
+  },
+  "decideRequest": {
+   "method": "post",
+   "path": "/api/requests/{id}/decision/",
+   "responses": {
+    "200": {
+     "application/json": {
+      "properties": {
+       "business_days": {
+        "minimum": 0,
+        "type": "integer"
+       },
+       "created_at": {
+        "format": "date-time",
+        "type": "string"
+       },
+       "employee": {
+        "properties": {
+         "display_name": {
+          "description": "Full name, or the username when no name is set.",
+          "type": "string"
+         },
+         "email": {
+          "type": "string"
+         },
+         "id": {
+          "type": "integer"
+         },
+         "role": {
+          "enum": [
+           "employee",
+           "manager",
+           "admin"
+          ],
+          "type": "string"
+         },
+         "team": {
+          "nullable": true,
+          "type": "string"
+         },
+         "username": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "id",
+         "username",
+         "display_name",
+         "email",
+         "role",
+         "team"
+        ],
+        "type": "object"
+       },
+       "end_date": {
+        "format": "date",
+        "type": "string"
+       },
+       "id": {
+        "type": "integer"
+       },
+       "leave_type": {
+        "enum": [
+         "vacation",
+         "permit",
+         "personal"
+        ],
+        "type": "string"
+       },
+       "leave_type_label": {
+        "type": "string"
+       },
+       "note": {
+        "maxLength": 280,
+        "type": "string"
+       },
+       "start_date": {
+        "format": "date",
+        "type": "string"
+       },
+       "status": {
+        "enum": [
+         "pending",
+         "approved",
+         "rejected"
+        ],
+        "type": "string"
+       },
+       "status_label": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "id",
+       "employee",
+       "leave_type",
+       "leave_type_label",
+       "start_date",
+       "end_date",
+       "note",
+       "status",
+       "status_label",
+       "business_days",
+       "created_at"
+      ],
+      "type": "object"
+     }
+    },
+    "400": {
+     "application/json": {
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "detail"
+      ],
+      "type": "object"
+     }
+    },
+    "401": {
+     "application/json": {
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "detail"
+      ],
+      "type": "object"
+     }
+    },
+    "403": {
+     "application/json": {
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "detail"
+      ],
+      "type": "object"
+     }
+    },
+    "404": {
+     "application/json": {
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "detail"
+      ],
+      "type": "object"
+     },
+     "text/html": {
+      "type": "string"
+     }
+    },
+    "409": {
+     "application/json": {
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "detail"
+      ],
+      "type": "object"
+     }
+    },
+    "415": {
+     "application/json": {
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "detail"
+      ],
+      "type": "object"
+     }
+    }
+   }
+  },
+  "listRequests": {
+   "method": "get",
+   "path": "/api/requests/",
+   "responses": {
+    "200": {
+     "application/json": {
+      "items": {
+       "properties": {
+        "business_days": {
+         "minimum": 0,
+         "type": "integer"
+        },
+        "created_at": {
+         "format": "date-time",
+         "type": "string"
+        },
+        "employee": {
+         "properties": {
+          "display_name": {
+           "description": "Full name, or the username when no name is set.",
+           "type": "string"
+          },
+          "email": {
+           "type": "string"
+          },
+          "id": {
+           "type": "integer"
+          },
+          "role": {
+           "enum": [
+            "employee",
+            "manager",
+            "admin"
+           ],
+           "type": "string"
+          },
+          "team": {
+           "nullable": true,
+           "type": "string"
+          },
+          "username": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "id",
+          "username",
+          "display_name",
+          "email",
+          "role",
+          "team"
+         ],
+         "type": "object"
+        },
+        "end_date": {
+         "format": "date",
+         "type": "string"
+        },
+        "id": {
+         "type": "integer"
+        },
+        "leave_type": {
+         "enum": [
+          "vacation",
+          "permit",
+          "personal"
+         ],
+         "type": "string"
+        },
+        "leave_type_label": {
+         "type": "string"
+        },
+        "note": {
+         "maxLength": 280,
+         "type": "string"
+        },
+        "start_date": {
+         "format": "date",
+         "type": "string"
+        },
+        "status": {
+         "enum": [
+          "pending",
+          "approved",
+          "rejected"
+         ],
+         "type": "string"
+        },
+        "status_label": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "id",
+        "employee",
+        "leave_type",
+        "leave_type_label",
+        "start_date",
+        "end_date",
+        "note",
+        "status",
+        "status_label",
+        "business_days",
+        "created_at"
+       ],
+       "type": "object"
+      },
+      "type": "array"
+     }
+    },
+    "401": {
+     "application/json": {
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "detail"
+      ],
+      "type": "object"
+     }
+    }
+   }
+  },
+  "login": {
+   "method": "post",
+   "path": "/api/auth/login/",
+   "responses": {
+    "200": {
+     "application/json": {
+      "properties": {
+       "token": {
+        "type": "string"
+       },
+       "user": {
+        "properties": {
+         "display_name": {
+          "description": "Full name, or the username when no name is set.",
+          "type": "string"
+         },
+         "email": {
+          "type": "string"
+         },
+         "id": {
+          "type": "integer"
+         },
+         "role": {
+          "enum": [
+           "employee",
+           "manager",
+           "admin"
+          ],
+          "type": "string"
+         },
+         "team": {
+          "nullable": true,
+          "type": "string"
+         },
+         "username": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "id",
+         "username",
+         "display_name",
+         "email",
+         "role",
+         "team"
+        ],
+        "type": "object"
+       }
+      },
+      "required": [
+       "token",
+       "user"
+      ],
+      "type": "object"
+     }
+    },
+    "400": {
+     "application/json": {
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "detail"
+      ],
+      "type": "object"
+     }
+    },
+    "401": {
+     "application/json": {
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "detail"
+      ],
+      "type": "object"
+     }
+    },
+    "415": {
+     "application/json": {
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "detail"
+      ],
+      "type": "object"
+     }
+    }
+   }
+  },
+  "me": {
+   "method": "get",
+   "path": "/api/me/",
+   "responses": {
+    "200": {
+     "application/json": {
+      "properties": {
+       "display_name": {
+        "description": "Full name, or the username when no name is set.",
+        "type": "string"
+       },
+       "email": {
+        "type": "string"
+       },
+       "id": {
+        "type": "integer"
+       },
+       "role": {
+        "enum": [
+         "employee",
+         "manager",
+         "admin"
+        ],
+        "type": "string"
+       },
+       "team": {
+        "nullable": true,
+        "type": "string"
+       },
+       "username": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "id",
+       "username",
+       "display_name",
+       "email",
+       "role",
+       "team"
+      ],
+      "type": "object"
+     }
+    },
+    "401": {
+     "application/json": {
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "detail"
+      ],
+      "type": "object"
+     }
+    }
+   }
+  },
+  "submitRequest": {
+   "method": "post",
+   "path": "/api/requests/",
+   "responses": {
+    "201": {
+     "application/json": {
+      "properties": {
+       "business_days": {
+        "minimum": 0,
+        "type": "integer"
+       },
+       "created_at": {
+        "format": "date-time",
+        "type": "string"
+       },
+       "employee": {
+        "properties": {
+         "display_name": {
+          "description": "Full name, or the username when no name is set.",
+          "type": "string"
+         },
+         "email": {
+          "type": "string"
+         },
+         "id": {
+          "type": "integer"
+         },
+         "role": {
+          "enum": [
+           "employee",
+           "manager",
+           "admin"
+          ],
+          "type": "string"
+         },
+         "team": {
+          "nullable": true,
+          "type": "string"
+         },
+         "username": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "id",
+         "username",
+         "display_name",
+         "email",
+         "role",
+         "team"
+        ],
+        "type": "object"
+       },
+       "end_date": {
+        "format": "date",
+        "type": "string"
+       },
+       "id": {
+        "type": "integer"
+       },
+       "leave_type": {
+        "enum": [
+         "vacation",
+         "permit",
+         "personal"
+        ],
+        "type": "string"
+       },
+       "leave_type_label": {
+        "type": "string"
+       },
+       "note": {
+        "maxLength": 280,
+        "type": "string"
+       },
+       "start_date": {
+        "format": "date",
+        "type": "string"
+       },
+       "status": {
+        "enum": [
+         "pending",
+         "approved",
+         "rejected"
+        ],
+        "type": "string"
+       },
+       "status_label": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "id",
+       "employee",
+       "leave_type",
+       "leave_type_label",
+       "start_date",
+       "end_date",
+       "note",
+       "status",
+       "status_label",
+       "business_days",
+       "created_at"
+      ],
+      "type": "object"
+     }
+    },
+    "400": {
+     "application/json": {
+      "oneOf": [
+       {
+        "additionalProperties": {
+         "items": {
+          "type": "string"
+         },
+         "type": "array"
+        },
+        "description": "DRF field errors keyed by field name, or non_field_errors.",
+        "type": "object"
+       },
+       {
+        "properties": {
+         "detail": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "detail"
+        ],
+        "type": "object"
+       }
+      ]
+     }
+    },
+    "401": {
+     "application/json": {
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "detail"
+      ],
+      "type": "object"
+     }
+    },
+    "415": {
+     "application/json": {
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "detail"
+      ],
+      "type": "object"
+     }
+    }
+   }
+  },
+  "team": {
+   "method": "get",
+   "path": "/api/team/",
+   "responses": {
+    "200": {
+     "application/json": {
+      "items": {
+       "allOf": [
+        {
+         "properties": {
+          "display_name": {
+           "description": "Full name, or the username when no name is set.",
+           "type": "string"
+          },
+          "email": {
+           "type": "string"
+          },
+          "id": {
+           "type": "integer"
+          },
+          "role": {
+           "enum": [
+            "employee",
+            "manager",
+            "admin"
+           ],
+           "type": "string"
+          },
+          "team": {
+           "nullable": true,
+           "type": "string"
+          },
+          "username": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "id",
+          "username",
+          "display_name",
+          "email",
+          "role",
+          "team"
+         ],
+         "type": "object"
+        },
+        {
+         "properties": {
+          "allowance": {
+           "type": "integer"
+          },
+          "available_days": {
+           "type": "integer"
+          },
+          "next_leave": {
+           "nullable": true,
+           "properties": {
+            "end_date": {
+             "format": "date",
+             "type": "string"
+            },
+            "start_date": {
+             "format": "date",
+             "type": "string"
+            }
+           },
+           "required": [
+            "start_date",
+            "end_date"
+           ],
+           "type": "object"
+          }
+         },
+         "required": [
+          "available_days",
+          "allowance",
+          "next_leave"
+         ],
+         "type": "object"
+        }
+       ]
+      },
+      "type": "array"
+     }
+    },
+    "401": {
+     "application/json": {
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "detail"
+      ],
+      "type": "object"
+     }
+    }
+   }
+  }
+ },
+ "spec_sha256": "f5ff40dbe14005c40234682bce24777f816d5d1c10aa2c73866f69a8f91d27da"
+}

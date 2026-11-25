@@ -2,7 +2,7 @@
 # GENERATED FILE - DO NOT EDIT BY HAND.
 # Generator: scripts/sqe/generate_api_tests.py
 # Spec:      docs/sqe/openapi/leaveflow-api.yaml
-# Spec SHA-256: 219e3766d5de18124f6c4380135373a372ebdf069fa03e3509cae96d040ed174
+# Spec SHA-256: f5ff40dbe14005c40234682bce24777f816d5d1c10aa2c73866f69a8f91d27da
 # Command:   python3 scripts/sqe/generate_api_tests.py docs/sqe/openapi/leaveflow-api.yaml --output tests/team/generated/test_generated_api.py
 #
 # Test design (from the spec's constraints, one field varied per test, all
@@ -28,7 +28,7 @@ from leave.models import LeaveRequest
 from tests.team.api.support import token_client
 from tests.team.fixtures.leave_data import TEST_PASSWORD, build_people, make_request
 
-SPEC_SHA256 = '219e3766d5de18124f6c4380135373a372ebdf069fa03e3509cae96d040ed174'
+SPEC_SHA256 = 'f5ff40dbe14005c40234682bce24777f816d5d1c10aa2c73866f69a8f91d27da'
 
 
 class F:
@@ -108,7 +108,7 @@ class GeneratedLoginTests(GeneratedApiTestCase):
     PATH_PARAMS = {}
     READBACK = 'token'
     SUCCESS = 200
-    ERRORS = (400,)
+    ERRORS = (400, 401, 415)
 
     def test_username_ep_valid_string(self):
         """Generated from spec: POST /api/auth/login/ username EP valid string
@@ -122,42 +122,42 @@ class GeneratedLoginTests(GeneratedApiTestCase):
     def test_username_ep_invalid_wrong_type_true(self):
         """Generated from spec: POST /api/auth/login/ username EP invalid wrong type (true)
 
-        Expect 4xx (400,).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'username': True, 'password': F('password')}, valid=False)
 
     def test_username_ep_invalid_null_required(self):
         """Generated from spec: POST /api/auth/login/ username EP invalid null (required)
 
-        Expect 4xx (400,).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'username': None, 'password': F('password')}, valid=False)
 
     def test_username_ep_invalid_missing_required(self):
         """Generated from spec: POST /api/auth/login/ username EP invalid missing (required)
 
-        Expect 4xx (400,).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'password': F('password')}, valid=False)
 
     def test_password_ep_invalid_wrong_type_true(self):
         """Generated from spec: POST /api/auth/login/ password EP invalid wrong type (true)
 
-        Expect 4xx (400,).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'username': F('e1.username'), 'password': True}, valid=False)
 
     def test_password_ep_invalid_null_required(self):
         """Generated from spec: POST /api/auth/login/ password EP invalid null (required)
 
-        Expect 4xx (400,).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'username': F('e1.username'), 'password': None}, valid=False)
 
     def test_password_ep_invalid_missing_required(self):
         """Generated from spec: POST /api/auth/login/ password EP invalid missing (required)
 
-        Expect 4xx (400,).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'username': F('e1.username')}, valid=False)
 
@@ -171,7 +171,7 @@ class GeneratedSubmitRequestTests(GeneratedApiTestCase):
     PATH_PARAMS = {}
     READBACK = 'created'
     SUCCESS = 201
-    ERRORS = (400, 401)
+    ERRORS = (400, 401, 415)
 
     def test_leave_type_ep_valid_enum_value_vacation(self):
         """Generated from spec: POST /api/requests/ leave_type EP valid enum value 'vacation'
@@ -202,77 +202,77 @@ class GeneratedSubmitRequestTests(GeneratedApiTestCase):
     def test_leave_type_ep_invalid_out_of_enum_zzz_not_in_enum(self):
         """Generated from spec: POST /api/requests/ leave_type EP invalid out-of-enum 'zzz_not_in_enum'
 
-        Expect 4xx (400, 401).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'leave_type': 'zzz_not_in_enum', 'start_date': '2026-12-07', 'end_date': '2026-12-08', 'note': 'Generated test'}, valid=False)
 
     def test_leave_type_ep_invalid_wrong_type_true(self):
         """Generated from spec: POST /api/requests/ leave_type EP invalid wrong type (true)
 
-        Expect 4xx (400, 401).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'leave_type': True, 'start_date': '2026-12-07', 'end_date': '2026-12-08', 'note': 'Generated test'}, valid=False)
 
     def test_start_date_ep_invalid_wrong_type_true(self):
         """Generated from spec: POST /api/requests/ start_date EP invalid wrong type (true)
 
-        Expect 4xx (400, 401).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'leave_type': 'vacation', 'start_date': True, 'end_date': '2026-12-08', 'note': 'Generated test'}, valid=False)
 
     def test_start_date_ep_invalid_date_format_not_a_date(self):
         """Generated from spec: POST /api/requests/ start_date EP invalid date format ('not-a-date')
 
-        Expect 4xx (400, 401).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'leave_type': 'vacation', 'start_date': 'not-a-date', 'end_date': '2026-12-08', 'note': 'Generated test'}, valid=False)
 
     def test_start_date_ep_invalid_null_required(self):
         """Generated from spec: POST /api/requests/ start_date EP invalid null (required)
 
-        Expect 4xx (400, 401).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'leave_type': 'vacation', 'start_date': None, 'end_date': '2026-12-08', 'note': 'Generated test'}, valid=False)
 
     def test_start_date_ep_invalid_missing_required(self):
         """Generated from spec: POST /api/requests/ start_date EP invalid missing (required)
 
-        Expect 4xx (400, 401).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'leave_type': 'vacation', 'end_date': '2026-12-08', 'note': 'Generated test'}, valid=False)
 
     def test_end_date_ep_invalid_wrong_type_true(self):
         """Generated from spec: POST /api/requests/ end_date EP invalid wrong type (true)
 
-        Expect 4xx (400, 401).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': True, 'note': 'Generated test'}, valid=False)
 
     def test_end_date_ep_invalid_date_format_not_a_date(self):
         """Generated from spec: POST /api/requests/ end_date EP invalid date format ('not-a-date')
 
-        Expect 4xx (400, 401).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': 'not-a-date', 'note': 'Generated test'}, valid=False)
 
     def test_end_date_ep_invalid_null_required(self):
         """Generated from spec: POST /api/requests/ end_date EP invalid null (required)
 
-        Expect 4xx (400, 401).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': None, 'note': 'Generated test'}, valid=False)
 
     def test_end_date_ep_invalid_missing_required(self):
         """Generated from spec: POST /api/requests/ end_date EP invalid missing (required)
 
-        Expect 4xx (400, 401).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'note': 'Generated test'}, valid=False)
 
     def test_end_date_bva_2026_12_06_below(self):
         """Generated from spec: POST /api/requests/ end_date BVA 2026-12-06 (limit-1, end_date >= start_date)
 
-        Expect 4xx (400, 401).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': '2026-12-06', 'note': 'Generated test'}, valid=False)
 
@@ -286,14 +286,14 @@ class GeneratedSubmitRequestTests(GeneratedApiTestCase):
     def test_note_ep_invalid_wrong_type_true(self):
         """Generated from spec: POST /api/requests/ note EP invalid wrong type (true)
 
-        Expect 4xx (400, 401).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': '2026-12-08', 'note': True}, valid=False)
 
     def test_note_ep_invalid_over_max_length_560_chars_280(self):
         """Generated from spec: POST /api/requests/ note EP invalid over-max-length (560 chars > 280)
 
-        Expect 4xx (400, 401).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': '2026-12-08', 'note': 'n' * 560}, valid=False)
 
@@ -314,7 +314,7 @@ class GeneratedSubmitRequestTests(GeneratedApiTestCase):
     def test_note_bva_281_above(self):
         """Generated from spec: POST /api/requests/ note BVA 281 (limit+1, maxLength 280)
 
-        Expect 4xx (400, 401).
+        Expect 4xx (400, 401, 415).
         """
         self.check({'leave_type': 'vacation', 'start_date': '2026-12-07', 'end_date': '2026-12-08', 'note': 'n' * 281}, valid=False)
 
@@ -328,7 +328,7 @@ class GeneratedDecideRequestTests(GeneratedApiTestCase):
     PATH_PARAMS = {'id': 'pending.id'}
     READBACK = 'decided'
     SUCCESS = 200
-    ERRORS = (400, 401, 403, 404, 409)
+    ERRORS = (400, 401, 403, 404, 409, 415)
 
     def test_status_ep_valid_enum_value_approved(self):
         """Generated from spec: POST /api/requests/{id}/decision/ status EP valid enum value 'approved'
@@ -347,27 +347,27 @@ class GeneratedDecideRequestTests(GeneratedApiTestCase):
     def test_status_ep_invalid_out_of_enum_zzz_not_in_enum(self):
         """Generated from spec: POST /api/requests/{id}/decision/ status EP invalid out-of-enum 'zzz_not_in_enum'
 
-        Expect 4xx (400, 401, 403, 404, 409).
+        Expect 4xx (400, 401, 403, 404, 409, 415).
         """
         self.check({'status': 'zzz_not_in_enum'}, valid=False)
 
     def test_status_ep_invalid_wrong_type_true(self):
         """Generated from spec: POST /api/requests/{id}/decision/ status EP invalid wrong type (true)
 
-        Expect 4xx (400, 401, 403, 404, 409).
+        Expect 4xx (400, 401, 403, 404, 409, 415).
         """
         self.check({'status': True}, valid=False)
 
     def test_status_ep_invalid_null_required(self):
         """Generated from spec: POST /api/requests/{id}/decision/ status EP invalid null (required)
 
-        Expect 4xx (400, 401, 403, 404, 409).
+        Expect 4xx (400, 401, 403, 404, 409, 415).
         """
         self.check({'status': None}, valid=False)
 
     def test_status_ep_invalid_missing_required(self):
         """Generated from spec: POST /api/requests/{id}/decision/ status EP invalid missing (required)
 
-        Expect 4xx (400, 401, 403, 404, 409).
+        Expect 4xx (400, 401, 403, 404, 409, 415).
         """
         self.check({}, valid=False)

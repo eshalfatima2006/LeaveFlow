@@ -16,6 +16,7 @@ info:
     Vendor extensions:
       x-business-rules  BR-01..BR-06 that apply to an operation, with the
                         response each one produces.
+      x-known-deviations  baseline behaviour that contradicts this contract.
       x-relational      cross-field constraint (operator and other field).
       x-sqe-test        test bindings for scripts/sqe/generate_api_tests.py:
                         acting fixture user, path parameters, fixture-bound
@@ -56,13 +57,25 @@ paths:
               schema:
                 $ref: "#/components/schemas/LoginResponse"
         "400":
-          description: Missing, null, wrong-type or invalid credentials.
+          description: Missing, null, wrong-type or invalid credentials, or malformed JSON.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Detail"
               example:
                 detail: Credenziali non valide.
+        "401":
+          description: |
+            An invalid Authorization header was sent. TokenAuthentication runs even
+            though this endpoint allows anonymous access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Detail"
+        "415":
+          $ref: "#/components/responses/UnsupportedMediaType"
+      x-known-deviations:
+        - A JSON body that is not an object (list, string, number, null) returns 500 instead of 400.
       x-business-rules:
         - id: BR-04
           rule: Only valid active credentials yield a token; every protected route then requires "Authorization Token <key>".
@@ -147,11 +160,14 @@ paths:
         "400":
           description: |
             Field validation error (BR-06), end before start (BR-01), active overlap
-            (BR-02) or insufficient balance (BR-03). No row is created.
+            (BR-02) or insufficient balance (BR-03), keyed by field or
+            non_field_errors; malformed JSON returns detail. No row is created.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ValidationErrors"
+                oneOf:
+                  - $ref: "#/components/schemas/ValidationErrors"
+                  - $ref: "#/components/schemas/Detail"
               examples:
                 endBeforeStart:
                   value:
@@ -164,6 +180,11 @@ paths:
                     non_field_errors: [Saldo ferie insufficiente.]
         "401":
           $ref: "#/components/responses/Unauthenticated"
+        "415":
+          $ref: "#/components/responses/UnsupportedMediaType"
+      x-known-deviations:
+        - end_date 9999-12-31 returns 500 (date overflow in business_days) although it is a valid date.
+        - A JSON number for note is converted to a string and accepted, although the schema type is string.
       x-business-rules:
         - id: BR-01
           rule: end_date >= start_date; business_days counts weekdays inclusively.
@@ -219,7 +240,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/LeaveRequest"
         "400":
-          description: Decision value missing, null or not approved/rejected.
+          description: Decision value missing, null or not approved/rejected, or malformed JSON.
           content:
             application/json:
               schema:
@@ -242,11 +263,17 @@ paths:
                   value:
                     detail: Non puoi decidere una tua richiesta.
         "404":
-          description: No request with this id is visible to the caller.
+          description: |
+            No request with this id is visible to the caller (JSON). An id that is
+            not a non-negative integer does not match the route and gets Django's
+            HTML page.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Detail"
+            text/html:
+              schema:
+                type: string
         "409":
           description: The request is already approved or rejected.
           content:
@@ -255,6 +282,10 @@ paths:
                 $ref: "#/components/schemas/Detail"
               example:
                 detail: La richiesta è già stata decisa.
+        "415":
+          $ref: "#/components/responses/UnsupportedMediaType"
+      x-known-deviations:
+        - A JSON body that is not an object (list, string, number, null) returns 500 instead of 400.
       x-business-rules:
         - id: BR-03
           rule: Approval consumes allowance (available days are derived from approved requests).
@@ -333,6 +364,13 @@ components:
   responses:
     Unauthenticated:
       description: Missing or invalid token.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Detail"
+
+    UnsupportedMediaType:
+      description: The request Content-Type is not supported.
       content:
         application/json:
           schema:

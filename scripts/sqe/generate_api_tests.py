@@ -28,6 +28,10 @@ one real API call with the spec's fixture actor, asserts the HTTP status
 (valid -> the documented 2xx, invalid -> a documented 4xx) and checks the
 persisted outcome named by x-sqe-test.readback.
 
+The documented response schemas of every operation are also exported, with
+$refs resolved, to api_contract.json next to the output. The contract tests read
+that JSON, because the test environment has no YAML parser.
+
 --demo-env NAME=VALUE makes the generated module load its tests only when
 the environment variable NAME equals VALUE. It is used for the constraint-change
 demonstrations (v2, v3), which are expected to fail against the unchanged app
@@ -51,6 +55,7 @@ except ImportError:  # pragma: no cover - environment message
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SPEC = "docs/sqe/openapi/leaveflow-api.yaml"
 DEFAULT_OUTPUT = "tests/team/generated/test_generated_api.py"
+CONTRACT_NAME = "api_contract.json"  # written next to the output, except for --demo-env modules
 GENERATOR = "scripts/sqe/generate_api_tests.py"
 
 OUT_OF_ENUM = "zzz_not_in_enum"
@@ -316,6 +321,40 @@ def load_operations(spec):
 
 
 # ---------------------------------------------------------------------------
+# Response contract (consumed by tests/team/api/test_openapi_contract.py)
+# ---------------------------------------------------------------------------
+def deref(spec, node):
+    """Copy of node with every local $ref replaced by its target (no recursion support)."""
+    node = resolve(spec, node)
+    if isinstance(node, dict):
+        return {k: deref(spec, v) for k, v in node.items()}
+    if isinstance(node, list):
+        return [deref(spec, v) for v in node]
+    return node
+
+
+def response_contract(spec, sha):
+    operations = {}
+    for path, item in spec["paths"].items():
+        for method in ("get", "post", "put", "patch", "delete"):
+            if method not in item:
+                continue
+            op = item[method]
+            operations[op["operationId"]] = {
+                "method": method,
+                "path": path,
+                "responses": {
+                    str(code): {
+                        media: deref(spec, content["schema"])
+                        for media, content in resolve(spec, response)["content"].items()
+                    }
+                    for code, response in op["responses"].items()
+                },
+            }
+    return {"generated_by": GENERATOR, "spec_sha256": sha, "operations": operations}
+
+
+# ---------------------------------------------------------------------------
 # Rendering
 # ---------------------------------------------------------------------------
 def py(value):
@@ -574,6 +613,10 @@ def main(argv=None):
     if not init.exists():
         init.write_text('"""Generated API tests."""\n', encoding="utf-8")
     out_file.write_text(source, encoding="utf-8")
+    if not demo_env:
+        sha = hashlib.sha256(spec_text.encode("utf-8")).hexdigest()
+        contract = json.dumps(response_contract(spec, sha), indent=1, sort_keys=True, ensure_ascii=False)
+        (out_file.parent / CONTRACT_NAME).write_text(contract + "\n", encoding="utf-8")
     print(summary(ops))
     print(f"Written: {out_path}")
     return 0
