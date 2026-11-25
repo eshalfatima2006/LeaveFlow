@@ -1,6 +1,6 @@
 # Endpoint weaknesses — defect records for triage (Area 2)
 
-25 November 2026. **These are drafts for the student to file as GitHub Issues; no issue exists yet** (issue links: PENDING). Severity and priority are proposals until shared triage ([DEFECT-MANAGEMENT-PLAN](../planning/DEFECT-MANAGEMENT-PLAN.md)). All were observed by executed tests against the unchanged application (baseline `bada9a0`, tests at `707a5b3`). The tests that pin them are characterizations: they pass while the defect exists and must be replaced when it is fixed. No application code was changed. The root causes below come from reading the source; the required 5 Whys and fishbone (two major defects) are still to be done by the team.
+25 November 2026. **These are drafts for the student to file as GitHub Issues; no issue exists yet** (issue links: PENDING). Severity and priority are proposals until shared triage ([DEFECT-MANAGEMENT-PLAN](../planning/DEFECT-MANAGEMENT-PLAN.md)). All were observed by executed tests against the unchanged application (baseline `bada9a0`, tests at `707a5b3`). The tests that pin them are characterizations: they pass while the defect exists and must be replaced when it is fixed. No application code was changed. The root causes of 03–06 come from reading the source. 01 and 02 have issue texts and root cause analyses with experiments (drafts for student review): [issue 1](ISSUE-MAJOR-01-BALANCE-OVERDRAW.md), [RCA 1](RCA-MAJOR-01-BALANCE-OVERDRAW.md), [issue 2](ISSUE-MAJOR-02-CONCURRENT-SUBMISSIONS.md), [RCA 2](RCA-MAJOR-02-CONCURRENT-SUBMISSIONS.md). Independent reproduction and triage: PENDING.
 
 | ID | Weakness | Severity / priority (proposed) | Risk | Test | Status |
 |---|---|---|---|---|---|
@@ -27,8 +27,8 @@ Evidence: `docs/sqe/evidence/integration/completion-2026-11-25/` (01), `docs/sqe
 - **Reproduce:** two simultaneous `POST /api/requests/` by one employee with overlapping (or identical) dates, both past validation before either inserts. Run `scripts/sqe/run_concurrency.py`.
 - **Expected (BR-02):** one 201 and one 400 `Esiste già una richiesta sovrapposta.`, one row.
 - **Observed (PostgreSQL 17.12):** both 201, two active rows. A sequential repeat is refused correctly (API-INT-001.08).
-- **Root cause:** `LeaveRequest.clean` queries and `create` inserts later, without a lock, a transaction around both, or a database constraint. The test holds both requests between the two steps with a barrier; that order can occur in production.
-- **Proposed fix:** a PostgreSQL exclusion constraint on employee and date range for active statuses, or a lock on the employee row around check and insert.
+- **Root cause:** `LeaveRequest.clean` queries and `create` inserts later, without a lock, a transaction around both, or a database constraint. The test holds both requests between the two steps with a barrier. Over real HTTP without the barrier it depends on the server: 0 of 100 pairs with the shipped single worker, 99 of 100 with two workers, 100 of 100 with three servers (RCA 2).
+- **Proposed fix:** a lock on the employee row around check and insert, plus a PostgreSQL exclusion constraint as defence in depth (RCA 2; a transaction alone does not fix it).
 - **Retest:** API-INT-002.01/.02 expecting [201, 400]. **Residual risk:** open.
 
 ## DEF-A2-03 and DEF-A2-04 — 500 for a non-object JSON body
