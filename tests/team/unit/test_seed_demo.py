@@ -24,6 +24,11 @@ class SeedDemoCommandTests(TestCase):
         self.assertEqual(users["teammate"].role, User.Role.EMPLOYEE)
         self.assertEqual(users["manager"].role, User.Role.MANAGER)
         self.assertEqual(users["admin"].role, User.Role.ADMIN)
+        for username in users:
+            self.assertEqual(users[username].first_name, "Demo")
+            self.assertEqual(users[username].last_name, username.title())
+            self.assertEqual(users[username].email, f"{username}@example.invalid")
+            self.assertTrue(users[username].check_password("demo1234"))
         self.assertTrue(users["admin"].is_staff)
         self.assertTrue(users["admin"].is_superuser)
 
