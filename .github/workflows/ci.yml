@@ -45,7 +45,7 @@ jobs:
       - name: Run mutmut with project-specific operators
         run: |
           set -o pipefail
-          python scripts/sqe/mutmut_custom.py run --max-children 2 2>&1 | tee mutmut-run.log
+          python scripts/sqe/mutmut_custom.py run --max-children 4 2>&1 | tee mutmut-run.log
           python scripts/sqe/mutmut_custom.py export-cicd-stats
       - name: Generate surviving-mutant analysis table
         if: always()

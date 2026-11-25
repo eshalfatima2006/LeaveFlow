@@ -9,14 +9,15 @@ operators before loading the normal mutmut CLI:
 2. `operator_overlap_truth`: inverts `overlap.exists()` in the active-overlap
    rule.
 
-The standard mutmut operators remain enabled. The target is `backend/leave`,
-the test selection is the complete pytest suite, and `mutate_only_covered_lines`
-keeps the run focused on executable business logic rather than producing
-untestable mutations in uncovered support files. The exact commands are:
+The standard mutmut operators remain enabled. The target is the application
+code under `backend/leave`; migrations and the legacy upstream test module are
+excluded. The complete pytest suite is used so the report can identify both
+well-tested critical logic and under-tested supporting logic. The exact
+commands are:
 
 ```text
 python -m pip install -r requirements.txt -r requirements-sqe.txt
-python scripts/sqe/mutmut_custom.py run --max-children 2
+python scripts/sqe/mutmut_custom.py run --max-children 4
 python scripts/sqe/mutmut_custom.py export-cicd-stats
 python scripts/sqe/check_mutation_threshold.py
 ```
