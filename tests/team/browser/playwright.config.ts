@@ -3,7 +3,8 @@ import { existsSync, mkdirSync } from 'node:fs'
 import path from 'node:path'
 
 import {
-  BACKEND_PORT, BACKEND_URL, FRONTEND_PORT, FRONTEND_URL, HARNESS, NOTIFICATIONS_PORT, PYTHON, ROOT,
+  BACKEND_PORT, BACKEND_URL, FRONTEND_PORT, FRONTEND_URL, HARNESS, NOTIFICATIONS_ENABLED,
+  NOTIFICATIONS_PORT, NOTIFICATIONS_URL, PYTHON, ROOT,
   harnessEnv, runHarness,
 } from './support/harness'
 
@@ -44,7 +45,12 @@ export default defineConfig({
     baseURL: FRONTEND_URL,
     locale: 'en-GB',
     timezoneId: 'Europe/Rome',
-    trace: 'retain-on-failure',
+    proxy: process.env.SQE_ZAP_PROXY ? {
+      server: process.env.SQE_ZAP_PROXY,
+      bypass: '<-loopback>',
+    } : undefined,
+    // Network traces include live fixture authorization headers.
+    trace: 'off',
     screenshot: 'only-on-failure',
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
@@ -69,12 +75,24 @@ export default defineConfig({
       env: {
         ...harnessEnv(),
         VITE_API_URL: `${BACKEND_URL}/api`,
-        VITE_NOTIFICATIONS_URL: `http://127.0.0.1:${NOTIFICATIONS_PORT}`,
+        VITE_NOTIFICATIONS_URL: NOTIFICATIONS_URL,
       },
       reuseExistingServer: false,
       timeout: 180_000,
       stdout: 'ignore',
       stderr: 'pipe',
     },
+    ...(NOTIFICATIONS_ENABLED ? [{
+      command: 'node dist/src/index.js',
+      cwd: path.join(ROOT, 'notifications'),
+      url: `${NOTIFICATIONS_URL}/health`,
+      env: {
+        PORT: String(NOTIFICATIONS_PORT),
+        BACKEND_URL,
+        REDIS_URL: 'redis://127.0.0.1:16386/0',
+      },
+      reuseExistingServer: false,
+      timeout: 60_000,
+    }] : []),
   ],
 })

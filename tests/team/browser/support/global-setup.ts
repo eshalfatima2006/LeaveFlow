@@ -3,7 +3,7 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 
 import {
-  BACKEND_URL, BROWSER_DIR, FRONTEND_URL, ROOT, developmentDatabaseFingerprint, fixture,
+  BACKEND_URL, BROWSER_DIR, FRONTEND_URL, NOTIFICATIONS_ENABLED, ROOT, developmentDatabaseFingerprint, fixture,
 } from './harness'
 
 function git(...args: string[]) {
@@ -47,7 +47,7 @@ export default async function globalSetup() {
     backend: { url: BACKEND_URL, profile: whoami.profile, python: whoami.python, django: whoami.django },
     frontend: { url: FRONTEND_URL, build: 'vite build of frontend/src into the run directory' },
     database: whoami.database,
-    redis: 'disabled (REDIS_URL empty in sqe-browser-v1)',
+    redis: NOTIFICATIONS_ENABLED ? 'isolated loopback test service on port 16386' : 'disabled',
     sentinel_identity_check: 'passed',
   })
 }

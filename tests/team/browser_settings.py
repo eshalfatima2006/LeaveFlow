@@ -4,7 +4,7 @@ import os
 
 from config.settings import *  # noqa: F403 - retain the application's configuration
 
-from tests.team.browser_safety import PROFILE, database_path, run_dir_from_environment
+from tests.team.browser_safety import NOTIFICATION_REDIS, PROFILE, database_path, run_dir_from_environment
 
 TEAM_TEST_PROFILE = PROFILE
 DATABASES = {
@@ -16,6 +16,9 @@ DATABASES = {
     }
 }
 REDIS_URL = ""
+if os.environ.get("SQE_ENABLE_NOTIFICATIONS") == "1":
+    REDIS_URL = NOTIFICATION_REDIS
+    MIDDLEWARE = [*MIDDLEWARE, "tests.team.notification_fault.NotificationPublishFault"]
 DEBUG = True
 SECURE_SSL_REDIRECT = False
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]

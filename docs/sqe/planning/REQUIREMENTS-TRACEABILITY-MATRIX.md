@@ -6,6 +6,8 @@ Version0.1 — 22 November 2026. Preserve exactly the12 existing FR IDs and six 
 
 ## Conventions, evidence and status
 
+**Area 3 execution, 25 November 2026.** The group assigned UC-04, UC-07, UC-08 and UC-09 to Member 3. All 20 passed across retained Playwright runs, including a five-case isolated UC-07 retest. The original 10 UC-01 and UC-02 mandatory flows also passed. ACC-001/002, SEC-001/002/003, PERF-001 and REC-002 have executed Area 3 evidence in the [results and defect links](../testing/AREA3-RESULTS.md). Conditions for D-1 and D-2 describe the separate instructor scope decision.
+
 UT=unit, API=HTTP, API-INT=integration, DT=decision table, ST=state, GEN=generator, E2E=browser flow, SEC=security, ACC=accessibility/task, PERF=load, REC=recovery, MUT=mutation, MCC=critical Boolean analysis, REG=regression. A catalog ID is defined once below, may be referenced by many requirements and can use several techniques. E2E-UCxx-01=main, -02/-03=alternatives, -04/-05=exceptions. These are30 planned flow slots, not a claim of30 passing tests; six accepted actor goals still require approval. *v0.2: E2E-UCxx-NN are superseded v0.1 IDs; canonical browser flow IDs are TC-UCxx-M/A1/A2/E1/E2, plus INC-01/02 (included use cases), OBJ-* (blocked objectives) and SUP-* (supplementary checks), defined in [Browser use-case flow catalog (v0.2)](#browser-use-case-flow-catalog-v02).*
 
 Evidence for each eventual implemented ID: future `docs/sqe/evidence/<area>/<run-id>/` manifest keyed by ID with actual test path/node ID, tested SHA, profile/spec/fixture/seed hashes, expected/observed, status, output/DB/browser artifacts and genuine issue URLs. No such evidence files or issue numbers are invented here. *(v0.1 statement, 22 Nov 2026 — superseded in v0.2: see [Execution status (v0.2)](#execution-status-v02) for executed rows; all other rows remain PLANNED / NOT MEASURED.)* future defect field for **every FR** is **PENDING — real issue URL when created**. This shared default applies to forward/reverse/rule/browser tables, not an omitted status.
@@ -168,30 +170,30 @@ Canonical definitions; flows are specified in [USE-CASE-SPECIFICATIONS.md](../re
 | TC-UC02-A2 | UC-02 (M2) | alternative | FR-W2-01, FR-W2-02, FR-W2-05 | BR-04, BR-05 | Passed | E2E-UC02-03 |
 | TC-UC02-E1 | UC-02 (M2) | exception | FR-W2-04 | BR-05 | Passed (UI feedback recorded, OBS-UC02-01) | E2E-UC02-04 |
 | TC-UC02-E2 | UC-02 (M2) | exception | FR-W2-02 | BR-04 | Passed (UI feedback recorded) | E2E-UC02-05 |
-| TC-UC04-M | UC-04 (M3) | main | FR-W2-01, FR-W1-05 | BR-03, BR-04 | Specified, not automated | E2E-UC04-01 |
-| TC-UC04-A1 | UC-04 (M3) | alternative | FR-W2-01 | BR-04 | Specified, not automated | — |
-| TC-UC04-A2 | UC-04 (M3) | alternative | FR-W2-05, FR-W2-06 | BR-03, BR-05 | Specified, not automated | — |
-| TC-UC04-E1 | UC-04 (M3) | exception | FR-W1-01 | BR-04 | Specified, not automated | E2E-UC04-05 |
-| TC-UC04-E2 | UC-04 (M3) | exception | FR-W2-01 | BR-04 | Specified; expected result pending probe (GAP-15) | E2E-UC04-04 |
-| TC-UC07-M | UC-07 (M2) | main | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Blocked: D-2 + isolated environment | — |
-| TC-UC07-A1 | UC-07 (M2) | alternative | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Blocked: D-2 + isolated environment | — |
-| TC-UC07-A2 | UC-07 (M2) | alternative | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Blocked: D-2 + isolated environment | — |
-| TC-UC07-E1 | UC-07 (M2) | exception | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Blocked: D-2 + isolated environment | — |
-| TC-UC07-E2 | UC-07 (M2) | exception | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Blocked: D-2 + isolated environment | — |
-| TC-UC08-M | UC-08 (M1) | main | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Blocked: D-1 | — |
-| TC-UC08-A1 | UC-08 (M1) | alternative | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Blocked: D-1 | — |
-| TC-UC08-A2 | UC-08 (M1) | alternative | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Blocked: D-1 | — |
-| TC-UC08-E1 | UC-08 (M1) | exception | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Blocked: D-1 | — |
-| TC-UC08-E2 | UC-08 (M1) | exception | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Blocked: D-1 | — |
-| TC-UC09-M | UC-09 (M3) | main | FR-ADM-02 (PROPOSED), FR-W2-01, FR-W2-02 | BR-04 | Blocked: D-1 | — |
-| TC-UC09-A1 | UC-09 (M3) | alternative | FR-ADM-02 (PROPOSED), FR-W2-01, FR-W2-02 | BR-04 | Blocked: D-1 | — |
-| TC-UC09-A2 | UC-09 (M3) | alternative | FR-ADM-02 (PROPOSED), FR-W2-01, FR-W2-02 | BR-04 | Blocked: D-1 | — |
-| TC-UC09-E1 | UC-09 (M3) | exception | FR-ADM-02 (PROPOSED), FR-W2-01, FR-W2-02 | BR-04 | Blocked: D-1 | — |
-| TC-UC09-E2 | UC-09 (M3) | exception | FR-ADM-02 (PROPOSED), FR-W2-01, FR-W2-02 | BR-04 | Blocked: D-1 | — |
+| TC-UC04-M | UC-04 (M3) | main | FR-W2-01, FR-W1-05 | BR-03, BR-04 | Passed (Area 3) | E2E-UC04-01 |
+| TC-UC04-A1 | UC-04 (M3) | alternative | FR-W2-01 | BR-04 | Passed (Area 3) | — |
+| TC-UC04-A2 | UC-04 (M3) | alternative | FR-W2-05, FR-W2-06 | BR-03, BR-05 | Passed (Area 3) | — |
+| TC-UC04-E1 | UC-04 (M3) | exception | FR-W1-01 | BR-04 | Passed (Area 3) | E2E-UC04-05 |
+| TC-UC04-E2 | UC-04 (M3) | exception | FR-W2-01 | BR-04 | Passed (baseline characterisation) | E2E-UC04-04 |
+| TC-UC07-M | UC-07 (M3) | main | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Passed (Area 3) | — |
+| TC-UC07-A1 | UC-07 (M3) | alternative | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Passed (Area 3) | — |
+| TC-UC07-A2 | UC-07 (M3) | alternative | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Passed (Area 3) | — |
+| TC-UC07-E1 | UC-07 (M3) | exception | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Passed (Area 3) | — |
+| TC-UC07-E2 | UC-07 (M3) | exception | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Passed (Area 3) | — |
+| TC-UC08-M | UC-08 (M3) | main | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Passed (Area 3) | — |
+| TC-UC08-A1 | UC-08 (M3) | alternative | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Passed (Area 3) | — |
+| TC-UC08-A2 | UC-08 (M3) | alternative | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Passed (baseline characterisation) | — |
+| TC-UC08-E1 | UC-08 (M3) | exception | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Passed (Area 3) | — |
+| TC-UC08-E2 | UC-08 (M3) | exception | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Passed (Area 3) | — |
+| TC-UC09-M | UC-09 (M3) | main | FR-ADM-02 (PROPOSED), FR-W2-01, FR-W2-02 | BR-04 | Passed (Area 3) | — |
+| TC-UC09-A1 | UC-09 (M3) | alternative | FR-ADM-02 (PROPOSED), FR-W2-01, FR-W2-02 | BR-04 | Passed (Area 3) | — |
+| TC-UC09-A2 | UC-09 (M3) | alternative | FR-ADM-02 (PROPOSED), FR-W2-01, FR-W2-02 | BR-04 | Passed (baseline characterisation) | — |
+| TC-UC09-E1 | UC-09 (M3) | exception | FR-ADM-02 (PROPOSED), FR-W2-01, FR-W2-02 | BR-04 | Passed (Area 3) | — |
+| TC-UC09-E2 | UC-09 (M3) | exception | FR-ADM-02 (PROPOSED), FR-W2-01, FR-W2-02 | BR-04 | Passed (Area 3) | — |
 | INC-01 | Included (M3) | included | FR-W1-01 | BR-04 | Exercised inside every B1 test; dedicated test planned | E2E-UC03-05 |
 | INC-02 | Included (M1/M3) | included | FR-ADM-01/02 (PROPOSED) | BR-04 | Blocked: D-1 | — |
 | OBJ-UC02-01 | UC-02 (M2) | blocked objective | FR-W2-05 | BR-03 | Blocked: approval-time error contract (GAP-01); registered as fixme | — |
-| SUP-UC07-01 | UC-07 (M2) | supplementary | FR-NOTIF-01 (PROPOSED) | BR-05 | Blocked: D-2 | — |
+| SUP-UC07-01 | UC-07 (M3) | supplementary | FR-NOTIF-01 (PROPOSED) | BR-05 | Blocked: D-2 | — |
 | SUP-UC09-01 | UC-09 (M3) | supplementary | FR-ADM-02 (PROPOSED), FR-W2-02 | BR-04 | Blocked: D-1 | — |
 
 Mandatory flow coverage: **10 of 30 executed and passed (33.3%)**. If OBJ-UC02-01 is approved as a UC-02 exception, the denominator becomes 31.

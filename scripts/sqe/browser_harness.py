@@ -52,12 +52,18 @@ def setup_django():
 
 def serve(port):
     setup_django()
+    import logging
+    from django.conf import settings
     from django.core.management import call_command
 
-    from tests.team.browser_safety import assert_browser_database
+    from tests.team.browser_safety import assert_browser_database, run_dir_from_environment
 
     call_command("migrate", interactive=False, verbosity=0)
     assert_browser_database()
+    if settings.REDIS_URL:
+        handler = logging.FileHandler(run_dir_from_environment() / "notification-publish.log", encoding="utf-8")
+        handler.setLevel(logging.ERROR)
+        logging.getLogger("leave.events").addHandler(handler)
     call_command("runserver", f"127.0.0.1:{port}", use_reloader=False, use_threading=True)
 
 
@@ -79,13 +85,14 @@ def row_state(item):
 
 def fixture(action, payload):
     setup_django()
+    from django.conf import settings
     from django.contrib.sessions.models import Session
     from django.db import transaction
     from django.utils import timezone
     from rest_framework.authtoken.models import Token
 
     from leave.models import LeaveBalance, LeaveRequest, Team, User
-    from tests.team.browser_safety import PROFILE
+    from tests.team.browser_safety import PROFILE, run_dir_from_environment
 
     if action == "whoami":
         import django
@@ -123,6 +130,54 @@ def fixture(action, payload):
         if balance is None:
             return None
         return {"allowance": balance.allowance, "used": balance.approved_days, "available": balance.available_days}
+    if action == "balance-id":
+        return LeaveBalance.objects.filter(user_id=payload["id"]).values_list("id", flat=True).first()
+    if action == "user":
+        return User.objects.filter(pk=payload["id"]).values("role", "team_id").first()
+    if action == "delete-team":
+        return Team.objects.filter(pk=payload["id"]).delete()[0]
+    if action == "delete-user":
+        return User.objects.filter(pk=payload["id"]).delete()[0]
+    if action in {"notification-fault", "notification-state"}:
+        if not settings.REDIS_URL:
+            raise SystemExit("The isolated notification profile is required.")
+        run_dir = run_dir_from_environment()
+        if action == "notification-fault":
+            (run_dir / "notification-publish-fault").touch(exist_ok=False)
+            return True
+        from redis import Redis
+
+        log_path = run_dir / "notification-publish.log"
+        stream = "leaveflow:events"
+        group_name = "leaveflow-notifications"
+        with Redis.from_url(settings.REDIS_URL, decode_responses=True) as client:
+            events = [
+                (entry_id, json.loads(fields["payload"]))
+                for entry_id, fields in client.xrange(stream)
+            ]
+            events = [(entry_id, event) for entry_id, event in events if event["request"]["id"] == payload["id"]]
+            groups = client.xinfo_groups(stream) if client.exists(stream) else []
+            group = next((group for group in groups if group["name"] == group_name), None)
+            unacknowledged = None
+            if group:
+                def stream_position(entry_id):
+                    return tuple(map(int, entry_id.split("-")))
+
+                last_delivered = stream_position(group["last-delivered-id"])
+                unacknowledged = sum(
+                    stream_position(entry_id) > last_delivered
+                    or bool(client.xpending_range(stream, group_name, entry_id, entry_id, 1))
+                    for entry_id, _ in events
+                )
+        return {
+            "events": [
+                {"id": event["id"], "type": event["type"], "recipients": event["recipients"]}
+                for _, event in events
+            ],
+            "unacknowledged": unacknowledged,
+            "publish_errors": log_path.read_text(encoding="utf-8").count("SQE controlled Redis outage")
+            if log_path.exists() else 0,
+        }
     if action == "revoke-token":
         deleted, _ = Token.objects.filter(user__username=payload["username"]).delete()
         return {"revoked": deleted}
@@ -174,7 +229,7 @@ def build_scenario(spec, Team, User, LeaveBalance, LeaveRequest, timezone):
                 decided_at=timezone.now() if decided_by else None,
             )
             requests[entry["key"]] = item.id
-    return {"users": users, "requests": requests}
+    return {"users": users, "requests": requests, "teams": {name: team.pk for name, team in teams.items()}}
 
 
 def main(argv=None):

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { ArrowRight, CalendarDays, CalendarRange, Check, ChevronRight, Clock3, LayoutDashboard, LogOut, Palmtree, Plus, Sparkles, TimerReset, UserRoundCheck, Users, X } from 'lucide-vue-next'
 import { api } from './api'
 import AnimatedNumber from './AnimatedNumber.vue'
@@ -16,6 +16,29 @@ const loading=ref(true), error=ref(''), active=ref<'overview'|'requests'|'people
 const requestFilter=ref<'all'|'pending'|'approved'|'rejected'>('all')
 const credentials=ref({username:'employee',password:'demo1234'})
 const form=ref({leave_type:'vacation',start_date:'',end_date:'',note:''})
+const requestDialog = ref<HTMLFormElement | null>(null)
+let requestTrigger: HTMLElement | null = null
+watch(formOpen, async (open) => {
+  if (open && document.activeElement instanceof HTMLElement) requestTrigger = document.activeElement
+  await nextTick()
+  if (open) requestDialog.value?.querySelector('select')?.focus()
+  else {
+    requestTrigger?.focus()
+    requestTrigger = null
+  }
+})
+
+function keepRequestFocus(event: KeyboardEvent) {
+  const controls = requestDialog.value?.querySelectorAll<HTMLElement>('button, select, input, textarea')
+  if (!controls?.length) return
+  const first = controls[0], last = controls[controls.length - 1]
+  const edge = event.shiftKey ? first : last
+  if (document.activeElement === edge) {
+    event.preventDefault()
+    const wrapTo = event.shiftKey ? last : first
+    wrapTo?.focus()
+  }
+}
 const isManager=computed(()=>user.value?.role==='manager'||user.value?.role==='admin')
 const filteredRequests=computed(()=>requestFilter.value==='all'?requests.value:requests.value.filter(item=>item.status===requestFilter.value))
 const requestedDays=computed(()=>requests.value.reduce((total,item)=>total+item.business_days,0))
@@ -67,9 +90,9 @@ onMounted(boot)
     </section>
   </main>
 
-  <div v-else class="app-shell">
+  <div v-else class="app-shell" :inert="formOpen || undefined">
     <aside>
-      <button type="button" class="wordmark brand-home" :aria-label="t('nav.goOverview')" @click="active='overview'"><span class="brand-mark small"><span>L</span></span> LeaveFlow</button>
+      <button type="button" class="wordmark brand-home" :title="t('nav.goOverview')" @click="active='overview'"><span class="brand-mark small" aria-hidden="true"><span>L</span></span> LeaveFlow</button>
       <nav :aria-label="t('nav.main')">
         <button :class="{active:active==='overview'}" @click="active='overview'"><LayoutDashboard :size="19"/> {{t('nav.overview')}}</button>
         <button :class="{active:active==='requests'}" @click="active='requests'"><CalendarDays :size="19"/> {{t('nav.requests')}} <span v-if="dashboard?.counts.pending" class="nav-count">{{dashboard.counts.pending}}</span></button>
@@ -83,7 +106,7 @@ onMounted(boot)
       </section>
       <div class="aside-foot"><div class="avatar">{{user.display_name.split(' ').map(x=>x[0]).join('').slice(0,2)}}</div><div><strong>{{user.display_name}}</strong><span>{{roleLabel(user.role)}}</span></div><button class="icon-button" :title="t('nav.logout')" :aria-label="t('nav.logout')" @click="logout"><LogOut :size="17"/></button></div>
     </aside>
-    <div class="workspace">
+    <main class="workspace">
       <header><div><p class="eyebrow">{{user.team || t('header.organization')}}</p><h1>{{headerTitle}}</h1></div><div class="header-actions"><LanguageSwitch/><NotificationCenter/><button class="primary" @click="formOpen=true"><Plus :size="18"/> {{t('nav.newRequest')}}</button></div></header>
 
       <section v-if="active==='overview' && dashboard" key="overview" class="overview">
@@ -117,8 +140,61 @@ onMounted(boot)
           </article>
         </div>
       </section>
-    </div>
+    </main>
   </div>
 
-  <div v-if="formOpen" class="modal-backdrop" @click.self="formOpen=false"><form class="modal" @submit.prevent="submit"><button class="modal-close" type="button" :aria-label="t('modal.close')" @click="formOpen=false"><X :size="19"/></button><p class="kicker">{{t('modal.eyebrow')}}</p><h2>{{t('modal.title')}}</h2><p class="muted">{{t('modal.description')}}</p><label>{{t('modal.type')}}<select v-model="form.leave_type"><option value="vacation">{{t('leaveType.vacation')}}</option><option value="permit">{{t('leaveType.permit')}}</option><option value="personal">{{t('leaveType.personal')}}</option></select></label><div class="date-grid"><label>{{t('modal.from')}}<input v-model="form.start_date" type="date" required></label><label>{{t('modal.to')}}<input v-model="form.end_date" type="date" required></label></div><div v-if="previewDays" class="date-preview"><CalendarDays :size="18"/><span>{{t('modal.preview')}}</span><strong>{{previewDays}} {{workingDayLabel(previewDays)}}</strong></div><label>{{t('modal.note')}} <span class="optional">{{t('modal.optional')}}</span><textarea v-model="form.note" maxlength="280" :placeholder="t('modal.placeholder')"></textarea></label><p v-if="error" class="form-error">{{error}}</p><button class="primary wide" type="submit">{{t('modal.submit')}} <ArrowRight :size="18"/></button></form></div>
+  <div
+    v-if="formOpen"
+    class="modal-backdrop"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="request-dialog-title"
+    aria-describedby="request-dialog-description"
+    @click.self="formOpen=false"
+  >
+    <form
+      ref="requestDialog"
+      class="modal"
+      @keydown.esc.stop="formOpen=false"
+      @keydown.tab="keepRequestFocus"
+      @submit.prevent="submit"
+    >
+      <button class="modal-close" type="button" :aria-label="t('modal.close')" @click="formOpen=false">
+        <X :size="19"/>
+      </button>
+      <p class="kicker">{{t('modal.eyebrow')}}</p>
+      <h2 id="request-dialog-title">{{t('modal.title')}}</h2>
+      <p id="request-dialog-description" class="muted">{{t('modal.description')}}</p>
+      <label>
+        {{t('modal.type')}}
+        <select v-model="form.leave_type">
+          <option value="vacation">{{t('leaveType.vacation')}}</option>
+          <option value="permit">{{t('leaveType.permit')}}</option>
+          <option value="personal">{{t('leaveType.personal')}}</option>
+        </select>
+      </label>
+      <div class="date-grid">
+        <label>{{t('modal.from')}}<input v-model="form.start_date" type="date" required></label>
+        <label>{{t('modal.to')}}<input v-model="form.end_date" type="date" required></label>
+      </div>
+      <div v-if="previewDays" class="date-preview">
+        <CalendarDays :size="18"/>
+        <span>{{t('modal.preview')}}</span>
+        <strong>{{previewDays}} {{workingDayLabel(previewDays)}}</strong>
+      </div>
+      <label>
+        {{t('modal.note')}} <span class="optional">{{t('modal.optional')}}</span>
+        <textarea v-model="form.note" maxlength="280" :placeholder="t('modal.placeholder')"></textarea>
+      </label>
+      <p v-if="error" class="form-error" role="alert">{{error}}</p>
+      <button class="primary wide" type="submit">{{t('modal.submit')}} <ArrowRight :size="18"/></button>
+    </form>
+  </div>
 </template>
+
+<style scoped>
+.modal .muted,
+.modal .optional {
+  color: var(--ink);
+}
+</style>

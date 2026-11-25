@@ -1,5 +1,7 @@
 # Proposed ownership and peer review
 
+On 25 November 2026, the group assigned Member 3 (@ranahananshafique) the remaining browser automation for UC-04, UC-07, UC-08, and UC-09. The allocation includes 20 flows, authenticated Lighthouse and axe-core checks, the passive security assessment, k6, and controlled recovery. Earlier use-case ownership below records the previous proposal. The group’s allocation and the instructor’s scope decisions are recorded separately.
+
 Version0.1, 22 November 2026; **allocation NOT CONFIRMED**. Three members are required. No existing project record inspected confirms the complete membership/roll numbers or their agreed areas; consequently this plan uses Member1/Member2/Member3 and A1/A2/A3, rather than treating the names in prompt.md as confirmed records. Students must fill names/rolls/section and acknowledge allocation before implementation ownership is reported as agreed. *v0.2 (24 Nov 2026): use-case allocation updated below; still PROPOSED until all three members acknowledge it.*
 
 | Area / proposed member | Accountable outputs | Cross-review | Agreement |

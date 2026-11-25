@@ -30,10 +30,10 @@ Version 0.2 — 24 November 2026. Supersedes the Phase 1 candidate table in [WOR
 |---|---|---|---|---|---|---|---|
 | UC-01 | Employee submits a leave request | Member 1 | W1 | 5 | 5 | 5 ([b1/run-1](../evidence/browser/b1/run-1/flow-coverage.md), [run-2](../evidence/browser/b1/run-2/flow-coverage.md), [committed-source re-run](../evidence/browser/b1-provenance-2026-11-24/flow-coverage.md)) | In scope |
 | UC-02 | Manager/admin decides a pending request (approve or reject) | Member 2 | W2 | 5 (+1 blocked objective) | 5 | 5 (same runs) | In scope |
-| UC-04 | Employee reviews own leave record and remaining entitlement | Member 3 | W1/W2 outcome (read-only) | 5 | 0 | 0 | In scope |
-| UC-07 | Recipient receives leave notifications | Member 2 | W1/W2 events | 5 | 0 | 0 | **Conditional on D-2** |
-| UC-08 | Administrator maintains employee leave entitlement | Member 1 | Input to W1 balance rule | 5 | 0 | 0 | **Conditional on D-1** |
-| UC-09 | Administrator changes an employee's approving team | Member 3 | Input to W2 authorization | 5 | 0 | 0 | **Conditional on D-1** |
+| UC-04 | Employee reviews own leave record and remaining entitlement | Member 3 | W1/W2 outcome (read-only) | 5 | 5 | 5 | In scope |
+| UC-07 | Recipient receives leave notifications | Member 3 | W1/W2 events | 5 | 5 | 5 | **Conditional on D-2** |
+| UC-08 | Administrator maintains employee leave entitlement | Member 3 | Input to W1 balance rule | 5 | 5 | 5 | **Conditional on D-1** |
+| UC-09 | Administrator changes an employee's approving team | Member 3 | Input to W2 authorization | 5 | 5 | 5 | **Conditional on D-1** |
 
 **Mandatory flow coverage:** 10 of 30 executed and passed (33.3%). Counting rules:
 - **The 30 mandatory flows** (6 × 5) are the only denominator.
@@ -162,7 +162,7 @@ The machine-readable registry is [`tests/team/browser/flows.json`](../../../test
 | Trigger | Signing in or opening Overview or Requests |
 | Preconditions | INC-01 done. E has k1 approved (D = 3), k2 rejected and k3 pending, all created through the real W1/W2 APIs; allowance A = 10; a teammate has requests of their own |
 | Requirements / rules | FR-W2-01 (employee sees own records only), FR-W1-05, FR-W1-06, FR-W2-05, FR-W2-06; BR-03, BR-04 |
-| Owner / status | Member 3 / specified, **not automated** |
+| Owner / status | Member 3 / **5 of 5 automated and passed** ([Area 3 evidence](../testing/AREA3-RESULTS.md)) |
 
 **Main flow (TC-UC04-M):**
 1. Overview shows available 7, used 3 of 10, and counts pending 1 / approved 1 / total 3 [S].
@@ -194,7 +194,7 @@ The machine-readable registry is [`tests/team/browser/flows.json`](../../../test
 | Trigger | A W1 submission or W2 decision commits |
 | Preconditions | An **isolated notification environment** exists (see [TEST-PLAN.md](../planning/TEST-PLAN.md#isolated-notification-environment-uc-07)). The recipient is signed in. A decision event for k is produced by the triggering actor through the API |
 | Requirements / rules | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06; BR-04, BR-05 |
-| Owner / status | Member 2 (environment support Member 3) / specified, **not automated; blocked on D-2 and the environment** |
+| Owner / status | Member 3 / **5 of 5 automated and passed** ([Area 3 evidence](../testing/AREA3-RESULTS.md)) |
 
 **Main flow (TC-UC07-M):**
 1. The triggering manager approves k.
@@ -234,7 +234,7 @@ The machine-readable registry is [`tests/team/browser/flows.json`](../../../test
 | Trigger | Opening Django Admin "Leave balances" |
 | Preconditions | Staff admin X; employee E with allowance 10; employee E_nb without a balance |
 | Requirements / rules | FR-ADM-01 (PROPOSED), FR-W1-05; BR-03 |
-| Owner / status | Member 1 (admin fixtures shared with Member 3) / specified, **not automated** |
+| Owner / status | Member 3 / **5 of 5 automated and passed** ([Area 3 evidence](../testing/AREA3-RESULTS.md)) |
 
 **Main flow (TC-UC08-M):**
 1. X opens Leave balances.
@@ -269,7 +269,7 @@ The machine-readable registry is [`tests/team/browser/flows.json`](../../../test
 | Trigger | Editing the employee in Django Admin "Users" (role and team fields, `admin.py:7–10`) |
 | Preconditions | Teams T (manager M_T) and U (manager M_U); employee E in T with pending k; staff admin X |
 | Requirements / rules | FR-ADM-02 (PROPOSED), FR-W2-01, FR-W2-02; BR-04 |
-| Owner / status | Member 3 (admin fixtures shared with Member 1) / specified, **not automated** |
+| Owner / status | Member 3 / **5 of 5 automated and passed** ([Area 3 evidence](../testing/AREA3-RESULTS.md)) |
 
 **Main flow (TC-UC09-M):**
 1. X opens Users.

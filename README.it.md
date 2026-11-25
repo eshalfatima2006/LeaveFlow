@@ -152,6 +152,8 @@ npm run dev
 
 ## Verifica
 
+La guida alle [verifiche dell'Area 3](docs/sqe/testing/AREA3-VERIFICATION.md) descrive i test isolati del gruppo con Playwright, le verifiche di accessibilità e sicurezza passiva e le misure con k6.
+
 ```powershell
 .venv\Scripts\python backend\manage.py test leave
 cd frontend

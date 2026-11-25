@@ -4,13 +4,9 @@ RUN mix local.hex --force && mix local.rebar --force
 COPY notification_worker/mix.exs notification_worker/mix.lock ./
 RUN MIX_ENV=prod mix deps.get --only prod && MIX_ENV=prod mix deps.compile
 COPY notification_worker/lib ./lib
-RUN MIX_ENV=prod mix compile
+RUN MIX_ENV=prod mix release
 
 FROM elixir:1.20.2-otp-28
 WORKDIR /app
-ENV MIX_ENV=prod
-COPY --from=build /app/_build ./_build
-COPY --from=build /app/deps ./deps
-COPY --from=build /app/mix.exs ./mix.exs
-COPY --from=build /app/mix.lock ./mix.lock
-CMD ["mix", "run", "--no-halt"]
+COPY --from=build /app/_build/prod/rel/leave_flow_worker ./
+CMD ["/app/bin/leave_flow_worker", "start"]

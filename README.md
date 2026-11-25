@@ -152,6 +152,8 @@ npm run dev
 
 ## Verification
 
+The course team's isolated Playwright, accessibility, passive security, and k6 checks are documented in [Area 3 verification](docs/sqe/testing/AREA3-VERIFICATION.md).
+
 ```powershell
 .venv\Scripts\python backend\manage.py test leave
 cd frontend

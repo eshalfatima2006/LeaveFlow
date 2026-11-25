@@ -252,3 +252,11 @@ Students must review source safety/fixtures/assertions/evidence, retain prompts,
 - **Not changed:** application code, tests, existing evidence; no business rule.
 - **Development database:** unchanged (metadata only).
 - **Student review required:** confirm DR-001; obtain instructor confirmation of the critical module; reply to the PR #2 reviewer.
+
+# Member 3 Area 3 AI-assisted verification
+
+**25 November 2026.** OpenAI Codex helped implement and verify the group’s agreed Member 3 work. The request was to complete the twenty UC-04, UC-07, UC-08, and UC-09 browser flows, Lighthouse and axe-core evaluation, passive ZAP and dependency assessment, and k6 and controlled recovery evidence. The original prompts and conversation are retained in the working session.
+
+Outputs include the browser tests and disposable-service profile, audit and performance runners, request-dialog accessibility repair, and an OTP release for the notification worker. Codex checked assertions against the application contracts and ran browser, accessibility, passive security, package audit, performance, recovery, and documentation verification. The notification image and request-dialog changes were driven by observed failures. The reports preserve failed measurements and distinguish measured outcomes from unresolved causes.
+
+Git and the authenticated GitHub CLI were verified as `ranahananshafique` before the branch and PR work. Member 3’s independent review and viva rerun remain to be recorded. [Area 3 verification results](testing/AREA3-RESULTS.md) · [Draft PR #20](https://github.com/eshalfatima2006/LeaveFlow/pull/20)

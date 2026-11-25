@@ -1,11 +1,11 @@
 import { expect, test as base, type APIRequestContext, type Locator, type Page, type TestInfo } from '@playwright/test'
 
-import { BACKEND_URL, fixture } from './harness'
+import { BACKEND_URL, FRONTEND_URL, NOTIFICATIONS_URL, fixture } from './harness'
 
 export { expect }
 
 export type FixtureUser = { id: number; username: string; password: string; display_name: string }
-export type Scenario = { users: Record<string, FixtureUser>; requests: Record<string, number> }
+export type Scenario = { users: Record<string, FixtureUser>; requests: Record<string, number>; teams: Record<string, number> }
 export type RowState = {
   id: number; employee: string; leave_type: string; start_date: string; end_date: string; note: string
   status: string; decided_by: string | null; decided_at: string | null; business_days: number; created_at: string
@@ -27,6 +27,12 @@ export const test = base.extend<{ resetDatabase: void; consoleLog: string[] }>({
     await testInfo.attach('browser-console.json', { body: JSON.stringify(log, null, 2), contentType: 'application/json' })
   }, { auto: true }],
   page: async ({ page }, use) => {
+    if (process.env.SQE_ZAP_PROXY) {
+      const origins = new Set([BACKEND_URL, FRONTEND_URL, NOTIFICATIONS_URL])
+      await page.route('**/*', route => (
+        origins.has(new URL(route.request().url()).origin) ? route.continue() : route.abort()
+      ))
+    }
     await page.addInitScript(() => window.localStorage.setItem('leaveflow_locale', 'en'))
     await use(page)
   },
@@ -60,7 +66,7 @@ export async function apiDecide(request: APIRequestContext, token: string, id: n
 
 // ---------- UI helpers (selectors are accessible names from the English locale) ----------
 export async function signIn(page: Page, user: FixtureUser) {
-  await page.goto('/')
+  await page.goto(FRONTEND_URL)
   await page.getByLabel('Username').fill(user.username)
   await page.getByLabel('Password').fill(user.password)
   await page.getByRole('button', { name: 'Enter the dashboard' }).click()
