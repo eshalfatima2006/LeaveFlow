@@ -15,3 +15,5 @@ DEBUG = True
 SECURE_SSL_REDIRECT = False
 ALLOWED_HOSTS = ["testserver", "localhost", "127.0.0.1"]
 TEST_RUNNER = "tests.team.runner.SafeDiscoverRunner"
+# Disposable synthetic accounts only; the browser profile uses the same fast hasher.
+PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
