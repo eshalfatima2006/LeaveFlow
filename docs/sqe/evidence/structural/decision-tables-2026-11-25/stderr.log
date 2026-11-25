@@ -1,0 +1,91 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+test_dt004_approval_notifies_owner_only (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_approval_notifies_owner_only)
+DT-004 decision branch: approval → one leave.approved event to the owner only. ... ok
+test_dt004_r1_admin_same_team (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r1_admin_same_team)
+DT-004 R1: A=T, T=T, O=F → notified. ... ok
+test_dt004_r2_admin_other_team (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r2_admin_other_team)
+DT-004 R2: A=T, T=F, O=F → notified. ... ok
+test_dt004_r3_manager_same_team (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r3_manager_same_team)
+DT-004 R3: M=T, T=T, O=F → notified. ... ok
+test_dt004_r4_manager_other_team (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r4_manager_other_team)
+DT-004 R4: M=T, T=F, O=F → not notified (other team's and teamless manager). ... ok
+test_dt004_r5_employee_same_team (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r5_employee_same_team)
+DT-004 R5: A=F, M=F, T=T, O=F → the teammate is not notified. ... ok
+test_dt004_r6_employee_other_team (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r6_employee_other_team)
+DT-004 R6: A=F, M=F, T=F, O=F → not notified. ... ok
+test_dt004_r7_admin_is_requester (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r7_admin_is_requester)
+DT-004 R7: A=T, O=T → the requesting admin is excluded; exactly the others remain. ... ok
+test_dt004_r8_manager_is_requester (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r8_manager_is_requester)
+DT-004 R8: M=T, T=T, O=T → the requesting manager is excluded; exactly the admins remain. ... ok
+test_dt004_r9_employee_is_requester (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r9_employee_is_requester)
+DT-004 R9: A=F, M=F, O=T → the requester is excluded; exactly both admins and m1 are notified. ... ok
+test_dt004_refused_calls_publish_nothing (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_refused_calls_publish_nothing)
+DT-004: a refused submission (400) and a refused decision (403) publish no event. ... ok
+test_dt004_rejection_notifies_owner_only (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_rejection_notifies_owner_only)
+DT-004 decision branch: rejection → one leave.rejected event to the owner only. ... ok
+test_dt004_teamless_requester_characterization (tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_teamless_requester_characterization)
+DT-004, T with both teams null — CHARACTERIZATION (GAP-08), not an approved oracle. ... ok
+test_dt002_pk_excluded_rows (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_pk_excluded_rows)
+DT-002 P=F, 12 rows (model level): the saved row never blocks itself, whatever E,S,L,R are. ... ok
+test_dt002_r10 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r10)
+DT-002 R10: E and S false → 201. ... ok
+test_dt002_r11 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r11)
+DT-002 R11: E, S and L false → 201. ... ok
+test_dt002_r12 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r12)
+DT-002 R12: E, S and R false → 201. ... ok
+test_dt002_r1_approved_blocks (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r1_approved_blocks)
+DT-002 R1: E,S,L,R all true, X approved (second value of S) → 400 overlap, no row. ... ok
+test_dt002_r1_pending_blocks (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r1_pending_blocks)
+DT-002 R1: E,S,L,R all true, X pending → 400 overlap, no row. ... ok
+test_dt002_r2 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r2)
+DT-002 R2: only L false (candidate ends before X starts) → 201. ... ok
+test_dt002_r3 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r3)
+DT-002 R3: only R false (candidate starts after X ends) → 201. ... ok
+test_dt002_r4 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r4)
+DT-002 R4: only S false (X rejected) → 201. ... ok
+test_dt002_r5 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r5)
+DT-002 R5: S and L false → 201. ... ok
+test_dt002_r6 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r6)
+DT-002 R6: S and R false → 201. ... ok
+test_dt002_r7 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r7)
+DT-002 R7: only E false (X belongs to a colleague) → 201. ... ok
+test_dt002_r8 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r8)
+DT-002 R8: E and L false → 201. ... ok
+test_dt002_r9 (tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r9)
+DT-002 R9: E and R false → 201. ... ok
+test_dt005_approval_through_w2_becomes_upcoming (tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_approval_through_w2_becomes_upcoming)
+DT-005 with W2: pending (null) → manager approves → the same dates appear in /api/team/. ... ok
+test_dt005_earliest_start_selected (tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_earliest_start_selected)
+DT-005: two R1 rows, the later one stored first → the earlier start is returned. ... ok
+test_dt005_no_requests (tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_no_requests)
+DT-005: a member without any request → null. ... ok
+test_dt005_r1_end_after_today (tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r1_end_after_today)
+DT-005 R1: approved, end = today+1 (leave in progress) → shown. ... ok
+test_dt005_r1_end_today (tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r1_end_today)
+DT-005 R1: approved, end = today (inclusive limit) → shown. ... ok
+test_dt005_r2_end_yesterday (tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r2_end_yesterday)
+DT-005 R2: approved, end = today-1 → null. ... ok
+test_dt005_r3_pending_future (tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r3_pending_future)
+DT-005 R3: pending and future → null. ... ok
+test_dt005_r3_rejected_future (tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r3_rejected_future)
+DT-005 R3: rejected and future (second non-approved value of P) → null. ... ok
+test_dt005_r4_pending_past (tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r4_pending_past)
+DT-005 R4: pending and past → null. ... ok
+test_dt003_r1_admin_with_team (tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r1_admin_with_team)
+DT-003 R1: admin with a team → every request of every team. ... ok
+test_dt003_r1_admin_without_team (tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r1_admin_without_team)
+DT-003 R1: admin without a team → still every request (T does not matter). ... ok
+test_dt003_r2_manager_with_team (tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r2_manager_with_team)
+DT-003 R2: M=T, T=T → exactly the team's requests, own included. ... ok
+test_dt003_r3_manager_without_team (tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r3_manager_without_team)
+DT-003 R3: M=T, T=F → own only; another teamless user's request is not listed. ... ok
+test_dt003_r4_employee_with_team (tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r4_employee_with_team)
+DT-003 R4: M=F, T=T → own only; the teammate's request is not listed. ... ok
+test_dt003_r5_employee_without_team (tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r5_employee_without_team)
+DT-003 R5: M=F, T=F → own only (the row no earlier team test covered). ... ok
+
+----------------------------------------------------------------------
+Ran 42 tests in 81.873s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
