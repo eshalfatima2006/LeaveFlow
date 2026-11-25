@@ -7,7 +7,7 @@
 
 **Environment/profile, tool versions, DB/fixture/spec hashes:** Python 3.12.7, Django 6.0.7, DRF 3.17.1. Profile `sqe-memory-v1` (in-memory SQLite); also PostgreSQL 17.12 in a throwaway container. Fixture `tests/team/fixtures/leave_data.py` SHA-256 `db3f0129…`; OpenAPI spec `e5095486…`.
 
-**FR / BR / risk IDs / test IDs:** FR-W2-05, FR-W1-05; BR-03; risk PR-01 (score 25); gap GAP-01; exit criterion EC-01. Tests API-INT-001.09 and .03 (implemented), API-INT-002.05 (concurrent form), OBJ-UC02-01 (blocked).
+**FR / BR / risk IDs / test IDs:** FR-W2-05, FR-W1-05; BR-03; risk PR-01 (score 25); gap GAP-01 (rejection contract agreed); exit criterion EC-01. Tests API-INT-001.09 and .03 (implemented), API-INT-002.05 (concurrent form), OBJ-UC02-01 (not implemented).
 
 **Severity proposal / priority proposal / rationale:** S2 Major / P1. Wrong entitlement in a selected workflow, reproducible every time, and the decision cannot be reopened through the API. It blocks release under EC-01. Final values: triage PENDING.
 
@@ -24,7 +24,7 @@ Or run (the test passes while the defect exists):
 .venv/bin/python scripts/sqe/run_tests.py team tests.team.integration.test_w1_w2_integration.ExitCriterionScenarioTests
 ```
 
-**Expected result and test basis:** step 4 is refused, B stays pending without a decider, and 1 day remains. Basis: EC-01 and the BR-03 desired rule "approval must not produce A<0". The status code and message are **not agreed yet** (GAP-01), so the team must confirm the rule before this is counted as verified.
+**Expected result and test basis:** 400 `{"detail": "Insufficient leave balance"}`, B stays pending without a decider (`decided_by` and `decided_at` null), and 1 day remains. Basis: EC-01 and the BR-03 rule "approval must not produce A<0"; contract agreed by the team on 25 Nov 2026 (GAP-01).
 
 **Observed result:** 200. Remaining balance **−3**.
 
@@ -42,11 +42,11 @@ Or run (the test passes while the defect exists):
 
 **Assigned owner / triage decision / status:** PENDING / PENDING / New
 
-**Root cause and RCA link:** the rule "approved days ≤ allowance" was never specified for approval and is not checked there: [`backend/leave/views.py` lines 81–86](https://github.com/eshalfatima2006/LeaveFlow/blob/19678451f98fd1f030085928697cd912bba419fb/backend/leave/views.py#L81-L86) save the decision without reading the balance. The only check is at submission ([`serializers.py` lines 36–38](https://github.com/eshalfatima2006/LeaveFlow/blob/19678451f98fd1f030085928697cd912bba419fb/backend/leave/serializers.py#L36-L38)), where pending requests reserve nothing. [Full RCA](https://github.com/eshalfatima2006/LeaveFlow/blob/19678451f98fd1f030085928697cd912bba419fb/docs/sqe/defects/RCA-MAJOR-01-BALANCE-OVERDRAW.md). Pareto category: Validation/Boundary.
+**Root cause and RCA link:** the rule "approved days ≤ allowance" was never specified for approval and is not checked there: [`backend/leave/views.py` lines 81–86](https://github.com/eshalfatima2006/LeaveFlow/blob/19678451f98fd1f030085928697cd912bba419fb/backend/leave/views.py#L81-L86) save the decision without reading the balance. The only check is at submission ([`serializers.py` lines 36–38](https://github.com/eshalfatima2006/LeaveFlow/blob/19678451f98fd1f030085928697cd912bba419fb/backend/leave/serializers.py#L36-L38)), where pending requests reserve nothing. [Full RCA](https://github.com/eshalfatima2006/LeaveFlow/blob/518684b4e3f7d104f97e169e717dcfde6920df76/docs/sqe/defects/RCA-MAJOR-01-BALANCE-OVERDRAW.md). Pareto category: Validation/Boundary.
 
-**Corrective action (proposed):** in the decision transaction, lock the owner's `LeaveBalance` row, then refuse an approval whose days exceed the available days. A check without that lock still overdraws with two simultaneous approvers (shown by experiment).
+**Corrective action (proposed):** in the decision transaction, lock the owner's `LeaveBalance` row, then refuse an approval whose days exceed the available days with 400 `{"detail": "Insufficient leave balance"}`, writing nothing. A check without that lock still overdraws with two simultaneous approvers (shown by experiment).
 
-**Preventive action (proposed):** specify the rule and its error contract for approval; boundary regressions at available −1, equal and +1; the team suite in CI.
+**Preventive action (proposed):** keep the rule and its agreed error contract in BR-03 and FR-W2-05 (recorded 25 Nov 2026); boundary regressions at available −1, equal and +1; the team suite in CI.
 
 **Fix commit / real PR URL / regression ID:** PENDING / PENDING / replaces API-INT-001.03, .09 and API-INT-002.05
 
