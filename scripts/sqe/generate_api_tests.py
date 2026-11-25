@@ -10,23 +10,32 @@ does not ship it; any Python 3 with PyYAML can run the generator, since it
 only reads YAML and writes Python source).
 
 For every POST operation with a JSON request body, the generator reads each
-input field's constraints from the spec and derives:
+input (body field, path parameter, Authorization header) from the spec and derives:
 
   EP, valid     one class per enum value; otherwise one class for the declared
-                type/format (value: the request example or an x-sqe-test binding)
+                type/format (value: the request example or an x-sqe-test binding);
+                an omitted optional field
   EP, invalid   wrong type; out-of-enum (enum fields); invalid format
-                (date/date-time); null and missing (required fields);
-                over-max-length (maxLength fields, 2 x maxLength characters)
+                (date/date-time); null (unless nullable); missing (required
+                fields); over-max-length (2 x maxLength characters); every
+                x-invalid-examples value; no token and an unknown token (secured
+                operations)
   BVA           3 points limit-1, limit, limit+1 for maxLength, minLength,
-                minimum, maximum, and x-relational date comparisons
+                minimum, maximum, x-relational date comparisons and
+                x-rule-boundaries (business days vs allowance, both ends of the
+                fixture's existing interval); a length below 0 is infeasible
 
-Each case changes exactly one field of the operation's example body. Cases
-that yield the same request body are merged into one test (the docstring lists
-every class the test covers); cases with the same body but contradictory
-expectations abort generation. The generated module runs each body through
-one real API call with the spec's fixture actor, asserts the HTTP status
-(valid -> the documented 2xx, invalid -> a documented 4xx) and checks the
-persisted outcome named by x-sqe-test.readback.
+Each case changes one input of the operation's example request (an
+x-rule-boundaries case sets its start/end pair, which is one interval input).
+Cases that yield the same request are merged into one test (the docstring lists
+every class the test covers); the same request with contradictory expectations
+aborts generation. The generated module sends each request through one real API
+call with the spec's fixture actor, asserts the exact documented status (valid ->
+2xx, invalid body -> x-sqe-test.invalid_status, path -> 404, token -> 401), the
+error key, and the persisted outcome named by x-sqe-test.readback.
+
+generated_cases.json, written next to the output, is the case manifest: one entry
+per generated test with its classes, request and expected status.
 
 The documented response schemas of every operation are also exported, with
 $refs resolved, to api_contract.json next to the output. The contract tests read
@@ -55,6 +64,7 @@ except ImportError:  # pragma: no cover - environment message
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SPEC = "docs/sqe/openapi/leaveflow-api.yaml"
 DEFAULT_OUTPUT = "tests/team/generated/test_generated_api.py"
+MANIFEST_NAME = "generated_cases.json"
 CONTRACT_NAME = "api_contract.json"  # written next to the output, except for --demo-env modules
 GENERATOR = "scripts/sqe/generate_api_tests.py"
 
@@ -151,9 +161,10 @@ def check_ref(ref, where):
 # Case derivation
 # ---------------------------------------------------------------------------
 class Case:
-    def __init__(self, field, technique, label, value, valid):
+    def __init__(self, field, technique, label, value, valid, where="body"):
         self.field, self.technique, self.label = field, technique, label
         self.value, self.valid = value, valid
+        self.where = where  # body | path | auth | rule (value: dict of body fields)
 
 
 def shift(value, fmt, delta):
@@ -201,10 +212,14 @@ def field_cases(name, schema, required, base, binding):
     cases.append(Case(name, "EP", f"invalid wrong type ({json.dumps(WRONG_TYPE[typ])})", WRONG_TYPE[typ], False))
     if fmt in INVALID_FORMAT:
         cases.append(Case(name, "EP", f"invalid {fmt} format ({INVALID_FORMAT[fmt]!r})", INVALID_FORMAT[fmt], False))
+    if not schema.get("nullable", False):
+        cases.append(Case(name, "EP", f"invalid null ({'required' if required else 'optional'})", None, False))
     if required:
-        if not schema.get("nullable", False):
-            cases.append(Case(name, "EP", "invalid null (required)", None, False))
         cases.append(Case(name, "EP", "invalid missing (required)", MISSING, False))
+    else:
+        cases.append(Case(name, "EP", "valid omitted (optional)", MISSING, True))
+    for value in schema.get("x-invalid-examples", []):
+        cases.append(Case(name, "EP", f"invalid example {value!r}", value, False))
 
     # Length constraints -------------------------------------------------------
     if "maxLength" in schema:
@@ -246,12 +261,62 @@ def field_cases(name, schema, required, base, binding):
     return cases
 
 
-def body_key(body):
-    def norm(v):
-        if isinstance(v, Fixture):
-            return {"$fixture": v.ref}
-        return v
-    return json.dumps({k: norm(v) for k, v in body.items()}, sort_keys=True)
+def path_cases(parameter):
+    name = parameter["name"]
+    cases = [Case(name, "EP", "valid existing record", MISSING, True, "path")]
+    cases += [Case(name, "EP", f"invalid example {v!r}", v, False, "path")
+              for v in parameter.get("x-invalid-examples", [])]
+    return cases
+
+
+def auth_cases():
+    return [Case("Authorization", "EP", "valid token", "actor", True, "auth"),
+            Case("Authorization", "EP", "invalid no token", "none", False, "auth"),
+            Case("Authorization", "EP", "invalid unknown token", "invalid", False, "auth")]
+
+
+def end_after_business_days(start, days):
+    """Last day of an interval from start that contains exactly ``days`` weekdays."""
+    current, counted = dt.date.fromisoformat(start), 0
+    while True:
+        counted += current.weekday() < 5
+        if counted == days:
+            return current.isoformat()
+        current += dt.timedelta(days=1)
+
+
+def rule_cases(rule, fixture):
+    """Cases of one x-rule-boundaries entry; the name shown as field is 'a..b'."""
+    first, last = rule["fields"]
+    name, rid = f"{first}..{last}", rule["rule"]
+    cases = []
+    if rule["kind"] == "business-days":
+        limit = fixture[rule["maximum"]]
+        for case in bva(name, limit, f"{rid} business days <= {limit}", True, below_valid=True, above_valid=False):
+            case.value = {first: rule["start"], last: end_after_business_days(rule["start"], case.value)}
+            cases.append(case)
+        end = end_after_business_days(rule["start"], 2 * limit)
+        cases.append(Case(name, "EP", f"invalid {rid} {2 * limit} business days", {first: rule["start"], last: end}, False))
+    elif rule["kind"] == "interval-overlap":
+        interval = fixture[rule["interval"]]
+        for limit, label, below, above in ((interval["start"], "existing start", True, False),
+                                           (interval["end"], "existing end", False, True)):
+            inner = interval["start"] != interval["end"]
+            for case in bva(name, limit, f"{rid} {label}", False, below_valid=below or not inner,
+                            above_valid=above or not inner, fmt="date"):
+                case.value = {first: case.value, last: case.value}
+                cases.append(case)
+        around = {first: shift(interval["start"], "date", -1), last: shift(interval["end"], "date", 1)}
+        cases.append(Case(name, "EP", f"invalid {rid} encloses existing", around, False))
+    else:
+        raise SpecError(f"Unknown x-rule-boundaries kind {rule['kind']!r}")
+    for case in cases:
+        case.where = "rule"
+    return cases
+
+
+def request_key(request):
+    return json.dumps(request, sort_keys=True, default=lambda v: {"$fixture": v.ref})
 
 
 class Operation:
@@ -276,6 +341,10 @@ class Operation:
         missing_params = set(re.findall(r"{(\w+)}", path)) - set(self.path_params)
         if missing_params:
             raise SpecError(f"{self.endpoint}: no x-sqe-test.path_params for {sorted(missing_params)}")
+        self.error_key = meta["error_key"]
+        self.invalid_status = {"body": meta["invalid_status"], "rule": meta["invalid_status"], "path": 404, "auth": 401}
+        if self.error_key not in {"field", "detail"}:
+            raise SpecError(f"{self.endpoint}: error_key must be field or detail")
         props = {k: resolve(spec, v) for k, v in schema.get("properties", {}).items()}
         required = set(schema.get("required", []))
         self.base = {k: Fixture(self.bindings[k]) if k in self.bindings else v for k, v in example.items()}
@@ -284,24 +353,62 @@ class Operation:
             if field_schema.get("readOnly"):
                 continue
             self.fields.append((name, field_cases(name, field_schema, name in required, example, self.bindings.get(name))))
+        for parameter in op.get("parameters", []):
+            if parameter["in"] != "path":
+                raise SpecError(f"{self.endpoint}: only path parameters are supported")
+            self.fields.append((parameter["name"], path_cases(parameter)))
+        rules = {}
+        for rule in op.get("x-rule-boundaries", []):
+            for case in rule_cases(rule, spec["x-sqe-fixture"]):
+                rules.setdefault(case.field, []).append(case)
+        self.fields += rules.items()
+        if op.get("security", spec.get("security")):
+            self.fields.append(("Authorization", auth_cases()))
         self.tests = self.merge()
 
+    def request(self, case):
+        request = {"body": dict(self.base), "path": {}, "auth": "actor"}
+        if case.where == "auth":
+            request["auth"] = case.value
+        elif case.where == "path":
+            if case.value is not MISSING:
+                request["path"] = {case.field: case.value}
+        elif case.where == "rule":
+            request["body"].update(case.value)
+        elif case.value is MISSING:
+            request["body"].pop(case.field, None)
+        else:
+            request["body"][case.field] = case.value
+        return request
+
+    def expectation(self, case):
+        """(status, error key) of a case."""
+        if case.valid:
+            return self.success, None
+        status = self.invalid_status[case.where]
+        if status not in self.errors:
+            raise SpecError(f"{self.endpoint}: {status} is not a documented response")
+        if case.where == "rule":
+            return status, "non_field_errors"
+        if case.where == "body":
+            return status, case.field if self.error_key == "field" else "detail"
+        # A path value that is no integer gets the HTML 404, which has no error key.
+        return status, None if case.where == "path" else "detail"
+
     def merge(self):
-        merged = {}
-        for name, cases in self.fields:
+        merged, used = {}, set()
+        for _, cases in self.fields:
             for case in cases:
-                body = dict(self.base)
-                if case.value is MISSING:
-                    body.pop(name, None)
-                else:
-                    body[name] = case.value
-                key = body_key(body)
+                request = self.request(case)
+                key = request_key(request)
+                expected = self.expectation(case)
                 if key in merged:
-                    if merged[key]["valid"] != case.valid:
-                        raise SpecError(f"{self.endpoint}: contradictory expectations for body {key}")
+                    if merged[key]["expected"] != expected:
+                        raise SpecError(f"{self.endpoint}: contradictory expectations for {key}")
                     merged[key]["cases"].append(case)
                 else:
-                    merged[key] = {"body": body, "valid": case.valid, "cases": [case]}
+                    merged[key] = {**request, "expected": expected, "valid": case.valid, "cases": [case],
+                                   "name": test_name(case, used)}
         return list(merged.values())
 
 
@@ -362,6 +469,8 @@ def py(value):
         return repr(value)
     if isinstance(value, Fixture):
         return f"F({value.ref!r})"
+    if isinstance(value, dict):
+        return body_source(value)
     if isinstance(value, str) and len(value) > 40 and set(value) == {FILL_CHAR}:
         return f"{FILL_CHAR!r} * {len(value)}"
     return repr(value)
@@ -371,7 +480,41 @@ def body_source(body):
     return "{" + ", ".join(f"{k!r}: {py(v)}" for k, v in body.items()) + "}"
 
 
+def call_source(test):
+    status, error = test["expected"]
+    args = [body_source(test["body"]), f"status={status}"]
+    if test["path"]:
+        args.append(f"path={test['path']!r}")
+    if test["auth"] != "actor":
+        args.append(f"auth={test['auth']!r}")
+    if error:
+        args.append(f"error={error!r}")
+    return ", ".join(args)
+
+
+def manifest(ops, sha, source):
+    def shown(v):
+        if isinstance(v, Fixture):
+            return {"fixture": v.ref}
+        if isinstance(v, str) and len(v) > 40 and set(v) == {FILL_CHAR}:
+            return {"repeat": FILL_CHAR, "length": len(v)}
+        return v
+    cases = [{
+        "test": f"{class_name(op)}.{test['name']}",
+        "endpoint": op.endpoint,
+        "classes": [f"{c.field} {c.technique} {c.label}" for c in test["cases"]],
+        "body": {k: shown(v) for k, v in test["body"].items()},
+        "path": test["path"],
+        "auth": test["auth"],
+        "expected_status": test["expected"][0],
+        "expected_error_key": test["expected"][1],
+    } for op in ops for test in op.tests]
+    return {"generated_by": GENERATOR, "spec_sha256": sha,
+            "module_sha256": hashlib.sha256(source.encode("utf-8")).hexdigest(), "cases": cases}
+
+
 def ident(text):
+    text = text.replace("''", "empty").replace(" -", " minus ")
     out = re.sub(r"[^0-9a-zA-Z]+", "_", text).strip("_").lower()
     return out or "x"
 
@@ -380,9 +523,10 @@ def test_name(case, used):
     if case.technique == "BVA":
         value, point = case.label.split(" (", 1)
         point = {"limit-1": "below", "limit": "at", "limit+1": "above"}[point.split(",")[0]]
-        base = f"test_{case.field}_bva_{ident(value)}_{point}"
+        rule = case.label.split(", ", 1)[1].rstrip(")") if case.where == "rule" else ""
+        base = f"test_{ident(case.field)}_bva_{ident(value)}_{point}" + (f"_{ident(rule)}" if rule else "")
     else:
-        base = f"test_{case.field}_ep_{ident(case.label)}"
+        base = f"test_{ident(case.field)}_ep_{ident(case.label)}"
     base = base[:90].rstrip("_")
     name, n = base, 2
     while name in used or keyword.iskeyword(name):
@@ -410,12 +554,15 @@ class GeneratedApiTestCase(TestCase):
     ACTOR = None
     PATH_PARAMS = {}
     SUCCESS = 200
-    ERRORS = ()
 
     def setUp(self):
-        self.people = build_people("gen")
-        # The W2 target: a pending team A request of e1 that m1 may decide.
-        self.pending = make_request(self.people.e1, start=date(2026, 12, 14), end=date(2026, 12, 15))
+        # x-sqe-fixture: every allowance, and the W2 target / overlap interval, a
+        # pending team A request of e1 that m1 may decide.
+        self.people = build_people("gen", allowance=FIXTURE["allowance"])
+        self.pending = make_request(
+            self.people.e1, start=date.fromisoformat(FIXTURE["pending"]["start"]),
+            end=date.fromisoformat(FIXTURE["pending"]["end"]),
+        )
 
     def ref(self, ref):
         root, *attrs = ref.split(".")
@@ -429,8 +576,16 @@ class GeneratedApiTestCase(TestCase):
     def resolve(self, body):
         return {k: self.ref(v.ref) if isinstance(v, F) else v for k, v in body.items()}
 
-    def url(self):
-        return self.PATH.format(**{k: self.ref(v) for k, v in self.PATH_PARAMS.items()})
+    def url(self, path):
+        return self.PATH.format(**{**{k: self.ref(v) for k, v in self.PATH_PARAMS.items()}, **path})
+
+    def client_for(self, auth):
+        if auth == "actor" and self.ACTOR:
+            return token_client(self.ref(self.ACTOR))
+        client = APIClient()
+        if auth == "invalid":
+            client.credentials(HTTP_AUTHORIZATION="Token " + "0" * 40)
+        return client
 
     def snapshot(self):
         if self.READBACK == "created":
@@ -439,20 +594,19 @@ class GeneratedApiTestCase(TestCase):
             return LeaveRequest.objects.filter(pk=self.pending.pk).values("status", "decided_by_id").get()
         return Token.objects.count()
 
-    def check(self, body, *, valid):
-        """One real API call with one generated body; assert status class and persisted outcome."""
-        client = token_client(self.ref(self.ACTOR)) if self.ACTOR else APIClient()
+    def check(self, body, *, status, path=None, auth="actor", error=None):
+        """One real API call with one generated request; assert status, error key and persisted outcome."""
+        client = self.client_for(auth)
         body = self.resolve(body)
         before = self.snapshot()
-        response = getattr(client, self.METHOD)(self.url(), body, format="json")
-        code = response.status_code
-        detail = f"{self.METHOD.upper()} {self.PATH} -> {code} {getattr(response, 'data', None)!r}"
-        if valid:
-            self.assertTrue(200 <= code < 300, "expected 2xx: " + detail)
-            self.assertEqual(code, self.SUCCESS, detail)
-        else:
-            self.assertTrue(400 <= code < 500, "expected 4xx: " + detail)
-            self.assertIn(code, self.ERRORS, "undocumented 4xx: " + detail)
+        response = getattr(client, self.METHOD)(self.url(path or {}), body, format="json")
+        data = getattr(response, "data", None)
+        shown = "(login body hidden)" if self.READBACK == "token" else repr(data)
+        detail = f"{self.METHOD.upper()} {self.PATH} -> {response.status_code}, expected {status}: {shown}"
+        self.assertEqual(response.status_code, status, detail)
+        valid = status == self.SUCCESS
+        if error is not None:
+            self.assertEqual(set(data), {error}, detail)
         after = self.snapshot()
         if self.READBACK == "created":
             self.assertEqual(after - before, 1 if valid else 0, "LeaveRequest rows created")
@@ -460,12 +614,13 @@ class GeneratedApiTestCase(TestCase):
             expected = {"status": body["status"], "decided_by_id": self.ref(self.ACTOR).pk} if valid else before
             self.assertEqual(after, expected, "decision persisted state")
         else:
-            self.assertEqual("token" in response.data, valid, "token in response")
+            self.assertEqual("token" in data, valid, "token in response")
+            self.assertEqual(after - before, 1 if valid else 0, "tokens created")
         return response
 '''
 
 
-def render(spec_path, spec_text, ops, demo_env, command):
+def render(spec_path, spec_text, ops, demo_env, command, fixture):
     sha = hashlib.sha256(spec_text.encode("utf-8")).hexdigest()
     total = sum(len(op.tests) for op in ops)
     lines = [
@@ -476,14 +631,14 @@ def render(spec_path, spec_text, ops, demo_env, command):
         f"# Spec SHA-256: {sha}",
         f"# Command:   {command}",
         "#",
-        "# Test design (from the spec's constraints, one field varied per test, all",
-        "# other fields at the operation's example values):",
-        "#   EP  valid: each enum value / the declared type; invalid: wrong type,",
-        "#       out-of-enum, invalid format, null and missing for required fields,",
-        "#       over-max-length.",
+        "# Test design (from the spec's constraints, one input varied per test, all",
+        "# other inputs at the operation's example values):",
+        "#   EP  valid: each enum value / the declared type / omitted optional field;",
+        "#       invalid: wrong type, out-of-enum, invalid format, null, missing required",
+        "#       field, over-max-length, x-invalid-examples, missing/unknown token.",
         "#   BVA 3-point (limit-1, limit, limit+1) for maxLength/minLength/minimum/",
-        "#       maximum and x-relational constraints.",
-        "# Identical request bodies are generated once; the docstring lists every",
+        "#       maximum, x-relational and x-rule-boundaries constraints.",
+        "# Identical requests are generated once; the docstring lists every",
         "# class the test covers (count each executable case once).",
         f"# Tests: {total}",
     ]
@@ -514,6 +669,7 @@ def render(spec_path, spec_text, ops, demo_env, command):
         "from tests.team.fixtures.leave_data import TEST_PASSWORD, build_people, make_request",
         "",
         f"SPEC_SHA256 = {sha!r}",
+        f"FIXTURE = {fixture!r}",
     ]
     if demo_env:
         name, value = demo_env
@@ -539,20 +695,19 @@ def render(spec_path, spec_text, ops, demo_env, command):
             f"    PATH_PARAMS = {op.path_params!r}",
             f"    READBACK = {op.readback!r}",
             f"    SUCCESS = {op.success!r}",
-            f"    ERRORS = {tuple(op.errors)!r}",
         ]
-        used = set()
         for test in op.tests:
             first, *others = test["cases"]
-            lines += ["", f"    def {test_name(first, used)}(self):"]
+            lines += ["", f"    def {test['name']}(self):"]
             doc = [f"Generated from spec: {op.endpoint} {first.field} {first.technique} {first.label}"]
             if others:
                 doc += [""] + [f"Also generated from spec: {op.endpoint} {c.field} {c.technique} {c.label}" for c in others]
-            doc += ["", f"Expect {'2xx (' + str(op.success) + ')' if test['valid'] else '4xx ' + str(tuple(op.errors))}."]
+            status, error = test["expected"]
+            doc += ["", f"Expect {status}" + (f", error key {error}." if error else ".")]
             lines.append('        """' + doc[0])
             lines += [("        " + d if d else "") for d in doc[1:]]
             lines.append('        """')
-            lines.append(f"        self.check({body_source(test['body'])}, valid={test['valid']})")
+            lines.append(f"        self.check({call_source(test)})")
     return "\n".join(lines) + "\n"
 
 
@@ -569,7 +724,7 @@ def summary(ops):
                 shown = ", ".join(c.label.split(" (")[0] for c in bva_cases)
                 out.append(f"{name}: {len(bva_cases)} BVA values ({shown})")
         cases = sum(len(c) for _, c in op.fields)
-        out.append(f"-> {cases} cases, {len(op.tests)} tests after merging identical request bodies")
+        out.append(f"-> {cases} cases, {len(op.tests)} tests after merging identical requests")
         out.append("")
     total = sum(len(op.tests) for op in ops)
     out.append(f"Total: {total} tests generated")
@@ -601,11 +756,11 @@ def main(argv=None):
     try:
         ops = load_operations(spec)
     except (SpecError, KeyError, TypeError, ValueError) as exc:
-        sys.exit(f"Spec error: {exc}")
+        sys.exit(f"Spec error: {exc!r}")
 
     command = " ".join(["python3", GENERATOR, str(args.spec), "--output", str(args.output)]
                        + (["--demo-env", args.demo_env] if args.demo_env else []))
-    source = render(args.spec, spec_text, ops, demo_env, command)
+    source = render(args.spec, spec_text, ops, demo_env, command, spec["x-sqe-fixture"])
     compile(source, str(out_file), "exec")  # fail before writing if the output is not valid Python
 
     out_file.parent.mkdir(parents=True, exist_ok=True)
@@ -617,6 +772,8 @@ def main(argv=None):
         sha = hashlib.sha256(spec_text.encode("utf-8")).hexdigest()
         contract = json.dumps(response_contract(spec, sha), indent=1, sort_keys=True, ensure_ascii=False)
         (out_file.parent / CONTRACT_NAME).write_text(contract + "\n", encoding="utf-8")
+        cases = json.dumps(manifest(ops, sha, source), indent=1, ensure_ascii=False)
+        (out_file.parent / MANIFEST_NAME).write_text(cases + "\n", encoding="utf-8")
     print(summary(ops))
     print(f"Written: {out_path}")
     return 0

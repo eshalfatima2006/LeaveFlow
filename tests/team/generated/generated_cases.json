@@ -1,0 +1,1144 @@
+{
+ "generated_by": "scripts/sqe/generate_api_tests.py",
+ "spec_sha256": "00167b42eee65d5ae1ae55c1e56c6efff110aebea8fe50444a25fa48eb7fb61a",
+ "module_sha256": "f17185672783e55a73a45c7153cb82d03fa5fdf8d44713bb2e28872d199a8322",
+ "cases": [
+  {
+   "test": "GeneratedLoginTests.test_username_ep_valid_string",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    "username EP valid string",
+    "password EP valid string (password)"
+   ],
+   "body": {
+    "username": {
+     "fixture": "e1.username"
+    },
+    "password": {
+     "fixture": "password"
+    }
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 200,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedLoginTests.test_username_ep_invalid_wrong_type_true",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    "username EP invalid wrong type (true)"
+   ],
+   "body": {
+    "username": true,
+    "password": {
+     "fixture": "password"
+    }
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "detail"
+  },
+  {
+   "test": "GeneratedLoginTests.test_username_ep_invalid_null_required",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    "username EP invalid null (required)"
+   ],
+   "body": {
+    "username": null,
+    "password": {
+     "fixture": "password"
+    }
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "detail"
+  },
+  {
+   "test": "GeneratedLoginTests.test_username_ep_invalid_missing_required",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    "username EP invalid missing (required)"
+   ],
+   "body": {
+    "password": {
+     "fixture": "password"
+    }
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "detail"
+  },
+  {
+   "test": "GeneratedLoginTests.test_username_ep_invalid_example_empty",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    "username EP invalid example ''"
+   ],
+   "body": {
+    "username": "",
+    "password": {
+     "fixture": "password"
+    }
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "detail"
+  },
+  {
+   "test": "GeneratedLoginTests.test_username_ep_invalid_example_unknown_user",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    "username EP invalid example 'unknown-user'"
+   ],
+   "body": {
+    "username": "unknown-user",
+    "password": {
+     "fixture": "password"
+    }
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "detail"
+  },
+  {
+   "test": "GeneratedLoginTests.test_password_ep_invalid_wrong_type_true",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    "password EP invalid wrong type (true)"
+   ],
+   "body": {
+    "username": {
+     "fixture": "e1.username"
+    },
+    "password": true
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "detail"
+  },
+  {
+   "test": "GeneratedLoginTests.test_password_ep_invalid_null_required",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    "password EP invalid null (required)"
+   ],
+   "body": {
+    "username": {
+     "fixture": "e1.username"
+    },
+    "password": null
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "detail"
+  },
+  {
+   "test": "GeneratedLoginTests.test_password_ep_invalid_missing_required",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    "password EP invalid missing (required)"
+   ],
+   "body": {
+    "username": {
+     "fixture": "e1.username"
+    }
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "detail"
+  },
+  {
+   "test": "GeneratedLoginTests.test_password_ep_invalid_example_empty",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    "password EP invalid example ''"
+   ],
+   "body": {
+    "username": {
+     "fixture": "e1.username"
+    },
+    "password": ""
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "detail"
+  },
+  {
+   "test": "GeneratedLoginTests.test_password_ep_invalid_example_wrong_password",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    "password EP invalid example 'wrong-password'"
+   ],
+   "body": {
+    "username": {
+     "fixture": "e1.username"
+    },
+    "password": "wrong-password"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "detail"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_vacation",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "leave_type EP valid enum value 'vacation'",
+    "start_date EP valid string (date)",
+    "end_date EP valid string (date)",
+    "end_date BVA 2026-12-08 (limit+1, end_date >= start_date)",
+    "note EP valid string",
+    "Authorization EP valid token"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-08",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 201,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_permit",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "leave_type EP valid enum value 'permit'"
+   ],
+   "body": {
+    "leave_type": "permit",
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-08",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 201,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_personal",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "leave_type EP valid enum value 'personal'"
+   ],
+   "body": {
+    "leave_type": "personal",
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-08",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 201,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_leave_type_ep_invalid_out_of_enum_zzz_not_in_enum",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "leave_type EP invalid out-of-enum 'zzz_not_in_enum'"
+   ],
+   "body": {
+    "leave_type": "zzz_not_in_enum",
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-08",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "leave_type"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_leave_type_ep_invalid_wrong_type_true",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "leave_type EP invalid wrong type (true)"
+   ],
+   "body": {
+    "leave_type": true,
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-08",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "leave_type"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_leave_type_ep_invalid_null_optional",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "leave_type EP invalid null (optional)"
+   ],
+   "body": {
+    "leave_type": null,
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-08",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "leave_type"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_leave_type_ep_valid_omitted_optional",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "leave_type EP valid omitted (optional)"
+   ],
+   "body": {
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-08",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 201,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_leave_type_ep_invalid_example_empty",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "leave_type EP invalid example ''"
+   ],
+   "body": {
+    "leave_type": "",
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-08",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "leave_type"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_start_date_ep_invalid_wrong_type_true",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "start_date EP invalid wrong type (true)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": true,
+    "end_date": "2026-12-08",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "start_date"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_start_date_ep_invalid_date_format_not_a_date",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "start_date EP invalid date format ('not-a-date')"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "not-a-date",
+    "end_date": "2026-12-08",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "start_date"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_start_date_ep_invalid_null_required",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "start_date EP invalid null (required)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": null,
+    "end_date": "2026-12-08",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "start_date"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_start_date_ep_invalid_missing_required",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "start_date EP invalid missing (required)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "end_date": "2026-12-08",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "start_date"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_start_date_ep_invalid_example_empty",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "start_date EP invalid example ''"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "",
+    "end_date": "2026-12-08",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "start_date"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_start_date_ep_invalid_example_2026_02_30",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "start_date EP invalid example '2026-02-30'"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-02-30",
+    "end_date": "2026-12-08",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "start_date"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_end_date_ep_invalid_wrong_type_true",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "end_date EP invalid wrong type (true)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "end_date": true,
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "end_date"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_end_date_ep_invalid_date_format_not_a_date",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "end_date EP invalid date format ('not-a-date')"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "end_date": "not-a-date",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "end_date"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_end_date_ep_invalid_null_required",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "end_date EP invalid null (required)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "end_date": null,
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "end_date"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_end_date_ep_invalid_missing_required",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "end_date EP invalid missing (required)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "end_date"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_end_date_ep_invalid_example_empty",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "end_date EP invalid example ''"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "end_date": "",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "end_date"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_end_date_ep_invalid_example_2026_02_30",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "end_date EP invalid example '2026-02-30'"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "end_date": "2026-02-30",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "end_date"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_end_date_bva_2026_12_06_below",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "end_date BVA 2026-12-06 (limit-1, end_date >= start_date)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-06",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "end_date"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_end_date_bva_2026_12_07_at",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "end_date BVA 2026-12-07 (limit, end_date >= start_date)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-07",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 201,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_note_ep_invalid_wrong_type_true",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "note EP invalid wrong type (true)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-08",
+    "note": true
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "note"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_note_ep_invalid_null_optional",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "note EP invalid null (optional)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-08",
+    "note": null
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "note"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_note_ep_valid_omitted_optional",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "note EP valid omitted (optional)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-08"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 201,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_note_ep_invalid_over_max_length_560_chars_280",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "note EP invalid over-max-length (560 chars > 280)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-08",
+    "note": {
+     "repeat": "n",
+     "length": 560
+    }
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "note"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_note_bva_279_below",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "note BVA 279 (limit-1, maxLength 280)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-08",
+    "note": {
+     "repeat": "n",
+     "length": 279
+    }
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 201,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_note_bva_280_at",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "note BVA 280 (limit, maxLength 280)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-08",
+    "note": {
+     "repeat": "n",
+     "length": 280
+    }
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 201,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_note_bva_281_above",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "note BVA 281 (limit+1, maxLength 280)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-08",
+    "note": {
+     "repeat": "n",
+     "length": 281
+    }
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "note"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_note_bva_0_at",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "note BVA 0 (limit, minLength 0)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-08",
+    "note": ""
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 201,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_note_bva_1_above",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "note BVA 1 (limit+1, minLength 0)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-08",
+    "note": "n"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 201,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_start_date_end_date_bva_9_below_br_03_business_days_10",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "start_date..end_date BVA 9 (limit-1, BR-03 business days <= 10)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2027-01-04",
+    "end_date": "2027-01-14",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 201,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_start_date_end_date_bva_10_at_br_03_business_days_10",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "start_date..end_date BVA 10 (limit, BR-03 business days <= 10)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2027-01-04",
+    "end_date": "2027-01-15",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 201,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_start_date_end_date_bva_11_above_br_03_business_days_10",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "start_date..end_date BVA 11 (limit+1, BR-03 business days <= 10)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2027-01-04",
+    "end_date": "2027-01-18",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "non_field_errors"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_start_date_end_date_ep_invalid_br_03_20_business_days",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "start_date..end_date EP invalid BR-03 20 business days"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2027-01-04",
+    "end_date": "2027-01-29",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "non_field_errors"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_14_below_br_02_existing_start",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "start_date..end_date BVA 2026-12-14 (limit-1, BR-02 existing start)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-14",
+    "end_date": "2026-12-14",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 201,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_15_at_br_02_existing_start",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "start_date..end_date BVA 2026-12-15 (limit, BR-02 existing start)",
+    "start_date..end_date BVA 2026-12-15 (limit-1, BR-02 existing end)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-15",
+    "end_date": "2026-12-15",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "non_field_errors"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_16_above_br_02_existing_start",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "start_date..end_date BVA 2026-12-16 (limit+1, BR-02 existing start)",
+    "start_date..end_date BVA 2026-12-16 (limit, BR-02 existing end)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-16",
+    "end_date": "2026-12-16",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "non_field_errors"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_17_above_br_02_existing_end",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "start_date..end_date BVA 2026-12-17 (limit+1, BR-02 existing end)"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-17",
+    "end_date": "2026-12-17",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 201,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_start_date_end_date_ep_invalid_br_02_encloses_existing",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "start_date..end_date EP invalid BR-02 encloses existing"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-14",
+    "end_date": "2026-12-17",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "non_field_errors"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_authorization_ep_invalid_no_token",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "Authorization EP invalid no token"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-08",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "none",
+   "expected_status": 401,
+   "expected_error_key": "detail"
+  },
+  {
+   "test": "GeneratedSubmitRequestTests.test_authorization_ep_invalid_unknown_token",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    "Authorization EP invalid unknown token"
+   ],
+   "body": {
+    "leave_type": "vacation",
+    "start_date": "2026-12-07",
+    "end_date": "2026-12-08",
+    "note": "Generated test"
+   },
+   "path": {},
+   "auth": "invalid",
+   "expected_status": 401,
+   "expected_error_key": "detail"
+  },
+  {
+   "test": "GeneratedDecideRequestTests.test_status_ep_valid_enum_value_approved",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    "status EP valid enum value 'approved'",
+    "id EP valid existing record",
+    "Authorization EP valid token"
+   ],
+   "body": {
+    "status": "approved"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 200,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedDecideRequestTests.test_status_ep_valid_enum_value_rejected",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    "status EP valid enum value 'rejected'"
+   ],
+   "body": {
+    "status": "rejected"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 200,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedDecideRequestTests.test_status_ep_invalid_out_of_enum_zzz_not_in_enum",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    "status EP invalid out-of-enum 'zzz_not_in_enum'"
+   ],
+   "body": {
+    "status": "zzz_not_in_enum"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "detail"
+  },
+  {
+   "test": "GeneratedDecideRequestTests.test_status_ep_invalid_wrong_type_true",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    "status EP invalid wrong type (true)"
+   ],
+   "body": {
+    "status": true
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "detail"
+  },
+  {
+   "test": "GeneratedDecideRequestTests.test_status_ep_invalid_null_required",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    "status EP invalid null (required)"
+   ],
+   "body": {
+    "status": null
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "detail"
+  },
+  {
+   "test": "GeneratedDecideRequestTests.test_status_ep_invalid_missing_required",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    "status EP invalid missing (required)"
+   ],
+   "body": {},
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "detail"
+  },
+  {
+   "test": "GeneratedDecideRequestTests.test_status_ep_invalid_example_empty",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    "status EP invalid example ''"
+   ],
+   "body": {
+    "status": ""
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "detail"
+  },
+  {
+   "test": "GeneratedDecideRequestTests.test_status_ep_invalid_example_pending",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    "status EP invalid example 'pending'"
+   ],
+   "body": {
+    "status": "pending"
+   },
+   "path": {},
+   "auth": "actor",
+   "expected_status": 400,
+   "expected_error_key": "detail"
+  },
+  {
+   "test": "GeneratedDecideRequestTests.test_id_ep_invalid_example_0",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    "id EP invalid example 0"
+   ],
+   "body": {
+    "status": "approved"
+   },
+   "path": {
+    "id": 0
+   },
+   "auth": "actor",
+   "expected_status": 404,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedDecideRequestTests.test_id_ep_invalid_example_minus_1",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    "id EP invalid example -1"
+   ],
+   "body": {
+    "status": "approved"
+   },
+   "path": {
+    "id": -1
+   },
+   "auth": "actor",
+   "expected_status": 404,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedDecideRequestTests.test_id_ep_invalid_example_2147483647",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    "id EP invalid example 2147483647"
+   ],
+   "body": {
+    "status": "approved"
+   },
+   "path": {
+    "id": 2147483647
+   },
+   "auth": "actor",
+   "expected_status": 404,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedDecideRequestTests.test_id_ep_invalid_example_abc",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    "id EP invalid example 'abc'"
+   ],
+   "body": {
+    "status": "approved"
+   },
+   "path": {
+    "id": "abc"
+   },
+   "auth": "actor",
+   "expected_status": 404,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedDecideRequestTests.test_id_ep_invalid_example_1_5",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    "id EP invalid example 1.5"
+   ],
+   "body": {
+    "status": "approved"
+   },
+   "path": {
+    "id": 1.5
+   },
+   "auth": "actor",
+   "expected_status": 404,
+   "expected_error_key": null
+  },
+  {
+   "test": "GeneratedDecideRequestTests.test_authorization_ep_invalid_no_token",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    "Authorization EP invalid no token"
+   ],
+   "body": {
+    "status": "approved"
+   },
+   "path": {},
+   "auth": "none",
+   "expected_status": 401,
+   "expected_error_key": "detail"
+  },
+  {
+   "test": "GeneratedDecideRequestTests.test_authorization_ep_invalid_unknown_token",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    "Authorization EP invalid unknown token"
+   ],
+   "body": {
+    "status": "approved"
+   },
+   "path": {},
+   "auth": "invalid",
+   "expected_status": 401,
+   "expected_error_key": "detail"
+  }
+ ]
+}

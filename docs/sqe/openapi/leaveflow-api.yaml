@@ -18,15 +18,28 @@ info:
                         response each one produces.
       x-known-deviations  baseline behaviour that contradicts this contract.
       x-relational      cross-field constraint (operator and other field).
+      x-invalid-examples  further invalid values of an input (semantic or format
+                        classes that schema keywords do not express).
+      x-rule-boundaries business-rule limits that depend on stored records
+                        (balance, overlap), expressed against x-sqe-fixture.
+      x-sqe-fixture     records that the generated tests create first.
       x-sqe-test        test bindings for scripts/sqe/generate_api_tests.py:
                         acting fixture user, path parameters, fixture-bound
-                        field values and the persisted-state readback to check.
+                        field values, the persisted-state readback to check, the
+                        exact status of an invalid body (invalid_status) and the
+                        error key it must carry (error_key: field | detail).
 servers:
   - url: http://localhost:8000
     description: Local development server (tests use Django's in-process test client)
 
 security:
   - tokenAuth: []
+
+x-sqe-fixture:
+  allowance: 10
+  pending:
+    start: "2026-12-15"
+    end: "2026-12-16"
 
 tags:
   - name: auth
@@ -83,6 +96,8 @@ paths:
       x-sqe-test:
         actor: null
         readback: token
+        invalid_status: 400
+        error_key: detail
         bindings:
           username: e1.username
           password: password
@@ -204,9 +219,21 @@ paths:
         - id: BR-06
           rule: Field domains of LeaveRequestInput (types, enum, formats, maxLength, required).
           response: "400 {<field>: [<message>]}"
+      x-rule-boundaries:
+        - rule: BR-03
+          kind: business-days
+          fields: [start_date, end_date]
+          start: "2027-01-04"
+          maximum: allowance
+        - rule: BR-02
+          kind: interval-overlap
+          fields: [start_date, end_date]
+          interval: pending
       x-sqe-test:
         actor: e1
         readback: created
+        invalid_status: 400
+        error_key: field
 
   /api/requests/{id}/decision/:
     post:
@@ -221,9 +248,12 @@ paths:
         - name: id
           in: path
           required: true
-          description: Leave request id (Django <int:request_id> route).
+          description: |
+            Leave request id (Django <int:request_id> route). Existence is not a
+            numeric limit, so BVA does not apply; 2147483647 is a nonexistent id.
           schema:
             type: integer
+          x-invalid-examples: [0, -1, 2147483647, abc, 1.5]
       requestBody:
         required: true
         content:
@@ -303,6 +333,8 @@ paths:
       x-sqe-test:
         actor: m1
         readback: decided
+        invalid_status: 400
+        error_key: detail
         path_params:
           id: pending.id
 
@@ -383,9 +415,11 @@ components:
       properties:
         username:
           type: string
+          x-invalid-examples: ["", unknown-user]
         password:
           type: string
           format: password
+          x-invalid-examples: ["", wrong-password]
 
     LoginResponse:
       type: object
@@ -404,12 +438,15 @@ components:
           type: string
           enum: [vacation, permit, personal]
           default: vacation
+          x-invalid-examples: [""]
         start_date:
           type: string
           format: date
+          x-invalid-examples: ["", "2026-02-30"]
         end_date:
           type: string
           format: date
+          x-invalid-examples: ["", "2026-02-30"]
           description: Must be on or after start_date (BR-01).
           x-relational:
             operator: ">="
@@ -417,6 +454,7 @@ components:
             rule: BR-01
         note:
           type: string
+          minLength: 0
           maxLength: 280
           default: ""
           description: Leading/trailing whitespace is trimmed before the length check.
@@ -428,6 +466,7 @@ components:
         status:
           type: string
           enum: [approved, rejected]
+          x-invalid-examples: ["", pending]
 
     User:
       type: object
