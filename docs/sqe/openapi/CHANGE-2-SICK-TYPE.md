@@ -82,3 +82,17 @@ That is a product decision, outside the scope of this demonstration. No applicat
 - `test_generated_api_v3.py` loads its tests only when `SQE_SPEC_CHANGE_DEMO=v3`. Without it, the module contributes 0 tests (verified: `Ran 0 tests`).
 - The spec was restored byte-for-byte; its SHA-256 equals the original.
 - Full team suite after the restore: `Ran 157 tests ... OK` (process exit 0). Upstream: `Ran 9 tests ... OK`.
+
+## 5. Re-run on 25 November 2026
+
+The generator was extended after the PR #10 review (path, token, optional-field and business-rule inputs; exact status instead of any documented 4xx), so the demonstration was regenerated and re-run against the same unchanged application on commit `3ebeb40`. Sections 1–4 keep the 24 November run as history; the numbers below are current, and the committed v3 file is the one of this run.
+
+| | |
+|---|---|
+| Original spec SHA-256 (restored, byte-identical) | `00167b42eee65d5ae1ae55c1e56c6efff110aebea8fe50444a25fa48eb7fb61a` |
+| Changed spec SHA-256 | `60ad933a87f6ced0f7dfb6a78ecbc3b3bb143e4ac6edc2f99bafaceab0a49400` |
+| Generated | v1: 68 tests; v3: 69 tests |
+| Test-name diff | `test_leave_type_ep_valid_enum_value_sick` added; 68 unchanged |
+| Result | 69 run, 68 passed, **1 failed** (exit code 1) |
+| Failing test | `test_leave_type_ep_valid_enum_value_sick`: expected 201, application returned 400 `invalid_choice` |
+| Evidence | `docs/sqe/evidence/generated/change-2-sick-type-2026-11-25/` |

@@ -80,3 +80,17 @@ Bringing spec and application back into agreement needs one of two things: the a
 - `test_generated_api_v2.py` loads its tests only when `SQE_SPEC_CHANGE_DEMO=v2` (`load_tests` protocol). Without it, the module contributes 0 tests. Verified: running the v2 and v3 modules without the variable gives `Ran 0 tests`.
 - The spec was restored byte-for-byte: its SHA-256 equals the original. Regenerating v1 afterwards gives identical summary output.
 - Full team suite after the restore: `Ran 157 tests ... OK` (process exit 0). Upstream: `Ran 9 tests ... OK`.
+
+## 5. Re-run on 25 November 2026
+
+The generator was extended after the PR #10 review (path, token, optional-field and business-rule inputs; exact status instead of any documented 4xx), so the demonstration was regenerated and re-run against the same unchanged application on commit `3ebeb40`. Sections 1–4 keep the 24 November run as history; the numbers below are current, and the committed v2 file is the one of this run.
+
+| | |
+|---|---|
+| Original spec SHA-256 (restored, byte-identical) | `00167b42eee65d5ae1ae55c1e56c6efff110aebea8fe50444a25fa48eb7fb61a` |
+| Changed spec SHA-256 | `5bb59778f53ab5e9ced10815516e365f111b50d31fce78334639abb9b9792883` |
+| Generated | v1: 68 tests; v2: 68 tests |
+| Test-name diff | 4 `note` tests replaced (279/280/281/560 → 199/200/201/400); 64 unchanged |
+| Result | 68 run, 67 passed, **1 failed** (exit code 1) |
+| Failing test | `test_note_bva_201_above`: expected 400, application returned 201 |
+| Evidence | `docs/sqe/evidence/generated/change-1-note-length-2026-11-25/` |
