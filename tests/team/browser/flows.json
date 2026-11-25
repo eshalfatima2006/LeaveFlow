@@ -1,6 +1,6 @@
 {
-  "version": "v0.2-2026-11-24",
-  "basis": "PROPOSED catalog in docs/sqe/requirements/USE-CASE-SPECIFICATIONS.md (Lecture 16 p10: flows tested / flows specified). Django Admin (UC-08, UC-09) and notification services (UC-07) remain PENDING instructor decisions D-1/D-2. Owners are proposed (TEAM-OWNERSHIP.md).",
+  "version": "v0.3-2026-11-25",
+  "basis": "Catalog in docs/sqe/requirements/USE-CASE-SPECIFICATIONS.md. The group assigned UC-04, UC-07, UC-08 and UC-09 browser automation to Member 3. Record instructor confirmation of D-1/D-2 with the submission if available.",
   "counting_rules": [
     "Only the 30 mandatory flows below form the use-case flow-coverage denominator.",
     "Blocked regression objectives, supplementary checks and observations are reported separately and never raise or lower mandatory coverage.",
@@ -26,17 +26,17 @@
     {"id": "TC-UC04-E1", "uc": "UC-04", "kind": "exception", "title": "Session no longer valid on reload (not signed in)", "owner": "Member 3", "legacy_ids": ["E2E-UC04-05"]},
     {"id": "TC-UC04-E2", "uc": "UC-04", "kind": "exception", "title": "Server error while loading requests (expected result set after runtime probe)", "owner": "Member 3", "legacy_ids": ["E2E-UC04-04"]},
 
-    {"id": "TC-UC07-M", "uc": "UC-07", "kind": "main", "title": "Employee receives a live decision alert (feed, dedup key, ack, gateway)", "owner": "Member 2", "legacy_ids": []},
-    {"id": "TC-UC07-A1", "uc": "UC-07", "kind": "alternative", "title": "Managers/admins receive a new-request alert; outsiders and requester do not", "owner": "Member 2", "legacy_ids": []},
-    {"id": "TC-UC07-A2", "uc": "UC-07", "kind": "alternative", "title": "Recipient offline during the event sees it from the stored feed", "owner": "Member 2", "legacy_ids": []},
-    {"id": "TC-UC07-E1", "uc": "UC-07", "kind": "exception", "title": "Notification gateway unavailable: rendered unavailable message, core app usable", "owner": "Member 2", "legacy_ids": []},
-    {"id": "TC-UC07-E2", "uc": "UC-07", "kind": "exception", "title": "Event publication fails during a decision: decision persists, no alert", "owner": "Member 2", "legacy_ids": []},
+    {"id": "TC-UC07-M", "uc": "UC-07", "kind": "main", "title": "Employee receives a live decision alert with persisted feed and acknowledgement", "owner": "Member 3", "legacy_ids": []},
+    {"id": "TC-UC07-A1", "uc": "UC-07", "kind": "alternative", "title": "Managers/admins receive a new-request alert; outsiders and requester do not", "owner": "Member 3", "legacy_ids": []},
+    {"id": "TC-UC07-A2", "uc": "UC-07", "kind": "alternative", "title": "Recipient offline during the event sees it from the stored feed", "owner": "Member 3", "legacy_ids": []},
+    {"id": "TC-UC07-E1", "uc": "UC-07", "kind": "exception", "title": "Notification gateway unavailable: rendered unavailable message, core app usable", "owner": "Member 3", "legacy_ids": []},
+    {"id": "TC-UC07-E2", "uc": "UC-07", "kind": "exception", "title": "Event publication fails during a decision: decision persists, no alert", "owner": "Member 3", "legacy_ids": []},
 
-    {"id": "TC-UC08-M", "uc": "UC-08", "kind": "main", "title": "Administrator changes an employee's entitlement", "owner": "Member 1", "legacy_ids": []},
-    {"id": "TC-UC08-A1", "uc": "UC-08", "kind": "alternative", "title": "Administrator creates a missing entitlement record", "owner": "Member 1", "legacy_ids": []},
-    {"id": "TC-UC08-A2", "uc": "UC-08", "kind": "alternative", "title": "Entitlement reduced below approved use (characterisation: no warning)", "owner": "Member 1", "legacy_ids": []},
-    {"id": "TC-UC08-E1", "uc": "UC-08", "kind": "exception", "title": "Invalid entitlement value (-1 rejected, 0 accepted, empty required; upper bound engine-dependent)", "owner": "Member 1", "legacy_ids": []},
-    {"id": "TC-UC08-E2", "uc": "UC-08", "kind": "exception", "title": "Duplicate entitlement for the same employee", "owner": "Member 1", "legacy_ids": []},
+    {"id": "TC-UC08-M", "uc": "UC-08", "kind": "main", "title": "Administrator changes an employee's entitlement", "owner": "Member 3", "legacy_ids": []},
+    {"id": "TC-UC08-A1", "uc": "UC-08", "kind": "alternative", "title": "Administrator creates a missing entitlement record", "owner": "Member 3", "legacy_ids": []},
+    {"id": "TC-UC08-A2", "uc": "UC-08", "kind": "alternative", "title": "Entitlement reduced below approved use (characterisation: no warning)", "owner": "Member 3", "legacy_ids": []},
+    {"id": "TC-UC08-E1", "uc": "UC-08", "kind": "exception", "title": "Invalid entitlement value (-1 rejected, 0 accepted, empty required; upper bound engine-dependent)", "owner": "Member 3", "legacy_ids": []},
+    {"id": "TC-UC08-E2", "uc": "UC-08", "kind": "exception", "title": "Duplicate entitlement for the same employee", "owner": "Member 3", "legacy_ids": []},
 
     {"id": "TC-UC09-M", "uc": "UC-09", "kind": "main", "title": "Administrator moves an employee to another approving team", "owner": "Member 3", "legacy_ids": []},
     {"id": "TC-UC09-A1", "uc": "UC-09", "kind": "alternative", "title": "Administrator grants approval authority by role", "owner": "Member 3", "legacy_ids": []},

@@ -7,14 +7,16 @@ import { fileURLToPath } from 'node:url'
 
 export const BROWSER_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 export const ROOT = path.resolve(BROWSER_DIR, '../../..')
-export const PYTHON = process.env.SQE_PYTHON ?? path.join(ROOT, '.venv', 'bin', 'python')
+export const PYTHON = process.env.SQE_PYTHON ?? path.join(
+  ROOT, '.venv', process.platform === 'win32' ? 'Scripts' : 'bin', process.platform === 'win32' ? 'python.exe' : 'python',
+)
 export const HARNESS = path.join(ROOT, 'scripts', 'sqe', 'browser_harness.py')
 
 export const BACKEND_PORT = Number(process.env.SQE_BACKEND_PORT ?? 8765)
 export const FRONTEND_PORT = Number(process.env.SQE_FRONTEND_PORT ?? 4765)
-// Nothing listens here: the notification centre is outside UC-01/UC-02 and must
-// never reach a developer's real gateway.
+export const NOTIFICATIONS_ENABLED = process.env.SQE_ENABLE_NOTIFICATIONS === '1'
 export const NOTIFICATIONS_PORT = Number(process.env.SQE_NOTIFICATIONS_PORT ?? 4766)
+export const NOTIFICATIONS_URL = `http://127.0.0.1:${NOTIFICATIONS_PORT}`
 export const BACKEND_URL = `http://127.0.0.1:${BACKEND_PORT}`
 export const FRONTEND_URL = `http://127.0.0.1:${FRONTEND_PORT}`
 

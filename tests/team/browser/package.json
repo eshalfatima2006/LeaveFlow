@@ -8,6 +8,9 @@
     "coverage": "node tools/flow-coverage.mjs"
   },
   "devDependencies": {
-    "@playwright/test": "1.49.1"
+    "@axe-core/playwright": "4.14.1",
+    "@playwright/test": "1.49.1",
+    "lighthouse": "13.6.0",
+    "puppeteer-core": "25.18.1"
   }
 }

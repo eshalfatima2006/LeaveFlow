@@ -173,16 +173,16 @@ Canonical definitions; flows are specified in [USE-CASE-SPECIFICATIONS.md](../re
 | TC-UC04-A2 | UC-04 (M3) | alternative | FR-W2-05, FR-W2-06 | BR-03, BR-05 | Specified, not automated | — |
 | TC-UC04-E1 | UC-04 (M3) | exception | FR-W1-01 | BR-04 | Specified, not automated | E2E-UC04-05 |
 | TC-UC04-E2 | UC-04 (M3) | exception | FR-W2-01 | BR-04 | Specified; expected result pending probe (GAP-15) | E2E-UC04-04 |
-| TC-UC07-M | UC-07 (M2) | main | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Blocked: D-2 + isolated environment | — |
-| TC-UC07-A1 | UC-07 (M2) | alternative | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Blocked: D-2 + isolated environment | — |
-| TC-UC07-A2 | UC-07 (M2) | alternative | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Blocked: D-2 + isolated environment | — |
-| TC-UC07-E1 | UC-07 (M2) | exception | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Blocked: D-2 + isolated environment | — |
-| TC-UC07-E2 | UC-07 (M2) | exception | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Blocked: D-2 + isolated environment | — |
-| TC-UC08-M | UC-08 (M1) | main | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Blocked: D-1 | — |
-| TC-UC08-A1 | UC-08 (M1) | alternative | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Blocked: D-1 | — |
-| TC-UC08-A2 | UC-08 (M1) | alternative | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Blocked: D-1 | — |
-| TC-UC08-E1 | UC-08 (M1) | exception | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Blocked: D-1 | — |
-| TC-UC08-E2 | UC-08 (M1) | exception | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Blocked: D-1 | — |
+| TC-UC07-M | UC-07 (M3) | main | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Blocked: D-2 + isolated environment | — |
+| TC-UC07-A1 | UC-07 (M3) | alternative | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Blocked: D-2 + isolated environment | — |
+| TC-UC07-A2 | UC-07 (M3) | alternative | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Blocked: D-2 + isolated environment | — |
+| TC-UC07-E1 | UC-07 (M3) | exception | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Blocked: D-2 + isolated environment | — |
+| TC-UC07-E2 | UC-07 (M3) | exception | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06 | BR-04, BR-05 | Blocked: D-2 + isolated environment | — |
+| TC-UC08-M | UC-08 (M3) | main | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Blocked: D-1 | — |
+| TC-UC08-A1 | UC-08 (M3) | alternative | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Blocked: D-1 | — |
+| TC-UC08-A2 | UC-08 (M3) | alternative | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Blocked: D-1 | — |
+| TC-UC08-E1 | UC-08 (M3) | exception | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Blocked: D-1 | — |
+| TC-UC08-E2 | UC-08 (M3) | exception | FR-ADM-01 (PROPOSED), FR-W1-05 | BR-03 | Blocked: D-1 | — |
 | TC-UC09-M | UC-09 (M3) | main | FR-ADM-02 (PROPOSED), FR-W2-01, FR-W2-02 | BR-04 | Blocked: D-1 | — |
 | TC-UC09-A1 | UC-09 (M3) | alternative | FR-ADM-02 (PROPOSED), FR-W2-01, FR-W2-02 | BR-04 | Blocked: D-1 | — |
 | TC-UC09-A2 | UC-09 (M3) | alternative | FR-ADM-02 (PROPOSED), FR-W2-01, FR-W2-02 | BR-04 | Blocked: D-1 | — |
@@ -191,7 +191,7 @@ Canonical definitions; flows are specified in [USE-CASE-SPECIFICATIONS.md](../re
 | INC-01 | Included (M3) | included | FR-W1-01 | BR-04 | Exercised inside every B1 test; dedicated test planned | E2E-UC03-05 |
 | INC-02 | Included (M1/M3) | included | FR-ADM-01/02 (PROPOSED) | BR-04 | Blocked: D-1 | — |
 | OBJ-UC02-01 | UC-02 (M2) | blocked objective | FR-W2-05 | BR-03 | Blocked: approval-time error contract (GAP-01); registered as fixme | — |
-| SUP-UC07-01 | UC-07 (M2) | supplementary | FR-NOTIF-01 (PROPOSED) | BR-05 | Blocked: D-2 | — |
+| SUP-UC07-01 | UC-07 (M3) | supplementary | FR-NOTIF-01 (PROPOSED) | BR-05 | Blocked: D-2 | — |
 | SUP-UC09-01 | UC-09 (M3) | supplementary | FR-ADM-02 (PROPOSED), FR-W2-02 | BR-04 | Blocked: D-1 | — |
 
 Mandatory flow coverage: **10 of 30 executed and passed (33.3%)**. If OBJ-UC02-01 is approved as a UC-02 exception, the denominator becomes 31.

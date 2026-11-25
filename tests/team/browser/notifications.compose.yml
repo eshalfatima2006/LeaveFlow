@@ -1,0 +1,24 @@
+services:
+  redis:
+    image: redis:8-alpine
+    ports: ["127.0.0.1:16386:6379"]
+    tmpfs: ["/data"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+  worker:
+    build:
+      context: ../../..
+      dockerfile: notification_worker/Dockerfile
+    environment:
+      REDIS_URL: redis://redis:6379/0
+    healthcheck:
+      test: ["CMD", "/app/bin/leave_flow_worker", "rpc", "unless Process.whereis(LeaveFlowWorker.Worker), do: raise(\"Worker unavailable\")"]
+      interval: 3s
+      timeout: 5s
+      retries: 10
+    depends_on:
+      redis:
+        condition: service_healthy

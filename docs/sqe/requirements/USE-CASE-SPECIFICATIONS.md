@@ -194,7 +194,7 @@ The machine-readable registry is [`tests/team/browser/flows.json`](../../../test
 | Trigger | A W1 submission or W2 decision commits |
 | Preconditions | An **isolated notification environment** exists (see [TEST-PLAN.md](../planning/TEST-PLAN.md#isolated-notification-environment-uc-07)). The recipient is signed in. A decision event for k is produced by the triggering actor through the API |
 | Requirements / rules | FR-NOTIF-01 (PROPOSED), FR-W1-06, FR-W2-05, FR-W2-06; BR-04, BR-05 |
-| Owner / status | Member 2 (environment support Member 3) / specified, **not automated; blocked on D-2 and the environment** |
+| Owner / status | Member 3 / specified, **not automated; blocked on D-2 and the environment** |
 
 **Main flow (TC-UC07-M):**
 1. The triggering manager approves k.
@@ -234,7 +234,7 @@ The machine-readable registry is [`tests/team/browser/flows.json`](../../../test
 | Trigger | Opening Django Admin "Leave balances" |
 | Preconditions | Staff admin X; employee E with allowance 10; employee E_nb without a balance |
 | Requirements / rules | FR-ADM-01 (PROPOSED), FR-W1-05; BR-03 |
-| Owner / status | Member 1 (admin fixtures shared with Member 3) / specified, **not automated** |
+| Owner / status | Member 3 / specified, **not automated** |
 
 **Main flow (TC-UC08-M):**
 1. X opens Leave balances.

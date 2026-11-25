@@ -17,6 +17,7 @@ PROFILE = "sqe-browser-v1"
 RUN_DIR_PREFIX = "leaveflow-sqe-browser-"
 MARKER = ".sqe-browser-run"
 DB_NAME = "browser.sqlite3"
+NOTIFICATION_REDIS = "redis://127.0.0.1:16386/0"
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEVELOPMENT_DATABASE = REPO_ROOT / "backend" / "db.sqlite3"
 
@@ -65,8 +66,9 @@ def assert_browser_database():
 
     if set(settings.DATABASES) != {"default"}:
         raise RuntimeError("Refusing additional database aliases.")
-    if settings.REDIS_URL:
-        raise RuntimeError("Browser harness requires Redis publication disabled.")
+    permitted_redis = NOTIFICATION_REDIS if os.environ.get("SQE_ENABLE_NOTIFICATIONS") == "1" else ""
+    if settings.REDIS_URL != permitted_redis:
+        raise RuntimeError("Refusing the Redis endpoint outside the disposable notification profile.")
     validate_database_config(
         connections["default"].settings_dict,
         getattr(settings, "TEAM_TEST_PROFILE", None),
