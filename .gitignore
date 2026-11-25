@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *.sqlite3
 .env
+.coverage
+coverage.json
+coverage.xml
+mutants/
 
 node_modules/
 dist/

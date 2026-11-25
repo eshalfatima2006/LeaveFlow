@@ -1,0 +1,19 @@
+Command:
+python -m radon cc -s -a backend/leave/models.py backend/leave/serializers.py backend/leave/views.py
+
+Critical validation function:
+backend/leave/serializers.py
+    M 30:4 LeaveRequestSerializer.validate - A (5)
+
+Supporting server-side functions:
+backend/leave/models.py
+    M 71:4 LeaveRequest.business_days - A (3)
+    M 80:4 LeaveRequest.clean - A (3)
+    M 35:4 LeaveBalance.approved_days - A (2)
+backend/leave/views.py
+    F 112:0 team_view - B (6)
+    F 67:0 decide_request - A (5)
+    F 46:0 visible_requests - A (4)
+    F 93:0 dashboard_view - A (4)
+
+Total: 23 blocks; average complexity A (2.652173913043478).
