@@ -367,3 +367,56 @@ Students must review source safety/fixtures/assertions/evidence, retain prompts,
 - **Statement of the task prompt not followed as worded:** EC-10 was set to **PARTLY MET**, not MET. Its target also needs weekly defect/coverage/reopen reporting, actual effort against estimates, the completion review, the PDF/ZIP package and each member's rerun, none of which is measured; and the corrective and preventive actions are proposed, not complete (owners and fixes PENDING, the #26 regression not written). Only the major-defect part is recorded as met.
 - **Not changed:** application code, tests, historical records (earlier AI-use entries and `PR-10-REVIEW-RESPONSE.md`, which record what was true when written).
 - **Student review required:** confirm the EC-10 verdict with the team, and run shared triage for #25 and #26. All Git/GitHub actions beyond local commits remain student-owned.
+
+## Area 1 integration and evidence audit - 27 November 2026
+
+- Tool: Codex, at Bilal's instruction to implement CI integration and complete
+  Area 1 evidence. AI-assisted implementation, execution and drafting; human
+  approval is not claimed. No remote push, issue comment, review or merge was made.
+- Created local `ci/integrate-team-tests-and-area1-evidence` from PR #17 and
+  merged Area 2 head `8ee5176` locally. Added team/generator/TCL7/PostgreSQL CI
+  checks, aggregate quality enforcement and release-event safeguards.
+- Corrected MC/DC outcome pairs and CFG edge/node counts. Added explicit
+  balance-presence, demo schedule/reset and failing-report gate tests.
+- Verified 384 Django team tests, 9 upstream tests, all critical statement/branch
+  coverage, generator consistency, TCL7 and disposable PostgreSQL concurrency.
+- Actual final Linux mutmut run: 296 killed, 3 equivalent survivors, 299 total.
+  Reviewed 15 historical survivors from the committed PR #17 report individually.
+  A historical rerun stalled and was stopped; it is not reported as completed.
+- Found mutmut's decorated-function exclusion: replaced the inactive calendar
+  custom operator with reachable overlap boundaries. Separate temporary-copy
+  mutations kill weekday and inclusive-date property changes without changing
+  production files or weakening tests. Source/test/runtime provenance is retained.
+- Captured historical and fresh live Sonar API evidence. Corrected the upstream
+  test file's source classification; fresh scan passed at 100% overall coverage,
+  zero findings and all A ratings. An unchanged extracted validate function
+  measured 4 in Sonar versus hand/radon 5; documented exception convention.
+  Temporary analysis tokens were revoked and no credentials were committed.
+- Verified remote historical fail/fix/pass step evidence (runs 16, 18 and 68)
+  through read-only GitHub API calls. New hosted execution, the new required
+  branch check and instructor decisions remain explicitly external.
+
+## PR #17 mutation and required-check audit - 28 November 2026
+
+- Tool: Codex, at Bilal's request to satisfy the mutation evidence requirement
+  and explain the added CI check. AI-assisted inspection, test drafting,
+  execution and evidence writing; no human review or full-marks guarantee is
+  claimed. The student must inspect the output and be able to explain it.
+- Checked the assignment wording against PR #17's source, the GitHub CI jobs,
+  active repository ruleset, and downloaded run 66/run 74 artifacts. Run 66
+  recorded 30 survivors; run 74 recorded 4 at 295/299. Preserved both raw
+  stats and the original historical survivor table with revision links.
+- Repeated mutmut on the exact PR #17 tree: 295 killed,
+  4 survived, no unresolved, including 65/65 killed in models, serializers
+  and views. Identified E-10 as a killable event-recipient survivor.
+- Added a manager/admin requester assertion after the student requested that
+  E-10 be killed. The correct source passed; the exact E-10 mutation failed by
+  assertion for both role subcases. Existing tests were not weakened.
+- Full verification after the assertion: 82 tests and 144 subtests passed;
+  mutmut recorded 296 killed, 3 equivalent survivors, 299 total and no
+  unresolved mutants. Raw output, environment, source hashes and diffs are
+  preserved. This is local evidence until the revised commit runs on GitHub.
+- The earlier 295/299 hosted result is not changed or presented as the new
+  score. No push or new hosted run occurred in this audit. Most of the 15
+  historical survivors are in demo support code, which is disclosed instead
+  of claiming they all belong to DR-001.

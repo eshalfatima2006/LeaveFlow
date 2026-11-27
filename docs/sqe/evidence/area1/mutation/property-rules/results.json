@@ -1,0 +1,16 @@
+[
+  {
+    "operator": "weekend-counted-as-business-day",
+    "before": "current.weekday() < 5",
+    "after": "current.weekday() <= 5",
+    "exit_code": 1,
+    "killed": true
+  },
+  {
+    "operator": "exclusive-final-date",
+    "before": "while current <= self.end_date:",
+    "after": "while current < self.end_date:",
+    "exit_code": 1,
+    "killed": true
+  }
+]
