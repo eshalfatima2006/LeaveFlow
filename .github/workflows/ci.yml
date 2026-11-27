@@ -11,6 +11,59 @@ jobs:
         with: { python-version: '3.13' }
       - run: pip install -r requirements.txt
       - run: python backend/manage.py test leave
+  area1-quality-gate:
+    name: Area1 quality gate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.13' }
+      - name: Install backend and SQE tools
+        run: pip install -r requirements.txt -r requirements-sqe.txt
+      - name: Run all tests with statement and branch coverage
+        run: |
+          python -m coverage erase
+          python -m coverage run --branch -m pytest
+          python -m coverage report -m
+          python -m coverage json -o coverage.json
+          python -m coverage xml -o coverage.xml
+      - name: Enforce critical-module coverage
+        run: python scripts/sqe/check_coverage.py
+      - name: Run SonarQube analysis
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      - name: Enforce SonarQube quality gate
+        uses: SonarSource/sonarqube-quality-gate-action@v1
+        timeout-minutes: 10
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      - name: Run mutmut with project-specific operators
+        run: |
+          set -o pipefail
+          python scripts/sqe/mutmut_custom.py run --max-children 4 2>&1 | tee mutmut-run.log
+          python scripts/sqe/mutmut_custom.py export-cicd-stats
+      - name: Generate surviving-mutant analysis table
+        if: always()
+        run: python scripts/sqe/export_surviving_mutants.py
+      - name: Upload Area1 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: area1-quality-evidence
+          path: |
+            coverage.json
+            coverage.xml
+            mutmut-run.log
+            mutants/mutmut-cicd-stats.json
+            docs/sqe/evidence/area1/mutation/surviving-mutants.md
+          if-no-files-found: warn
+      - name: Enforce mutation score threshold
+        run: python scripts/sqe/check_mutation_threshold.py
   frontend:
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: frontend } }

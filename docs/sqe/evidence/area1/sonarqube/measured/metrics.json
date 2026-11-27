@@ -1,0 +1,637 @@
+{
+  "captured_at": "2026-11-27T14:25:35.731507+00:00",
+  "analysis": {
+    "paging": {
+      "pageIndex": 1,
+      "pageSize": 1,
+      "total": 7
+    },
+    "analyses": [
+      {
+        "key": "974fd978-d033-4664-ae24-5caf48bb999e",
+        "date": "2026-11-25T21:35:16+0000",
+        "events": [
+          {
+            "key": "2351474d-6cd7-44d9-b291-2eeeafc0012b",
+            "category": "VERSION",
+            "name": "not provided"
+          }
+        ],
+        "projectVersion": "not provided",
+        "manualNewCodePeriodBaseline": false,
+        "revision": "25253fff291e63795cbf19d7d64f37e5b694e3c8",
+        "detectedCI": "Github Actions"
+      }
+    ]
+  },
+  "metrics": {
+    "component": {
+      "key": "leaveflow",
+      "name": "LeaveFlow",
+      "qualifier": "TRK",
+      "measures": [
+        {
+          "metric": "coverage",
+          "value": "81.4",
+          "bestValue": false
+        },
+        {
+          "metric": "bugs",
+          "value": "0",
+          "bestValue": true
+        },
+        {
+          "metric": "complexity",
+          "value": "59"
+        },
+        {
+          "metric": "reliability_rating",
+          "value": "1.0",
+          "bestValue": true
+        },
+        {
+          "metric": "code_smells",
+          "value": "0",
+          "bestValue": true
+        },
+        {
+          "metric": "duplicated_lines_density",
+          "value": "0.0",
+          "bestValue": true
+        },
+        {
+          "metric": "cognitive_complexity",
+          "value": "38",
+          "bestValue": false
+        },
+        {
+          "metric": "security_rating",
+          "value": "5.0",
+          "bestValue": false
+        },
+        {
+          "metric": "vulnerabilities",
+          "value": "6",
+          "bestValue": false
+        },
+        {
+          "metric": "sqale_index",
+          "value": "0",
+          "bestValue": true
+        },
+        {
+          "metric": "sqale_rating",
+          "value": "1.0",
+          "bestValue": true
+        }
+      ]
+    }
+  },
+  "quality_gate": {
+    "projectStatus": {
+      "status": "OK",
+      "conditions": [
+        {
+          "status": "OK",
+          "metricKey": "new_duplicated_lines_density",
+          "comparator": "GT",
+          "errorThreshold": "3",
+          "actualValue": "0.0"
+        },
+        {
+          "status": "OK",
+          "metricKey": "new_violations",
+          "comparator": "GT",
+          "errorThreshold": "0",
+          "actualValue": "0"
+        }
+      ],
+      "ignoredConditions": false,
+      "period": {
+        "mode": "PREVIOUS_VERSION",
+        "date": "2026-11-25T21:01:34+0000"
+      },
+      "caycStatus": "compliant"
+    }
+  },
+  "files": {
+    "paging": {
+      "pageIndex": 1,
+      "pageSize": 500,
+      "total": 12
+    },
+    "baseComponent": {
+      "key": "leaveflow",
+      "name": "LeaveFlow",
+      "qualifier": "TRK",
+      "measures": []
+    },
+    "components": [
+      {
+        "key": "leaveflow:backend/leave/management/__init__.py",
+        "name": "__init__.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/management/__init__.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/management/commands/__init__.py",
+        "name": "__init__.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/management/commands/__init__.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/__init__.py",
+        "name": "__init__.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/__init__.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/admin.py",
+        "name": "admin.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/admin.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "0"
+          },
+          {
+            "metric": "coverage",
+            "value": "100.0",
+            "bestValue": true
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/apps.py",
+        "name": "apps.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/apps.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "0"
+          },
+          {
+            "metric": "coverage",
+            "value": "100.0",
+            "bestValue": true
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/events.py",
+        "name": "events.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/events.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "5"
+          },
+          {
+            "metric": "coverage",
+            "value": "100.0",
+            "bestValue": true
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/models.py",
+        "name": "models.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/models.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "12"
+          },
+          {
+            "metric": "coverage",
+            "value": "100.0",
+            "bestValue": true
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/management/commands/seed_demo.py",
+        "name": "seed_demo.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/management/commands/seed_demo.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "2"
+          },
+          {
+            "metric": "coverage",
+            "value": "100.0",
+            "bestValue": true
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/serializers.py",
+        "name": "serializers.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/serializers.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "5"
+          },
+          {
+            "metric": "coverage",
+            "value": "100.0",
+            "bestValue": true
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/tests.py",
+        "name": "tests.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/tests.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "10"
+          },
+          {
+            "metric": "coverage",
+            "value": "0.0",
+            "bestValue": false
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/urls.py",
+        "name": "urls.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/urls.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "0"
+          },
+          {
+            "metric": "coverage",
+            "value": "100.0",
+            "bestValue": true
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/views.py",
+        "name": "views.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/views.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "25"
+          },
+          {
+            "metric": "coverage",
+            "value": "100.0",
+            "bestValue": true
+          }
+        ]
+      }
+    ]
+  },
+  "issues": {
+    "total": 6,
+    "p": 1,
+    "ps": 500,
+    "paging": {
+      "pageIndex": 1,
+      "pageSize": 500,
+      "total": 6
+    },
+    "effortTotal": 270,
+    "issues": [
+      {
+        "key": "3bac6d96-7d42-4e03-bfcd-a05786f37d37",
+        "rule": "python:S6437",
+        "severity": "BLOCKER",
+        "component": "leaveflow:backend/leave/tests.py",
+        "project": "leaveflow",
+        "line": 22,
+        "hash": "29bbe45d0785cc4ef89e85f3996fa182",
+        "textRange": {
+          "startLine": 22,
+          "endLine": 22,
+          "startOffset": 61,
+          "endOffset": 80
+        },
+        "flows": [],
+        "status": "OPEN",
+        "message": "Revoke and change this password, as it is compromised.",
+        "effort": "1h",
+        "debt": "1h",
+        "author": "",
+        "tags": [
+          "cwe",
+          "secret"
+        ],
+        "creationDate": "2026-11-25T21:01:34+0000",
+        "updateDate": "2026-11-25T21:01:34+0000",
+        "type": "VULNERABILITY",
+        "scope": "MAIN",
+        "quickFixAvailable": false,
+        "messageFormattings": [],
+        "codeVariants": [],
+        "cleanCodeAttribute": "TRUSTWORTHY",
+        "cleanCodeAttributeCategory": "RESPONSIBLE",
+        "impacts": [
+          {
+            "softwareQuality": "SECURITY",
+            "severity": "BLOCKER"
+          }
+        ],
+        "issueStatus": "OPEN",
+        "prioritizedRule": false,
+        "fromSonarQubeUpdate": false,
+        "internalTags": [],
+        "linkedTicketStatus": "NOT_LINKED"
+      },
+      {
+        "key": "9a251910-eab9-4672-8e1a-49ae512a80cf",
+        "rule": "python:S2068",
+        "severity": "MAJOR",
+        "component": "leaveflow:backend/leave/tests.py",
+        "project": "leaveflow",
+        "line": 22,
+        "hash": "29bbe45d0785cc4ef89e85f3996fa182",
+        "textRange": {
+          "startLine": 22,
+          "endLine": 22,
+          "startOffset": 61,
+          "endOffset": 80
+        },
+        "flows": [],
+        "status": "OPEN",
+        "message": "\"password\" detected here, review this potentially hard-coded credential.",
+        "effort": "30min",
+        "debt": "30min",
+        "author": "",
+        "tags": [
+          "cwe",
+          "secret",
+          "former-hotspot"
+        ],
+        "creationDate": "2026-11-25T21:01:34+0000",
+        "updateDate": "2026-11-25T21:01:34+0000",
+        "type": "VULNERABILITY",
+        "scope": "MAIN",
+        "quickFixAvailable": false,
+        "messageFormattings": [],
+        "codeVariants": [],
+        "cleanCodeAttribute": "TRUSTWORTHY",
+        "cleanCodeAttributeCategory": "RESPONSIBLE",
+        "impacts": [
+          {
+            "softwareQuality": "SECURITY",
+            "severity": "MEDIUM"
+          }
+        ],
+        "issueStatus": "OPEN",
+        "prioritizedRule": false,
+        "fromSonarQubeUpdate": false,
+        "internalTags": [],
+        "linkedTicketStatus": "NOT_LINKED"
+      },
+      {
+        "key": "222a8937-eec1-404c-9e8c-9955935a7b9c",
+        "rule": "python:S2068",
+        "severity": "MAJOR",
+        "component": "leaveflow:backend/leave/tests.py",
+        "project": "leaveflow",
+        "line": 24,
+        "hash": "4f3732f1db6d77ff72754877d658c4de",
+        "textRange": {
+          "startLine": 24,
+          "endLine": 24,
+          "startOffset": 23,
+          "endOffset": 42
+        },
+        "flows": [],
+        "status": "OPEN",
+        "message": "\"password\" detected here, review this potentially hard-coded credential.",
+        "effort": "30min",
+        "debt": "30min",
+        "author": "",
+        "tags": [
+          "cwe",
+          "secret",
+          "former-hotspot"
+        ],
+        "creationDate": "2026-11-25T21:01:34+0000",
+        "updateDate": "2026-11-25T21:01:34+0000",
+        "type": "VULNERABILITY",
+        "scope": "MAIN",
+        "quickFixAvailable": false,
+        "messageFormattings": [],
+        "codeVariants": [],
+        "cleanCodeAttribute": "TRUSTWORTHY",
+        "cleanCodeAttributeCategory": "RESPONSIBLE",
+        "impacts": [
+          {
+            "softwareQuality": "SECURITY",
+            "severity": "MEDIUM"
+          }
+        ],
+        "issueStatus": "OPEN",
+        "prioritizedRule": false,
+        "fromSonarQubeUpdate": false,
+        "internalTags": [],
+        "linkedTicketStatus": "NOT_LINKED"
+      },
+      {
+        "key": "473247d9-f2ba-4543-b376-6f2190edca33",
+        "rule": "python:S6437",
+        "severity": "BLOCKER",
+        "component": "leaveflow:backend/leave/tests.py",
+        "project": "leaveflow",
+        "line": 24,
+        "hash": "4f3732f1db6d77ff72754877d658c4de",
+        "textRange": {
+          "startLine": 24,
+          "endLine": 24,
+          "startOffset": 23,
+          "endOffset": 42
+        },
+        "flows": [],
+        "status": "OPEN",
+        "message": "Revoke and change this password, as it is compromised.",
+        "effort": "1h",
+        "debt": "1h",
+        "author": "",
+        "tags": [
+          "cwe",
+          "secret"
+        ],
+        "creationDate": "2026-11-25T21:01:34+0000",
+        "updateDate": "2026-11-25T21:01:34+0000",
+        "type": "VULNERABILITY",
+        "scope": "MAIN",
+        "quickFixAvailable": false,
+        "messageFormattings": [],
+        "codeVariants": [],
+        "cleanCodeAttribute": "TRUSTWORTHY",
+        "cleanCodeAttributeCategory": "RESPONSIBLE",
+        "impacts": [
+          {
+            "softwareQuality": "SECURITY",
+            "severity": "BLOCKER"
+          }
+        ],
+        "issueStatus": "OPEN",
+        "prioritizedRule": false,
+        "fromSonarQubeUpdate": false,
+        "internalTags": [],
+        "linkedTicketStatus": "NOT_LINKED"
+      },
+      {
+        "key": "4a4e5699-8ea2-4474-9766-d5572f302e40",
+        "rule": "python:S2068",
+        "severity": "MAJOR",
+        "component": "leaveflow:backend/leave/tests.py",
+        "project": "leaveflow",
+        "line": 88,
+        "hash": "7612573577cfb07f63faeb9bf4864b02",
+        "textRange": {
+          "startLine": 88,
+          "endLine": 88,
+          "startOffset": 45,
+          "endOffset": 64
+        },
+        "flows": [],
+        "status": "OPEN",
+        "message": "\"password\" detected here, review this potentially hard-coded credential.",
+        "effort": "30min",
+        "debt": "30min",
+        "author": "",
+        "tags": [
+          "cwe",
+          "secret",
+          "former-hotspot"
+        ],
+        "creationDate": "2026-11-25T21:01:34+0000",
+        "updateDate": "2026-11-25T21:01:34+0000",
+        "type": "VULNERABILITY",
+        "scope": "MAIN",
+        "quickFixAvailable": false,
+        "messageFormattings": [],
+        "codeVariants": [],
+        "cleanCodeAttribute": "TRUSTWORTHY",
+        "cleanCodeAttributeCategory": "RESPONSIBLE",
+        "impacts": [
+          {
+            "softwareQuality": "SECURITY",
+            "severity": "MEDIUM"
+          }
+        ],
+        "issueStatus": "OPEN",
+        "prioritizedRule": false,
+        "fromSonarQubeUpdate": false,
+        "internalTags": [],
+        "linkedTicketStatus": "NOT_LINKED"
+      },
+      {
+        "key": "bc03d94b-7eba-4a80-aa36-27772a3da15d",
+        "rule": "python:S6437",
+        "severity": "BLOCKER",
+        "component": "leaveflow:backend/leave/tests.py",
+        "project": "leaveflow",
+        "line": 88,
+        "hash": "7612573577cfb07f63faeb9bf4864b02",
+        "textRange": {
+          "startLine": 88,
+          "endLine": 88,
+          "startOffset": 45,
+          "endOffset": 64
+        },
+        "flows": [],
+        "status": "OPEN",
+        "message": "Revoke and change this password, as it is compromised.",
+        "effort": "1h",
+        "debt": "1h",
+        "author": "",
+        "tags": [
+          "cwe",
+          "secret"
+        ],
+        "creationDate": "2026-11-25T21:01:34+0000",
+        "updateDate": "2026-11-25T21:01:34+0000",
+        "type": "VULNERABILITY",
+        "scope": "MAIN",
+        "quickFixAvailable": false,
+        "messageFormattings": [],
+        "codeVariants": [],
+        "cleanCodeAttribute": "TRUSTWORTHY",
+        "cleanCodeAttributeCategory": "RESPONSIBLE",
+        "impacts": [
+          {
+            "softwareQuality": "SECURITY",
+            "severity": "BLOCKER"
+          }
+        ],
+        "issueStatus": "OPEN",
+        "prioritizedRule": false,
+        "fromSonarQubeUpdate": false,
+        "internalTags": [],
+        "linkedTicketStatus": "NOT_LINKED"
+      }
+    ],
+    "components": [
+      {
+        "key": "leaveflow",
+        "enabled": true,
+        "qualifier": "TRK",
+        "name": "LeaveFlow",
+        "longName": "LeaveFlow"
+      },
+      {
+        "key": "leaveflow:backend/leave/tests.py",
+        "enabled": true,
+        "qualifier": "FIL",
+        "name": "tests.py",
+        "longName": "backend/leave/tests.py",
+        "path": "backend/leave/tests.py"
+      }
+    ],
+    "facets": []
+  }
+}
