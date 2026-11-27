@@ -420,3 +420,12 @@ Students must review source safety/fixtures/assertions/evidence, retain prompts,
   score. No push or new hosted run occurred in this audit. Most of the 15
   historical survivors are in demo support code, which is disclosed instead
   of claiming they all belong to DR-001.
+
+# PR #10 updated with `dev` after PR #17 (28 November 2026)
+
+- **Date/tool:** 28 November 2026 (Asia/Karachi), Claude Code (Claude Opus 5.5) at the student's instruction. AI-assisted merge resolution, CI-compatibility fixes and execution; no human review is claimed.
+- **Merge:** completed the student's merge of `origin/dev` (`65d8f06`, PR #17) into `test/a2.4-openapi-gen`. The only conflict, in this record, was resolved by keeping both sides' entries unchanged.
+- **Problems found by running the Area 1 gate commands locally:** (1) `pytest` ignores the `load_tests` hooks, so it collected 387 tests excluded from the default suite (spec-change demonstrations v2/v3/v4, PostgreSQL-only concurrency). Added `tests/conftest.py` with the same four exclusions. (2) mutmut's clean-test run failed because its `mutants/` copy lacked `docs/sqe/openapi/leaveflow-api.yaml`, read by the contract tests. Added `docs/sqe/openapi` to `also_copy` in `setup.cfg` (a single-file entry crashes mutmut 3.8.1, which does not create parent directories for files).
+- **Checked (Python 3.12.7 in a disposable virtualenv; CI uses 3.13):** `coverage run --branch -m pytest` 384 passed, 184 subtests; critical-module coverage 100% statement and branch for models, serializers, views and events; mutmut 296 killed, 3 survived, 299 total, no unresolved, threshold passed; Django runner team 384/384 and upstream 9/9; development database unchanged. SonarQube was not run locally. Hosted CI has not run on this revision yet.
+- **Not changed:** application code, existing tests, `ci.yml`.
+- **Student review required:** confirm the exclusions match the `load_tests` hooks, and check the hosted run after pushing.
