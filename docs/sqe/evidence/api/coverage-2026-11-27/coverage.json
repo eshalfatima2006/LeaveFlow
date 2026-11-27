@@ -1,0 +1,1755 @@
+{
+ "achieved_level": 7,
+ "counts": {
+  "errors": 0,
+  "executed": 351,
+  "expected_failures": 0,
+  "failed": 0,
+  "non_passing_test_methods": 0,
+  "passed": 351,
+  "skipped": 0,
+  "unexpected_successes": 0
+ },
+ "criteria": {
+  "operation flows": {
+   "covered": 8,
+   "items": {
+    "decide then owner dashboard": {
+     "test_count": 3,
+     "tests": [
+      "tests.team.integration.test_w1_w2_integration.ApprovalOverdrawTests.test_second_approval_overdraws_allowance_characterization",
+      "tests.team.integration.test_w1_w2_integration.SameRecordApprovalTests.test_w1_submission_then_w2_approval_consumes_allowance",
+      "tests.team.integration.test_w1_w2_integration.SameRecordRejectionTests.test_w1_submission_then_w2_rejection_consumes_nothing"
+     ]
+    },
+    "decide then team upcoming leave": {
+     "test_count": 1,
+     "tests": [
+      "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_approval_through_w2_becomes_upcoming"
+     ]
+    },
+    "login then profile": {
+     "test_count": 1,
+     "tests": [
+      "tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard"
+     ]
+    },
+    "reject then resubmit the dates": {
+     "test_count": 1,
+     "tests": [
+      "tests.team.integration.test_w1_w2_integration.SameRecordRejectionTests.test_w1_submission_then_w2_rejection_consumes_nothing"
+     ]
+    },
+    "submit then approve or reject the same request": {
+     "test_count": 7,
+     "tests": [
+      "tests.team.integration.test_w1_w2_integration.ApprovalOverdrawTests.test_second_approval_overdraws_allowance_characterization",
+      "tests.team.integration.test_w1_w2_integration.CrossWorkflowAuthorizationTests.test_other_team_request_is_invisible_to_manager",
+      "tests.team.integration.test_w1_w2_integration.ExitCriterionScenarioTests.test_ec01_two_four_day_requests_characterization"
+     ]
+    },
+    "submit then dashboard": {
+     "test_count": 6,
+     "tests": [
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "submit then decide then repeat the decision": {
+     "test_count": 2,
+     "tests": [
+      "tests.team.integration.test_w1_w2_integration.InvalidTransitionTests.test_decision_on_approved_request_conflicts",
+      "tests.team.integration.test_w1_w2_integration.InvalidTransitionTests.test_decision_on_rejected_request_conflicts"
+     ]
+    },
+    "submit then own list": {
+     "test_count": 2,
+     "tests": [
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row",
+      "tests.team.integration.test_w1_w2_integration.SameRecordApprovalTests.test_w1_submission_then_w2_approval_consumes_allowance"
+     ]
+    }
+   },
+   "missing": [],
+   "total": 8,
+   "undocumented_observed": []
+  },
+  "operations": {
+   "covered": 7,
+   "items": {
+    "dashboard": {
+     "test_count": 14,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_401"
+     ]
+    },
+    "decideRequest": {
+     "test_count": 94,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_employee_cannot_decide_or_reach_another_users_request",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved"
+     ]
+    },
+    "listRequests": {
+     "test_count": 17,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200"
+     ]
+    },
+    "login": {
+     "test_count": 34,
+     "tests": [
+      "tests.team.api.test_authentication.LoginTests.test_invalid_credentials_are_refused_without_issuing_tokens",
+      "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+      "tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_login_non_object_json_characterization"
+     ]
+    },
+    "me": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials"
+     ]
+    },
+    "submitRequest": {
+     "test_count": 159,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_submit_maximum_date_characterization"
+     ]
+    },
+    "team": {
+     "test_count": 16,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200_without_team"
+     ]
+    }
+   },
+   "missing": [],
+   "total": 7,
+   "undocumented_observed": []
+  },
+  "parameter values": {
+   "covered": 5,
+   "items": {
+    "decideRequest.status=approved": {
+     "test_count": 22,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_extra_body_keys_cannot_override_audit_or_content"
+     ]
+    },
+    "decideRequest.status=rejected": {
+     "test_count": 12,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_same_team_manager_rejects_pending_without_charging_allowance"
+     ]
+    },
+    "submitRequest.leave_type=permit": {
+     "test_count": 3,
+     "tests": [
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_each_leave_type_and_omitted_default",
+      "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_permit",
+      "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_permit"
+     ]
+    },
+    "submitRequest.leave_type=personal": {
+     "test_count": 3,
+     "tests": [
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_each_leave_type_and_omitted_default",
+      "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_personal",
+      "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_personal"
+     ]
+    },
+    "submitRequest.leave_type=vacation": {
+     "test_count": 84,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    }
+   },
+   "missing": [],
+   "total": 5,
+   "undocumented_observed": []
+  },
+  "parameters": {
+   "covered": 8,
+   "items": {
+    "decideRequest.path.id": {
+     "test_count": 94,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_employee_cannot_decide_or_reach_another_users_request",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved"
+     ]
+    },
+    "decideRequest.status": {
+     "test_count": 88,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_employee_cannot_decide_or_reach_another_users_request",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved"
+     ]
+    },
+    "login.password": {
+     "test_count": 28,
+     "tests": [
+      "tests.team.api.test_authentication.LoginTests.test_invalid_credentials_are_refused_without_issuing_tokens",
+      "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_200"
+     ]
+    },
+    "login.username": {
+     "test_count": 28,
+     "tests": [
+      "tests.team.api.test_authentication.LoginTests.test_invalid_credentials_are_refused_without_issuing_tokens",
+      "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_200"
+     ]
+    },
+    "submitRequest.end_date": {
+     "test_count": 150,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_submit_maximum_date_characterization"
+     ]
+    },
+    "submitRequest.leave_type": {
+     "test_count": 152,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_submit_maximum_date_characterization"
+     ]
+    },
+    "submitRequest.note": {
+     "test_count": 152,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_submit_maximum_date_characterization"
+     ]
+    },
+    "submitRequest.start_date": {
+     "test_count": 150,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_submit_maximum_date_characterization"
+     ]
+    }
+   },
+   "missing": [],
+   "total": 8,
+   "undocumented_observed": []
+  },
+  "paths": {
+   "covered": 6,
+   "items": {
+    "/api/auth/login/": {
+     "test_count": 34,
+     "tests": [
+      "tests.team.api.test_authentication.LoginTests.test_invalid_credentials_are_refused_without_issuing_tokens",
+      "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+      "tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_login_non_object_json_characterization"
+     ]
+    },
+    "/api/dashboard/": {
+     "test_count": 14,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_401"
+     ]
+    },
+    "/api/me/": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials"
+     ]
+    },
+    "/api/requests/": {
+     "test_count": 172,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials"
+     ]
+    },
+    "/api/requests/{id}/decision/": {
+     "test_count": 94,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_employee_cannot_decide_or_reach_another_users_request",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved"
+     ]
+    },
+    "/api/team/": {
+     "test_count": 16,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200_without_team"
+     ]
+    }
+   },
+   "missing": [],
+   "total": 6,
+   "undocumented_observed": []
+  },
+  "request media types": {
+   "covered": 9,
+   "items": {
+    "decideRequest application/json": {
+     "test_count": 31,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest application/x-www-form-urlencoded": {
+     "test_count": 1,
+     "tests": [
+      "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_valid_application_x_www_form_urlencoded"
+     ]
+    },
+    "decideRequest multipart/form-data": {
+     "test_count": 1,
+     "tests": [
+      "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_valid_multipart_form_data"
+     ]
+    },
+    "login application/json": {
+     "test_count": 14,
+     "tests": [
+      "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_200",
+      "tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard"
+     ]
+    },
+    "login application/x-www-form-urlencoded": {
+     "test_count": 1,
+     "tests": [
+      "tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_valid_application_x_www_form_urlencoded"
+     ]
+    },
+    "login multipart/form-data": {
+     "test_count": 1,
+     "tests": [
+      "tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_valid_multipart_form_data"
+     ]
+    },
+    "submitRequest application/json": {
+     "test_count": 87,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest application/x-www-form-urlencoded": {
+     "test_count": 1,
+     "tests": [
+      "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_valid_application_x_www_form_urlencoded"
+     ]
+    },
+    "submitRequest multipart/form-data": {
+     "test_count": 1,
+     "tests": [
+      "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_valid_multipart_form_data"
+     ]
+    }
+   },
+   "missing": [],
+   "total": 9,
+   "undocumented_observed": []
+  },
+  "response body properties": {
+   "covered": 119,
+   "items": {
+    "dashboard 200 .balance": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .balance.allowance": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .balance.available": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .balance.used": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .counts": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .counts.approved": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .counts.pending": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .counts.total": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .recent": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .recent[].business_days": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .recent[].created_at": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .recent[].employee": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .recent[].employee.display_name": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .recent[].employee.email": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .recent[].employee.id": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .recent[].employee.role": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .recent[].employee.team": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .recent[].employee.username": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .recent[].end_date": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .recent[].id": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .recent[].leave_type": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .recent[].leave_type_label": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .recent[].note": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .recent[].start_date": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .recent[].status": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 200 .recent[].status_label": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 401 .detail": {
+     "test_count": 5,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_401",
+      "tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard"
+     ]
+    },
+    "decideRequest 200 .business_days": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest 200 .created_at": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest 200 .employee": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest 200 .employee.display_name": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest 200 .employee.email": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest 200 .employee.id": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest 200 .employee.role": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest 200 .employee.team": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest 200 .employee.username": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest 200 .end_date": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest 200 .id": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest 200 .leave_type": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest 200 .leave_type_label": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest 200 .note": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest 200 .start_date": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest 200 .status": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest 200 .status_label": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest 400 .detail": {
+     "test_count": 15,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_400_malformed_json",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_400_value",
+      "tests.team.api.test_w2_decisions.DecisionValueTests.test_guard_precedence"
+     ]
+    },
+    "decideRequest 401 .detail": {
+     "test_count": 4,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_401",
+      "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_authorization_ep_invalid_no_token"
+     ]
+    },
+    "decideRequest 403 .detail": {
+     "test_count": 15,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_employee_cannot_decide_or_reach_another_users_request",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_403_role",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_403_self"
+     ]
+    },
+    "decideRequest 404 .detail": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_404_json",
+      "tests.team.api.test_w2_decisions.DecisionValueTests.test_guard_precedence",
+      "tests.team.api.test_w2_decisions.DeniedDecisionTests.test_nonexistent_and_unroutable_ids"
+     ]
+    },
+    "decideRequest 409 .detail": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_409",
+      "tests.team.api.test_w2_decisions.FinalStateTests.test_approved_and_rejected_requests_cannot_be_decided_again",
+      "tests.team.api.test_w2_decisions.FinalStateTests.test_repeat_after_successful_decision_conflicts"
+     ]
+    },
+    "decideRequest 415 .detail": {
+     "test_count": 2,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_415",
+      "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_invalid_text_plain"
+     ]
+    },
+    "listRequests 200 [].business_days": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "listRequests 200 [].created_at": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "listRequests 200 [].employee": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "listRequests 200 [].employee.display_name": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "listRequests 200 [].employee.email": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "listRequests 200 [].employee.id": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "listRequests 200 [].employee.role": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "listRequests 200 [].employee.team": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "listRequests 200 [].employee.username": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "listRequests 200 [].end_date": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "listRequests 200 [].id": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "listRequests 200 [].leave_type": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "listRequests 200 [].leave_type_label": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "listRequests 200 [].note": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "listRequests 200 [].start_date": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "listRequests 200 [].status": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "listRequests 200 [].status_label": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "listRequests 401 .detail": {
+     "test_count": 4,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_401",
+      "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_authorization_ep_invalid_no_token"
+     ]
+    },
+    "login 200 .token": {
+     "test_count": 16,
+     "tests": [
+      "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_200",
+      "tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard"
+     ]
+    },
+    "login 200 .user": {
+     "test_count": 16,
+     "tests": [
+      "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_200",
+      "tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard"
+     ]
+    },
+    "login 200 .user.display_name": {
+     "test_count": 16,
+     "tests": [
+      "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_200",
+      "tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard"
+     ]
+    },
+    "login 200 .user.email": {
+     "test_count": 16,
+     "tests": [
+      "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_200",
+      "tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard"
+     ]
+    },
+    "login 200 .user.id": {
+     "test_count": 16,
+     "tests": [
+      "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_200",
+      "tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard"
+     ]
+    },
+    "login 200 .user.role": {
+     "test_count": 16,
+     "tests": [
+      "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_200",
+      "tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard"
+     ]
+    },
+    "login 200 .user.team": {
+     "test_count": 16,
+     "tests": [
+      "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_200",
+      "tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard"
+     ]
+    },
+    "login 200 .user.username": {
+     "test_count": 16,
+     "tests": [
+      "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_200",
+      "tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard"
+     ]
+    },
+    "login 400 .detail": {
+     "test_count": 14,
+     "tests": [
+      "tests.team.api.test_authentication.LoginTests.test_invalid_credentials_are_refused_without_issuing_tokens",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_400_credentials",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_400_malformed_json"
+     ]
+    },
+    "login 401 .detail": {
+     "test_count": 1,
+     "tests": [
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_401_invalid_authorization_header"
+     ]
+    },
+    "login 415 .detail": {
+     "test_count": 2,
+     "tests": [
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_415",
+      "tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_invalid_text_plain"
+     ]
+    },
+    "me 200 .display_name": {
+     "test_count": 5,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200_without_team"
+     ]
+    },
+    "me 200 .email": {
+     "test_count": 5,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200_without_team"
+     ]
+    },
+    "me 200 .id": {
+     "test_count": 5,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200_without_team"
+     ]
+    },
+    "me 200 .role": {
+     "test_count": 5,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200_without_team"
+     ]
+    },
+    "me 200 .team": {
+     "test_count": 5,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200_without_team"
+     ]
+    },
+    "me 200 .username": {
+     "test_count": 5,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200_without_team"
+     ]
+    },
+    "me 401 .detail": {
+     "test_count": 5,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_me_401"
+     ]
+    },
+    "submitRequest 201 .business_days": {
+     "test_count": 89,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest 201 .created_at": {
+     "test_count": 89,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest 201 .employee": {
+     "test_count": 89,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest 201 .employee.display_name": {
+     "test_count": 89,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest 201 .employee.email": {
+     "test_count": 89,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest 201 .employee.id": {
+     "test_count": 89,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest 201 .employee.role": {
+     "test_count": 89,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest 201 .employee.team": {
+     "test_count": 89,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest 201 .employee.username": {
+     "test_count": 89,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest 201 .end_date": {
+     "test_count": 89,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest 201 .id": {
+     "test_count": 89,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest 201 .leave_type": {
+     "test_count": 89,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest 201 .leave_type_label": {
+     "test_count": 89,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest 201 .note": {
+     "test_count": 89,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest 201 .start_date": {
+     "test_count": 89,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest 201 .status": {
+     "test_count": 89,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest 201 .status_label": {
+     "test_count": 89,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest 400 .*": {
+     "test_count": 64,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_balance",
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_body_not_object",
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_end_before_start"
+     ]
+    },
+    "submitRequest 400 .detail": {
+     "test_count": 3,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_malformed_json",
+      "tests.team.api.test_w1_submission.PayloadValidationTests.test_malformed_json_and_unsupported_media_type",
+      "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_invalid_malformed_json"
+     ]
+    },
+    "submitRequest 401 .detail": {
+     "test_count": 7,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_401"
+     ]
+    },
+    "submitRequest 415 .detail": {
+     "test_count": 3,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_415",
+      "tests.team.api.test_w1_submission.PayloadValidationTests.test_malformed_json_and_unsupported_media_type",
+      "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_invalid_text_plain"
+     ]
+    },
+    "team 200 [].allowance": {
+     "test_count": 11,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200",
+      "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_valid_token",
+      "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_approval_through_w2_becomes_upcoming"
+     ]
+    },
+    "team 200 [].available_days": {
+     "test_count": 11,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200",
+      "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_valid_token",
+      "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_approval_through_w2_becomes_upcoming"
+     ]
+    },
+    "team 200 [].display_name": {
+     "test_count": 11,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200",
+      "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_valid_token",
+      "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_approval_through_w2_becomes_upcoming"
+     ]
+    },
+    "team 200 [].email": {
+     "test_count": 11,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200",
+      "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_valid_token",
+      "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_approval_through_w2_becomes_upcoming"
+     ]
+    },
+    "team 200 [].id": {
+     "test_count": 11,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200",
+      "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_valid_token",
+      "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_approval_through_w2_becomes_upcoming"
+     ]
+    },
+    "team 200 [].next_leave": {
+     "test_count": 11,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200",
+      "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_valid_token",
+      "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_approval_through_w2_becomes_upcoming"
+     ]
+    },
+    "team 200 [].next_leave.end_date": {
+     "test_count": 6,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200",
+      "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_valid_token",
+      "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_approval_through_w2_becomes_upcoming"
+     ]
+    },
+    "team 200 [].next_leave.start_date": {
+     "test_count": 6,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200",
+      "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_valid_token",
+      "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_approval_through_w2_becomes_upcoming"
+     ]
+    },
+    "team 200 [].role": {
+     "test_count": 11,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200",
+      "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_valid_token",
+      "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_approval_through_w2_becomes_upcoming"
+     ]
+    },
+    "team 200 [].team": {
+     "test_count": 11,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200",
+      "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_valid_token",
+      "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_approval_through_w2_becomes_upcoming"
+     ]
+    },
+    "team 200 [].username": {
+     "test_count": 11,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200",
+      "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_valid_token",
+      "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_approval_through_w2_becomes_upcoming"
+     ]
+    },
+    "team 401 .detail": {
+     "test_count": 4,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_401",
+      "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_invalid_no_token"
+     ]
+    }
+   },
+   "missing": [],
+   "total": 119,
+   "undocumented_observed": []
+  },
+  "response media types": {
+   "covered": 8,
+   "items": {
+    "dashboard application/json": {
+     "test_count": 14,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_401"
+     ]
+    },
+    "decideRequest application/json": {
+     "test_count": 88,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_employee_cannot_decide_or_reach_another_users_request",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved"
+     ]
+    },
+    "decideRequest text/html": {
+     "test_count": 7,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_404_html",
+      "tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_decide_non_object_json_characterization",
+      "tests.team.api.test_w2_decisions.DeniedDecisionTests.test_nonexistent_and_unroutable_ids"
+     ]
+    },
+    "listRequests application/json": {
+     "test_count": 17,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200"
+     ]
+    },
+    "login application/json": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_authentication.LoginTests.test_invalid_credentials_are_refused_without_issuing_tokens",
+      "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_200"
+     ]
+    },
+    "me application/json": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials"
+     ]
+    },
+    "submitRequest application/json": {
+     "test_count": 158,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201"
+     ]
+    },
+    "team application/json": {
+     "test_count": 16,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200_without_team"
+     ]
+    }
+   },
+   "missing": [],
+   "total": 8,
+   "undocumented_observed": []
+  },
+  "status codes": {
+   "covered": 23,
+   "items": {
+    "dashboard 200": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 401": {
+     "test_count": 5,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_401",
+      "tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard"
+     ]
+    },
+    "decideRequest 200": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest 400": {
+     "test_count": 15,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_400_malformed_json",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_400_value",
+      "tests.team.api.test_w2_decisions.DecisionValueTests.test_guard_precedence"
+     ]
+    },
+    "decideRequest 401": {
+     "test_count": 4,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_401",
+      "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_authorization_ep_invalid_no_token"
+     ]
+    },
+    "decideRequest 403": {
+     "test_count": 15,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_employee_cannot_decide_or_reach_another_users_request",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_403_role",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_403_self"
+     ]
+    },
+    "decideRequest 404": {
+     "test_count": 17,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_404_html",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_404_json",
+      "tests.team.api.test_w2_decisions.DecisionValueTests.test_guard_precedence"
+     ]
+    },
+    "decideRequest 409": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_409",
+      "tests.team.api.test_w2_decisions.FinalStateTests.test_approved_and_rejected_requests_cannot_be_decided_again",
+      "tests.team.api.test_w2_decisions.FinalStateTests.test_repeat_after_successful_decision_conflicts"
+     ]
+    },
+    "decideRequest 415": {
+     "test_count": 2,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_415",
+      "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_invalid_text_plain"
+     ]
+    },
+    "listRequests 200": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "listRequests 401": {
+     "test_count": 4,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_401",
+      "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_authorization_ep_invalid_no_token"
+     ]
+    },
+    "login 200": {
+     "test_count": 16,
+     "tests": [
+      "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_200",
+      "tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard"
+     ]
+    },
+    "login 400": {
+     "test_count": 14,
+     "tests": [
+      "tests.team.api.test_authentication.LoginTests.test_invalid_credentials_are_refused_without_issuing_tokens",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_400_credentials",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_400_malformed_json"
+     ]
+    },
+    "login 401": {
+     "test_count": 1,
+     "tests": [
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_401_invalid_authorization_header"
+     ]
+    },
+    "login 415": {
+     "test_count": 2,
+     "tests": [
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_415",
+      "tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_invalid_text_plain"
+     ]
+    },
+    "me 200": {
+     "test_count": 5,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200_without_team"
+     ]
+    },
+    "me 401": {
+     "test_count": 5,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_me_401"
+     ]
+    },
+    "submitRequest 201": {
+     "test_count": 89,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest 400": {
+     "test_count": 67,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_balance",
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_body_not_object",
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_end_before_start"
+     ]
+    },
+    "submitRequest 401": {
+     "test_count": 7,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_401"
+     ]
+    },
+    "submitRequest 415": {
+     "test_count": 3,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_415",
+      "tests.team.api.test_w1_submission.PayloadValidationTests.test_malformed_json_and_unsupported_media_type",
+      "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_invalid_text_plain"
+     ]
+    },
+    "team 200": {
+     "test_count": 12,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200_without_team",
+      "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_valid_token"
+     ]
+    },
+    "team 401": {
+     "test_count": 4,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_401",
+      "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_invalid_no_token"
+     ]
+    }
+   },
+   "missing": [],
+   "total": 23,
+   "undocumented_observed": [
+    "decideRequest 500",
+    "login 500",
+    "submitRequest 500"
+   ]
+  },
+  "status-code classes": {
+   "covered": 14,
+   "items": {
+    "dashboard 2xx": {
+     "test_count": 10,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "dashboard 4xx": {
+     "test_count": 5,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_401",
+      "tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard"
+     ]
+    },
+    "decideRequest 2xx": {
+     "test_count": 33,
+     "tests": [
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+      "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team"
+     ]
+    },
+    "decideRequest 4xx": {
+     "test_count": 63,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_employee_cannot_decide_or_reach_another_users_request",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_400_malformed_json"
+     ]
+    },
+    "listRequests 2xx": {
+     "test_count": 13,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+      "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row"
+     ]
+    },
+    "listRequests 4xx": {
+     "test_count": 4,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_list_401",
+      "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_authorization_ep_invalid_no_token"
+     ]
+    },
+    "login 2xx": {
+     "test_count": 16,
+     "tests": [
+      "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_200",
+      "tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard"
+     ]
+    },
+    "login 4xx": {
+     "test_count": 17,
+     "tests": [
+      "tests.team.api.test_authentication.LoginTests.test_invalid_credentials_are_refused_without_issuing_tokens",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_400_credentials",
+      "tests.team.api.test_openapi_contract.LoginContractTests.test_login_400_malformed_json"
+     ]
+    },
+    "me 2xx": {
+     "test_count": 5,
+     "tests": [
+      "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200_without_team"
+     ]
+    },
+    "me 4xx": {
+     "test_count": 5,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_me_401"
+     ]
+    },
+    "submitRequest 2xx": {
+     "test_count": 89,
+     "tests": [
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+      "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+      "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check"
+     ]
+    },
+    "submitRequest 4xx": {
+     "test_count": 76,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_balance"
+     ]
+    },
+    "team 2xx": {
+     "test_count": 12,
+     "tests": [
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200_without_team",
+      "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_valid_token"
+     ]
+    },
+    "team 4xx": {
+     "test_count": 4,
+     "tests": [
+      "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+      "tests.team.api.test_openapi_contract.ReadContractTests.test_team_401",
+      "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_invalid_no_token"
+     ]
+    }
+   },
+   "missing": [],
+   "total": 14,
+   "undocumented_observed": []
+  }
+ },
+ "generated_classes": {
+  "BVA invalid": 7,
+  "BVA valid": 10,
+  "EP invalid": 92,
+  "EP valid": 32
+ },
+ "git_sha": "7f5589e36089301c88bde80acdf46810bc87a15b",
+ "git_status": [
+  "?? prompt.md"
+ ],
+ "observed": {
+  "matching": 127,
+  "total": 127
+ },
+ "recorded_calls": 534,
+ "spec_sha256": "939d1303b296138c872a55f84823eeb15d0370925cc840fe5f14c6064fcd0b41",
+ "techniques": {
+  "A2.1 API functional": 40,
+  "BVA, handwritten": 14,
+  "EP, handwritten": 34,
+  "contract": 41,
+  "cross-workflow integration": 15,
+  "decision tables": 52,
+  "foundation": 19,
+  "generated EP/BVA (manifest)": 127,
+  "manifest checks": 2,
+  "state transitions": 7
+ }
+}
