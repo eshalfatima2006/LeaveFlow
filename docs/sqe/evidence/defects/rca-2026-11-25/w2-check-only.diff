@@ -1,0 +1,15 @@
+diff --git a/backend/leave/views.py b/backend/leave/views.py
+index 4809881..de2a18f 100644
+--- a/backend/leave/views.py
++++ b/backend/leave/views.py
+@@ -80,6 +80,10 @@ def decide_request(request, request_id):
+             return Response({'detail': 'Non puoi decidere una tua richiesta.'}, status=status.HTTP_403_FORBIDDEN)
+         if item.status != LeaveRequest.Status.PENDING:
+             return Response({'detail': 'La richiesta è già stata decisa.'}, status=status.HTTP_409_CONFLICT)
++        if decision == LeaveRequest.Status.APPROVED:
++            balance = getattr(item.employee, 'leave_balance', None)
++            if balance and item.business_days > balance.available_days:
++                return Response({'detail': 'EXPERIMENT: insufficient balance'}, status=status.HTTP_409_CONFLICT)
+         item.status = decision
+         item.decided_by = request.user
+         item.decided_at = timezone.now()

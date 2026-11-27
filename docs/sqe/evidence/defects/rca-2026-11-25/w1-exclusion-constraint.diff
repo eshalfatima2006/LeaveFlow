@@ -1,0 +1,14 @@
+diff --git a/backend/leave/migrations/0002_rca_experiment.py b/backend/leave/migrations/0002_rca_experiment.py
+new file mode 100644
+index 0000000..b655f38
+--- /dev/null
++++ b/backend/leave/migrations/0002_rca_experiment.py
+@@ -0,0 +1,8 @@
++from django.db import migrations
++class Migration(migrations.Migration):
++    dependencies = [("leave", "0001_initial")]
++    operations = [
++        migrations.RunSQL("CREATE EXTENSION IF NOT EXISTS btree_gist"),
++        migrations.RunSQL("ALTER TABLE leave_leaverequest ADD CONSTRAINT rca_no_overlap EXCLUDE USING gist "
++            "(employee_id WITH =, daterange(start_date, end_date, '[]') WITH &&) WHERE (status IN ('pending','approved'))"),
++    ]

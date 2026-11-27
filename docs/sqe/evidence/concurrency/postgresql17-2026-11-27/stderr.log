@@ -1,0 +1,17 @@
+Creating test database for alias 'default' ('test_sqe_disposable_184271b0018f')...
+test_approve_and_reject_same_request (tests.team.concurrency.test_concurrency.ConcurrentDecisionTests.test_approve_and_reject_same_request)
+API-INT-002.03; FR-W2-04; BR-05: approve vs reject under the row lock → one 200, one 409, the winner's audit kept. ... ok
+test_approve_same_request_twice (tests.team.concurrency.test_concurrency.ConcurrentDecisionTests.test_approve_same_request_twice)
+API-INT-002.04; FR-W2-04, FR-W2-05; BR-03, BR-05: approve vs approve → one 200, one 409, charged once. ... ok
+test_distinct_requests_on_one_allowance_characterization (tests.team.concurrency.test_concurrency.ConcurrentDecisionTests.test_distinct_requests_on_one_allowance_characterization)
+API-INT-002.05 — CHARACTERIZATION (GAP-01, PR-01): allowance 5, two 4-day requests approved together → −3. ... ok
+test_identical_submissions_characterization (tests.team.concurrency.test_concurrency.ConcurrentSubmissionTests.test_identical_submissions_characterization)
+API-INT-002.02; FR-W1-04, FR-W1-06; BR-02: a double submit of one request → two identical rows. ... ok
+test_overlapping_submissions_characterization (tests.team.concurrency.test_concurrency.ConcurrentSubmissionTests.test_overlapping_submissions_characterization)
+API-INT-002.01; FR-W1-04; BR-02: two overlapping submissions both pass the check → two overlapping rows. ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.504s
+
+OK
+Destroying test database for alias 'default' ('test_sqe_disposable_184271b0018f')...

@@ -1,0 +1,695 @@
+openapi: 3.0.3
+info:
+  title: LeaveFlow API (selected W1/W2 scope)
+  version: "a2.4"
+  description: |
+    Contract for the LeaveFlow endpoints in the SQE test scope, written from the
+    baseline source (backend/leave/models.py, serializers.py, views.py, urls.py)
+    and the business rules in docs/sqe/requirements/BUSINESS-RULES.md.
+
+    It describes observed baseline behaviour. Where the baseline differs from the
+    desired policy, the x-business-rules entry says so (field "gap"); the schema
+    does not invent enforcement that the application lacks.
+
+    Media: JSON, URL-encoded and multipart request bodies are accepted and
+    documented. Responses are documented as JSON; the HTML browsable API (Accept:
+    text/html) and its 406 are framework features outside the selected scope, as
+    are HEAD and OPTIONS.
+
+    Error messages are the Italian strings produced with LANGUAGE_CODE it-it.
+
+    Vendor extensions:
+      x-business-rules  BR-01..BR-06 that apply to an operation, with the
+                        response each one produces.
+      x-known-deviations  baseline behaviour that contradicts this contract.
+      x-relational      cross-field constraint (operator and other field).
+      x-invalid-examples  further invalid values of an input (semantic or format
+                        classes that schema keywords do not express).
+      x-rule-boundaries business-rule limits that depend on stored records
+                        (balance, overlap), expressed against x-sqe-fixture.
+      x-trimmed-max-length  length limit applied after trimming surrounding
+                        whitespace. There is no limit on the raw value, so maxLength
+                        would contradict the application.
+      x-context-cases   actor and target-record classes of an operation.
+      x-operation-flows operation sequences for the operation-flow criterion. Each
+                        step names an operation, the status it must return and
+                        conditions on earlier steps (by index): decision (value
+                        sent), same_record, same_dates, actor (same_as, owner_of,
+                        not_owner_of), shows_record (response lists the record),
+                        shows_leave (team next_leave of the owner has its dates).
+      x-sqe-fixture     records that the generated tests create first.
+      x-sqe-test        test bindings for scripts/sqe/generate_api_tests.py:
+                        acting fixture user, path parameters, fixture-bound
+                        field values, the persisted-state readback to check, the
+                        exact status of an invalid body (invalid_status) and the
+                        error key it must carry (error_key: field | detail).
+servers:
+  - url: http://localhost:8000
+    description: Local development server (tests use Django's in-process test client)
+
+security:
+  - tokenAuth: []
+
+x-sqe-fixture:
+  allowance: 10
+  pending:
+    start: "2026-12-15"
+    end: "2026-12-16"
+
+x-operation-flows:
+  - name: login then profile
+    steps:
+      - {operation: login, status: 200}
+      - {operation: me, status: 200, actor: {same_as: 0}}
+  - name: submit then own list
+    steps:
+      - {operation: submitRequest, status: 201}
+      - {operation: listRequests, status: 200, actor: {same_as: 0}, shows_record: 0}
+  - name: submit then dashboard
+    steps:
+      - {operation: submitRequest, status: 201}
+      - {operation: dashboard, status: 200, actor: {same_as: 0}}
+  - name: submit then approve or reject the same request
+    steps:
+      - {operation: submitRequest, status: 201}
+      - {operation: decideRequest, status: 200, same_record: 0, actor: {not_owner_of: 0}}
+  - name: submit then decide then repeat the decision
+    steps:
+      - {operation: submitRequest, status: 201}
+      - {operation: decideRequest, status: 200, same_record: 0, actor: {not_owner_of: 0}}
+      - {operation: decideRequest, status: 409, same_record: 0}
+  - name: decide then owner dashboard
+    steps:
+      - {operation: decideRequest, status: 200}
+      - {operation: dashboard, status: 200, actor: {owner_of: 0}}
+  - name: decide then team upcoming leave
+    steps:
+      - {operation: decideRequest, status: 200, decision: approved}
+      - {operation: team, status: 200, shows_leave: 0}
+  - name: reject then resubmit the dates
+    steps:
+      - {operation: submitRequest, status: 201}
+      - {operation: decideRequest, status: 200, decision: rejected, same_record: 0, actor: {not_owner_of: 0}}
+      - {operation: submitRequest, status: 201, actor: {owner_of: 0}, same_dates: 0}
+
+tags:
+  - name: auth
+  - name: requests
+  - name: overview
+
+paths:
+  /api/auth/login/:
+    post:
+      tags: [auth]
+      operationId: login
+      summary: Obtain a DRF token for username/password credentials
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginInput"
+            example:
+              username: employee.example
+              password: example-password
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/LoginInput"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/LoginInput"
+      responses:
+        "200":
+          description: Credentials valid; the existing or a new token is returned.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+        "400":
+          description: Missing, null, wrong-type or invalid credentials, or malformed JSON.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Detail"
+              example:
+                detail: Credenziali non valide.
+        "401":
+          description: |
+            An invalid Authorization header was sent. TokenAuthentication runs even
+            though this endpoint allows anonymous access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Detail"
+        "415":
+          $ref: "#/components/responses/UnsupportedMediaType"
+      x-known-deviations:
+        - A JSON body that is not an object (list, string, number, null) returns 500 instead of 400.
+      x-business-rules:
+        - id: BR-04
+          rule: Only valid active credentials yield a token; every protected route then requires "Authorization Token <key>".
+          response: "400 {detail: 'Credenziali non valide.'}"
+      x-sqe-test:
+        actor: null
+        readback: token
+        invalid_status: 400
+        error_key: detail
+        bindings:
+          username: e1.username
+          password: password
+
+  /api/me/:
+    get:
+      tags: [overview]
+      operationId: me
+      x-sqe-test:
+        actor: m1
+        readback: none
+      summary: Profile of the authenticated user
+      responses:
+        "200":
+          description: The caller's profile.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+      x-business-rules:
+        - id: BR-04
+          rule: Authentication required (TokenAuthentication + IsAuthenticated).
+          response: "401"
+
+  /api/requests/:
+    get:
+      tags: [requests]
+      operationId: listRequests
+      x-sqe-test:
+        actor: m1
+        readback: none
+      summary: Leave requests visible to the caller (no filters, no pagination)
+      responses:
+        "200":
+          description: |
+            Admin sees all requests; a manager with a team sees that team's
+            requests; anyone else (employee, teamless manager) sees only their own.
+            Ordered by created_at descending.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LeaveRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+      x-business-rules:
+        - id: BR-04
+          rule: Visibility is scoped by role and team (views.visible_requests).
+          response: "200 with the scoped list; 401 without a token"
+
+    post:
+      tags: [requests]
+      operationId: submitRequest
+      summary: W1 - submit a leave request for the caller
+      description: |
+        Creates a pending request owned by the authenticated caller. employee,
+        status and the other response-only fields cannot be set by the client.
+        Unknown keys are ignored (no strict additionalProperties enforcement in
+        the baseline).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LeaveRequestInput"
+            example:
+              leave_type: vacation
+              start_date: "2026-12-07"
+              end_date: "2026-12-08"
+              note: Generated test
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/LeaveRequestInput"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/LeaveRequestInput"
+      responses:
+        "201":
+          description: Created in state pending.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaveRequest"
+        "400":
+          description: |
+            Field validation error (BR-06), end before start (BR-01), active overlap
+            (BR-02) or insufficient balance (BR-03), keyed by field or
+            non_field_errors; malformed JSON returns detail. No row is created.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/ValidationErrors"
+                  - $ref: "#/components/schemas/Detail"
+              examples:
+                endBeforeStart:
+                  value:
+                    end_date: [La data finale non può precedere quella iniziale.]
+                overlap:
+                  value:
+                    non_field_errors: [Esiste già una richiesta sovrapposta.]
+                insufficientBalance:
+                  value:
+                    non_field_errors: [Saldo ferie insufficiente.]
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "415":
+          $ref: "#/components/responses/UnsupportedMediaType"
+      x-known-deviations:
+        - end_date 9999-12-31 returns 500 (date overflow in business_days) although it is a valid date.
+        - A JSON number for note is converted to a string and accepted, although the schema type is string.
+      x-business-rules:
+        - id: BR-01
+          rule: end_date >= start_date; business_days counts weekdays inclusively.
+          response: "400 {end_date: ['La data finale non può precedere quella iniziale.']}"
+          source: backend/leave/models.py LeaveRequest.clean
+        - id: BR-02
+          rule: No pending or approved request of the same employee may intersect [start_date, end_date]; rejected requests do not block.
+          response: "400 {non_field_errors: ['Esiste già una richiesta sovrapposta.']}"
+          note: The baseline answers an overlap with 400, not 409.
+        - id: BR-03
+          rule: With a LeaveBalance, business_days must be <= available days (allowance minus approved days).
+          response: "400 {non_field_errors: ['Saldo ferie insufficiente.']}"
+          gap: Without a LeaveBalance record the check is skipped (GAP-07).
+        - id: BR-04
+          rule: Authentication required; the request is always created for the caller.
+          response: "401 without a valid token"
+        - id: BR-06
+          rule: Field domains of LeaveRequestInput (types, enum, formats, maxLength, required).
+          response: "400 {<field>: [<message>]}"
+      x-rule-boundaries:
+        - rule: BR-03
+          kind: business-days
+          fields: [start_date, end_date]
+          start: "2027-01-04"
+          maximum: allowance
+        - rule: BR-02
+          kind: interval-overlap
+          fields: [start_date, end_date]
+          interval: pending
+      x-sqe-test:
+        actor: e1
+        readback: created
+        invalid_status: 400
+        error_key: field
+
+  /api/requests/{id}/decision/:
+    post:
+      tags: [requests]
+      operationId: decideRequest
+      summary: W2 - approve or reject a pending leave request
+      description: |
+        Guards are evaluated in this order: authentication (401), role
+        manager/admin (403), decision value (400), request visible to the actor
+        (404), not the actor's own request (403), request still pending (409).
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: |
+            Leave request id (Django <int:request_id> route). Existence is not a
+            numeric limit, so BVA does not apply; 2147483647 is a nonexistent id.
+          schema:
+            type: integer
+          x-invalid-examples: [0, -1, 2147483647, abc, 1.5]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DecisionInput"
+            example:
+              status: approved
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/DecisionInput"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/DecisionInput"
+      responses:
+        "200":
+          description: The same request, now approved or rejected; decided_by/decided_at are stored.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaveRequest"
+        "400":
+          description: Decision value missing, null or not approved/rejected, or malformed JSON.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Detail"
+              example:
+                detail: Decisione non valida.
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          description: Caller is not a manager/admin, or tries to decide their own request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Detail"
+              examples:
+                role:
+                  value:
+                    detail: Operazione non consentita.
+                self:
+                  value:
+                    detail: Non puoi decidere una tua richiesta.
+        "404":
+          description: |
+            No request with this id is visible to the caller (JSON). An id that is
+            not a non-negative integer does not match the route and gets Django's
+            HTML page.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Detail"
+            text/html:
+              schema:
+                type: string
+        "409":
+          description: The request is already approved or rejected.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Detail"
+              example:
+                detail: La richiesta è già stata decisa.
+        "415":
+          $ref: "#/components/responses/UnsupportedMediaType"
+      x-known-deviations:
+        - A JSON body that is not an object (list, string, number, null) returns 500 instead of 400.
+      x-business-rules:
+        - id: BR-03
+          rule: Approval consumes allowance (available days are derived from approved requests).
+          response: "200"
+          gap: No balance check at approval time; approvals can overdraw (GAP-01).
+        - id: BR-04
+          rule: Role manager/admin; request visible (admin all, manager own team); not the actor's own request.
+          response: "403 {detail: 'Operazione non consentita.'} | 404 | 403 {detail: 'Non puoi decidere una tua richiesta.'}"
+        - id: BR-05
+          rule: Only pending requests can be decided; approved and rejected are final.
+          response: "409 {detail: 'La richiesta è già stata decisa.'}"
+        - id: BR-06
+          rule: status must be exactly approved or rejected.
+          response: "400 {detail: 'Decisione non valida.'}"
+      x-context-cases:
+        - {name: manager of the team, actor: m1, path: {id: pending.id}, status: 200}
+        - {name: admin, actor: admin, path: {id: pending.id}, status: 200}
+        - {name: employee owner, actor: e1, path: {id: pending.id}, status: 403}
+        - {name: employee teammate, actor: e2, path: {id: pending.id}, status: 403}
+        - {name: manager of another team, actor: m2, path: {id: pending.id}, status: 404}
+        - {name: manager without a team, actor: teamless_manager, path: {id: pending.id}, status: 404}
+        - {name: manager own request, actor: m1, path: {id: own.id}, status: 403}
+        - {name: request out of scope, actor: m1, path: {id: other_team.id}, status: 404}
+        - {name: request already approved, actor: m1, path: {id: approved.id}, status: 409}
+        - {name: request already rejected, actor: m1, path: {id: rejected.id}, status: 409}
+      x-sqe-test:
+        actor: m1
+        readback: decided
+        invalid_status: 400
+        error_key: detail
+        path_params:
+          id: pending.id
+
+  /api/dashboard/:
+    get:
+      tags: [overview]
+      operationId: dashboard
+      x-sqe-test:
+        actor: m1
+        readback: none
+      summary: Caller's balance, counts over visible requests and five most recent
+      responses:
+        "200":
+          description: Balance figures are 0 when the caller has no LeaveBalance.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dashboard"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+      x-business-rules:
+        - id: BR-03
+          rule: available = allowance - sum(business_days of approved requests); pending and rejected consume nothing.
+          response: "200 balance {allowance, used, available}"
+        - id: BR-04
+          rule: Counts and recent requests use the same role/team visibility as GET /api/requests/.
+          response: "200; 401 without a token"
+
+  /api/team/:
+    get:
+      tags: [overview]
+      operationId: team
+      x-sqe-test:
+        actor: m1
+        readback: none
+      summary: Members of the caller's team with balance and next approved leave
+      description: Available to every authenticated role; returns [] when the caller has no team.
+      responses:
+        "200":
+          description: Team members ordered by role, first name.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TeamMember"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+      x-business-rules:
+        - id: BR-03
+          rule: available_days per member is derived from approved requests; 0 without a LeaveBalance.
+          response: "200"
+        - id: BR-04
+          rule: Team-scoped; not restricted to managers in the baseline.
+          response: "200 ([] without a team); 401 without a token"
+
+components:
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'DRF token authentication: "Authorization: Token <key>".'
+
+  responses:
+    Unauthenticated:
+      description: Missing or invalid token.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Detail"
+
+    UnsupportedMediaType:
+      description: The request Content-Type is not supported.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Detail"
+
+  schemas:
+    LoginInput:
+      type: object
+      required: [username, password]
+      properties:
+        username:
+          type: string
+          x-invalid-examples: ["", unknown-user]
+        password:
+          type: string
+          format: password
+          x-invalid-examples: ["", wrong-password]
+
+    LoginResponse:
+      type: object
+      required: [token, user]
+      properties:
+        token:
+          type: string
+        user:
+          $ref: "#/components/schemas/User"
+
+    LeaveRequestInput:
+      type: object
+      required: [start_date, end_date]
+      properties:
+        leave_type:
+          type: string
+          enum: [vacation, permit, personal]
+          default: vacation
+          x-invalid-examples: [""]
+        start_date:
+          type: string
+          format: date
+          x-invalid-examples: ["", "2026-02-30"]
+        end_date:
+          type: string
+          format: date
+          x-invalid-examples: ["", "2026-02-30"]
+          description: Must be on or after start_date (BR-01).
+          x-relational:
+            operator: ">="
+            field: start_date
+            rule: BR-01
+        note:
+          type: string
+          minLength: 0
+          x-trimmed-max-length: 280
+          default: ""
+          description: |
+            At most 280 characters after surrounding whitespace is trimmed; the raw
+            value may be longer. The trimmed value is stored.
+
+    DecisionInput:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [approved, rejected]
+          x-invalid-examples: ["", pending]
+
+    User:
+      type: object
+      required: [id, username, display_name, email, role, team]
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        display_name:
+          type: string
+          description: Full name, or the username when no name is set.
+        email:
+          type: string
+        role:
+          type: string
+          enum: [employee, manager, admin]
+        team:
+          type: string
+          nullable: true
+
+    LeaveRequest:
+      type: object
+      required:
+        - id
+        - employee
+        - leave_type
+        - leave_type_label
+        - start_date
+        - end_date
+        - note
+        - status
+        - status_label
+        - business_days
+        - created_at
+      properties:
+        id:
+          type: integer
+        employee:
+          $ref: "#/components/schemas/User"
+        leave_type:
+          type: string
+          enum: [vacation, permit, personal]
+        leave_type_label:
+          type: string
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        note:
+          type: string
+          maxLength: 280
+        status:
+          type: string
+          enum: [pending, approved, rejected]
+        status_label:
+          type: string
+        business_days:
+          type: integer
+          minimum: 0
+        created_at:
+          type: string
+          format: date-time
+
+    TeamMember:
+      allOf:
+        - $ref: "#/components/schemas/User"
+        - type: object
+          required: [available_days, allowance, next_leave]
+          properties:
+            available_days:
+              type: integer
+            allowance:
+              type: integer
+            next_leave:
+              type: object
+              nullable: true
+              required: [start_date, end_date]
+              properties:
+                start_date:
+                  type: string
+                  format: date
+                end_date:
+                  type: string
+                  format: date
+
+    Dashboard:
+      type: object
+      required: [balance, counts, recent]
+      properties:
+        balance:
+          type: object
+          required: [allowance, used, available]
+          properties:
+            allowance:
+              type: integer
+            used:
+              type: integer
+            available:
+              type: integer
+        counts:
+          type: object
+          required: [total, pending, approved]
+          properties:
+            total:
+              type: integer
+            pending:
+              type: integer
+            approved:
+              type: integer
+        recent:
+          type: array
+          maxItems: 5
+          items:
+            $ref: "#/components/schemas/LeaveRequest"
+
+    Detail:
+      type: object
+      required: [detail]
+      properties:
+        detail:
+          type: string
+
+    ValidationErrors:
+      type: object
+      description: DRF field errors keyed by field name, or non_field_errors.
+      additionalProperties:
+        type: array
+        items:
+          type: string

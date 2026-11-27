@@ -3,6 +3,8 @@
 from django.conf import settings
 from django.db import connections
 
+from .postgres_safety import PROFILE as POSTGRES_PROFILE, assert_disposable_postgres
+
 PROFILE = "sqe-memory-v1"
 TEST_NAME = "file:memorydb_default?mode=memory&cache=shared"
 
@@ -26,6 +28,8 @@ def validate_database_config(config, profile, *, active=False):
 
 
 def assert_disposable_database(*, active=False):
+    if getattr(settings, "TEAM_TEST_PROFILE", None) == POSTGRES_PROFILE:
+        return assert_disposable_postgres(active=active)
     if set(settings.DATABASES) != {"default"}:
         raise RuntimeError("Refusing additional database aliases.")
     if settings.REDIS_URL:

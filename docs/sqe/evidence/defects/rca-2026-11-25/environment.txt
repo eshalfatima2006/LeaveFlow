@@ -1,0 +1,9 @@
+commit 53c4da3099d8bd53adba045cee0c0831ae838f8a
+Python 3.12.7
+Django              6.0.7
+djangorestframework 3.17.1
+gunicorn            26.0.0
+psycopg             3.3.4
+db3f01290c00206db9d065c020582bab9bac8364b7fc7405ed6d5f3ef13c8a1a  tests/team/fixtures/leave_data.py
+e5095486e105b397e3c32ea02c2ff7de6130100663dfa46218ced8159f042151  docs/sqe/openapi/leaveflow-api.yaml
+2026-11-25T16:04:47Z

@@ -1,0 +1,89 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+test_decide_200_approved (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved)
+Contract decideRequest 200: approved LeaveRequest. ... ok
+test_decide_200_rejected (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected)
+Contract decideRequest 200: rejected LeaveRequest. ... ok
+test_decide_400_malformed_json (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_400_malformed_json)
+Contract decideRequest 400: malformed JSON. ... ok
+test_decide_400_value (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_400_value)
+Contract decideRequest 400: invalid decision value. ... ok
+test_decide_401 (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_401)
+Contract decideRequest 401: no token. ... ok
+test_decide_403_role (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_403_role)
+Contract decideRequest 403: employee. ... ok
+test_decide_403_self (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_403_self)
+Contract decideRequest 403: manager's own request. ... ok
+test_decide_404_html (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_404_html)
+Contract decideRequest 404: a non-numeric id does not match the route (HTML). ... ok
+test_decide_404_json (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_404_json)
+Contract decideRequest 404: request of another team (JSON). ... ok
+test_decide_409 (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_409)
+Contract decideRequest 409: already decided. ... ok
+test_decide_415 (tests.team.api.test_openapi_contract.DecideContractTests.test_decide_415)
+Contract decideRequest 415: text/plain body. ... ok
+test_decide_non_object_json_characterization (tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_decide_non_object_json_characterization)
+Deviation: W2 with a JSON list body → 500 (contract: 400); the request stays pending. ... ok
+test_login_non_object_json_characterization (tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_login_non_object_json_characterization)
+Deviation: login with a JSON list body → 500 (contract: 400). ... ok
+test_submit_maximum_date_characterization (tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_submit_maximum_date_characterization)
+Deviation: W1 with end_date 9999-12-31 → 500 (date overflow in business_days); no row. ... ok
+test_login_200 (tests.team.api.test_openapi_contract.LoginContractTests.test_login_200)
+Contract login 200: token and user object. ... ok
+test_login_400_credentials (tests.team.api.test_openapi_contract.LoginContractTests.test_login_400_credentials)
+Contract login 400: wrong password. ... ok
+test_login_400_malformed_json (tests.team.api.test_openapi_contract.LoginContractTests.test_login_400_malformed_json)
+Contract login 400: malformed JSON. ... ok
+test_login_401_invalid_authorization_header (tests.team.api.test_openapi_contract.LoginContractTests.test_login_401_invalid_authorization_header)
+Contract login 401: an invalid token header is refused even with valid credentials. ... ok
+test_login_415 (tests.team.api.test_openapi_contract.LoginContractTests.test_login_415)
+Contract login 415: text/plain body. ... ok
+test_dashboard_200 (tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200)
+Contract dashboard 200: six visible requests, at most five recent. ... ok
+test_dashboard_401 (tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_401)
+Contract dashboard 401: no token. ... ok
+test_list_200 (tests.team.api.test_openapi_contract.ReadContractTests.test_list_200)
+Contract listRequests 200: pending and approved rows. ... ok
+test_list_401 (tests.team.api.test_openapi_contract.ReadContractTests.test_list_401)
+Contract listRequests 401: invalid token. ... ok
+test_me_200 (tests.team.api.test_openapi_contract.ReadContractTests.test_me_200)
+Contract me 200: profile with a team. ... ok
+test_me_200_without_team (tests.team.api.test_openapi_contract.ReadContractTests.test_me_200_without_team)
+Contract me 200: team is null for a user without a team. ... ok
+test_me_401 (tests.team.api.test_openapi_contract.ReadContractTests.test_me_401)
+Contract me 401: no token. ... ok
+test_team_200 (tests.team.api.test_openapi_contract.ReadContractTests.test_team_200)
+Contract team 200: members with and without an upcoming leave, and without a balance. ... ok
+test_team_200_without_team (tests.team.api.test_openapi_contract.ReadContractTests.test_team_200_without_team)
+Contract team 200: empty list for a caller without a team. ... ok
+test_team_401 (tests.team.api.test_openapi_contract.ReadContractTests.test_team_401)
+Contract team 401: no token. ... ok
+test_submit_201 (tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201)
+Contract submitRequest 201: created LeaveRequest. ... ok
+test_submit_400_balance (tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_balance)
+Contract submitRequest 400: non_field_errors (BR-03). ... ok
+test_submit_400_body_not_object (tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_body_not_object)
+Contract submitRequest 400: a JSON list body is refused. ... ok
+test_submit_400_end_before_start (tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_end_before_start)
+Contract submitRequest 400: end_date error (BR-01). ... ok
+test_submit_400_fields (tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_fields)
+Contract submitRequest 400: several field errors. ... ok
+test_submit_400_malformed_json (tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_malformed_json)
+Contract submitRequest 400: malformed JSON gives detail, not field errors. ... ok
+test_submit_400_overlap (tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_overlap)
+Contract submitRequest 400: non_field_errors (BR-02). ... ok
+test_submit_401 (tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_401)
+Contract submitRequest 401: no token. ... ok
+test_submit_415 (tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_415)
+Contract submitRequest 415: text/plain body. ... ok
+test_every_documented_response_is_exercised (tests.team.api.test_openapi_contract.ContractIntegrityTests.test_every_documented_response_is_exercised)
+Every documented (operation, status) has a contract test, and no test names an undocumented one. ... ok
+test_generated_artifacts_match_the_current_spec (tests.team.api.test_openapi_contract.ContractIntegrityTests.test_generated_artifacts_match_the_current_spec)
+The exported contract and the generated tests come from the spec as it is now (else: regenerate). ... ok
+test_validator_detects_violations (tests.team.api.test_openapi_contract.ContractIntegrityTests.test_validator_detects_violations)
+The validator reports each kind of violation (a validator that accepts everything proves nothing). ... ok
+
+----------------------------------------------------------------------
+Ran 41 tests in 67.335s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...

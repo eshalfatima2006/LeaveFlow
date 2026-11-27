@@ -1,0 +1,4289 @@
+{
+ "generated_by": "scripts/sqe/generate_api_tests.py",
+ "spec_sha256": "939d1303b296138c872a55f84823eeb15d0370925cc840fe5f14c6064fcd0b41",
+ "seed": "none (deterministic)",
+ "fixture": {
+  "allowance": 10,
+  "pending": {
+   "start": "2026-12-15",
+   "end": "2026-12-16"
+  }
+ },
+ "module_sha256": "e9a2d3d6eda127c7f53c47c861bce40800c41eb03c6709e2e9f7756a4dc1ce16",
+ "cases": [
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_valid_string",
+   "operation": "login",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    {
+     "input": "username",
+     "technique": "EP",
+     "class": "valid string",
+     "constraint": "type",
+     "valid": true
+    },
+    {
+     "input": "password",
+     "technique": "EP",
+     "class": "valid string (password)",
+     "constraint": "type",
+     "valid": true
+    },
+    {
+     "input": "media",
+     "technique": "EP",
+     "class": "valid application/json",
+     "constraint": "requestBody.content",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "username": {
+      "fixture": "e1.username"
+     },
+     "password": {
+      "fixture": "password"
+     }
+    },
+    "auth": "actor",
+    "actor": null,
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 200,
+    "error_key": null,
+    "readback": "token"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_wrong_type_true",
+   "operation": "login",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    {
+     "input": "username",
+     "technique": "EP",
+     "class": "invalid wrong type (true)",
+     "constraint": "type",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "username": true,
+     "password": {
+      "fixture": "password"
+     }
+    },
+    "auth": "actor",
+    "actor": null,
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_null_not_nullable",
+   "operation": "login",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    {
+     "input": "username",
+     "technique": "EP",
+     "class": "invalid null (not nullable)",
+     "constraint": "nullable",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "username": null,
+     "password": {
+      "fixture": "password"
+     }
+    },
+    "auth": "actor",
+    "actor": null,
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_missing_required",
+   "operation": "login",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    {
+     "input": "username",
+     "technique": "EP",
+     "class": "invalid missing (required)",
+     "constraint": "required",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "password": {
+      "fixture": "password"
+     }
+    },
+    "auth": "actor",
+    "actor": null,
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_example_empty",
+   "operation": "login",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    {
+     "input": "username",
+     "technique": "EP",
+     "class": "invalid example ''",
+     "constraint": "x-invalid-examples",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "username": "",
+     "password": {
+      "fixture": "password"
+     }
+    },
+    "auth": "actor",
+    "actor": null,
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_example_unknown_user",
+   "operation": "login",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    {
+     "input": "username",
+     "technique": "EP",
+     "class": "invalid example 'unknown-user'",
+     "constraint": "x-invalid-examples",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "username": "unknown-user",
+     "password": {
+      "fixture": "password"
+     }
+    },
+    "auth": "actor",
+    "actor": null,
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_wrong_type_true",
+   "operation": "login",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    {
+     "input": "password",
+     "technique": "EP",
+     "class": "invalid wrong type (true)",
+     "constraint": "type",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "username": {
+      "fixture": "e1.username"
+     },
+     "password": true
+    },
+    "auth": "actor",
+    "actor": null,
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_null_not_nullable",
+   "operation": "login",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    {
+     "input": "password",
+     "technique": "EP",
+     "class": "invalid null (not nullable)",
+     "constraint": "nullable",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "username": {
+      "fixture": "e1.username"
+     },
+     "password": null
+    },
+    "auth": "actor",
+    "actor": null,
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_missing_required",
+   "operation": "login",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    {
+     "input": "password",
+     "technique": "EP",
+     "class": "invalid missing (required)",
+     "constraint": "required",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "username": {
+      "fixture": "e1.username"
+     }
+    },
+    "auth": "actor",
+    "actor": null,
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_example_empty",
+   "operation": "login",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    {
+     "input": "password",
+     "technique": "EP",
+     "class": "invalid example ''",
+     "constraint": "x-invalid-examples",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "username": {
+      "fixture": "e1.username"
+     },
+     "password": ""
+    },
+    "auth": "actor",
+    "actor": null,
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_example_wrong_password",
+   "operation": "login",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    {
+     "input": "password",
+     "technique": "EP",
+     "class": "invalid example 'wrong-password'",
+     "constraint": "x-invalid-examples",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "username": {
+      "fixture": "e1.username"
+     },
+     "password": "wrong-password"
+    },
+    "auth": "actor",
+    "actor": null,
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_valid_application_x_www_form_urlencoded",
+   "operation": "login",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    {
+     "input": "media",
+     "technique": "EP",
+     "class": "valid application/x-www-form-urlencoded",
+     "constraint": "requestBody.content",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "username": {
+      "fixture": "e1.username"
+     },
+     "password": {
+      "fixture": "password"
+     }
+    },
+    "auth": "actor",
+    "actor": null,
+    "media": "application/x-www-form-urlencoded",
+    "raw": null
+   },
+   "expected": {
+    "status": 200,
+    "error_key": null,
+    "readback": "token"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_valid_multipart_form_data",
+   "operation": "login",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    {
+     "input": "media",
+     "technique": "EP",
+     "class": "valid multipart/form-data",
+     "constraint": "requestBody.content",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "username": {
+      "fixture": "e1.username"
+     },
+     "password": {
+      "fixture": "password"
+     }
+    },
+    "auth": "actor",
+    "actor": null,
+    "media": "multipart/form-data",
+    "raw": null
+   },
+   "expected": {
+    "status": 200,
+    "error_key": null,
+    "readback": "token"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_invalid_malformed_json",
+   "operation": "login",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    {
+     "input": "media",
+     "technique": "EP",
+     "class": "invalid malformed JSON",
+     "constraint": "requestBody.content",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "username": {
+      "fixture": "e1.username"
+     },
+     "password": {
+      "fixture": "password"
+     }
+    },
+    "auth": "actor",
+    "actor": null,
+    "media": "application/json",
+    "raw": "{"
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_invalid_text_plain",
+   "operation": "login",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    {
+     "input": "media",
+     "technique": "EP",
+     "class": "invalid text/plain",
+     "constraint": "requestBody.content",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "username": {
+      "fixture": "e1.username"
+     },
+     "password": {
+      "fixture": "password"
+     }
+    },
+    "auth": "actor",
+    "actor": null,
+    "media": "text/plain",
+    "raw": "x"
+   },
+   "expected": {
+    "status": 415,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_get",
+   "operation": "login",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid GET",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "get",
+    "path": {},
+    "body": {
+     "username": {
+      "fixture": "e1.username"
+     },
+     "password": {
+      "fixture": "password"
+     }
+    },
+    "auth": "actor",
+    "actor": null,
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_put",
+   "operation": "login",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid PUT",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "put",
+    "path": {},
+    "body": {
+     "username": {
+      "fixture": "e1.username"
+     },
+     "password": {
+      "fixture": "password"
+     }
+    },
+    "auth": "actor",
+    "actor": null,
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_patch",
+   "operation": "login",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid PATCH",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "patch",
+    "path": {},
+    "body": {
+     "username": {
+      "fixture": "e1.username"
+     },
+     "password": {
+      "fixture": "password"
+     }
+    },
+    "auth": "actor",
+    "actor": null,
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_delete",
+   "operation": "login",
+   "endpoint": "POST /api/auth/login/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid DELETE",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "delete",
+    "path": {},
+    "body": {
+     "username": {
+      "fixture": "e1.username"
+     },
+     "password": {
+      "fixture": "password"
+     }
+    },
+    "auth": "actor",
+    "actor": null,
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_authorization_ep_valid_token",
+   "operation": "me",
+   "endpoint": "GET /api/me/",
+   "classes": [
+    {
+     "input": "Authorization",
+     "technique": "EP",
+     "class": "valid token",
+     "constraint": "security",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "get",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 200,
+    "error_key": null,
+    "readback": "none"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_authorization_ep_invalid_no_token",
+   "operation": "me",
+   "endpoint": "GET /api/me/",
+   "classes": [
+    {
+     "input": "Authorization",
+     "technique": "EP",
+     "class": "invalid no token",
+     "constraint": "security",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "get",
+    "path": {},
+    "body": {},
+    "auth": "none",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 401,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_authorization_ep_invalid_unknown_token",
+   "operation": "me",
+   "endpoint": "GET /api/me/",
+   "classes": [
+    {
+     "input": "Authorization",
+     "technique": "EP",
+     "class": "invalid unknown token",
+     "constraint": "security",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "get",
+    "path": {},
+    "body": {},
+    "auth": "invalid",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 401,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_post",
+   "operation": "me",
+   "endpoint": "GET /api/me/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid POST",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_put",
+   "operation": "me",
+   "endpoint": "GET /api/me/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid PUT",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "put",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_patch",
+   "operation": "me",
+   "endpoint": "GET /api/me/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid PATCH",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "patch",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_delete",
+   "operation": "me",
+   "endpoint": "GET /api/me/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid DELETE",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "delete",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_authorization_ep_valid_token",
+   "operation": "listRequests",
+   "endpoint": "GET /api/requests/",
+   "classes": [
+    {
+     "input": "Authorization",
+     "technique": "EP",
+     "class": "valid token",
+     "constraint": "security",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "get",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 200,
+    "error_key": null,
+    "readback": "none"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_authorization_ep_invalid_no_token",
+   "operation": "listRequests",
+   "endpoint": "GET /api/requests/",
+   "classes": [
+    {
+     "input": "Authorization",
+     "technique": "EP",
+     "class": "invalid no token",
+     "constraint": "security",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "get",
+    "path": {},
+    "body": {},
+    "auth": "none",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 401,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_authorization_ep_invalid_unknown_token",
+   "operation": "listRequests",
+   "endpoint": "GET /api/requests/",
+   "classes": [
+    {
+     "input": "Authorization",
+     "technique": "EP",
+     "class": "invalid unknown token",
+     "constraint": "security",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "get",
+    "path": {},
+    "body": {},
+    "auth": "invalid",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 401,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_method_ep_invalid_put",
+   "operation": "listRequests",
+   "endpoint": "GET /api/requests/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid PUT",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "put",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_method_ep_invalid_patch",
+   "operation": "listRequests",
+   "endpoint": "GET /api/requests/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid PATCH",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "patch",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_method_ep_invalid_delete",
+   "operation": "listRequests",
+   "endpoint": "GET /api/requests/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid DELETE",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "delete",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_vacation",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "leave_type",
+     "technique": "EP",
+     "class": "valid enum value 'vacation'",
+     "constraint": "enum",
+     "valid": true
+    },
+    {
+     "input": "start_date",
+     "technique": "EP",
+     "class": "valid string (date)",
+     "constraint": "type",
+     "valid": true
+    },
+    {
+     "input": "end_date",
+     "technique": "EP",
+     "class": "valid string (date)",
+     "constraint": "type",
+     "valid": true
+    },
+    {
+     "input": "end_date",
+     "technique": "BVA",
+     "class": "2026-12-08 (limit+1, end_date >= start_date)",
+     "constraint": "x-relational",
+     "valid": true
+    },
+    {
+     "input": "note",
+     "technique": "EP",
+     "class": "valid string",
+     "constraint": "type",
+     "valid": true
+    },
+    {
+     "input": "Authorization",
+     "technique": "EP",
+     "class": "valid token",
+     "constraint": "security",
+     "valid": true
+    },
+    {
+     "input": "media",
+     "technique": "EP",
+     "class": "valid application/json",
+     "constraint": "requestBody.content",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 201,
+    "error_key": null,
+    "readback": "created"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_permit",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "leave_type",
+     "technique": "EP",
+     "class": "valid enum value 'permit'",
+     "constraint": "enum",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "permit",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 201,
+    "error_key": null,
+    "readback": "created"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_personal",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "leave_type",
+     "technique": "EP",
+     "class": "valid enum value 'personal'",
+     "constraint": "enum",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "personal",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 201,
+    "error_key": null,
+    "readback": "created"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_out_of_enum_zzz_not_in_enum",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "leave_type",
+     "technique": "EP",
+     "class": "invalid out-of-enum 'zzz_not_in_enum'",
+     "constraint": "enum",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "zzz_not_in_enum",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "leave_type",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_wrong_type_true",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "leave_type",
+     "technique": "EP",
+     "class": "invalid wrong type (true)",
+     "constraint": "type",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": true,
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "leave_type",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_null_not_nullable",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "leave_type",
+     "technique": "EP",
+     "class": "invalid null (not nullable)",
+     "constraint": "nullable",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": null,
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "leave_type",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_omitted_optional",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "leave_type",
+     "technique": "EP",
+     "class": "valid omitted (optional)",
+     "constraint": "required",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 201,
+    "error_key": null,
+    "readback": "created"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_example_empty",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "leave_type",
+     "technique": "EP",
+     "class": "invalid example ''",
+     "constraint": "x-invalid-examples",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "leave_type",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_wrong_type_true",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "start_date",
+     "technique": "EP",
+     "class": "invalid wrong type (true)",
+     "constraint": "type",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": true,
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "start_date",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_date_format_not_a_date",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "start_date",
+     "technique": "EP",
+     "class": "invalid date format ('not-a-date')",
+     "constraint": "format",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "not-a-date",
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "start_date",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_null_not_nullable",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "start_date",
+     "technique": "EP",
+     "class": "invalid null (not nullable)",
+     "constraint": "nullable",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": null,
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "start_date",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_missing_required",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "start_date",
+     "technique": "EP",
+     "class": "invalid missing (required)",
+     "constraint": "required",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "start_date",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_example_empty",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "start_date",
+     "technique": "EP",
+     "class": "invalid example ''",
+     "constraint": "x-invalid-examples",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "",
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "start_date",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_example_2026_02_30",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "start_date",
+     "technique": "EP",
+     "class": "invalid example '2026-02-30'",
+     "constraint": "x-invalid-examples",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-02-30",
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "start_date",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_wrong_type_true",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "end_date",
+     "technique": "EP",
+     "class": "invalid wrong type (true)",
+     "constraint": "type",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": true,
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "end_date",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_date_format_not_a_date",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "end_date",
+     "technique": "EP",
+     "class": "invalid date format ('not-a-date')",
+     "constraint": "format",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "not-a-date",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "end_date",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_null_not_nullable",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "end_date",
+     "technique": "EP",
+     "class": "invalid null (not nullable)",
+     "constraint": "nullable",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": null,
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "end_date",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_missing_required",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "end_date",
+     "technique": "EP",
+     "class": "invalid missing (required)",
+     "constraint": "required",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "end_date",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_example_empty",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "end_date",
+     "technique": "EP",
+     "class": "invalid example ''",
+     "constraint": "x-invalid-examples",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "end_date",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_example_2026_02_30",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "end_date",
+     "technique": "EP",
+     "class": "invalid example '2026-02-30'",
+     "constraint": "x-invalid-examples",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-02-30",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "end_date",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_bva_2026_12_06_below",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "end_date",
+     "technique": "BVA",
+     "class": "2026-12-06 (limit-1, end_date >= start_date)",
+     "constraint": "x-relational",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-06",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "end_date",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_bva_2026_12_07_at",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "end_date",
+     "technique": "BVA",
+     "class": "2026-12-07 (limit, end_date >= start_date)",
+     "constraint": "x-relational",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-07",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 201,
+    "error_key": null,
+    "readback": "created"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_wrong_type_true",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "note",
+     "technique": "EP",
+     "class": "invalid wrong type (true)",
+     "constraint": "type",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": true
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "note",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_null_not_nullable",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "note",
+     "technique": "EP",
+     "class": "invalid null (not nullable)",
+     "constraint": "nullable",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": null
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "note",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_valid_omitted_optional",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "note",
+     "technique": "EP",
+     "class": "valid omitted (optional)",
+     "constraint": "required",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 201,
+    "error_key": null,
+    "readback": "created"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_over_x_trimmed_max_length_560_chars",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "note",
+     "technique": "EP",
+     "class": "invalid over x-trimmed-max-length (560 chars)",
+     "constraint": "x-trimmed-max-length",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": {
+      "runs": [
+       [
+        "n",
+        560
+       ]
+      ]
+     }
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "note",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_279_below",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "note",
+     "technique": "BVA",
+     "class": "279 (limit-1, x-trimmed-max-length 280)",
+     "constraint": "x-trimmed-max-length",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": {
+      "runs": [
+       [
+        "n",
+        279
+       ]
+      ]
+     }
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 201,
+    "error_key": null,
+    "readback": "created"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_280_at",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "note",
+     "technique": "BVA",
+     "class": "280 (limit, x-trimmed-max-length 280)",
+     "constraint": "x-trimmed-max-length",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": {
+      "runs": [
+       [
+        "n",
+        280
+       ]
+      ]
+     }
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 201,
+    "error_key": null,
+    "readback": "created"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_281_above",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "note",
+     "technique": "BVA",
+     "class": "281 (limit+1, x-trimmed-max-length 280)",
+     "constraint": "x-trimmed-max-length",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": {
+      "runs": [
+       [
+        "n",
+        281
+       ]
+      ]
+     }
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "note",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_valid_whitespace_only",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "note",
+     "technique": "EP",
+     "class": "valid whitespace only",
+     "constraint": "x-trimmed-max-length",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": "   "
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 201,
+    "error_key": null,
+    "readback": "created"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_valid_padded_280_chars_after_trim",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "note",
+     "technique": "EP",
+     "class": "valid padded 280 chars after trim",
+     "constraint": "x-trimmed-max-length",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": {
+      "runs": [
+       [
+        " ",
+        1
+       ],
+       [
+        "n",
+        280
+       ],
+       [
+        " ",
+        1
+       ]
+      ]
+     }
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 201,
+    "error_key": null,
+    "readback": "created"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_padded_281_chars_after_trim",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "note",
+     "technique": "EP",
+     "class": "invalid padded 281 chars after trim",
+     "constraint": "x-trimmed-max-length",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": {
+      "runs": [
+       [
+        " ",
+        1
+       ],
+       [
+        "n",
+        281
+       ],
+       [
+        " ",
+        1
+       ]
+      ]
+     }
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "note",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_0_at",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "note",
+     "technique": "BVA",
+     "class": "0 (limit, minLength 0)",
+     "constraint": "minLength",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": ""
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 201,
+    "error_key": null,
+    "readback": "created"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_1_above",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "note",
+     "technique": "BVA",
+     "class": "1 (limit+1, minLength 0)",
+     "constraint": "minLength",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": "n"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 201,
+    "error_key": null,
+    "readback": "created"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_9_below_br_03_business_days_10",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "start_date..end_date",
+     "technique": "BVA",
+     "class": "9 (limit-1, BR-03 business days <= 10)",
+     "constraint": "x-rule-boundaries BR-03",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2027-01-04",
+     "end_date": "2027-01-14",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 201,
+    "error_key": null,
+    "readback": "created"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_10_at_br_03_business_days_10",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "start_date..end_date",
+     "technique": "BVA",
+     "class": "10 (limit, BR-03 business days <= 10)",
+     "constraint": "x-rule-boundaries BR-03",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2027-01-04",
+     "end_date": "2027-01-15",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 201,
+    "error_key": null,
+    "readback": "created"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_11_above_br_03_business_days_10",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "start_date..end_date",
+     "technique": "BVA",
+     "class": "11 (limit+1, BR-03 business days <= 10)",
+     "constraint": "x-rule-boundaries BR-03",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2027-01-04",
+     "end_date": "2027-01-18",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "non_field_errors",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_ep_invalid_br_03_20_business_days",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "start_date..end_date",
+     "technique": "EP",
+     "class": "invalid BR-03 20 business days",
+     "constraint": "x-rule-boundaries BR-03",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2027-01-04",
+     "end_date": "2027-01-29",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "non_field_errors",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_14_below_br_02_existing_start",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "start_date..end_date",
+     "technique": "BVA",
+     "class": "2026-12-14 (limit-1, BR-02 existing start)",
+     "constraint": "x-rule-boundaries BR-02",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-14",
+     "end_date": "2026-12-14",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 201,
+    "error_key": null,
+    "readback": "created"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_15_at_br_02_existing_start",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "start_date..end_date",
+     "technique": "BVA",
+     "class": "2026-12-15 (limit, BR-02 existing start)",
+     "constraint": "x-rule-boundaries BR-02",
+     "valid": false
+    },
+    {
+     "input": "start_date..end_date",
+     "technique": "BVA",
+     "class": "2026-12-15 (limit-1, BR-02 existing end)",
+     "constraint": "x-rule-boundaries BR-02",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-15",
+     "end_date": "2026-12-15",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "non_field_errors",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_16_above_br_02_existing_start",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "start_date..end_date",
+     "technique": "BVA",
+     "class": "2026-12-16 (limit+1, BR-02 existing start)",
+     "constraint": "x-rule-boundaries BR-02",
+     "valid": false
+    },
+    {
+     "input": "start_date..end_date",
+     "technique": "BVA",
+     "class": "2026-12-16 (limit, BR-02 existing end)",
+     "constraint": "x-rule-boundaries BR-02",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-16",
+     "end_date": "2026-12-16",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "non_field_errors",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_17_above_br_02_existing_end",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "start_date..end_date",
+     "technique": "BVA",
+     "class": "2026-12-17 (limit+1, BR-02 existing end)",
+     "constraint": "x-rule-boundaries BR-02",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-17",
+     "end_date": "2026-12-17",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 201,
+    "error_key": null,
+    "readback": "created"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_ep_invalid_br_02_encloses_existing",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "start_date..end_date",
+     "technique": "EP",
+     "class": "invalid BR-02 encloses existing",
+     "constraint": "x-rule-boundaries BR-02",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-14",
+     "end_date": "2026-12-17",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "non_field_errors",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_authorization_ep_invalid_no_token",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "Authorization",
+     "technique": "EP",
+     "class": "invalid no token",
+     "constraint": "security",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "none",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 401,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_authorization_ep_invalid_unknown_token",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "Authorization",
+     "technique": "EP",
+     "class": "invalid unknown token",
+     "constraint": "security",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "invalid",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 401,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_valid_application_x_www_form_urlencoded",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "media",
+     "technique": "EP",
+     "class": "valid application/x-www-form-urlencoded",
+     "constraint": "requestBody.content",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/x-www-form-urlencoded",
+    "raw": null
+   },
+   "expected": {
+    "status": 201,
+    "error_key": null,
+    "readback": "created"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_valid_multipart_form_data",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "media",
+     "technique": "EP",
+     "class": "valid multipart/form-data",
+     "constraint": "requestBody.content",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "multipart/form-data",
+    "raw": null
+   },
+   "expected": {
+    "status": 201,
+    "error_key": null,
+    "readback": "created"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_invalid_malformed_json",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "media",
+     "technique": "EP",
+     "class": "invalid malformed JSON",
+     "constraint": "requestBody.content",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": "{"
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_invalid_text_plain",
+   "operation": "submitRequest",
+   "endpoint": "POST /api/requests/",
+   "classes": [
+    {
+     "input": "media",
+     "technique": "EP",
+     "class": "invalid text/plain",
+     "constraint": "requestBody.content",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "leave_type": "vacation",
+     "start_date": "2026-12-07",
+     "end_date": "2026-12-08",
+     "note": "Generated test"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "text/plain",
+    "raw": "x"
+   },
+   "expected": {
+    "status": 415,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_valid_enum_value_approved",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "status",
+     "technique": "EP",
+     "class": "valid enum value 'approved'",
+     "constraint": "enum",
+     "valid": true
+    },
+    {
+     "input": "id",
+     "technique": "EP",
+     "class": "valid existing record",
+     "constraint": "type",
+     "valid": true
+    },
+    {
+     "input": "context",
+     "technique": "EP",
+     "class": "valid manager of the team",
+     "constraint": "x-context-cases",
+     "valid": true
+    },
+    {
+     "input": "Authorization",
+     "technique": "EP",
+     "class": "valid token",
+     "constraint": "security",
+     "valid": true
+    },
+    {
+     "input": "media",
+     "technique": "EP",
+     "class": "valid application/json",
+     "constraint": "requestBody.content",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 200,
+    "error_key": null,
+    "readback": "decided"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_valid_enum_value_rejected",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "status",
+     "technique": "EP",
+     "class": "valid enum value 'rejected'",
+     "constraint": "enum",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "status": "rejected"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 200,
+    "error_key": null,
+    "readback": "decided"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_out_of_enum_zzz_not_in_enum",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "status",
+     "technique": "EP",
+     "class": "invalid out-of-enum 'zzz_not_in_enum'",
+     "constraint": "enum",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "status": "zzz_not_in_enum"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_wrong_type_true",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "status",
+     "technique": "EP",
+     "class": "invalid wrong type (true)",
+     "constraint": "type",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "status": true
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_null_not_nullable",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "status",
+     "technique": "EP",
+     "class": "invalid null (not nullable)",
+     "constraint": "nullable",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "status": null
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_missing_required",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "status",
+     "technique": "EP",
+     "class": "invalid missing (required)",
+     "constraint": "required",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_example_empty",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "status",
+     "technique": "EP",
+     "class": "invalid example ''",
+     "constraint": "x-invalid-examples",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "status": ""
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_example_pending",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "status",
+     "technique": "EP",
+     "class": "invalid example 'pending'",
+     "constraint": "x-invalid-examples",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "status": "pending"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_0",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "id",
+     "technique": "EP",
+     "class": "invalid example 0",
+     "constraint": "x-invalid-examples",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {
+     "id": 0
+    },
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 404,
+    "error_key": null,
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_minus_1",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "id",
+     "technique": "EP",
+     "class": "invalid example -1",
+     "constraint": "x-invalid-examples",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {
+     "id": -1
+    },
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 404,
+    "error_key": null,
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_2147483647",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "id",
+     "technique": "EP",
+     "class": "invalid example 2147483647",
+     "constraint": "x-invalid-examples",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {
+     "id": 2147483647
+    },
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 404,
+    "error_key": null,
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_abc",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "id",
+     "technique": "EP",
+     "class": "invalid example 'abc'",
+     "constraint": "x-invalid-examples",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {
+     "id": "abc"
+    },
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 404,
+    "error_key": null,
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_1_5",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "id",
+     "technique": "EP",
+     "class": "invalid example 1.5",
+     "constraint": "x-invalid-examples",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {
+     "id": 1.5
+    },
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 404,
+    "error_key": null,
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_valid_admin",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "context",
+     "technique": "EP",
+     "class": "valid admin",
+     "constraint": "x-context-cases",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "admin",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 200,
+    "error_key": null,
+    "readback": "decided"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_employee_owner",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "context",
+     "technique": "EP",
+     "class": "invalid employee owner",
+     "constraint": "x-context-cases",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "e1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 403,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_employee_teammate",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "context",
+     "technique": "EP",
+     "class": "invalid employee teammate",
+     "constraint": "x-context-cases",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "e2",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 403,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_manager_of_another_team",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "context",
+     "technique": "EP",
+     "class": "invalid manager of another team",
+     "constraint": "x-context-cases",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "m2",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 404,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_manager_without_a_team",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "context",
+     "technique": "EP",
+     "class": "invalid manager without a team",
+     "constraint": "x-context-cases",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "teamless_manager",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 404,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_manager_own_request",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "context",
+     "technique": "EP",
+     "class": "invalid manager own request",
+     "constraint": "x-context-cases",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {
+     "id": {
+      "fixture": "own.id"
+     }
+    },
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 403,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_request_out_of_scope",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "context",
+     "technique": "EP",
+     "class": "invalid request out of scope",
+     "constraint": "x-context-cases",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {
+     "id": {
+      "fixture": "other_team.id"
+     }
+    },
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 404,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_request_already_approved",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "context",
+     "technique": "EP",
+     "class": "invalid request already approved",
+     "constraint": "x-context-cases",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {
+     "id": {
+      "fixture": "approved.id"
+     }
+    },
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 409,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_request_already_rejected",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "context",
+     "technique": "EP",
+     "class": "invalid request already rejected",
+     "constraint": "x-context-cases",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {
+     "id": {
+      "fixture": "rejected.id"
+     }
+    },
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 409,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_authorization_ep_invalid_no_token",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "Authorization",
+     "technique": "EP",
+     "class": "invalid no token",
+     "constraint": "security",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "status": "approved"
+    },
+    "auth": "none",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 401,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_authorization_ep_invalid_unknown_token",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "Authorization",
+     "technique": "EP",
+     "class": "invalid unknown token",
+     "constraint": "security",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "status": "approved"
+    },
+    "auth": "invalid",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 401,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_valid_application_x_www_form_urlencoded",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "media",
+     "technique": "EP",
+     "class": "valid application/x-www-form-urlencoded",
+     "constraint": "requestBody.content",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/x-www-form-urlencoded",
+    "raw": null
+   },
+   "expected": {
+    "status": 200,
+    "error_key": null,
+    "readback": "decided"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_valid_multipart_form_data",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "media",
+     "technique": "EP",
+     "class": "valid multipart/form-data",
+     "constraint": "requestBody.content",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "multipart/form-data",
+    "raw": null
+   },
+   "expected": {
+    "status": 200,
+    "error_key": null,
+    "readback": "decided"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_invalid_malformed_json",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "media",
+     "technique": "EP",
+     "class": "invalid malformed JSON",
+     "constraint": "requestBody.content",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": "{"
+   },
+   "expected": {
+    "status": 400,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_invalid_text_plain",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "media",
+     "technique": "EP",
+     "class": "invalid text/plain",
+     "constraint": "requestBody.content",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "text/plain",
+    "raw": "x"
+   },
+   "expected": {
+    "status": 415,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_get",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid GET",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "get",
+    "path": {},
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_put",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid PUT",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "put",
+    "path": {},
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_patch",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid PATCH",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "patch",
+    "path": {},
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_delete",
+   "operation": "decideRequest",
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid DELETE",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "delete",
+    "path": {},
+    "body": {
+     "status": "approved"
+    },
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_authorization_ep_valid_token",
+   "operation": "dashboard",
+   "endpoint": "GET /api/dashboard/",
+   "classes": [
+    {
+     "input": "Authorization",
+     "technique": "EP",
+     "class": "valid token",
+     "constraint": "security",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "get",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 200,
+    "error_key": null,
+    "readback": "none"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_authorization_ep_invalid_no_token",
+   "operation": "dashboard",
+   "endpoint": "GET /api/dashboard/",
+   "classes": [
+    {
+     "input": "Authorization",
+     "technique": "EP",
+     "class": "invalid no token",
+     "constraint": "security",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "get",
+    "path": {},
+    "body": {},
+    "auth": "none",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 401,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_authorization_ep_invalid_unknown_token",
+   "operation": "dashboard",
+   "endpoint": "GET /api/dashboard/",
+   "classes": [
+    {
+     "input": "Authorization",
+     "technique": "EP",
+     "class": "invalid unknown token",
+     "constraint": "security",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "get",
+    "path": {},
+    "body": {},
+    "auth": "invalid",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 401,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_post",
+   "operation": "dashboard",
+   "endpoint": "GET /api/dashboard/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid POST",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_put",
+   "operation": "dashboard",
+   "endpoint": "GET /api/dashboard/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid PUT",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "put",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_patch",
+   "operation": "dashboard",
+   "endpoint": "GET /api/dashboard/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid PATCH",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "patch",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_delete",
+   "operation": "dashboard",
+   "endpoint": "GET /api/dashboard/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid DELETE",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "delete",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_valid_token",
+   "operation": "team",
+   "endpoint": "GET /api/team/",
+   "classes": [
+    {
+     "input": "Authorization",
+     "technique": "EP",
+     "class": "valid token",
+     "constraint": "security",
+     "valid": true
+    }
+   ],
+   "request": {
+    "method": "get",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 200,
+    "error_key": null,
+    "readback": "none"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_invalid_no_token",
+   "operation": "team",
+   "endpoint": "GET /api/team/",
+   "classes": [
+    {
+     "input": "Authorization",
+     "technique": "EP",
+     "class": "invalid no token",
+     "constraint": "security",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "get",
+    "path": {},
+    "body": {},
+    "auth": "none",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 401,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_invalid_unknown_token",
+   "operation": "team",
+   "endpoint": "GET /api/team/",
+   "classes": [
+    {
+     "input": "Authorization",
+     "technique": "EP",
+     "class": "invalid unknown token",
+     "constraint": "security",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "get",
+    "path": {},
+    "body": {},
+    "auth": "invalid",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 401,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_post",
+   "operation": "team",
+   "endpoint": "GET /api/team/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid POST",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "post",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_put",
+   "operation": "team",
+   "endpoint": "GET /api/team/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid PUT",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "put",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_patch",
+   "operation": "team",
+   "endpoint": "GET /api/team/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid PATCH",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "patch",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  },
+  {
+   "id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_delete",
+   "operation": "team",
+   "endpoint": "GET /api/team/",
+   "classes": [
+    {
+     "input": "method",
+     "technique": "EP",
+     "class": "invalid DELETE",
+     "constraint": "paths",
+     "valid": false
+    }
+   ],
+   "request": {
+    "method": "delete",
+    "path": {},
+    "body": {},
+    "auth": "actor",
+    "actor": "m1",
+    "media": "application/json",
+    "raw": null
+   },
+   "expected": {
+    "status": 405,
+    "error_key": "detail",
+    "readback": "unchanged"
+   }
+  }
+ ],
+ "not_applicable": [
+  {
+   "endpoint": "POST /api/auth/login/",
+   "input": "username",
+   "technique": "BVA",
+   "reason": "The spec documents no ordered limit for this field."
+  },
+  {
+   "endpoint": "POST /api/auth/login/",
+   "input": "password",
+   "technique": "BVA",
+   "reason": "The spec documents no ordered limit for this field."
+  },
+  {
+   "endpoint": "POST /api/auth/login/",
+   "input": "method",
+   "technique": "EP",
+   "reason": "HEAD and OPTIONS are provided by the framework and are outside the selected scope."
+  },
+  {
+   "endpoint": "GET /api/me/",
+   "input": "Authorization",
+   "technique": "BVA",
+   "reason": "An opaque token has no ordered limit."
+  },
+  {
+   "endpoint": "GET /api/me/",
+   "input": "method",
+   "technique": "EP",
+   "reason": "HEAD and OPTIONS are provided by the framework and are outside the selected scope."
+  },
+  {
+   "endpoint": "GET /api/requests/",
+   "input": "Authorization",
+   "technique": "BVA",
+   "reason": "An opaque token has no ordered limit."
+  },
+  {
+   "endpoint": "GET /api/requests/",
+   "input": "method",
+   "technique": "EP",
+   "reason": "HEAD and OPTIONS are provided by the framework and are outside the selected scope."
+  },
+  {
+   "endpoint": "POST /api/requests/",
+   "input": "leave_type",
+   "technique": "BVA",
+   "reason": "Enum values are unordered."
+  },
+  {
+   "endpoint": "POST /api/requests/",
+   "input": "start_date",
+   "technique": "BVA",
+   "reason": "The spec documents no ordered limit for this field."
+  },
+  {
+   "endpoint": "POST /api/requests/",
+   "input": "note",
+   "technique": "BVA point -1",
+   "reason": "A length below 0 is infeasible."
+  },
+  {
+   "endpoint": "POST /api/requests/",
+   "input": "Authorization",
+   "technique": "BVA",
+   "reason": "An opaque token has no ordered limit."
+  },
+  {
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "input": "status",
+   "technique": "BVA",
+   "reason": "Enum values are unordered."
+  },
+  {
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "input": "id",
+   "technique": "BVA",
+   "reason": "Record identity is not an ordered limit; the spec documents no minimum or maximum."
+  },
+  {
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "input": "context",
+   "technique": "BVA",
+   "reason": "Actor, role and record state are unordered categories."
+  },
+  {
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "input": "Authorization",
+   "technique": "BVA",
+   "reason": "An opaque token has no ordered limit."
+  },
+  {
+   "endpoint": "POST /api/requests/{id}/decision/",
+   "input": "method",
+   "technique": "EP",
+   "reason": "HEAD and OPTIONS are provided by the framework and are outside the selected scope."
+  },
+  {
+   "endpoint": "GET /api/dashboard/",
+   "input": "Authorization",
+   "technique": "BVA",
+   "reason": "An opaque token has no ordered limit."
+  },
+  {
+   "endpoint": "GET /api/dashboard/",
+   "input": "method",
+   "technique": "EP",
+   "reason": "HEAD and OPTIONS are provided by the framework and are outside the selected scope."
+  },
+  {
+   "endpoint": "GET /api/team/",
+   "input": "Authorization",
+   "technique": "BVA",
+   "reason": "An opaque token has no ordered limit."
+  },
+  {
+   "endpoint": "GET /api/team/",
+   "input": "method",
+   "technique": "EP",
+   "reason": "HEAD and OPTIONS are provided by the framework and are outside the selected scope."
+  }
+ ]
+}

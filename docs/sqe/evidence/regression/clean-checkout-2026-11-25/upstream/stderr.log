@@ -1,0 +1,16 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+test_health_endpoint_reports_ok (leave.tests.HealthApiTests.test_health_endpoint_reports_ok) ... ok
+test_decision_event_targets_employee (leave.tests.LeaveRequestApiTests.test_decision_event_targets_employee) ... ok
+test_employee_can_create_request (leave.tests.LeaveRequestApiTests.test_employee_can_create_request) ... ok
+test_employee_cannot_decide_request (leave.tests.LeaveRequestApiTests.test_employee_cannot_decide_request) ... ok
+test_manager_can_approve_team_request (leave.tests.LeaveRequestApiTests.test_manager_can_approve_team_request) ... ok
+test_manager_cannot_decide_twice (leave.tests.LeaveRequestApiTests.test_manager_cannot_decide_twice) ... ok
+test_overlapping_request_is_rejected (leave.tests.LeaveRequestApiTests.test_overlapping_request_is_rejected) ... ok
+test_requested_event_targets_team_manager (leave.tests.LeaveRequestApiTests.test_requested_event_targets_team_manager) ... ok
+test_team_endpoint_returns_only_members (leave.tests.LeaveRequestApiTests.test_team_endpoint_returns_only_members) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.105s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...

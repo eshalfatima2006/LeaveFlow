@@ -1,0 +1,10 @@
+--- a/docs/sqe/openapi/leaveflow-api.yaml
++++ b/docs/sqe/openapi/leaveflow-api.yaml
+@@ -547,6 +547,7 @@
+         note:
+           type: string
+           minLength: 0
++          nullable: true
+           x-trimmed-max-length: 280
+           default: ""
+           description: |

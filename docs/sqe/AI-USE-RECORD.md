@@ -359,6 +359,15 @@ Students must review source safety/fixtures/assertions/evidence, retain prompts,
 - **Not changed:** application code and CI. The CHANGE documents keep the spec hashes of their original runs.
 - **Student review required:** check the flow conditions against the intended meaning of each flow, the R2 characterisation, and that #25/#26 are the right issues; agree the CI job with Member 1. All Git/GitHub actions beyond local commits remain student-owned.
 
+# Independent reproduction of DEF-A2-01 and DEF-A2-02 recorded (27 November 2026)
+
+- **Date/tool:** 27 November 2026 (Asia/Karachi), Claude Code (Claude Opus 5.5) at the student's instruction. AI-assisted documentation only; the reproduction itself was done by a team member, not by the AI.
+- **Source of the facts:** the comments by Muhammad Bilal (@Bilalmughal-07) on [#25](https://github.com/eshalfatima2006/LeaveFlow/issues/25#issuecomment-7220515359) and [#26](https://github.com/eshalfatima2006/LeaveFlow/issues/26#issuecomment-7220564456), read through the GitHub CLI (read-only). The attached zips were downloaded to a scratch directory and their runner records checked: all at commit `8ee5176`. #25: characterization `ExitCriterionScenarioTests` 1/1 passed, regression `W2ApprovalOverdrawRegression` 1 failed (`AssertionError: 200 != 400`), in-memory SQLite. #26: 5/5 passed on PostgreSQL 17.12 (`postgres:17-alpine`). The development-database check is unchanged in all three runs. The zips were not added to the repository.
+- **Updated:** both RCAs (independent reproduction CONFIRMED; triage, severity, fix and closure still PENDING), both issue texts, DEFECT-RECORDS, EC-10, the PR #10 description, the PR-01/PR-03 risk evidence, and WP-23 in the effort estimate and roadmap.
+- **Statement of the task prompt not followed as worded:** EC-10 was set to **PARTLY MET**, not MET. Its target also needs weekly defect/coverage/reopen reporting, actual effort against estimates, the completion review, the PDF/ZIP package and each member's rerun, none of which is measured; and the corrective and preventive actions are proposed, not complete (owners and fixes PENDING, the #26 regression not written). Only the major-defect part is recorded as met.
+- **Not changed:** application code, tests, historical records (earlier AI-use entries and `PR-10-REVIEW-RESPONSE.md`, which record what was true when written).
+- **Student review required:** confirm the EC-10 verdict with the team, and run shared triage for #25 and #26. All Git/GitHub actions beyond local commits remain student-owned.
+
 ## Area 1 integration and evidence audit - 27 November 2026
 
 - Tool: Codex, at Bilal's instruction to implement CI integration and complete
@@ -411,3 +420,12 @@ Students must review source safety/fixtures/assertions/evidence, retain prompts,
   score. No push or new hosted run occurred in this audit. Most of the 15
   historical survivors are in demo support code, which is disclosed instead
   of claiming they all belong to DR-001.
+
+# PR #10 updated with `dev` after PR #17 (28 November 2026)
+
+- **Date/tool:** 28 November 2026 (Asia/Karachi), Claude Code (Claude Opus 5.5) at the student's instruction. AI-assisted merge resolution, CI-compatibility fixes and execution; no human review is claimed.
+- **Merge:** completed the student's merge of `origin/dev` (`65d8f06`, PR #17) into `test/a2.4-openapi-gen`. The only conflict, in this record, was resolved by keeping both sides' entries unchanged.
+- **Problems found by running the Area 1 gate commands locally:** (1) `pytest` ignores the `load_tests` hooks, so it collected 387 tests excluded from the default suite (spec-change demonstrations v2/v3/v4, PostgreSQL-only concurrency). Added `tests/conftest.py` with the same four exclusions. (2) mutmut's clean-test run failed because its `mutants/` copy lacked `docs/sqe/openapi/leaveflow-api.yaml`, read by the contract tests. Added `docs/sqe/openapi` to `also_copy` in `setup.cfg` (a single-file entry crashes mutmut 3.8.1, which does not create parent directories for files).
+- **Checked (Python 3.12.7 in a disposable virtualenv; CI uses 3.13):** `coverage run --branch -m pytest` 384 passed, 184 subtests; critical-module coverage 100% statement and branch for models, serializers, views and events; mutmut 296 killed, 3 survived, 299 total, no unresolved, threshold passed; Django runner team 384/384 and upstream 9/9; development database unchanged. SonarQube was not run locally. Hosted CI has not run on this revision yet.
+- **Not changed:** application code, existing tests, `ci.yml`.
+- **Student review required:** confirm the exclusions match the `load_tests` hooks, and check the hosted run after pushing.

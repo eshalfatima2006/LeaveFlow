@@ -1,0 +1,2658 @@
+{
+ "cases": [
+  {
+   "description": "API-W2-002.06; FR-W2-02; BR-04/05: employee decision on a teammate's request -> 403, GET 405, unchanged.",
+   "id": "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_employee_cannot_decide_or_reach_another_users_request",
+   "method_id": "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_employee_cannot_decide_or_reach_another_users_request",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-001.05; FR-W1-01, FR-W2-01; BR-04: /me and lists reflect only the token's user.",
+   "id": "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+   "method_id": "tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-001.02; FR-W1-01; BR-04: wrong/unknown/missing/blank/inactive -> 400, no token.",
+   "id": "tests.team.api.test_authentication.LoginTests.test_invalid_credentials_are_refused_without_issuing_tokens",
+   "method_id": "tests.team.api.test_authentication.LoginTests.test_invalid_credentials_are_refused_without_issuing_tokens",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-001.01; FR-W1-01; BR-04: valid credentials yield the caller's own token.",
+   "id": "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+   "method_id": "tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-001.04; FR-W1-01; BR-04: malformed header/unknown/inactive-user token -> 401, no row.",
+   "id": "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+   "method_id": "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-001.03; FR-W1-01, FR-W2-01, FR-W2-02; BR-04: no token -> 401, nothing exposed or written.",
+   "id": "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+   "method_id": "tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract decideRequest 200: approved LeaveRequest.",
+   "id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+   "method_id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_approved",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract decideRequest 200: rejected LeaveRequest.",
+   "id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+   "method_id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_200_rejected",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract decideRequest 400: malformed JSON.",
+   "id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_400_malformed_json",
+   "method_id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_400_malformed_json",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract decideRequest 400: invalid decision value.",
+   "id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_400_value",
+   "method_id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_400_value",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract decideRequest 401: no token.",
+   "id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_401",
+   "method_id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_401",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract decideRequest 403: employee.",
+   "id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_403_role",
+   "method_id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_403_role",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract decideRequest 403: manager's own request.",
+   "id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_403_self",
+   "method_id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_403_self",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract decideRequest 404: a non-numeric id does not match the route (HTML).",
+   "id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_404_html",
+   "method_id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_404_html",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract decideRequest 404: request of another team (JSON).",
+   "id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_404_json",
+   "method_id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_404_json",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract decideRequest 409: already decided.",
+   "id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_409",
+   "method_id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_409",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract decideRequest 415: text/plain body.",
+   "id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_415",
+   "method_id": "tests.team.api.test_openapi_contract.DecideContractTests.test_decide_415",
+   "outcome": "passed"
+  },
+  {
+   "description": "Deviation: W2 with a JSON list body → 500 (contract: 400); the request stays pending.",
+   "id": "tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_decide_non_object_json_characterization",
+   "method_id": "tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_decide_non_object_json_characterization",
+   "outcome": "passed"
+  },
+  {
+   "description": "Deviation: login with a JSON list body → 500 (contract: 400).",
+   "id": "tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_login_non_object_json_characterization",
+   "method_id": "tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_login_non_object_json_characterization",
+   "outcome": "passed"
+  },
+  {
+   "description": "Deviation: W1 with end_date 9999-12-31 → 500 (date overflow in business_days); no row.",
+   "id": "tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_submit_maximum_date_characterization",
+   "method_id": "tests.team.api.test_openapi_contract.KnownDeviationCharacterizationTests.test_submit_maximum_date_characterization",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract login 200: token and user object.",
+   "id": "tests.team.api.test_openapi_contract.LoginContractTests.test_login_200",
+   "method_id": "tests.team.api.test_openapi_contract.LoginContractTests.test_login_200",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract login 400: wrong password.",
+   "id": "tests.team.api.test_openapi_contract.LoginContractTests.test_login_400_credentials",
+   "method_id": "tests.team.api.test_openapi_contract.LoginContractTests.test_login_400_credentials",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract login 400: malformed JSON.",
+   "id": "tests.team.api.test_openapi_contract.LoginContractTests.test_login_400_malformed_json",
+   "method_id": "tests.team.api.test_openapi_contract.LoginContractTests.test_login_400_malformed_json",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract login 401: an invalid token header is refused even with valid credentials.",
+   "id": "tests.team.api.test_openapi_contract.LoginContractTests.test_login_401_invalid_authorization_header",
+   "method_id": "tests.team.api.test_openapi_contract.LoginContractTests.test_login_401_invalid_authorization_header",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract login 415: text/plain body.",
+   "id": "tests.team.api.test_openapi_contract.LoginContractTests.test_login_415",
+   "method_id": "tests.team.api.test_openapi_contract.LoginContractTests.test_login_415",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract dashboard 200: six visible requests, at most five recent.",
+   "id": "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+   "method_id": "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_200",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract dashboard 401: no token.",
+   "id": "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_401",
+   "method_id": "tests.team.api.test_openapi_contract.ReadContractTests.test_dashboard_401",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract listRequests 200: pending and approved rows.",
+   "id": "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+   "method_id": "tests.team.api.test_openapi_contract.ReadContractTests.test_list_200",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract listRequests 401: invalid token.",
+   "id": "tests.team.api.test_openapi_contract.ReadContractTests.test_list_401",
+   "method_id": "tests.team.api.test_openapi_contract.ReadContractTests.test_list_401",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract me 200: profile with a team.",
+   "id": "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200",
+   "method_id": "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract me 200: team is null for a user without a team.",
+   "id": "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200_without_team",
+   "method_id": "tests.team.api.test_openapi_contract.ReadContractTests.test_me_200_without_team",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract me 401: no token.",
+   "id": "tests.team.api.test_openapi_contract.ReadContractTests.test_me_401",
+   "method_id": "tests.team.api.test_openapi_contract.ReadContractTests.test_me_401",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract team 200: members with and without an upcoming leave, and without a balance.",
+   "id": "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200",
+   "method_id": "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract team 200: empty list for a caller without a team.",
+   "id": "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200_without_team",
+   "method_id": "tests.team.api.test_openapi_contract.ReadContractTests.test_team_200_without_team",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract team 401: no token.",
+   "id": "tests.team.api.test_openapi_contract.ReadContractTests.test_team_401",
+   "method_id": "tests.team.api.test_openapi_contract.ReadContractTests.test_team_401",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract submitRequest 201: created LeaveRequest.",
+   "id": "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+   "method_id": "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_201",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract submitRequest 400: non_field_errors (BR-03).",
+   "id": "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_balance",
+   "method_id": "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_balance",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract submitRequest 400: a JSON list body is refused.",
+   "id": "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_body_not_object",
+   "method_id": "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_body_not_object",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract submitRequest 400: end_date error (BR-01).",
+   "id": "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_end_before_start",
+   "method_id": "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_end_before_start",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract submitRequest 400: several field errors.",
+   "id": "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_fields",
+   "method_id": "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_fields",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract submitRequest 400: malformed JSON gives detail, not field errors.",
+   "id": "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_malformed_json",
+   "method_id": "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_malformed_json",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract submitRequest 400: non_field_errors (BR-02).",
+   "id": "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_overlap",
+   "method_id": "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_400_overlap",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract submitRequest 401: no token.",
+   "id": "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_401",
+   "method_id": "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_401",
+   "outcome": "passed"
+  },
+  {
+   "description": "Contract submitRequest 415: text/plain body.",
+   "id": "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_415",
+   "method_id": "tests.team.api.test_openapi_contract.SubmitContractTests.test_submit_415",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-005.02; FR-W1-05; BR-03: A = 5 - approved 2; pending/rejected consume nothing -> D=3 ok, D=4 400.",
+   "id": "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+   "method_id": "tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-005.04; FR-W1-05; BR-03. CHARACTERIZATION (GAP-07): no balance -> any D accepted, dashboard zeros.",
+   "id": "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check",
+   "method_id": "tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-005.05; FR-W1-05, FR-W1-06; BR-03. CHARACTERIZATION (GAP-01): two 4-day pendings at A=5 both 201.",
+   "id": "tests.team.api.test_w1_submission.BalanceTests.test_pending_requests_reserve_no_allowance",
+   "method_id": "tests.team.api.test_w1_submission.BalanceTests.test_pending_requests_reserve_no_allowance",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-005.01; FR-W1-05; BR-03/01: A=5 -> D=4 and D=5 accepted, D=6 rejected (three-point BVA).",
+   "id": "tests.team.api.test_w1_submission.BalanceTests.test_requested_days_at_available_boundary",
+   "method_id": "tests.team.api.test_w1_submission.BalanceTests.test_requested_days_at_available_boundary",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-005.03; FR-W1-05; BR-03. A=0: D=1 400, D=0 accepted. A=-1: even D=0 400 (CHARACTERIZATION, GAP-01).",
+   "id": "tests.team.api.test_w1_submission.BalanceTests.test_zero_and_negative_available",
+   "method_id": "tests.team.api.test_w1_submission.BalanceTests.test_zero_and_negative_available",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-003.01; FR-W1-03; BR-01: end one day before start -> 400 end_date, no row.",
+   "id": "tests.team.api.test_w1_submission.DateRuleTests.test_end_before_start_rejected_on_end_date",
+   "method_id": "tests.team.api.test_w1_submission.DateRuleTests.test_end_before_start_rejected_on_end_date",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-003.02; FR-W1-03, FR-W1-06; BR-01: server business_days equals independent counts.",
+   "id": "tests.team.api.test_w1_submission.DateRuleTests.test_inclusive_weekday_counts",
+   "method_id": "tests.team.api.test_w1_submission.DateRuleTests.test_inclusive_weekday_counts",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-003.04; FR-W1-03; BR-01. CHARACTERIZATION (no date-relative-to-today rule; policy open).",
+   "id": "tests.team.api.test_w1_submission.DateRuleTests.test_past_dates_are_accepted",
+   "method_id": "tests.team.api.test_w1_submission.DateRuleTests.test_past_dates_are_accepted",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-003.03; FR-W1-03; BR-01. CHARACTERIZATION (no positive-day minimum; policy open).",
+   "id": "tests.team.api.test_w1_submission.DateRuleTests.test_weekend_only_request_is_accepted_with_zero_days",
+   "method_id": "tests.team.api.test_w1_submission.DateRuleTests.test_weekend_only_request_is_accepted_with_zero_days",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-004.02; FR-W1-04; BR-02/05: approved interval still blocks overlap.",
+   "id": "tests.team.api.test_w1_submission.OverlapTests.test_approved_request_blocks_and_neighbour_passes",
+   "method_id": "tests.team.api.test_w1_submission.OverlapTests.test_approved_request_blocks_and_neighbour_passes",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-004.01; FR-W1-04; BR-02: existing pending 12-07..11; touching endpoints block, neighbours pass.",
+   "id": "tests.team.api.test_w1_submission.OverlapTests.test_inclusive_boundaries_against_pending_request",
+   "method_id": "tests.team.api.test_w1_submission.OverlapTests.test_inclusive_boundaries_against_pending_request",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-004.04; FR-W1-04, FR-W1-01; BR-02/04: overlap is per employee only.",
+   "id": "tests.team.api.test_w1_submission.OverlapTests.test_other_employee_may_request_same_dates",
+   "method_id": "tests.team.api.test_w1_submission.OverlapTests.test_other_employee_may_request_same_dates",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-004.03; FR-W1-04; BR-02/05: rejected history does not block; a NEW row is created.",
+   "id": "tests.team.api.test_w1_submission.OverlapTests.test_rejected_request_dates_can_be_reused_as_new_row",
+   "method_id": "tests.team.api.test_w1_submission.OverlapTests.test_rejected_request_dates_can_be_reused_as_new_row",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-002.04; FR-W1-02; BR-06: unparseable/impossible dates, unknown types, nonstring note -> 400.",
+   "id": "tests.team.api.test_w1_submission.PayloadValidationTests.test_invalid_date_type_and_note_values_rejected",
+   "method_id": "tests.team.api.test_w1_submission.PayloadValidationTests.test_invalid_date_type_and_note_values_rejected",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-002.05; FR-W1-02; BR-06: protocol partitions -> 400 parse error / 415, no insert.",
+   "id": "tests.team.api.test_w1_submission.PayloadValidationTests.test_malformed_json_and_unsupported_media_type",
+   "method_id": "tests.team.api.test_w1_submission.PayloadValidationTests.test_malformed_json_and_unsupported_media_type",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-002.03; FR-W1-02; BR-06: omitted/null required dates, null type/note -> 400 on that field.",
+   "id": "tests.team.api.test_w1_submission.PayloadValidationTests.test_missing_and_null_fields_rejected_without_insert",
+   "method_id": "tests.team.api.test_w1_submission.PayloadValidationTests.test_missing_and_null_fields_rejected_without_insert",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-002.01; FR-W1-02; BR-06: vacation/permit/personal accepted; omitted defaults to vacation.",
+   "id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_each_leave_type_and_omitted_default",
+   "method_id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_each_leave_type_and_omitted_default",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-001.06; FR-W1-01, FR-W1-06; BR-04. CHARACTERIZATION (FR-W1-01 note): role is not restricted.",
+   "id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_manager_and_admin_self_submission_is_owned_by_caller",
+   "method_id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_manager_and_admin_self_submission_is_owned_by_caller",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-002.02; FR-W1-02; BR-06: omitted/blank/whitespace -> '', trimmed 279/280 ok, 281 -> 400.",
+   "id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_note_optional_blank_and_length_boundaries",
+   "method_id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_note_optional_blank_and_length_boundaries",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-001.07; FR-W1-01, FR-W1-02; BR-04/05/06: injected employee/status/id/days are ignored.",
+   "id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_read_only_and_unknown_fields_cannot_set_owner_or_state",
+   "method_id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_read_only_and_unknown_fields_cannot_set_owner_or_state",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W1-006.01; FR-W1-01, FR-W1-06; BR-04/05/06: 201, returned k readable, balance unchanged.",
+   "id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row",
+   "method_id": "tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W2-002.03; FR-W2-02, FR-W2-05, FR-W2-06; BR-04/05: admin approves Team B, rejects Team A.",
+   "id": "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team",
+   "method_id": "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W2-003.03; FR-W2-03, FR-W2-05; BR-05/06: injected decider/time/owner/note are ignored.",
+   "id": "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_extra_body_keys_cannot_override_audit_or_content",
+   "method_id": "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_extra_body_keys_cannot_override_audit_or_content",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W2-002.02, API-W2-005.01; FR-W2-02, FR-W2-04, FR-W2-05; BR-03/04/05: 200, actor/time, used +D.",
+   "id": "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_same_team_manager_approves_pending_and_balance_is_derived",
+   "method_id": "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_same_team_manager_approves_pending_and_balance_is_derived",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W2-006.01; FR-W2-02, FR-W2-04, FR-W2-06; BR-03/04/05: 200 rejected, used unchanged.",
+   "id": "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_same_team_manager_rejects_pending_without_charging_allowance",
+   "method_id": "tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_same_team_manager_rejects_pending_without_charging_allowance",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W2-003.02; FR-W2-02, FR-W2-03; BR-04/05/06: role before value before lookup before self/state.",
+   "id": "tests.team.api.test_w2_decisions.DecisionValueTests.test_guard_precedence",
+   "method_id": "tests.team.api.test_w2_decisions.DecisionValueTests.test_guard_precedence",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W2-003.01; FR-W2-03; BR-05/06: only approved/rejected accepted; others -> 400, unchanged.",
+   "id": "tests.team.api.test_w2_decisions.DecisionValueTests.test_missing_null_and_invalid_status_values",
+   "method_id": "tests.team.api.test_w2_decisions.DecisionValueTests.test_missing_null_and_invalid_status_values",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W2-002.01; FR-W2-02; BR-04: employee -> 403 for teammate's and own requests, unchanged.",
+   "id": "tests.team.api.test_w2_decisions.DeniedDecisionTests.test_employee_role_cannot_decide",
+   "method_id": "tests.team.api.test_w2_decisions.DeniedDecisionTests.test_employee_role_cannot_decide",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W2-002.07; FR-W2-02; BR-04: absent IDs -> 404 even for admin; non-integer path does not route.",
+   "id": "tests.team.api.test_w2_decisions.DeniedDecisionTests.test_nonexistent_and_unroutable_ids",
+   "method_id": "tests.team.api.test_w2_decisions.DeniedDecisionTests.test_nonexistent_and_unroutable_ids",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W2-002.04; FR-W2-01, FR-W2-02; BR-04: other-team and teamless managers cannot reach target.",
+   "id": "tests.team.api.test_w2_decisions.DeniedDecisionTests.test_out_of_scope_managers_receive_404",
+   "method_id": "tests.team.api.test_w2_decisions.DeniedDecisionTests.test_out_of_scope_managers_receive_404",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W2-002.05; FR-W2-02; BR-04/05: own pending request -> 403 for manager, admin, teamless manager.",
+   "id": "tests.team.api.test_w2_decisions.DeniedDecisionTests.test_self_decision_forbidden_for_every_privileged_role",
+   "method_id": "tests.team.api.test_w2_decisions.DeniedDecisionTests.test_self_decision_forbidden_for_every_privileged_role",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W2-004.01; FR-W2-04; BR-05: final states -> 409 for both values; audit and balance preserved.",
+   "id": "tests.team.api.test_w2_decisions.FinalStateTests.test_approved_and_rejected_requests_cannot_be_decided_again",
+   "method_id": "tests.team.api.test_w2_decisions.FinalStateTests.test_approved_and_rejected_requests_cannot_be_decided_again",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W2-004.02; FR-W2-04; BR-05: pending->approved once; later approve/reject -> 409, same actor/time.",
+   "id": "tests.team.api.test_w2_decisions.FinalStateTests.test_repeat_after_successful_decision_conflicts",
+   "method_id": "tests.team.api.test_w2_decisions.FinalStateTests.test_repeat_after_successful_decision_conflicts",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-W2-001.01; FR-W2-01; BR-04: employee own, team manager team, teamless own, admin all.",
+   "id": "tests.team.api.test_w2_decisions.VisibilityTests.test_request_list_and_dashboard_scope_by_role",
+   "method_id": "tests.team.api.test_w2_decisions.VisibilityTests.test_request_list_and_dashboard_scope_by_role",
+   "outcome": "passed"
+  },
+  {
+   "description": "FND-008; FR-W1-06; BR-03/05: mutate inside this test's savepoint.",
+   "id": "tests.team.foundation.test_foundation.FixtureIsolationTests.test_01_mutate_own_records",
+   "method_id": "tests.team.foundation.test_foundation.FixtureIsolationTests.test_01_mutate_own_records",
+   "outcome": "passed"
+  },
+  {
+   "description": "FND-009; FR-W1-06; BR-03/05: prior test's mutations rolled back.",
+   "id": "tests.team.foundation.test_foundation.FixtureIsolationTests.test_02_independent_test_starts_clean",
+   "method_id": "tests.team.foundation.test_foundation.FixtureIsolationTests.test_02_independent_test_starts_clean",
+   "outcome": "passed"
+  },
+  {
+   "description": "FND-006; FR-W1-04; BR-02: invalid fixture setup is deliberate only.",
+   "id": "tests.team.foundation.test_foundation.FoundationTests.test_overlap_requires_explicit_fixture_opt_in",
+   "method_id": "tests.team.foundation.test_foundation.FoundationTests.test_overlap_requires_explicit_fixture_opt_in",
+   "outcome": "passed"
+  },
+  {
+   "description": "FND-002; FR-W1-03/05/06; BR-01/03/05: persisted pending and totals.",
+   "id": "tests.team.foundation.test_foundation.FoundationTests.test_pending_record_and_approved_only_consumption",
+   "method_id": "tests.team.foundation.test_foundation.FoundationTests.test_pending_record_and_approved_only_consumption",
+   "outcome": "passed"
+  },
+  {
+   "description": "FND-007; FR-W1-05/06; BR-03/05: prepare future regression, no W2 call.",
+   "id": "tests.team.foundation.test_foundation.FoundationTests.test_prepare_future_overapproval_scenario_without_deciding",
+   "method_id": "tests.team.foundation.test_foundation.FoundationTests.test_prepare_future_overapproval_scenario_without_deciding",
+   "outcome": "passed"
+  },
+  {
+   "description": "FND-003; FR-W1-01/05, FR-W2-01; BR-03/04: real DRF token lookup.",
+   "id": "tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard",
+   "method_id": "tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard",
+   "outcome": "passed"
+  },
+  {
+   "description": "FND-004; FR-W1-06, FR-W2-01; BR-03/04/05: stable logical fixture.",
+   "id": "tests.team.foundation.test_foundation.FoundationTests.test_reference_logical_snapshot",
+   "method_id": "tests.team.foundation.test_foundation.FoundationTests.test_reference_logical_snapshot",
+   "outcome": "passed"
+  },
+  {
+   "description": "FND-001; FR-W1-01, FR-W2-01; BR-04: synthetic roles/teams/balances.",
+   "id": "tests.team.foundation.test_foundation.FoundationTests.test_synthetic_identity_and_balance_relationships",
+   "method_id": "tests.team.foundation.test_foundation.FoundationTests.test_synthetic_identity_and_balance_relationships",
+   "outcome": "passed"
+  },
+  {
+   "description": "FND-005; FR-W1-05; BR-03: reusable zero/missing/exact allowance setups.",
+   "id": "tests.team.foundation.test_foundation.FoundationTests.test_zero_missing_and_exact_balance_fixture_variants",
+   "method_id": "tests.team.foundation.test_foundation.FoundationTests.test_zero_missing_and_exact_balance_fixture_variants",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/dashboard/ Authorization EP invalid no token",
+   "id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_authorization_ep_invalid_no_token",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_authorization_ep_invalid_no_token",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/dashboard/ Authorization EP invalid unknown token",
+   "id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_authorization_ep_invalid_unknown_token",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_authorization_ep_invalid_unknown_token",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/dashboard/ Authorization EP valid token",
+   "id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_authorization_ep_valid_token",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_authorization_ep_valid_token",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/dashboard/ method EP invalid DELETE",
+   "id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_delete",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_delete",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/dashboard/ method EP invalid PATCH",
+   "id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_patch",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_patch",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/dashboard/ method EP invalid POST",
+   "id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_post",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_post",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/dashboard/ method EP invalid PUT",
+   "id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_put",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDashboardTests.test_method_ep_invalid_put",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ Authorization EP invalid no token",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_authorization_ep_invalid_no_token",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_authorization_ep_invalid_no_token",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ Authorization EP invalid unknown token",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_authorization_ep_invalid_unknown_token",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_authorization_ep_invalid_unknown_token",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ context EP invalid employee owner",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_employee_owner",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_employee_owner",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ context EP invalid employee teammate",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_employee_teammate",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_employee_teammate",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ context EP invalid manager of another team",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_manager_of_another_team",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_manager_of_another_team",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ context EP invalid manager own request",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_manager_own_request",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_manager_own_request",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ context EP invalid manager without a team",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_manager_without_a_team",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_manager_without_a_team",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ context EP invalid request already approved",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_request_already_approved",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_request_already_approved",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ context EP invalid request already rejected",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_request_already_rejected",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_request_already_rejected",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ context EP invalid request out of scope",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_request_out_of_scope",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_invalid_request_out_of_scope",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ context EP valid admin",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_valid_admin",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_context_ep_valid_admin",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ id EP invalid example 0",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_0",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_0",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ id EP invalid example 1.5",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_1_5",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_1_5",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ id EP invalid example 2147483647",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_2147483647",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_2147483647",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ id EP invalid example 'abc'",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_abc",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_abc",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ id EP invalid example -1",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_minus_1",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_id_ep_invalid_example_minus_1",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ media EP invalid malformed JSON",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_invalid_malformed_json",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_invalid_malformed_json",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ media EP invalid text/plain",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_invalid_text_plain",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_invalid_text_plain",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ media EP valid application/x-www-form-urlencoded",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_valid_application_x_www_form_urlencoded",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_valid_application_x_www_form_urlencoded",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ media EP valid multipart/form-data",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_valid_multipart_form_data",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_media_ep_valid_multipart_form_data",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ method EP invalid DELETE",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_delete",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_delete",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ method EP invalid GET",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_get",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_get",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ method EP invalid PATCH",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_patch",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_patch",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ method EP invalid PUT",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_put",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_method_ep_invalid_put",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ status EP invalid example ''",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_example_empty",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_example_empty",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ status EP invalid example 'pending'",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_example_pending",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_example_pending",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ status EP invalid missing (required)",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_missing_required",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_missing_required",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ status EP invalid null (not nullable)",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_null_not_nullable",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_null_not_nullable",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ status EP invalid out-of-enum 'zzz_not_in_enum'",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_out_of_enum_zzz_not_in_enum",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_out_of_enum_zzz_not_in_enum",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ status EP invalid wrong type (true)",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_wrong_type_true",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_invalid_wrong_type_true",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ status EP valid enum value 'approved'",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_valid_enum_value_approved",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_valid_enum_value_approved",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/{id}/decision/ status EP valid enum value 'rejected'",
+   "id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_valid_enum_value_rejected",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedDecideRequestTests.test_status_ep_valid_enum_value_rejected",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/requests/ Authorization EP invalid no token",
+   "id": "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_authorization_ep_invalid_no_token",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_authorization_ep_invalid_no_token",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/requests/ Authorization EP invalid unknown token",
+   "id": "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_authorization_ep_invalid_unknown_token",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_authorization_ep_invalid_unknown_token",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/requests/ Authorization EP valid token",
+   "id": "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_authorization_ep_valid_token",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_authorization_ep_valid_token",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/requests/ method EP invalid DELETE",
+   "id": "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_method_ep_invalid_delete",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_method_ep_invalid_delete",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/requests/ method EP invalid PATCH",
+   "id": "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_method_ep_invalid_patch",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_method_ep_invalid_patch",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/requests/ method EP invalid PUT",
+   "id": "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_method_ep_invalid_put",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedListRequestsTests.test_method_ep_invalid_put",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/auth/login/ media EP invalid malformed JSON",
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_invalid_malformed_json",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_invalid_malformed_json",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/auth/login/ media EP invalid text/plain",
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_invalid_text_plain",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_invalid_text_plain",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/auth/login/ media EP valid application/x-www-form-urlencoded",
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_valid_application_x_www_form_urlencoded",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_valid_application_x_www_form_urlencoded",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/auth/login/ media EP valid multipart/form-data",
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_valid_multipart_form_data",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_media_ep_valid_multipart_form_data",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/auth/login/ method EP invalid DELETE",
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_delete",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_delete",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/auth/login/ method EP invalid GET",
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_get",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_get",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/auth/login/ method EP invalid PATCH",
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_patch",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_patch",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/auth/login/ method EP invalid PUT",
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_put",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_method_ep_invalid_put",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/auth/login/ password EP invalid example ''",
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_example_empty",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_example_empty",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/auth/login/ password EP invalid example 'wrong-password'",
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_example_wrong_password",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_example_wrong_password",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/auth/login/ password EP invalid missing (required)",
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_missing_required",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_missing_required",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/auth/login/ password EP invalid null (not nullable)",
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_null_not_nullable",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_null_not_nullable",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/auth/login/ password EP invalid wrong type (true)",
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_wrong_type_true",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_password_ep_invalid_wrong_type_true",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/auth/login/ username EP invalid example ''",
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_example_empty",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_example_empty",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/auth/login/ username EP invalid example 'unknown-user'",
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_example_unknown_user",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_example_unknown_user",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/auth/login/ username EP invalid missing (required)",
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_missing_required",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_missing_required",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/auth/login/ username EP invalid null (not nullable)",
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_null_not_nullable",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_null_not_nullable",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/auth/login/ username EP invalid wrong type (true)",
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_wrong_type_true",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_invalid_wrong_type_true",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/auth/login/ username EP valid string",
+   "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_valid_string",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_valid_string",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/me/ Authorization EP invalid no token",
+   "id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_authorization_ep_invalid_no_token",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_authorization_ep_invalid_no_token",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/me/ Authorization EP invalid unknown token",
+   "id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_authorization_ep_invalid_unknown_token",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_authorization_ep_invalid_unknown_token",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/me/ Authorization EP valid token",
+   "id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_authorization_ep_valid_token",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_authorization_ep_valid_token",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/me/ method EP invalid DELETE",
+   "id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_delete",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_delete",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/me/ method EP invalid PATCH",
+   "id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_patch",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_patch",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/me/ method EP invalid POST",
+   "id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_post",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_post",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/me/ method EP invalid PUT",
+   "id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_put",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedMeTests.test_method_ep_invalid_put",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ Authorization EP invalid no token",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_authorization_ep_invalid_no_token",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_authorization_ep_invalid_no_token",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ Authorization EP invalid unknown token",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_authorization_ep_invalid_unknown_token",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_authorization_ep_invalid_unknown_token",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ end_date BVA 2026-12-06 (limit-1, end_date >= start_date)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_bva_2026_12_06_below",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_bva_2026_12_06_below",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ end_date BVA 2026-12-07 (limit, end_date >= start_date)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_bva_2026_12_07_at",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_bva_2026_12_07_at",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ end_date EP invalid date format ('not-a-date')",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_date_format_not_a_date",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_date_format_not_a_date",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ end_date EP invalid example '2026-02-30'",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_example_2026_02_30",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_example_2026_02_30",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ end_date EP invalid example ''",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_example_empty",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_example_empty",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ end_date EP invalid missing (required)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_missing_required",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_missing_required",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ end_date EP invalid null (not nullable)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_null_not_nullable",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_null_not_nullable",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ end_date EP invalid wrong type (true)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_wrong_type_true",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_end_date_ep_invalid_wrong_type_true",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ leave_type EP invalid example ''",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_example_empty",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_example_empty",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ leave_type EP invalid null (not nullable)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_null_not_nullable",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_null_not_nullable",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ leave_type EP invalid out-of-enum 'zzz_not_in_enum'",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_out_of_enum_zzz_not_in_enum",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_out_of_enum_zzz_not_in_enum",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ leave_type EP invalid wrong type (true)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_wrong_type_true",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_invalid_wrong_type_true",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ leave_type EP valid enum value 'permit'",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_permit",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_permit",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ leave_type EP valid enum value 'personal'",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_personal",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_personal",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ leave_type EP valid enum value 'vacation'",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_vacation",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_enum_value_vacation",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ leave_type EP valid omitted (optional)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_omitted_optional",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_leave_type_ep_valid_omitted_optional",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ media EP invalid malformed JSON",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_invalid_malformed_json",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_invalid_malformed_json",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ media EP invalid text/plain",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_invalid_text_plain",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_invalid_text_plain",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ media EP valid application/x-www-form-urlencoded",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_valid_application_x_www_form_urlencoded",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_valid_application_x_www_form_urlencoded",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ media EP valid multipart/form-data",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_valid_multipart_form_data",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_media_ep_valid_multipart_form_data",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ note BVA 0 (limit, minLength 0)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_0_at",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_0_at",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ note BVA 1 (limit+1, minLength 0)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_1_above",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_1_above",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ note BVA 279 (limit-1, x-trimmed-max-length 280)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_279_below",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_279_below",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ note BVA 280 (limit, x-trimmed-max-length 280)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_280_at",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_280_at",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ note BVA 281 (limit+1, x-trimmed-max-length 280)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_281_above",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_bva_281_above",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ note EP invalid null (not nullable)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_null_not_nullable",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_null_not_nullable",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ note EP invalid over x-trimmed-max-length (560 chars)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_over_x_trimmed_max_length_560_chars",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_over_x_trimmed_max_length_560_chars",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ note EP invalid padded 281 chars after trim",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_padded_281_chars_after_trim",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_padded_281_chars_after_trim",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ note EP invalid wrong type (true)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_wrong_type_true",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_invalid_wrong_type_true",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ note EP valid omitted (optional)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_valid_omitted_optional",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_valid_omitted_optional",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ note EP valid padded 280 chars after trim",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_valid_padded_280_chars_after_trim",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_valid_padded_280_chars_after_trim",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ note EP valid whitespace only",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_valid_whitespace_only",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_note_ep_valid_whitespace_only",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ start_date..end_date BVA 10 (limit, BR-03 business days <= 10)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_10_at_br_03_business_days_10",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_10_at_br_03_business_days_10",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ start_date..end_date BVA 11 (limit+1, BR-03 business days <= 10)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_11_above_br_03_business_days_10",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_11_above_br_03_business_days_10",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ start_date..end_date BVA 2026-12-14 (limit-1, BR-02 existing start)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_14_below_br_02_existing_start",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_14_below_br_02_existing_start",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ start_date..end_date BVA 2026-12-15 (limit, BR-02 existing start)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_15_at_br_02_existing_start",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_15_at_br_02_existing_start",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ start_date..end_date BVA 2026-12-16 (limit+1, BR-02 existing start)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_16_above_br_02_existing_start",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_16_above_br_02_existing_start",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ start_date..end_date BVA 2026-12-17 (limit+1, BR-02 existing end)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_17_above_br_02_existing_end",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_2026_12_17_above_br_02_existing_end",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ start_date..end_date BVA 9 (limit-1, BR-03 business days <= 10)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_9_below_br_03_business_days_10",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_bva_9_below_br_03_business_days_10",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ start_date..end_date EP invalid BR-02 encloses existing",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_ep_invalid_br_02_encloses_existing",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_ep_invalid_br_02_encloses_existing",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ start_date..end_date EP invalid BR-03 20 business days",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_ep_invalid_br_03_20_business_days",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_end_date_ep_invalid_br_03_20_business_days",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ start_date EP invalid date format ('not-a-date')",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_date_format_not_a_date",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_date_format_not_a_date",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ start_date EP invalid example '2026-02-30'",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_example_2026_02_30",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_example_2026_02_30",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ start_date EP invalid example ''",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_example_empty",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_example_empty",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ start_date EP invalid missing (required)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_missing_required",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_missing_required",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ start_date EP invalid null (not nullable)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_null_not_nullable",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_null_not_nullable",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: POST /api/requests/ start_date EP invalid wrong type (true)",
+   "id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_wrong_type_true",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedSubmitRequestTests.test_start_date_ep_invalid_wrong_type_true",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/team/ Authorization EP invalid no token",
+   "id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_invalid_no_token",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_invalid_no_token",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/team/ Authorization EP invalid unknown token",
+   "id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_invalid_unknown_token",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_invalid_unknown_token",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/team/ Authorization EP valid token",
+   "id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_valid_token",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_authorization_ep_valid_token",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/team/ method EP invalid DELETE",
+   "id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_delete",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_delete",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/team/ method EP invalid PATCH",
+   "id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_patch",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_patch",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/team/ method EP invalid POST",
+   "id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_post",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_post",
+   "outcome": "passed"
+  },
+  {
+   "description": "Generated from spec: GET /api/team/ method EP invalid PUT",
+   "id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_put",
+   "method_id": "tests.team.generated.test_generated_api.GeneratedTeamTests.test_method_ep_invalid_put",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-004; FR-W2-05: approval is published only at commit, to the owner.",
+   "id": "tests.team.integration.test_event_publication.EventPublicationTests.test_approval_is_published_after_commit",
+   "method_id": "tests.team.integration.test_event_publication.EventPublicationTests.test_approval_is_published_after_commit",
+   "outcome": "passed"
+  },
+  {
+   "description": "BR-05: Redis failing at publication is logged; the committed decision stands.",
+   "id": "tests.team.integration.test_event_publication.EventPublicationTests.test_redis_failure_does_not_undo_the_decision",
+   "method_id": "tests.team.integration.test_event_publication.EventPublicationTests.test_redis_failure_does_not_undo_the_decision",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-004: W1 400, W2 403 and W2 400 register no commit callback.",
+   "id": "tests.team.integration.test_event_publication.EventPublicationTests.test_refused_calls_register_no_event",
+   "method_id": "tests.team.integration.test_event_publication.EventPublicationTests.test_refused_calls_register_no_event",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-004; FR-W2-06: rejection is published only at commit, to the owner.",
+   "id": "tests.team.integration.test_event_publication.EventPublicationTests.test_rejection_is_published_after_commit",
+   "method_id": "tests.team.integration.test_event_publication.EventPublicationTests.test_rejection_is_published_after_commit",
+   "outcome": "passed"
+  },
+  {
+   "description": "BR-05: a failure after the event was registered rolls the decision back and drops the event.",
+   "id": "tests.team.integration.test_event_publication.EventPublicationTests.test_rolled_back_decision_publishes_nothing",
+   "method_id": "tests.team.integration.test_event_publication.EventPublicationTests.test_rolled_back_decision_publishes_nothing",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-004; FR-W1-06: W1 registers one event and publishes it only at commit, to admin and team manager.",
+   "id": "tests.team.integration.test_event_publication.EventPublicationTests.test_submission_is_published_after_commit",
+   "method_id": "tests.team.integration.test_event_publication.EventPublicationTests.test_submission_is_published_after_commit",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-INT-001.03 — CHARACTERIZATION of a known SUT defect (TEST-BASIS GAP-01, risk PR-01).",
+   "id": "tests.team.integration.test_w1_w2_integration.ApprovalOverdrawTests.test_second_approval_overdraws_allowance_characterization",
+   "method_id": "tests.team.integration.test_w1_w2_integration.ApprovalOverdrawTests.test_second_approval_overdraws_allowance_characterization",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-INT-001.05; FR-W2-01, FR-W2-02; BR-04.",
+   "id": "tests.team.integration.test_w1_w2_integration.CrossWorkflowAuthorizationTests.test_other_team_request_is_invisible_to_manager",
+   "method_id": "tests.team.integration.test_w1_w2_integration.CrossWorkflowAuthorizationTests.test_other_team_request_is_invisible_to_manager",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-INT-001.04; FR-W2-02; BR-04, BR-05.",
+   "id": "tests.team.integration.test_w1_w2_integration.CrossWorkflowAuthorizationTests.test_requester_cannot_decide_own_w1_request",
+   "method_id": "tests.team.integration.test_w1_w2_integration.CrossWorkflowAuthorizationTests.test_requester_cannot_decide_own_w1_request",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-INT-001.09 — CHARACTERIZATION of the EC-01 scenario (GAP-01, PR-01), not an approved oracle.",
+   "id": "tests.team.integration.test_w1_w2_integration.ExitCriterionScenarioTests.test_ec01_two_four_day_requests_characterization",
+   "method_id": "tests.team.integration.test_w1_w2_integration.ExitCriterionScenarioTests.test_ec01_two_four_day_requests_characterization",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-INT-001.06; FR-W2-04; BR-03, BR-05.",
+   "id": "tests.team.integration.test_w1_w2_integration.InvalidTransitionTests.test_decision_on_approved_request_conflicts",
+   "method_id": "tests.team.integration.test_w1_w2_integration.InvalidTransitionTests.test_decision_on_approved_request_conflicts",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-INT-001.07; FR-W2-04, FR-W2-06; BR-03, BR-05.",
+   "id": "tests.team.integration.test_w1_w2_integration.InvalidTransitionTests.test_decision_on_rejected_request_conflicts",
+   "method_id": "tests.team.integration.test_w1_w2_integration.InvalidTransitionTests.test_decision_on_rejected_request_conflicts",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-INT-001.08; FR-W1-04, FR-W1-06; BR-02, BR-03: immediate repeat → overlap 400, one row, balance unchanged.",
+   "id": "tests.team.integration.test_w1_w2_integration.RepeatedSubmissionTests.test_identical_submission_repeated_while_pending",
+   "method_id": "tests.team.integration.test_w1_w2_integration.RepeatedSubmissionTests.test_identical_submission_repeated_while_pending",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-INT-001.01; FR-W1-06, FR-W2-01, FR-W2-04, FR-W2-05; BR-03, BR-04, BR-05.",
+   "id": "tests.team.integration.test_w1_w2_integration.SameRecordApprovalTests.test_w1_submission_then_w2_approval_consumes_allowance",
+   "method_id": "tests.team.integration.test_w1_w2_integration.SameRecordApprovalTests.test_w1_submission_then_w2_approval_consumes_allowance",
+   "outcome": "passed"
+  },
+  {
+   "description": "API-INT-001.02; FR-W1-04, FR-W1-06, FR-W2-04, FR-W2-06; BR-02, BR-03, BR-05.",
+   "id": "tests.team.integration.test_w1_w2_integration.SameRecordRejectionTests.test_w1_submission_then_w2_rejection_consumes_nothing",
+   "method_id": "tests.team.integration.test_w1_w2_integration.SameRecordRejectionTests.test_w1_submission_then_w2_rejection_consumes_nothing",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT1 R1: C1=F (C2–C4 not evaluated) → 400 on end_date only, no row.",
+   "id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r1",
+   "method_id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r1",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT1 R2: C1=T, C2=F (C3/C4 not evaluated) → 400 overlap, no row.",
+   "id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r2",
+   "method_id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r2",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT1 R3: C1=T, C2=T, C3=F (C4 masked) → 201 although D is large.",
+   "id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r3",
+   "method_id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r3",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT1 R4: C1=T, C2=T, C3=T, C4=F → 400 'Saldo ferie insufficiente.', no row.",
+   "id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r4",
+   "method_id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r4",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT1 R5: all conditions true → 201 pending row; no allowance consumed.",
+   "id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r5",
+   "method_id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r5",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT2 R1: C1=F → 403 'Operazione non consentita.', unchanged.",
+   "id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r1",
+   "method_id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r1",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT2 R2: C1=T, C2=F → 404, unchanged.",
+   "id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r2",
+   "method_id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r2",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT2 R3: C1=T, C2=T, C3=F → 403 'Non puoi decidere una tua richiesta.', unchanged.",
+   "id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r3",
+   "method_id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r3",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT2 R4: C1=T, C2=T, C3=T, C4=F → 409 'La richiesta è già stata decisa.'.",
+   "id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r4",
+   "method_id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r4",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT2 R5: all conditions true → 200; the same row becomes approved by the admin.",
+   "id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r5",
+   "method_id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r5",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-004 decision branch: approval → one leave.approved event to the owner only.",
+   "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_approval_notifies_owner_only",
+   "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_approval_notifies_owner_only",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-004 R1: A=T, T=T, O=F → notified.",
+   "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r1_admin_same_team",
+   "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r1_admin_same_team",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-004 R2: A=T, T=F, O=F → notified.",
+   "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r2_admin_other_team",
+   "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r2_admin_other_team",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-004 R3: M=T, T=T, O=F → notified.",
+   "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r3_manager_same_team",
+   "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r3_manager_same_team",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-004 R4: M=T, T=F, O=F → not notified (other team's and teamless manager).",
+   "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r4_manager_other_team",
+   "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r4_manager_other_team",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-004 R5: A=F, M=F, T=T, O=F → the teammate is not notified.",
+   "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r5_employee_same_team",
+   "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r5_employee_same_team",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-004 R6: A=F, M=F, T=F, O=F → not notified.",
+   "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r6_employee_other_team",
+   "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r6_employee_other_team",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-004 R7: A=T, O=T → the requesting admin is excluded; exactly the others remain.",
+   "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r7_admin_is_requester",
+   "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r7_admin_is_requester",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-004 R8: M=T, T=T, O=T → the requesting manager is excluded; exactly the admins remain.",
+   "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r8_manager_is_requester",
+   "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r8_manager_is_requester",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-004 R9: A=F, M=F, O=T → the requester is excluded; exactly both admins and m1 are notified.",
+   "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r9_employee_is_requester",
+   "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r9_employee_is_requester",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-004: a refused submission (400) and a refused decision (403) publish no event.",
+   "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_refused_calls_publish_nothing",
+   "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_refused_calls_publish_nothing",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-004 decision branch: rejection → one leave.rejected event to the owner only.",
+   "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_rejection_notifies_owner_only",
+   "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_rejection_notifies_owner_only",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-004, T with both teams null — CHARACTERIZATION (GAP-08), not an approved oracle.",
+   "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_teamless_requester_characterization",
+   "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_teamless_requester_characterization",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-002 P=F, 12 rows (model level): the saved row never blocks itself, whatever E,S,L,R are.",
+   "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_pk_excluded_rows",
+   "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_pk_excluded_rows",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-002 R10: E and S false → 201.",
+   "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r10",
+   "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r10",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-002 R11: E, S and L false → 201.",
+   "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r11",
+   "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r11",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-002 R12: E, S and R false → 201.",
+   "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r12",
+   "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r12",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-002 R1: E,S,L,R all true, X approved (second value of S) → 400 overlap, no row.",
+   "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r1_approved_blocks",
+   "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r1_approved_blocks",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-002 R1: E,S,L,R all true, X pending → 400 overlap, no row.",
+   "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r1_pending_blocks",
+   "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r1_pending_blocks",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-002 R2: only L false (candidate ends before X starts) → 201.",
+   "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r2",
+   "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r2",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-002 R3: only R false (candidate starts after X ends) → 201.",
+   "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r3",
+   "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r3",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-002 R4: only S false (X rejected) → 201.",
+   "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r4",
+   "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r4",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-002 R5: S and L false → 201.",
+   "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r5",
+   "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r5",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-002 R6: S and R false → 201.",
+   "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r6",
+   "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r6",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-002 R7: only E false (X belongs to a colleague) → 201.",
+   "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r7",
+   "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r7",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-002 R8: E and L false → 201.",
+   "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r8",
+   "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r8",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-002 R9: E and R false → 201.",
+   "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r9",
+   "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r9",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-005 with W2: pending (null) → manager approves → the same dates appear in /api/team/.",
+   "id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_approval_through_w2_becomes_upcoming",
+   "method_id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_approval_through_w2_becomes_upcoming",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-005: two R1 rows, the later one stored first → the earlier start is returned.",
+   "id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_earliest_start_selected",
+   "method_id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_earliest_start_selected",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-005: a member without any request → null.",
+   "id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_no_requests",
+   "method_id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_no_requests",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-005 R1: approved, end = today+1 (leave in progress) → shown.",
+   "id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r1_end_after_today",
+   "method_id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r1_end_after_today",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-005 R1: approved, end = today (inclusive limit) → shown.",
+   "id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r1_end_today",
+   "method_id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r1_end_today",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-005 R2: approved, end = today-1 → null.",
+   "id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r2_end_yesterday",
+   "method_id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r2_end_yesterday",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-005 R3: pending and future → null.",
+   "id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r3_pending_future",
+   "method_id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r3_pending_future",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-005 R3: rejected and future (second non-approved value of P) → null.",
+   "id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r3_rejected_future",
+   "method_id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r3_rejected_future",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-005 R4: pending and past → null.",
+   "id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r4_pending_past",
+   "method_id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r4_pending_past",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-003 R1: admin with a team → every request of every team.",
+   "id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r1_admin_with_team",
+   "method_id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r1_admin_with_team",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-003 R1: admin without a team → still every request (T does not matter).",
+   "id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r1_admin_without_team",
+   "method_id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r1_admin_without_team",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-003 R2: M=T, T=T → exactly the team's requests, own included.",
+   "id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r2_manager_with_team",
+   "method_id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r2_manager_with_team",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-003 R3: M=T, T=F → own only; another teamless user's request is not listed.",
+   "id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r3_manager_without_team",
+   "method_id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r3_manager_without_team",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-003 R4: M=F, T=T → own only; the teammate's request is not listed.",
+   "id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r4_employee_with_team",
+   "method_id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r4_employee_with_team",
+   "outcome": "passed"
+  },
+  {
+   "description": "DT-003 R5: M=F, T=F → own only (the row no earlier team test covered).",
+   "id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r5_employee_without_team",
+   "method_id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r5_employee_without_team",
+   "outcome": "passed"
+  },
+  {
+   "description": "BVA days vs available, A+1: Mon 12-14..Mon 12-21 (6 days) with A=5 → 400 'Saldo ferie insufficiente.', no row.",
+   "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_balance_above",
+   "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_balance_above",
+   "outcome": "passed"
+  },
+  {
+   "description": "BVA days vs available, A: Mon 12-14..Fri 12-18 (5 days) with A=5 → 201 (equality is allowed).",
+   "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_balance_at",
+   "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_balance_at",
+   "outcome": "passed"
+  },
+  {
+   "description": "BVA days vs available, A-1: Thu 12-17..Tue 12-22 (4 business days, 6 calendar days) with A=5 → 201.",
+   "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_balance_below",
+   "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_balance_below",
+   "outcome": "passed"
+  },
+  {
+   "description": "BVA date range, end = start+1: Mon 12-21..Tue 12-22 → 201 with 2 business days.",
+   "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_date_range_above",
+   "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_date_range_above",
+   "outcome": "passed"
+  },
+  {
+   "description": "BVA date range, end = start: Mon 12-21..12-21 → 201 with 1 business day.",
+   "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_date_range_at",
+   "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_date_range_at",
+   "outcome": "passed"
+  },
+  {
+   "description": "BVA date range, end = start-1: Mon 12-21 → Sun 12-20 → 400 on end_date, no row.",
+   "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_date_range_below",
+   "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_date_range_below",
+   "outcome": "passed"
+  },
+  {
+   "description": "BVA note length, just above the limit: 281 characters → 400 keyed note, no row created.",
+   "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_note_length_above",
+   "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_note_length_above",
+   "outcome": "passed"
+  },
+  {
+   "description": "BVA note length, exactly at the limit: 280 characters → 201, stored with 280 characters.",
+   "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_note_length_at",
+   "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_note_length_at",
+   "outcome": "passed"
+  },
+  {
+   "description": "BVA note length, just below the 280 limit: 279 characters → 201, stored with 279 characters.",
+   "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_note_length_below",
+   "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_note_length_below",
+   "outcome": "passed"
+  },
+  {
+   "description": "BVA overlap end limit, one day after: Fri 12-11 → 201; the existing request is untouched.",
+   "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_end_above",
+   "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_end_above",
+   "outcome": "passed"
+  },
+  {
+   "description": "BVA overlap end limit, at: Thu 12-10 (the existing end day) → 400 overlap, no row (inclusive).",
+   "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_end_at",
+   "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_end_at",
+   "outcome": "passed"
+  },
+  {
+   "description": "BVA overlap start limit, one day after (also the end limit's 'below' point): Wed 12-09 → 400 overlap.",
+   "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_start_above",
+   "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_start_above",
+   "outcome": "passed"
+  },
+  {
+   "description": "BVA overlap start limit, at: Tue 12-08 (the existing start day) → 400 overlap, no row (inclusive).",
+   "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_start_at",
+   "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_start_at",
+   "outcome": "passed"
+  },
+  {
+   "description": "BVA overlap start limit, one day before: Mon 12-07 (ends the day before 12-08) → 201.",
+   "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_start_below",
+   "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_start_below",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 authentication, invalid class {no token}: 401 with WWW-Authenticate: Token, no insert.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_auth_no_token",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_auth_no_token",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 authentication, valid class {valid token}: token from real login → 201 owned by the caller.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_auth_valid_token",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_auth_valid_token",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 authentication, invalid class {wrong token}: unknown 40-hex token → 401, no insert.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_auth_wrong_token",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_auth_wrong_token",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 end_date, valid class {after start}: Thu 12-17..Tue 12-22 → 201, 4 business days.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_after_start",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_after_start",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 end_date, invalid class {before start}: Fri 12-18 → Mon 12-14 → 400 on end_date, no insert.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_before_start",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_before_start",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 end_date, invalid class {missing}: field omitted → 400 keyed end_date, no insert.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_missing",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_missing",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 end_date, valid class {same as start}: Wed 12-16..12-16 → 201, 1 business day.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_same_as_start",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_same_as_start",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 leave_type, invalid class {empty string}: 400 keyed leave_type, no insert (not a choice).",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_empty",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_empty",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 leave_type, invalid class {numeric}: JSON number 7 → 400 keyed leave_type, no insert.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_numeric",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_numeric",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 leave_type, valid class {permit}: 201 and stored as permit.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_permit",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_permit",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 leave_type, valid class {personal}: 201 and stored as personal.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_personal",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_personal",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 leave_type, invalid class {unknown string}: 'sabbatical' → 400 keyed leave_type, no insert.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_unknown",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_unknown",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 leave_type, valid class {vacation}: 201 and stored as vacation.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_vacation",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_vacation",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 note, valid class {empty}: '' → 201 and stored empty (note is optional).",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_empty",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_empty",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 note, valid class {1 character}: 'x' → 201 and stored unchanged.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_one_char",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_one_char",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 note, invalid class {more than 280 characters}, representative 400 → 400 keyed note, no insert.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_over_limit",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_over_limit",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 note, valid class {2..280 characters}, representative 200 → 201 stored intact.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_within_limit",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_within_limit",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 start_date, valid class {future weekday}: Mon 2027-01-04..Tue 01-05 → 201, 2 business days.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_future_weekday",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_future_weekday",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 start_date, invalid class {missing}: field omitted → 400 keyed start_date, no insert.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_missing",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_missing",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 start_date, invalid class {non-date string}: 'next monday' → 400 keyed start_date, no insert.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_non_date",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_non_date",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 start_date, invalid class {null}: JSON null → 400 keyed start_date, no insert.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_null",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_null",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W1 start_date, valid class {today}: start = end = server local date → 201.",
+   "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_today",
+   "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_today",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W2 request_id, invalid class {already decided}: admin rejects a rejected request → 409, audit unchanged.",
+   "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_request_id_already_decided",
+   "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_request_id_already_decided",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W2 request_id, valid class {existing pending visible}: team B manager approves team B request → 200.",
+   "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_request_id_existing_pending",
+   "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_request_id_existing_pending",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W2 request_id, invalid class {nonexistent}: highest id + 1000 → 404, no row changed.",
+   "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_request_id_nonexistent",
+   "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_request_id_nonexistent",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W2 role, valid class {admin}: admin rejects team A request → 200.",
+   "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_admin",
+   "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_admin",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W2 role, invalid class {employee}: teammate employee approves → 403 (role guard), row unchanged.",
+   "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_employee",
+   "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_employee",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W2 role, invalid class {manager of another team}: team B manager on a team A request → 404.",
+   "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_manager_other_team",
+   "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_manager_other_team",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W2 role, valid class {manager of the same team}: team B manager rejects team B request → 200.",
+   "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_manager_same_team",
+   "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_manager_same_team",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W2 status, valid class {approved}: admin approves team A pending → 200, approved.",
+   "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_approved",
+   "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_approved",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W2 status, invalid class {empty}: '' → 400 'Decisione non valida.', row unchanged.",
+   "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_empty",
+   "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_empty",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W2 status, invalid class {'pending'}: not a decision → 400, row stays pending.",
+   "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_pending",
+   "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_pending",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W2 status, invalid class {random string}: 'maybe' → 400, row unchanged.",
+   "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_random",
+   "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_random",
+   "outcome": "passed"
+  },
+  {
+   "description": "EP W2 status, valid class {rejected}: admin rejects team B pending → 200, rejected.",
+   "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_rejected",
+   "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_rejected",
+   "outcome": "passed"
+  },
+  {
+   "description": "State transition approved --approve--> (disallowed): 409, approved record unchanged, no double charge.",
+   "id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_approved_approve_409",
+   "method_id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_approved_approve_409",
+   "outcome": "passed"
+  },
+  {
+   "description": "State transition approved --reject--> (disallowed): 409, an approval cannot be reversed.",
+   "id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_approved_reject_409",
+   "method_id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_approved_reject_409",
+   "outcome": "passed"
+  },
+  {
+   "description": "W1 creation (none --submit--> pending) is independent of other requests' states.",
+   "id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_none_submit_pending",
+   "method_id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_none_submit_pending",
+   "outcome": "passed"
+  },
+  {
+   "description": "State transition pending --approve--> approved (allowed, 0-switch edge).",
+   "id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_pending_approve_approved",
+   "method_id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_pending_approve_approved",
+   "outcome": "passed"
+  },
+  {
+   "description": "State transition pending --reject--> rejected (allowed, 0-switch edge).",
+   "id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_pending_reject_rejected",
+   "method_id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_pending_reject_rejected",
+   "outcome": "passed"
+  },
+  {
+   "description": "State transition rejected --approve--> (disallowed): 409, the rejection stands and nothing is charged.",
+   "id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_rejected_approve_409",
+   "method_id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_rejected_approve_409",
+   "outcome": "passed"
+  },
+  {
+   "description": "State transition rejected --reject--> (disallowed): 409, a repeated rejection is refused.",
+   "id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_rejected_reject_409",
+   "method_id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_rejected_reject_409",
+   "outcome": "passed"
+  },
+  {
+   "description": "Every documented (operation, status) has a contract test, and no test names an undocumented one.",
+   "id": "tests.team.api.test_openapi_contract.ContractIntegrityTests.test_every_documented_response_is_exercised",
+   "method_id": "tests.team.api.test_openapi_contract.ContractIntegrityTests.test_every_documented_response_is_exercised",
+   "outcome": "passed"
+  },
+  {
+   "description": "The exported contract and the generated tests come from the spec as it is now (else: regenerate).",
+   "id": "tests.team.api.test_openapi_contract.ContractIntegrityTests.test_generated_artifacts_match_the_current_spec",
+   "method_id": "tests.team.api.test_openapi_contract.ContractIntegrityTests.test_generated_artifacts_match_the_current_spec",
+   "outcome": "passed"
+  },
+  {
+   "description": "The validator reports each kind of violation (a validator that accepts everything proves nothing).",
+   "id": "tests.team.api.test_openapi_contract.ContractIntegrityTests.test_validator_detects_violations",
+   "method_id": "tests.team.api.test_openapi_contract.ContractIntegrityTests.test_validator_detects_violations",
+   "outcome": "passed"
+  },
+  {
+   "description": "FND-011; infrastructure: reject dev SQLite, unknown files/URIs and PG.",
+   "id": "tests.team.foundation.test_foundation.SafetyGuardTests.test_file_external_and_custom_test_targets_are_refused",
+   "method_id": "tests.team.foundation.test_foundation.SafetyGuardTests.test_file_external_and_custom_test_targets_are_refused",
+   "outcome": "passed"
+  },
+  {
+   "description": "FND-012; infrastructure: refuse fixture work before test DB selection.",
+   "id": "tests.team.foundation.test_foundation.SafetyGuardTests.test_fixture_requires_active_django_memory_target",
+   "method_id": "tests.team.foundation.test_foundation.SafetyGuardTests.test_fixture_requires_active_django_memory_target",
+   "outcome": "passed"
+  },
+  {
+   "description": "FND-010; infrastructure: an explicit safe profile is mandatory.",
+   "id": "tests.team.foundation.test_foundation.SafetyGuardTests.test_unknown_profiles_are_refused",
+   "method_id": "tests.team.foundation.test_foundation.SafetyGuardTests.test_unknown_profiles_are_refused",
+   "outcome": "passed"
+  },
+  {
+   "description": "GEN-001: the manifest lists exactly the generated tests; none is dropped or added by hand.",
+   "id": "tests.team.generated.test_generated_manifest.GeneratedManifestTests.test_every_manifest_case_is_an_executed_test",
+   "method_id": "tests.team.generated.test_generated_manifest.GeneratedManifestTests.test_every_manifest_case_is_an_executed_test",
+   "outcome": "passed"
+  },
+  {
+   "description": "GEN-001: module and spec hashes match the manifest (fails after a hand edit or a stale generation).",
+   "id": "tests.team.generated.test_generated_manifest.GeneratedManifestTests.test_module_is_the_unedited_generator_output",
+   "method_id": "tests.team.generated.test_generated_manifest.GeneratedManifestTests.test_module_is_the_unedited_generator_output",
+   "outcome": "passed"
+  }
+ ],
+ "counts": {
+  "errors": 0,
+  "executed": 344,
+  "expected_failures": 0,
+  "failed": 0,
+  "non_passing_test_methods": 0,
+  "passed": 344,
+  "skipped": 0,
+  "unexpected_successes": 0
+ },
+ "database": {
+  "active_name": "file:memorydb_default?mode=memory&cache=shared",
+  "engine": "django.db.backends.sqlite3",
+  "redis_disabled": true
+ },
+ "development_database_unchanged": true,
+ "environment": {
+  "database_profile": "sqe-memory-v1",
+  "external_database_environment_ignored": false,
+  "git_branch": "test/a2.4-openapi-gen",
+  "git_sha": "707a5b3f345a357260c26218cc60eb78dcc82a9f",
+  "git_status": [
+   "?? docs/sqe/evidence/concurrency/postgresql17-2026-11-25/result.json",
+   "?? docs/sqe/evidence/concurrency/postgresql17-2026-11-25/stderr.log",
+   "?? docs/sqe/evidence/concurrency/postgresql17-2026-11-25/stdout.log",
+   "?? docs/sqe/evidence/generated/change-1-note-length-final-2026-11-25/result.json",
+   "?? docs/sqe/evidence/generated/change-1-note-length-final-2026-11-25/stderr.log",
+   "?? docs/sqe/evidence/generated/change-1-note-length-final-2026-11-25/stdout.log",
+   "?? docs/sqe/evidence/generated/change-2-sick-type-final-2026-11-25/result.json",
+   "?? docs/sqe/evidence/generated/change-2-sick-type-final-2026-11-25/stderr.log",
+   "?? docs/sqe/evidence/generated/change-2-sick-type-final-2026-11-25/stdout.log",
+   "?? docs/sqe/evidence/generated/change-3-nullable-note-final-2026-11-25/result.json",
+   "?? docs/sqe/evidence/generated/change-3-nullable-note-final-2026-11-25/stderr.log",
+   "?? docs/sqe/evidence/generated/change-3-nullable-note-final-2026-11-25/stdout.log",
+   "?? docs/sqe/evidence/generated/completion-2026-11-25/result.json",
+   "?? docs/sqe/evidence/generated/completion-2026-11-25/stderr.log",
+   "?? docs/sqe/evidence/generated/completion-2026-11-25/stdout.log",
+   "?? docs/sqe/evidence/integration/completion-2026-11-25/result.json",
+   "?? docs/sqe/evidence/integration/completion-2026-11-25/stderr.log",
+   "?? docs/sqe/evidence/integration/completion-2026-11-25/stdout.log",
+   "?? prompt.md"
+  ],
+  "packages": {
+   "Django": "6.0.7",
+   "django-cors-headers": "4.9.0",
+   "djangorestframework": "3.17.1",
+   "psycopg": "3.3.4",
+   "redis": "6.4.0"
+  },
+  "python": "3.12.7",
+  "python_executable": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python",
+  "redis_environment_ignored": false,
+  "runner": "Django DiscoverRunner + unittest; version is the Django/Python version above",
+  "source_sha256": {
+   "backend/config/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "backend/config/asgi.py": "f23d09f7cded8ce1239e5fbb32961ea409103501b9958934dbd77e92d4a8db21",
+   "backend/config/settings.py": "280ef4c3681431f604f132324c3f8bfd1ab00ed189799478e9e65efa4d6d2a7e",
+   "backend/config/urls.py": "ffd0aafd7a1d40d02be8bb99429d0058adfa4983568e9faf90fda22020d81bf5",
+   "backend/config/wsgi.py": "a7b47958708160e7ebcb377d677f5f2081640fb5dc4478bb486743055a85e192",
+   "backend/leave/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "backend/leave/admin.py": "7ce699328024faa2509a344b00c4edc255bd0bb7baeb4430bfbc4f40fc733acc",
+   "backend/leave/apps.py": "83e25d15a9e284383927712d3e065ab41882f7d22b995a7a44e1f271c364901a",
+   "backend/leave/events.py": "5f7d0c07bfbbfed9d30275a7b2dc7312399529afcf89965fd79240683c93c494",
+   "backend/leave/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "backend/leave/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "backend/leave/management/commands/seed_demo.py": "5f2e5db904c68eb03f89b1616404cb5f38d1758f79720a91f67191aaf44edd59",
+   "backend/leave/migrations/0001_initial.py": "ee7a9ad789bed3726e5b5b027f43dfc6fbe613e05d5e95d3acf69515f26d7f91",
+   "backend/leave/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "backend/leave/models.py": "bd1f0dbea11e0d7a665d9b17bd17c2d01c3ce7da7985d9deff0a7ca405711f57",
+   "backend/leave/serializers.py": "8dbfd179d7a85198cd0fac5b209c7fe6dfd740d50d110bd8e9c5a521089a7d88",
+   "backend/leave/tests.py": "61be0822d9c51929efdcde2f401d055deab8b0c0919b697078cc768413563c1c",
+   "backend/leave/urls.py": "81630a31adc7c02c33c92218b7f08b91bc9068f924661b17e80228a7126245e3",
+   "backend/leave/views.py": "86f214b1d1e775c1610f0d6377702b7a1569970068205a7c7c39d2f9c8f2c971",
+   "backend/manage.py": "b30eeb4890cb6f315cc238313808f636db29e9906b61cc6f6051567156a0097b",
+   "requirements.txt": "ca409861c6a962ba2b22754da08a531b1a4bf1c1f1f4c77e892e804532fe0a44",
+   "scripts/sqe/api_coverage.py": "1898b1cf64c47e9da776e996c95d104f0c67ebd22fc6b96c7b81cc59858a7c37",
+   "scripts/sqe/browser_harness.py": "46e379c6188cb2654131bb56cf5add0dcea65a2e66ae544e9d8478eae602c5e4",
+   "scripts/sqe/capture_decision_screenshot.py": "171c067ceae88674188c9bdffbaf801b57cf5e05116f3f33ddb31c54eef92fec",
+   "scripts/sqe/check_docs.py": "0c9c7c2a6975469f9cecee49ec2bf4a5230f9c54dbd781af614fdf324c0440f8",
+   "scripts/sqe/generate_api_tests.py": "0490713a65a199f4838b43b5d153f9666da3d2e0cc32ba393bad8ee9c6610ac6",
+   "scripts/sqe/reproduce_baseline.py": "754609cbd1b79c27990119201b5090d0a799c17cff5c54a1255242f5892af109",
+   "scripts/sqe/run_concurrency.py": "8491f5913beb95dd5fe18bebbe5eedbcedcf14976dc47e6fa9da72651110772e",
+   "scripts/sqe/run_tests.py": "1c7124816207befa8aa5a6989377dfb668cc2e04bca15c801d5673fcbc2e474b",
+   "tests/__init__.py": "401c994404cf80c29753cd5ffcb9f5b4964f07e20d51a720ba7070f1b1c334c8",
+   "tests/team/__init__.py": "1a8c0583e7a59b76dc97c31ef6ea8205994c1482c6e4f3d8cc52a86de4815213",
+   "tests/team/api/__init__.py": "644e3a6aaa5b75fd9b949c84c69c6d6abd91c9cb61a1714263f8070e53b0b47e",
+   "tests/team/api/contract.py": "b4158b6cb1ff318482f57731bf589a7e0a149dba6a8f9324cf7d2fef880381ee",
+   "tests/team/api/support.py": "03609059368fae69366e5419f58ef99a044837ac159f6a23959633cfd8ef7308",
+   "tests/team/api/test_authentication.py": "2d27fed69f52b404afca95d0c52e72895881475880e63b92f333425081c639fd",
+   "tests/team/api/test_openapi_contract.py": "3ae99bed19dc173b9648269eba6ef8085f0483d62c8c8507075841936dbe4cee",
+   "tests/team/api/test_w1_submission.py": "dc7ef8ce1250ce065b1255cef3c6b59965f9e793e94166af082be55075ef853b",
+   "tests/team/api/test_w2_decisions.py": "efa112e11ce983c906884ca1e555e42692af92071e86398e8209b051fd40a95f",
+   "tests/team/browser_safety.py": "3570c00ccf3f24aa7a9a5f69b9a203a6c6d6ad857f801bf1ed1f62da7595538a",
+   "tests/team/browser_settings.py": "219c1390367dd3619fcf138b6ee312f3d92d7c6f089c50eb7f0f03c3672be689",
+   "tests/team/concurrency/__init__.py": "40e8e7896d983d00b84a102735e2680db9f9456e666cbfc4c2de6748fb0ae352",
+   "tests/team/concurrency/test_concurrency.py": "5a4ef14f8638913a9b04c44ef7168dbf380162cd517bd7e189dff2706f1b92bb",
+   "tests/team/fixtures/__init__.py": "a4f3d78436c5ac0a1377fa08183f7ee299df67e7638f1e076e249b340dd0bcfe",
+   "tests/team/fixtures/leave_data.py": "db3f01290c00206db9d065c020582bab9bac8364b7fc7405ed6d5f3ef13c8a1a",
+   "tests/team/foundation/__init__.py": "a4a08308e5b6d25d67ba2b831993afe15c05265c12d6a789c566d013f090746b",
+   "tests/team/foundation/test_foundation.py": "4ce6683e4d3f9697c48e1b804f5010f1fcf1d513086056d804a4469e10a84c03",
+   "tests/team/generated/__init__.py": "7ce94dcf1916a745a59ab5aa38f69bfb38816d03a821a3e5ff581dfa31f6a567",
+   "tests/team/generated/test_generated_api.py": "75eccad9dc64f19352b2795813f9ce60bc4244417a724e7865390b813e601a8f",
+   "tests/team/generated/test_generated_api_v2.py": "53cd5d5a5e3c43764a499f4736b6ebd3206b81d7c5c499b7d1eda4e700ee0b4a",
+   "tests/team/generated/test_generated_api_v3.py": "4a61dd2bbb50e29975ec4ffafada25dbeb4b008a1f26ff921743505496db7057",
+   "tests/team/generated/test_generated_api_v4.py": "88c3ccab4aa4d2f50230c9e5503db6a7457a6f95870a0731e39d6956383c5c33",
+   "tests/team/generated/test_generated_manifest.py": "a3027a476ccff113be96d7340278fc316127c4a51eaa25b775452c0c1af23542",
+   "tests/team/integration/__init__.py": "b9728132e02d77de346980957b8ada6f25baa658e043382d59e4fb08ed68634f",
+   "tests/team/integration/test_event_publication.py": "e417a5b66c311f150b814f9be430945c0b105bc8b1ac045a9b790875f2c51f02",
+   "tests/team/integration/test_w1_w2_integration.py": "dd9e349ddf6e830c7fbc156f0908d44ba6d8278ad2bdefaf07f1236a4110262b",
+   "tests/team/postgres_safety.py": "64bf98a50eb918017e04740eee95e4f70cd0be0bfeb1ee70a05b10394d859379",
+   "tests/team/postgres_settings.py": "dfc1eba08d012ff24e88efa49ca519e75abdf31ebb4011d87ffa10f2e4522e20",
+   "tests/team/runner.py": "bf1ee1c4bd1e215e65822a93a3503c9ed97f16f1964205b82a60abb041bc9655",
+   "tests/team/safety.py": "86735f09d3e63522a48b227c6b57d893d32d9c832d7c580efdb8d1c00d359b12",
+   "tests/team/settings.py": "8e8892b749a865bdf48afc6a05f718d8b6a221fc8282fdf3b589f7e27dbaaad1",
+   "tests/team/structural/__init__.py": "4ae042f033bd4654db1c6bf75548e12d8cb299fc4c14a0591b5abf100e52e174",
+   "tests/team/structural/support.py": "a784888e41da5db3eaf90506ea9d9e80a8035c4b34e0080041e3466681073e82",
+   "tests/team/structural/test_decision_table.py": "f560cd80a2d9f89f9ce04024ee912555a31376629ed77f9374255cdc222c8035",
+   "tests/team/structural/test_decision_table_rules.py": "531dc6ba9112dae405e8bed2043d66c30f145a0677a2cbec30366c46d90cb8fc",
+   "tests/team/structural/test_ep_bva.py": "7002c110666b4cd8761b50bd3250d24a23e41fd8db6717023b2a512a53c139d3",
+   "tests/team/structural/test_state_transition.py": "838922d942cadec36001d5c66f420d671c6be6d04b4fc87014c990bdde09438a"
+  },
+  "sqlite_version": "3.46.1",
+  "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ "finished_at_utc": "2026-11-25T14:37:45.783450+00:00",
+ "process_exit_code": 0,
+ "snapshots": {
+  "isolation_before": {
+   "balances": [
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "isolation_admin",
+     "year": 2026
+    },
+    {
+     "allowance": 10,
+     "available": 8,
+     "used": 2,
+     "user": "isolation_e1",
+     "year": 2026
+    },
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "isolation_e2",
+     "year": 2026
+    },
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "isolation_m1",
+     "year": 2026
+    },
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "isolation_m2",
+     "year": 2026
+    },
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "isolation_teamless_manager",
+     "year": 2026
+    }
+   ],
+   "requests": [
+    {
+     "days": 2,
+     "decider": "isolation_m1",
+     "employee": "isolation_e1",
+     "end": "2026-12-08",
+     "note": "Synthetic fixture",
+     "start": "2026-12-07",
+     "status": "approved",
+     "type": "vacation"
+    },
+    {
+     "days": 3,
+     "decider": null,
+     "employee": "isolation_e1",
+     "end": "2026-12-16",
+     "note": "Synthetic fixture",
+     "start": "2026-12-14",
+     "status": "pending",
+     "type": "vacation"
+    },
+    {
+     "days": 1,
+     "decider": "isolation_m1",
+     "employee": "isolation_e1",
+     "end": "2026-12-21",
+     "note": "Synthetic fixture",
+     "start": "2026-12-21",
+     "status": "rejected",
+     "type": "permit"
+    }
+   ],
+   "teams": [
+    "isolation-A",
+    "isolation-B"
+   ],
+   "token_count": 0,
+   "users": [
+    {
+     "role": "admin",
+     "team": "isolation-A",
+     "username": "isolation_admin"
+    },
+    {
+     "role": "employee",
+     "team": "isolation-A",
+     "username": "isolation_e1"
+    },
+    {
+     "role": "employee",
+     "team": "isolation-A",
+     "username": "isolation_e2"
+    },
+    {
+     "role": "manager",
+     "team": "isolation-A",
+     "username": "isolation_m1"
+    },
+    {
+     "role": "manager",
+     "team": "isolation-B",
+     "username": "isolation_m2"
+    },
+    {
+     "role": "manager",
+     "team": null,
+     "username": "isolation_teamless_manager"
+    }
+   ]
+  },
+  "isolation_mutated": {
+   "balances": [
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "isolation_admin",
+     "year": 2026
+    },
+    {
+     "allowance": 99,
+     "available": 97,
+     "used": 2,
+     "user": "isolation_e1",
+     "year": 2026
+    },
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "isolation_e2",
+     "year": 2026
+    },
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "isolation_m1",
+     "year": 2026
+    },
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "isolation_m2",
+     "year": 2026
+    },
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "isolation_teamless_manager",
+     "year": 2026
+    }
+   ],
+   "requests": [
+    {
+     "days": 2,
+     "decider": "isolation_m1",
+     "employee": "isolation_e1",
+     "end": "2026-12-08",
+     "note": "Synthetic fixture",
+     "start": "2026-12-07",
+     "status": "approved",
+     "type": "vacation"
+    },
+    {
+     "days": 3,
+     "decider": null,
+     "employee": "isolation_e1",
+     "end": "2026-12-16",
+     "note": "A2.0 isolation mutation",
+     "start": "2026-12-14",
+     "status": "pending",
+     "type": "vacation"
+    },
+    {
+     "days": 1,
+     "decider": "isolation_m1",
+     "employee": "isolation_e1",
+     "end": "2026-12-21",
+     "note": "Synthetic fixture",
+     "start": "2026-12-21",
+     "status": "rejected",
+     "type": "permit"
+    }
+   ],
+   "teams": [
+    "isolation-A",
+    "isolation-B",
+    "sqe-transient"
+   ],
+   "token_count": 0,
+   "users": [
+    {
+     "role": "admin",
+     "team": "isolation-A",
+     "username": "isolation_admin"
+    },
+    {
+     "role": "employee",
+     "team": "isolation-A",
+     "username": "isolation_e1"
+    },
+    {
+     "role": "employee",
+     "team": "isolation-A",
+     "username": "isolation_e2"
+    },
+    {
+     "role": "manager",
+     "team": "isolation-A",
+     "username": "isolation_m1"
+    },
+    {
+     "role": "manager",
+     "team": "isolation-B",
+     "username": "isolation_m2"
+    },
+    {
+     "role": "manager",
+     "team": null,
+     "username": "isolation_teamless_manager"
+    }
+   ]
+  },
+  "isolation_next_test": {
+   "balances": [
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "isolation_admin",
+     "year": 2026
+    },
+    {
+     "allowance": 10,
+     "available": 8,
+     "used": 2,
+     "user": "isolation_e1",
+     "year": 2026
+    },
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "isolation_e2",
+     "year": 2026
+    },
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "isolation_m1",
+     "year": 2026
+    },
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "isolation_m2",
+     "year": 2026
+    },
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "isolation_teamless_manager",
+     "year": 2026
+    }
+   ],
+   "requests": [
+    {
+     "days": 2,
+     "decider": "isolation_m1",
+     "employee": "isolation_e1",
+     "end": "2026-12-08",
+     "note": "Synthetic fixture",
+     "start": "2026-12-07",
+     "status": "approved",
+     "type": "vacation"
+    },
+    {
+     "days": 3,
+     "decider": null,
+     "employee": "isolation_e1",
+     "end": "2026-12-16",
+     "note": "Synthetic fixture",
+     "start": "2026-12-14",
+     "status": "pending",
+     "type": "vacation"
+    },
+    {
+     "days": 1,
+     "decider": "isolation_m1",
+     "employee": "isolation_e1",
+     "end": "2026-12-21",
+     "note": "Synthetic fixture",
+     "start": "2026-12-21",
+     "status": "rejected",
+     "type": "permit"
+    }
+   ],
+   "teams": [
+    "isolation-A",
+    "isolation-B"
+   ],
+   "token_count": 0,
+   "users": [
+    {
+     "role": "admin",
+     "team": "isolation-A",
+     "username": "isolation_admin"
+    },
+    {
+     "role": "employee",
+     "team": "isolation-A",
+     "username": "isolation_e1"
+    },
+    {
+     "role": "employee",
+     "team": "isolation-A",
+     "username": "isolation_e2"
+    },
+    {
+     "role": "manager",
+     "team": "isolation-A",
+     "username": "isolation_m1"
+    },
+    {
+     "role": "manager",
+     "team": "isolation-B",
+     "username": "isolation_m2"
+    },
+    {
+     "role": "manager",
+     "team": null,
+     "username": "isolation_teamless_manager"
+    }
+   ]
+  },
+  "reference": {
+   "balances": [
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "sqe_admin",
+     "year": 2026
+    },
+    {
+     "allowance": 10,
+     "available": 8,
+     "used": 2,
+     "user": "sqe_e1",
+     "year": 2026
+    },
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "sqe_e2",
+     "year": 2026
+    },
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "sqe_m1",
+     "year": 2026
+    },
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "sqe_m2",
+     "year": 2026
+    },
+    {
+     "allowance": 10,
+     "available": 10,
+     "used": 0,
+     "user": "sqe_teamless_manager",
+     "year": 2026
+    }
+   ],
+   "requests": [
+    {
+     "days": 2,
+     "decider": "sqe_m1",
+     "employee": "sqe_e1",
+     "end": "2026-12-08",
+     "note": "Synthetic fixture",
+     "start": "2026-12-07",
+     "status": "approved",
+     "type": "vacation"
+    },
+    {
+     "days": 3,
+     "decider": null,
+     "employee": "sqe_e1",
+     "end": "2026-12-16",
+     "note": "Synthetic fixture",
+     "start": "2026-12-14",
+     "status": "pending",
+     "type": "vacation"
+    },
+    {
+     "days": 1,
+     "decider": "sqe_m1",
+     "employee": "sqe_e1",
+     "end": "2026-12-21",
+     "note": "Synthetic fixture",
+     "start": "2026-12-21",
+     "status": "rejected",
+     "type": "permit"
+    }
+   ],
+   "teams": [
+    "sqe-A",
+    "sqe-B"
+   ],
+   "token_count": 0,
+   "users": [
+    {
+     "role": "admin",
+     "team": "sqe-A",
+     "username": "sqe_admin"
+    },
+    {
+     "role": "employee",
+     "team": "sqe-A",
+     "username": "sqe_e1"
+    },
+    {
+     "role": "employee",
+     "team": "sqe-A",
+     "username": "sqe_e2"
+    },
+    {
+     "role": "manager",
+     "team": "sqe-A",
+     "username": "sqe_m1"
+    },
+    {
+     "role": "manager",
+     "team": "sqe-B",
+     "username": "sqe_m2"
+    },
+    {
+     "role": "manager",
+     "team": null,
+     "username": "sqe_teamless_manager"
+    }
+   ]
+  }
+ },
+ "started_at_utc": "2026-11-25T14:37:19.336433+00:00"
+}

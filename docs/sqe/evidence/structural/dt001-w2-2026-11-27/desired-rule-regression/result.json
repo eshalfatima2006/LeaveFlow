@@ -1,0 +1,178 @@
+{
+  "action": "team",
+  "cases": [
+    {
+      "description": "DT-001 W2 R3: C1,C2=T, C3=F \u2192 400 'Insufficient leave balance'; B pending, no decider, 1 day left.",
+      "id": "tests.team.structural.test_decision_table.W2ApprovalOverdrawRegression.test_dt001_w2_r3_second_approval_would_overdraw",
+      "method_id": "tests.team.structural.test_decision_table.W2ApprovalOverdrawRegression.test_dt001_w2_r3_second_approval_would_overdraw",
+      "outcome": "failed"
+    }
+  ],
+  "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python /home/pc/projects/sqe-final/LeaveFlow/scripts/sqe/run_tests.py team tests.team.structural.test_decision_table.W2ApprovalOverdrawRegression --evidence-dir docs/sqe/evidence/structural/dt001-w2-2026-11-27/desired-rule-regression",
+  "counts": {
+    "errors": 0,
+    "executed": 1,
+    "expected_failures": 0,
+    "failed": 1,
+    "non_passing_test_methods": 1,
+    "passed": 0,
+    "skipped": 0,
+    "unexpected_successes": 0
+  },
+  "database": {
+    "active_name": "file:memorydb_default?mode=memory&cache=shared",
+    "engine": "django.db.backends.sqlite3",
+    "redis_disabled": true
+  },
+  "development_database_after": {
+    "db.sqlite3": {
+      "exists": true,
+      "sha256": "70155559be6dc448fa8eb05e804ff7a60532afbac881bac21bc42de47cbcd33d",
+      "size": 180224
+    },
+    "db.sqlite3-journal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-shm": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-wal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    }
+  },
+  "development_database_before": {
+    "db.sqlite3": {
+      "exists": true,
+      "sha256": "70155559be6dc448fa8eb05e804ff7a60532afbac881bac21bc42de47cbcd33d",
+      "size": 180224
+    },
+    "db.sqlite3-journal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-shm": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-wal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    }
+  },
+  "development_database_unchanged": true,
+  "elapsed_seconds": 1.134448,
+  "environment": {
+    "database_profile": "sqe-memory-v1",
+    "external_database_environment_ignored": false,
+    "git_branch": "test/a2.4-openapi-gen",
+    "git_sha": "b7060086749ac3294051963acb96bbff88b71d8a",
+    "git_status": [
+      "M docs/sqe/defects/DEFECT-RECORDS.md",
+      " M docs/sqe/defects/RCA-MAJOR-01-BALANCE-OVERDRAW.md",
+      " M docs/sqe/defects/RCA-MAJOR-02-CONCURRENT-SUBMISSIONS.md",
+      " M docs/sqe/planning/REQUIREMENTS-TRACEABILITY-MATRIX.md",
+      " M tests/team/structural/test_decision_table.py",
+      "?? docs/sqe/evidence/structural/dt001-w2-2026-11-27/default/result.json",
+      "?? docs/sqe/evidence/structural/dt001-w2-2026-11-27/default/stderr.log",
+      "?? docs/sqe/evidence/structural/dt001-w2-2026-11-27/default/stdout.log",
+      "?? docs/sqe/evidence/structural/dt001-w2-2026-11-27/desired-rule-regression/stderr.log",
+      "?? docs/sqe/evidence/structural/dt001-w2-2026-11-27/desired-rule-regression/stdout.log",
+      "?? prompt.md"
+    ],
+    "packages": {
+      "Django": "6.0.7",
+      "django-cors-headers": "4.9.0",
+      "djangorestframework": "3.17.1",
+      "psycopg": "3.3.4",
+      "redis": "6.4.0"
+    },
+    "python": "3.12.7",
+    "python_executable": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python",
+    "redis_environment_ignored": false,
+    "runner": "Django DiscoverRunner + unittest; version is the Django/Python version above",
+    "source_sha256": {
+      "backend/config/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/config/asgi.py": "f23d09f7cded8ce1239e5fbb32961ea409103501b9958934dbd77e92d4a8db21",
+      "backend/config/settings.py": "280ef4c3681431f604f132324c3f8bfd1ab00ed189799478e9e65efa4d6d2a7e",
+      "backend/config/urls.py": "ffd0aafd7a1d40d02be8bb99429d0058adfa4983568e9faf90fda22020d81bf5",
+      "backend/config/wsgi.py": "a7b47958708160e7ebcb377d677f5f2081640fb5dc4478bb486743055a85e192",
+      "backend/leave/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/admin.py": "7ce699328024faa2509a344b00c4edc255bd0bb7baeb4430bfbc4f40fc733acc",
+      "backend/leave/apps.py": "83e25d15a9e284383927712d3e065ab41882f7d22b995a7a44e1f271c364901a",
+      "backend/leave/events.py": "5f7d0c07bfbbfed9d30275a7b2dc7312399529afcf89965fd79240683c93c494",
+      "backend/leave/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/management/commands/seed_demo.py": "5f2e5db904c68eb03f89b1616404cb5f38d1758f79720a91f67191aaf44edd59",
+      "backend/leave/migrations/0001_initial.py": "ee7a9ad789bed3726e5b5b027f43dfc6fbe613e05d5e95d3acf69515f26d7f91",
+      "backend/leave/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/models.py": "bd1f0dbea11e0d7a665d9b17bd17c2d01c3ce7da7985d9deff0a7ca405711f57",
+      "backend/leave/serializers.py": "8dbfd179d7a85198cd0fac5b209c7fe6dfd740d50d110bd8e9c5a521089a7d88",
+      "backend/leave/tests.py": "61be0822d9c51929efdcde2f401d055deab8b0c0919b697078cc768413563c1c",
+      "backend/leave/urls.py": "81630a31adc7c02c33c92218b7f08b91bc9068f924661b17e80228a7126245e3",
+      "backend/leave/views.py": "86f214b1d1e775c1610f0d6377702b7a1569970068205a7c7c39d2f9c8f2c971",
+      "backend/manage.py": "b30eeb4890cb6f315cc238313808f636db29e9906b61cc6f6051567156a0097b",
+      "requirements.txt": "ca409861c6a962ba2b22754da08a531b1a4bf1c1f1f4c77e892e804532fe0a44",
+      "scripts/sqe/api_coverage.py": "684971f48d08574901fc05130da8d14bde82fbdba8044c054b23b7df9fc339bb",
+      "scripts/sqe/browser_harness.py": "46e379c6188cb2654131bb56cf5add0dcea65a2e66ae544e9d8478eae602c5e4",
+      "scripts/sqe/capture_decision_screenshot.py": "171c067ceae88674188c9bdffbaf801b57cf5e05116f3f33ddb31c54eef92fec",
+      "scripts/sqe/check_docs.py": "0c9c7c2a6975469f9cecee49ec2bf4a5230f9c54dbd781af614fdf324c0440f8",
+      "scripts/sqe/generate_api_tests.py": "0490713a65a199f4838b43b5d153f9666da3d2e0cc32ba393bad8ee9c6610ac6",
+      "scripts/sqe/reproduce_baseline.py": "754609cbd1b79c27990119201b5090d0a799c17cff5c54a1255242f5892af109",
+      "scripts/sqe/run_concurrency.py": "8491f5913beb95dd5fe18bebbe5eedbcedcf14976dc47e6fa9da72651110772e",
+      "scripts/sqe/run_tests.py": "1c7124816207befa8aa5a6989377dfb668cc2e04bca15c801d5673fcbc2e474b",
+      "tests/__init__.py": "401c994404cf80c29753cd5ffcb9f5b4964f07e20d51a720ba7070f1b1c334c8",
+      "tests/team/__init__.py": "1a8c0583e7a59b76dc97c31ef6ea8205994c1482c6e4f3d8cc52a86de4815213",
+      "tests/team/api/__init__.py": "644e3a6aaa5b75fd9b949c84c69c6d6abd91c9cb61a1714263f8070e53b0b47e",
+      "tests/team/api/contract.py": "b4158b6cb1ff318482f57731bf589a7e0a149dba6a8f9324cf7d2fef880381ee",
+      "tests/team/api/support.py": "03609059368fae69366e5419f58ef99a044837ac159f6a23959633cfd8ef7308",
+      "tests/team/api/test_authentication.py": "2d27fed69f52b404afca95d0c52e72895881475880e63b92f333425081c639fd",
+      "tests/team/api/test_openapi_contract.py": "3ae99bed19dc173b9648269eba6ef8085f0483d62c8c8507075841936dbe4cee",
+      "tests/team/api/test_w1_submission.py": "dc7ef8ce1250ce065b1255cef3c6b59965f9e793e94166af082be55075ef853b",
+      "tests/team/api/test_w2_decisions.py": "efa112e11ce983c906884ca1e555e42692af92071e86398e8209b051fd40a95f",
+      "tests/team/browser_safety.py": "3570c00ccf3f24aa7a9a5f69b9a203a6c6d6ad857f801bf1ed1f62da7595538a",
+      "tests/team/browser_settings.py": "219c1390367dd3619fcf138b6ee312f3d92d7c6f089c50eb7f0f03c3672be689",
+      "tests/team/concurrency/__init__.py": "40e8e7896d983d00b84a102735e2680db9f9456e666cbfc4c2de6748fb0ae352",
+      "tests/team/concurrency/test_concurrency.py": "5a4ef14f8638913a9b04c44ef7168dbf380162cd517bd7e189dff2706f1b92bb",
+      "tests/team/fixtures/__init__.py": "a4f3d78436c5ac0a1377fa08183f7ee299df67e7638f1e076e249b340dd0bcfe",
+      "tests/team/fixtures/leave_data.py": "db3f01290c00206db9d065c020582bab9bac8364b7fc7405ed6d5f3ef13c8a1a",
+      "tests/team/foundation/__init__.py": "a4a08308e5b6d25d67ba2b831993afe15c05265c12d6a789c566d013f090746b",
+      "tests/team/foundation/test_flow_matcher.py": "fd6028cbe5db67a978edeb03d73578e376aa4beb7b996c134ba666e9d9488a66",
+      "tests/team/foundation/test_foundation.py": "4ce6683e4d3f9697c48e1b804f5010f1fcf1d513086056d804a4469e10a84c03",
+      "tests/team/generated/__init__.py": "7ce94dcf1916a745a59ab5aa38f69bfb38816d03a821a3e5ff581dfa31f6a567",
+      "tests/team/generated/test_generated_api.py": "ec727e2c3b624e3fefd5de6d9837c84229c0e7950f7ff97bc679872ca02cf36f",
+      "tests/team/generated/test_generated_api_v2.py": "b0fe87c74a8fe1cbeaa2dbe7c726cb3c41dc9bec345f60e71f089d54cd712c02",
+      "tests/team/generated/test_generated_api_v3.py": "a4ece002f61ae6aa76053416adc8f6ce0f767b657ba85062dc38b9d33e1a98ca",
+      "tests/team/generated/test_generated_api_v4.py": "c8c3cc396e860b0ec2fc0aaab52f4dc1ec67e5bcb77e43d7f5dd7148bd349b2f",
+      "tests/team/generated/test_generated_manifest.py": "a3027a476ccff113be96d7340278fc316127c4a51eaa25b775452c0c1af23542",
+      "tests/team/integration/__init__.py": "b9728132e02d77de346980957b8ada6f25baa658e043382d59e4fb08ed68634f",
+      "tests/team/integration/test_event_publication.py": "e417a5b66c311f150b814f9be430945c0b105bc8b1ac045a9b790875f2c51f02",
+      "tests/team/integration/test_w1_w2_integration.py": "dd9e349ddf6e830c7fbc156f0908d44ba6d8278ad2bdefaf07f1236a4110262b",
+      "tests/team/postgres_safety.py": "64bf98a50eb918017e04740eee95e4f70cd0be0bfeb1ee70a05b10394d859379",
+      "tests/team/postgres_settings.py": "dfc1eba08d012ff24e88efa49ca519e75abdf31ebb4011d87ffa10f2e4522e20",
+      "tests/team/runner.py": "bf1ee1c4bd1e215e65822a93a3503c9ed97f16f1964205b82a60abb041bc9655",
+      "tests/team/safety.py": "86735f09d3e63522a48b227c6b57d893d32d9c832d7c580efdb8d1c00d359b12",
+      "tests/team/settings.py": "8e8892b749a865bdf48afc6a05f718d8b6a221fc8282fdf3b589f7e27dbaaad1",
+      "tests/team/structural/__init__.py": "4ae042f033bd4654db1c6bf75548e12d8cb299fc4c14a0591b5abf100e52e174",
+      "tests/team/structural/support.py": "a784888e41da5db3eaf90506ea9d9e80a8035c4b34e0080041e3466681073e82",
+      "tests/team/structural/test_decision_table.py": "9271bf0dcd29e3e200ece0696ca90caf7484db6ee8096dc87f1b27c6961f1965",
+      "tests/team/structural/test_decision_table_rules.py": "531dc6ba9112dae405e8bed2043d66c30f145a0677a2cbec30366c46d90cb8fc",
+      "tests/team/structural/test_ep_bva.py": "7002c110666b4cd8761b50bd3250d24a23e41fd8db6717023b2a512a53c139d3",
+      "tests/team/structural/test_state_transition.py": "838922d942cadec36001d5c66f420d671c6be6d04b4fc87014c990bdde09438a"
+    },
+    "sqlite_version": "3.46.1",
+    "tracked_diff_sha256": "83e8b189a7c02b5f17a223b7c515e1dee7467652d879dc041ff906399e9674c0"
+  },
+  "finished_at_utc": "2026-11-27T10:46:21.790281+00:00",
+  "process_exit_code": 1,
+  "snapshots": {},
+  "started_at_utc": "2026-11-27T10:46:20.655642+00:00"
+}

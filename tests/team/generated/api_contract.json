@@ -1,0 +1,1119 @@
+{
+ "generated_by": "scripts/sqe/generate_api_tests.py",
+ "spec_sha256": "939d1303b296138c872a55f84823eeb15d0370925cc840fe5f14c6064fcd0b41",
+ "operations": {
+  "login": {
+   "method": "post",
+   "path": "/api/auth/login/",
+   "secured": false,
+   "parameters": [],
+   "request_media": [
+    "application/json",
+    "application/x-www-form-urlencoded",
+    "multipart/form-data"
+   ],
+   "request_fields": {
+    "username": null,
+    "password": null
+   },
+   "responses": {
+    "200": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "token",
+       "user"
+      ],
+      "properties": {
+       "token": {
+        "type": "string"
+       },
+       "user": {
+        "type": "object",
+        "required": [
+         "id",
+         "username",
+         "display_name",
+         "email",
+         "role",
+         "team"
+        ],
+        "properties": {
+         "id": {
+          "type": "integer"
+         },
+         "username": {
+          "type": "string"
+         },
+         "display_name": {
+          "type": "string",
+          "description": "Full name, or the username when no name is set."
+         },
+         "email": {
+          "type": "string"
+         },
+         "role": {
+          "type": "string",
+          "enum": [
+           "employee",
+           "manager",
+           "admin"
+          ]
+         },
+         "team": {
+          "type": "string",
+          "nullable": true
+         }
+        }
+       }
+      }
+     }
+    },
+    "400": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     }
+    },
+    "401": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     }
+    },
+    "415": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     }
+    }
+   }
+  },
+  "me": {
+   "method": "get",
+   "path": "/api/me/",
+   "secured": true,
+   "parameters": [],
+   "request_media": [],
+   "request_fields": {},
+   "responses": {
+    "200": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "id",
+       "username",
+       "display_name",
+       "email",
+       "role",
+       "team"
+      ],
+      "properties": {
+       "id": {
+        "type": "integer"
+       },
+       "username": {
+        "type": "string"
+       },
+       "display_name": {
+        "type": "string",
+        "description": "Full name, or the username when no name is set."
+       },
+       "email": {
+        "type": "string"
+       },
+       "role": {
+        "type": "string",
+        "enum": [
+         "employee",
+         "manager",
+         "admin"
+        ]
+       },
+       "team": {
+        "type": "string",
+        "nullable": true
+       }
+      }
+     }
+    },
+    "401": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     }
+    }
+   }
+  },
+  "listRequests": {
+   "method": "get",
+   "path": "/api/requests/",
+   "secured": true,
+   "parameters": [],
+   "request_media": [],
+   "request_fields": {},
+   "responses": {
+    "200": {
+     "application/json": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "required": [
+        "id",
+        "employee",
+        "leave_type",
+        "leave_type_label",
+        "start_date",
+        "end_date",
+        "note",
+        "status",
+        "status_label",
+        "business_days",
+        "created_at"
+       ],
+       "properties": {
+        "id": {
+         "type": "integer"
+        },
+        "employee": {
+         "type": "object",
+         "required": [
+          "id",
+          "username",
+          "display_name",
+          "email",
+          "role",
+          "team"
+         ],
+         "properties": {
+          "id": {
+           "type": "integer"
+          },
+          "username": {
+           "type": "string"
+          },
+          "display_name": {
+           "type": "string",
+           "description": "Full name, or the username when no name is set."
+          },
+          "email": {
+           "type": "string"
+          },
+          "role": {
+           "type": "string",
+           "enum": [
+            "employee",
+            "manager",
+            "admin"
+           ]
+          },
+          "team": {
+           "type": "string",
+           "nullable": true
+          }
+         }
+        },
+        "leave_type": {
+         "type": "string",
+         "enum": [
+          "vacation",
+          "permit",
+          "personal"
+         ]
+        },
+        "leave_type_label": {
+         "type": "string"
+        },
+        "start_date": {
+         "type": "string",
+         "format": "date"
+        },
+        "end_date": {
+         "type": "string",
+         "format": "date"
+        },
+        "note": {
+         "type": "string",
+         "maxLength": 280
+        },
+        "status": {
+         "type": "string",
+         "enum": [
+          "pending",
+          "approved",
+          "rejected"
+         ]
+        },
+        "status_label": {
+         "type": "string"
+        },
+        "business_days": {
+         "type": "integer",
+         "minimum": 0
+        },
+        "created_at": {
+         "type": "string",
+         "format": "date-time"
+        }
+       }
+      }
+     }
+    },
+    "401": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     }
+    }
+   }
+  },
+  "submitRequest": {
+   "method": "post",
+   "path": "/api/requests/",
+   "secured": true,
+   "parameters": [],
+   "request_media": [
+    "application/json",
+    "application/x-www-form-urlencoded",
+    "multipart/form-data"
+   ],
+   "request_fields": {
+    "leave_type": [
+     "vacation",
+     "permit",
+     "personal"
+    ],
+    "start_date": null,
+    "end_date": null,
+    "note": null
+   },
+   "responses": {
+    "201": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "id",
+       "employee",
+       "leave_type",
+       "leave_type_label",
+       "start_date",
+       "end_date",
+       "note",
+       "status",
+       "status_label",
+       "business_days",
+       "created_at"
+      ],
+      "properties": {
+       "id": {
+        "type": "integer"
+       },
+       "employee": {
+        "type": "object",
+        "required": [
+         "id",
+         "username",
+         "display_name",
+         "email",
+         "role",
+         "team"
+        ],
+        "properties": {
+         "id": {
+          "type": "integer"
+         },
+         "username": {
+          "type": "string"
+         },
+         "display_name": {
+          "type": "string",
+          "description": "Full name, or the username when no name is set."
+         },
+         "email": {
+          "type": "string"
+         },
+         "role": {
+          "type": "string",
+          "enum": [
+           "employee",
+           "manager",
+           "admin"
+          ]
+         },
+         "team": {
+          "type": "string",
+          "nullable": true
+         }
+        }
+       },
+       "leave_type": {
+        "type": "string",
+        "enum": [
+         "vacation",
+         "permit",
+         "personal"
+        ]
+       },
+       "leave_type_label": {
+        "type": "string"
+       },
+       "start_date": {
+        "type": "string",
+        "format": "date"
+       },
+       "end_date": {
+        "type": "string",
+        "format": "date"
+       },
+       "note": {
+        "type": "string",
+        "maxLength": 280
+       },
+       "status": {
+        "type": "string",
+        "enum": [
+         "pending",
+         "approved",
+         "rejected"
+        ]
+       },
+       "status_label": {
+        "type": "string"
+       },
+       "business_days": {
+        "type": "integer",
+        "minimum": 0
+       },
+       "created_at": {
+        "type": "string",
+        "format": "date-time"
+       }
+      }
+     }
+    },
+    "400": {
+     "application/json": {
+      "oneOf": [
+       {
+        "type": "object",
+        "description": "DRF field errors keyed by field name, or non_field_errors.",
+        "additionalProperties": {
+         "type": "array",
+         "items": {
+          "type": "string"
+         }
+        }
+       },
+       {
+        "type": "object",
+        "required": [
+         "detail"
+        ],
+        "properties": {
+         "detail": {
+          "type": "string"
+         }
+        }
+       }
+      ]
+     }
+    },
+    "401": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     }
+    },
+    "415": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     }
+    }
+   }
+  },
+  "decideRequest": {
+   "method": "post",
+   "path": "/api/requests/{id}/decision/",
+   "secured": true,
+   "parameters": [
+    "id"
+   ],
+   "request_media": [
+    "application/json",
+    "application/x-www-form-urlencoded",
+    "multipart/form-data"
+   ],
+   "request_fields": {
+    "status": [
+     "approved",
+     "rejected"
+    ]
+   },
+   "responses": {
+    "200": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "id",
+       "employee",
+       "leave_type",
+       "leave_type_label",
+       "start_date",
+       "end_date",
+       "note",
+       "status",
+       "status_label",
+       "business_days",
+       "created_at"
+      ],
+      "properties": {
+       "id": {
+        "type": "integer"
+       },
+       "employee": {
+        "type": "object",
+        "required": [
+         "id",
+         "username",
+         "display_name",
+         "email",
+         "role",
+         "team"
+        ],
+        "properties": {
+         "id": {
+          "type": "integer"
+         },
+         "username": {
+          "type": "string"
+         },
+         "display_name": {
+          "type": "string",
+          "description": "Full name, or the username when no name is set."
+         },
+         "email": {
+          "type": "string"
+         },
+         "role": {
+          "type": "string",
+          "enum": [
+           "employee",
+           "manager",
+           "admin"
+          ]
+         },
+         "team": {
+          "type": "string",
+          "nullable": true
+         }
+        }
+       },
+       "leave_type": {
+        "type": "string",
+        "enum": [
+         "vacation",
+         "permit",
+         "personal"
+        ]
+       },
+       "leave_type_label": {
+        "type": "string"
+       },
+       "start_date": {
+        "type": "string",
+        "format": "date"
+       },
+       "end_date": {
+        "type": "string",
+        "format": "date"
+       },
+       "note": {
+        "type": "string",
+        "maxLength": 280
+       },
+       "status": {
+        "type": "string",
+        "enum": [
+         "pending",
+         "approved",
+         "rejected"
+        ]
+       },
+       "status_label": {
+        "type": "string"
+       },
+       "business_days": {
+        "type": "integer",
+        "minimum": 0
+       },
+       "created_at": {
+        "type": "string",
+        "format": "date-time"
+       }
+      }
+     }
+    },
+    "400": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     }
+    },
+    "401": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     }
+    },
+    "403": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     }
+    },
+    "404": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     },
+     "text/html": {
+      "type": "string"
+     }
+    },
+    "409": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     }
+    },
+    "415": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     }
+    }
+   }
+  },
+  "dashboard": {
+   "method": "get",
+   "path": "/api/dashboard/",
+   "secured": true,
+   "parameters": [],
+   "request_media": [],
+   "request_fields": {},
+   "responses": {
+    "200": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "balance",
+       "counts",
+       "recent"
+      ],
+      "properties": {
+       "balance": {
+        "type": "object",
+        "required": [
+         "allowance",
+         "used",
+         "available"
+        ],
+        "properties": {
+         "allowance": {
+          "type": "integer"
+         },
+         "used": {
+          "type": "integer"
+         },
+         "available": {
+          "type": "integer"
+         }
+        }
+       },
+       "counts": {
+        "type": "object",
+        "required": [
+         "total",
+         "pending",
+         "approved"
+        ],
+        "properties": {
+         "total": {
+          "type": "integer"
+         },
+         "pending": {
+          "type": "integer"
+         },
+         "approved": {
+          "type": "integer"
+         }
+        }
+       },
+       "recent": {
+        "type": "array",
+        "maxItems": 5,
+        "items": {
+         "type": "object",
+         "required": [
+          "id",
+          "employee",
+          "leave_type",
+          "leave_type_label",
+          "start_date",
+          "end_date",
+          "note",
+          "status",
+          "status_label",
+          "business_days",
+          "created_at"
+         ],
+         "properties": {
+          "id": {
+           "type": "integer"
+          },
+          "employee": {
+           "type": "object",
+           "required": [
+            "id",
+            "username",
+            "display_name",
+            "email",
+            "role",
+            "team"
+           ],
+           "properties": {
+            "id": {
+             "type": "integer"
+            },
+            "username": {
+             "type": "string"
+            },
+            "display_name": {
+             "type": "string",
+             "description": "Full name, or the username when no name is set."
+            },
+            "email": {
+             "type": "string"
+            },
+            "role": {
+             "type": "string",
+             "enum": [
+              "employee",
+              "manager",
+              "admin"
+             ]
+            },
+            "team": {
+             "type": "string",
+             "nullable": true
+            }
+           }
+          },
+          "leave_type": {
+           "type": "string",
+           "enum": [
+            "vacation",
+            "permit",
+            "personal"
+           ]
+          },
+          "leave_type_label": {
+           "type": "string"
+          },
+          "start_date": {
+           "type": "string",
+           "format": "date"
+          },
+          "end_date": {
+           "type": "string",
+           "format": "date"
+          },
+          "note": {
+           "type": "string",
+           "maxLength": 280
+          },
+          "status": {
+           "type": "string",
+           "enum": [
+            "pending",
+            "approved",
+            "rejected"
+           ]
+          },
+          "status_label": {
+           "type": "string"
+          },
+          "business_days": {
+           "type": "integer",
+           "minimum": 0
+          },
+          "created_at": {
+           "type": "string",
+           "format": "date-time"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "401": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     }
+    }
+   }
+  },
+  "team": {
+   "method": "get",
+   "path": "/api/team/",
+   "secured": true,
+   "parameters": [],
+   "request_media": [],
+   "request_fields": {},
+   "responses": {
+    "200": {
+     "application/json": {
+      "type": "array",
+      "items": {
+       "allOf": [
+        {
+         "type": "object",
+         "required": [
+          "id",
+          "username",
+          "display_name",
+          "email",
+          "role",
+          "team"
+         ],
+         "properties": {
+          "id": {
+           "type": "integer"
+          },
+          "username": {
+           "type": "string"
+          },
+          "display_name": {
+           "type": "string",
+           "description": "Full name, or the username when no name is set."
+          },
+          "email": {
+           "type": "string"
+          },
+          "role": {
+           "type": "string",
+           "enum": [
+            "employee",
+            "manager",
+            "admin"
+           ]
+          },
+          "team": {
+           "type": "string",
+           "nullable": true
+          }
+         }
+        },
+        {
+         "type": "object",
+         "required": [
+          "available_days",
+          "allowance",
+          "next_leave"
+         ],
+         "properties": {
+          "available_days": {
+           "type": "integer"
+          },
+          "allowance": {
+           "type": "integer"
+          },
+          "next_leave": {
+           "type": "object",
+           "nullable": true,
+           "required": [
+            "start_date",
+            "end_date"
+           ],
+           "properties": {
+            "start_date": {
+             "type": "string",
+             "format": "date"
+            },
+            "end_date": {
+             "type": "string",
+             "format": "date"
+            }
+           }
+          }
+         }
+        }
+       ]
+      }
+     }
+    },
+    "401": {
+     "application/json": {
+      "type": "object",
+      "required": [
+       "detail"
+      ],
+      "properties": {
+       "detail": {
+        "type": "string"
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "flows": [
+  {
+   "name": "login then profile",
+   "steps": [
+    {
+     "operation": "login",
+     "status": 200
+    },
+    {
+     "operation": "me",
+     "status": 200,
+     "actor": {
+      "same_as": 0
+     }
+    }
+   ]
+  },
+  {
+   "name": "submit then own list",
+   "steps": [
+    {
+     "operation": "submitRequest",
+     "status": 201
+    },
+    {
+     "operation": "listRequests",
+     "status": 200,
+     "actor": {
+      "same_as": 0
+     },
+     "shows_record": 0
+    }
+   ]
+  },
+  {
+   "name": "submit then dashboard",
+   "steps": [
+    {
+     "operation": "submitRequest",
+     "status": 201
+    },
+    {
+     "operation": "dashboard",
+     "status": 200,
+     "actor": {
+      "same_as": 0
+     }
+    }
+   ]
+  },
+  {
+   "name": "submit then approve or reject the same request",
+   "steps": [
+    {
+     "operation": "submitRequest",
+     "status": 201
+    },
+    {
+     "operation": "decideRequest",
+     "status": 200,
+     "same_record": 0,
+     "actor": {
+      "not_owner_of": 0
+     }
+    }
+   ]
+  },
+  {
+   "name": "submit then decide then repeat the decision",
+   "steps": [
+    {
+     "operation": "submitRequest",
+     "status": 201
+    },
+    {
+     "operation": "decideRequest",
+     "status": 200,
+     "same_record": 0,
+     "actor": {
+      "not_owner_of": 0
+     }
+    },
+    {
+     "operation": "decideRequest",
+     "status": 409,
+     "same_record": 0
+    }
+   ]
+  },
+  {
+   "name": "decide then owner dashboard",
+   "steps": [
+    {
+     "operation": "decideRequest",
+     "status": 200
+    },
+    {
+     "operation": "dashboard",
+     "status": 200,
+     "actor": {
+      "owner_of": 0
+     }
+    }
+   ]
+  },
+  {
+   "name": "decide then team upcoming leave",
+   "steps": [
+    {
+     "operation": "decideRequest",
+     "status": 200,
+     "decision": "approved"
+    },
+    {
+     "operation": "team",
+     "status": 200,
+     "shows_leave": 0
+    }
+   ]
+  },
+  {
+   "name": "reject then resubmit the dates",
+   "steps": [
+    {
+     "operation": "submitRequest",
+     "status": 201
+    },
+    {
+     "operation": "decideRequest",
+     "status": 200,
+     "decision": "rejected",
+     "same_record": 0,
+     "actor": {
+      "not_owner_of": 0
+     }
+    },
+    {
+     "operation": "submitRequest",
+     "status": 201,
+     "actor": {
+      "owner_of": 0
+     },
+     "same_dates": 0
+    }
+   ]
+  }
+ ]
+}

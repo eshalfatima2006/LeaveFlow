@@ -1,0 +1,541 @@
+{
+  "action": "team",
+  "cases": [
+    {
+      "description": "DT1 R1: C1=F (C2\u2013C4 not evaluated) \u2192 400 on end_date only, no row.",
+      "id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r1",
+      "method_id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r1",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT1 R2: C1=T, C2=F (C3/C4 not evaluated) \u2192 400 overlap, no row.",
+      "id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r2",
+      "method_id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r2",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT1 R3: C1=T, C2=T, C3=F (C4 masked) \u2192 201 although D is large.",
+      "id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r3",
+      "method_id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r3",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT1 R4: C1=T, C2=T, C3=T, C4=F \u2192 400 'Saldo ferie insufficiente.', no row.",
+      "id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r4",
+      "method_id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r4",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT1 R5: all conditions true \u2192 201 pending row; no allowance consumed.",
+      "id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r5",
+      "method_id": "tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r5",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT2 R1: C1=F \u2192 403 'Operazione non consentita.', unchanged.",
+      "id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r1",
+      "method_id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r1",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT2 R2: C1=T, C2=F \u2192 404, unchanged.",
+      "id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r2",
+      "method_id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r2",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT2 R3: C1=T, C2=T, C3=F \u2192 403 'Non puoi decidere una tua richiesta.', unchanged.",
+      "id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r3",
+      "method_id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r3",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT2 R4: C1=T, C2=T, C3=T, C4=F \u2192 409 'La richiesta \u00e8 gi\u00e0 stata decisa.'.",
+      "id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r4",
+      "method_id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r4",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT2 R5: all conditions true \u2192 200; the same row becomes approved by the admin.",
+      "id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r5",
+      "method_id": "tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r5",
+      "outcome": "passed"
+    },
+    {
+      "description": "BVA days vs available, A+1: Mon 12-14..Mon 12-21 (6 days) with A=5 \u2192 400 'Saldo ferie insufficiente.', no row.",
+      "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_balance_above",
+      "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_balance_above",
+      "outcome": "passed"
+    },
+    {
+      "description": "BVA days vs available, A: Mon 12-14..Fri 12-18 (5 days) with A=5 \u2192 201 (equality is allowed).",
+      "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_balance_at",
+      "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_balance_at",
+      "outcome": "passed"
+    },
+    {
+      "description": "BVA days vs available, A-1: Thu 12-17..Tue 12-22 (4 business days, 6 calendar days) with A=5 \u2192 201.",
+      "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_balance_below",
+      "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_balance_below",
+      "outcome": "passed"
+    },
+    {
+      "description": "BVA date range, end = start+1: Mon 12-21..Tue 12-22 \u2192 201 with 2 business days.",
+      "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_date_range_above",
+      "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_date_range_above",
+      "outcome": "passed"
+    },
+    {
+      "description": "BVA date range, end = start: Mon 12-21..12-21 \u2192 201 with 1 business day.",
+      "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_date_range_at",
+      "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_date_range_at",
+      "outcome": "passed"
+    },
+    {
+      "description": "BVA date range, end = start-1: Mon 12-21 \u2192 Sun 12-20 \u2192 400 on end_date, no row.",
+      "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_date_range_below",
+      "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_date_range_below",
+      "outcome": "passed"
+    },
+    {
+      "description": "BVA note length, just above the limit: 281 characters \u2192 400 keyed note, no row created.",
+      "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_note_length_above",
+      "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_note_length_above",
+      "outcome": "passed"
+    },
+    {
+      "description": "BVA note length, exactly at the limit: 280 characters \u2192 201, stored with 280 characters.",
+      "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_note_length_at",
+      "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_note_length_at",
+      "outcome": "passed"
+    },
+    {
+      "description": "BVA note length, just below the 280 limit: 279 characters \u2192 201, stored with 279 characters.",
+      "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_note_length_below",
+      "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_note_length_below",
+      "outcome": "passed"
+    },
+    {
+      "description": "BVA overlap end limit, one day after: Fri 12-11 \u2192 201; the existing request is untouched.",
+      "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_end_above",
+      "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_end_above",
+      "outcome": "passed"
+    },
+    {
+      "description": "BVA overlap end limit, at: Thu 12-10 (the existing end day) \u2192 400 overlap, no row (inclusive).",
+      "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_end_at",
+      "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_end_at",
+      "outcome": "passed"
+    },
+    {
+      "description": "BVA overlap start limit, one day after (also the end limit's 'below' point): Wed 12-09 \u2192 400 overlap.",
+      "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_start_above",
+      "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_start_above",
+      "outcome": "passed"
+    },
+    {
+      "description": "BVA overlap start limit, at: Tue 12-08 (the existing start day) \u2192 400 overlap, no row (inclusive).",
+      "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_start_at",
+      "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_start_at",
+      "outcome": "passed"
+    },
+    {
+      "description": "BVA overlap start limit, one day before: Mon 12-07 (ends the day before 12-08) \u2192 201.",
+      "id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_start_below",
+      "method_id": "tests.team.structural.test_ep_bva.BoundaryValueTests.test_bva_overlap_start_below",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 authentication, invalid class {no token}: 401 with WWW-Authenticate: Token, no insert.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_auth_no_token",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_auth_no_token",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 authentication, valid class {valid token}: token from real login \u2192 201 owned by the caller.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_auth_valid_token",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_auth_valid_token",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 authentication, invalid class {wrong token}: unknown 40-hex token \u2192 401, no insert.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_auth_wrong_token",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_auth_wrong_token",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 end_date, valid class {after start}: Thu 12-17..Tue 12-22 \u2192 201, 4 business days.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_after_start",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_after_start",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 end_date, invalid class {before start}: Fri 12-18 \u2192 Mon 12-14 \u2192 400 on end_date, no insert.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_before_start",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_before_start",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 end_date, invalid class {missing}: field omitted \u2192 400 keyed end_date, no insert.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_missing",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_missing",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 end_date, valid class {same as start}: Wed 12-16..12-16 \u2192 201, 1 business day.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_same_as_start",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_end_date_same_as_start",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 leave_type, invalid class {empty string}: 400 keyed leave_type, no insert (not a choice).",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_empty",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_empty",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 leave_type, invalid class {numeric}: JSON number 7 \u2192 400 keyed leave_type, no insert.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_numeric",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_numeric",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 leave_type, valid class {permit}: 201 and stored as permit.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_permit",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_permit",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 leave_type, valid class {personal}: 201 and stored as personal.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_personal",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_personal",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 leave_type, invalid class {unknown string}: 'sabbatical' \u2192 400 keyed leave_type, no insert.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_unknown",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_unknown",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 leave_type, valid class {vacation}: 201 and stored as vacation.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_vacation",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_leave_type_vacation",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 note, valid class {empty}: '' \u2192 201 and stored empty (note is optional).",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_empty",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_empty",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 note, valid class {1 character}: 'x' \u2192 201 and stored unchanged.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_one_char",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_one_char",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 note, invalid class {more than 280 characters}, representative 400 \u2192 400 keyed note, no insert.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_over_limit",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_over_limit",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 note, valid class {2..280 characters}, representative 200 \u2192 201 stored intact.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_within_limit",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_note_within_limit",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 start_date, valid class {future weekday}: Mon 2027-01-04..Tue 01-05 \u2192 201, 2 business days.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_future_weekday",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_future_weekday",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 start_date, invalid class {missing}: field omitted \u2192 400 keyed start_date, no insert.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_missing",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_missing",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 start_date, invalid class {non-date string}: 'next monday' \u2192 400 keyed start_date, no insert.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_non_date",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_non_date",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 start_date, invalid class {null}: JSON null \u2192 400 keyed start_date, no insert.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_null",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_null",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W1 start_date, valid class {today}: start = end = server local date \u2192 201.",
+      "id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_today",
+      "method_id": "tests.team.structural.test_ep_bva.W1EquivalencePartitionTests.test_ep_w1_start_date_today",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W2 request_id, invalid class {already decided}: admin rejects a rejected request \u2192 409, audit unchanged.",
+      "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_request_id_already_decided",
+      "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_request_id_already_decided",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W2 request_id, valid class {existing pending visible}: team B manager approves team B request \u2192 200.",
+      "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_request_id_existing_pending",
+      "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_request_id_existing_pending",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W2 request_id, invalid class {nonexistent}: highest id + 1000 \u2192 404, no row changed.",
+      "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_request_id_nonexistent",
+      "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_request_id_nonexistent",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W2 role, valid class {admin}: admin rejects team A request \u2192 200.",
+      "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_admin",
+      "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_admin",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W2 role, invalid class {employee}: teammate employee approves \u2192 403 (role guard), row unchanged.",
+      "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_employee",
+      "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_employee",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W2 role, invalid class {manager of another team}: team B manager on a team A request \u2192 404.",
+      "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_manager_other_team",
+      "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_manager_other_team",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W2 role, valid class {manager of the same team}: team B manager rejects team B request \u2192 200.",
+      "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_manager_same_team",
+      "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_role_manager_same_team",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W2 status, valid class {approved}: admin approves team A pending \u2192 200, approved.",
+      "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_approved",
+      "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_approved",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W2 status, invalid class {empty}: '' \u2192 400 'Decisione non valida.', row unchanged.",
+      "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_empty",
+      "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_empty",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W2 status, invalid class {'pending'}: not a decision \u2192 400, row stays pending.",
+      "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_pending",
+      "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_pending",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W2 status, invalid class {random string}: 'maybe' \u2192 400, row unchanged.",
+      "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_random",
+      "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_random",
+      "outcome": "passed"
+    },
+    {
+      "description": "EP W2 status, valid class {rejected}: admin rejects team B pending \u2192 200, rejected.",
+      "id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_rejected",
+      "method_id": "tests.team.structural.test_ep_bva.W2EquivalencePartitionTests.test_ep_w2_status_rejected",
+      "outcome": "passed"
+    },
+    {
+      "description": "State transition approved --approve--> (disallowed): 409, approved record unchanged, no double charge.",
+      "id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_approved_approve_409",
+      "method_id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_approved_approve_409",
+      "outcome": "passed"
+    },
+    {
+      "description": "State transition approved --reject--> (disallowed): 409, an approval cannot be reversed.",
+      "id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_approved_reject_409",
+      "method_id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_approved_reject_409",
+      "outcome": "passed"
+    },
+    {
+      "description": "W1 creation (none --submit--> pending) is independent of other requests' states.",
+      "id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_none_submit_pending",
+      "method_id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_none_submit_pending",
+      "outcome": "passed"
+    },
+    {
+      "description": "State transition pending --approve--> approved (allowed, 0-switch edge).",
+      "id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_pending_approve_approved",
+      "method_id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_pending_approve_approved",
+      "outcome": "passed"
+    },
+    {
+      "description": "State transition pending --reject--> rejected (allowed, 0-switch edge).",
+      "id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_pending_reject_rejected",
+      "method_id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_pending_reject_rejected",
+      "outcome": "passed"
+    },
+    {
+      "description": "State transition rejected --approve--> (disallowed): 409, the rejection stands and nothing is charged.",
+      "id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_rejected_approve_409",
+      "method_id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_rejected_approve_409",
+      "outcome": "passed"
+    },
+    {
+      "description": "State transition rejected --reject--> (disallowed): 409, a repeated rejection is refused.",
+      "id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_rejected_reject_409",
+      "method_id": "tests.team.structural.test_state_transition.LeaveRequestStateTransitionTests.test_st_rejected_reject_409",
+      "outcome": "passed"
+    }
+  ],
+  "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python /home/pc/projects/sqe-final/LeaveFlow/scripts/sqe/run_tests.py team tests.team.structural --verbosity 2 --evidence-dir docs/sqe/evidence/structural/a23-2026-11-24",
+  "counts": {
+    "errors": 0,
+    "executed": 65,
+    "expected_failures": 0,
+    "failed": 0,
+    "non_passing_test_methods": 0,
+    "passed": 65,
+    "skipped": 0,
+    "unexpected_successes": 0
+  },
+  "database": {
+    "active_name": "file:memorydb_default?mode=memory&cache=shared",
+    "engine": "django.db.backends.sqlite3",
+    "redis_disabled": true
+  },
+  "development_database_after": {
+    "db.sqlite3": {
+      "exists": true,
+      "sha256": "70155559be6dc448fa8eb05e804ff7a60532afbac881bac21bc42de47cbcd33d",
+      "size": 180224
+    },
+    "db.sqlite3-journal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-shm": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-wal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    }
+  },
+  "development_database_before": {
+    "db.sqlite3": {
+      "exists": true,
+      "sha256": "70155559be6dc448fa8eb05e804ff7a60532afbac881bac21bc42de47cbcd33d",
+      "size": 180224
+    },
+    "db.sqlite3-journal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-shm": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-wal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    }
+  },
+  "development_database_unchanged": true,
+  "elapsed_seconds": 118.746987,
+  "environment": {
+    "database_profile": "sqe-memory-v1",
+    "external_database_environment_ignored": false,
+    "git_branch": "test/a2.4-openapi-gen",
+    "git_sha": "e5c146bf18cbd45b4389727ee380f0d8e975578a",
+    "git_status": [
+      "?? docs/sqe/evidence/structural/a23-2026-11-24/stderr.log",
+      "?? docs/sqe/evidence/structural/a23-2026-11-24/stdout.log",
+      "?? prompt.md"
+    ],
+    "packages": {
+      "Django": "6.0.7",
+      "django-cors-headers": "4.9.0",
+      "djangorestframework": "3.17.1",
+      "psycopg": "3.3.4",
+      "redis": "6.4.0"
+    },
+    "python": "3.12.7",
+    "python_executable": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python",
+    "redis_environment_ignored": false,
+    "runner": "Django DiscoverRunner + unittest; version is the Django/Python version above",
+    "source_sha256": {
+      "backend/config/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/config/asgi.py": "f23d09f7cded8ce1239e5fbb32961ea409103501b9958934dbd77e92d4a8db21",
+      "backend/config/settings.py": "280ef4c3681431f604f132324c3f8bfd1ab00ed189799478e9e65efa4d6d2a7e",
+      "backend/config/urls.py": "ffd0aafd7a1d40d02be8bb99429d0058adfa4983568e9faf90fda22020d81bf5",
+      "backend/config/wsgi.py": "a7b47958708160e7ebcb377d677f5f2081640fb5dc4478bb486743055a85e192",
+      "backend/leave/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/admin.py": "7ce699328024faa2509a344b00c4edc255bd0bb7baeb4430bfbc4f40fc733acc",
+      "backend/leave/apps.py": "83e25d15a9e284383927712d3e065ab41882f7d22b995a7a44e1f271c364901a",
+      "backend/leave/events.py": "5f7d0c07bfbbfed9d30275a7b2dc7312399529afcf89965fd79240683c93c494",
+      "backend/leave/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/management/commands/seed_demo.py": "5f2e5db904c68eb03f89b1616404cb5f38d1758f79720a91f67191aaf44edd59",
+      "backend/leave/migrations/0001_initial.py": "ee7a9ad789bed3726e5b5b027f43dfc6fbe613e05d5e95d3acf69515f26d7f91",
+      "backend/leave/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/models.py": "bd1f0dbea11e0d7a665d9b17bd17c2d01c3ce7da7985d9deff0a7ca405711f57",
+      "backend/leave/serializers.py": "8dbfd179d7a85198cd0fac5b209c7fe6dfd740d50d110bd8e9c5a521089a7d88",
+      "backend/leave/tests.py": "61be0822d9c51929efdcde2f401d055deab8b0c0919b697078cc768413563c1c",
+      "backend/leave/urls.py": "81630a31adc7c02c33c92218b7f08b91bc9068f924661b17e80228a7126245e3",
+      "backend/leave/views.py": "86f214b1d1e775c1610f0d6377702b7a1569970068205a7c7c39d2f9c8f2c971",
+      "backend/manage.py": "b30eeb4890cb6f315cc238313808f636db29e9906b61cc6f6051567156a0097b",
+      "requirements.txt": "ca409861c6a962ba2b22754da08a531b1a4bf1c1f1f4c77e892e804532fe0a44",
+      "scripts/sqe/browser_harness.py": "46e379c6188cb2654131bb56cf5add0dcea65a2e66ae544e9d8478eae602c5e4",
+      "scripts/sqe/capture_decision_screenshot.py": "171c067ceae88674188c9bdffbaf801b57cf5e05116f3f33ddb31c54eef92fec",
+      "scripts/sqe/check_docs.py": "0c9c7c2a6975469f9cecee49ec2bf4a5230f9c54dbd781af614fdf324c0440f8",
+      "scripts/sqe/generate_api_tests.py": "4418e9045f6f28f47104b7e2eb5666404111ca36fd6d34272e69aebf8630b436",
+      "scripts/sqe/reproduce_baseline.py": "754609cbd1b79c27990119201b5090d0a799c17cff5c54a1255242f5892af109",
+      "scripts/sqe/run_tests.py": "1c7124816207befa8aa5a6989377dfb668cc2e04bca15c801d5673fcbc2e474b",
+      "tests/__init__.py": "401c994404cf80c29753cd5ffcb9f5b4964f07e20d51a720ba7070f1b1c334c8",
+      "tests/team/__init__.py": "1a8c0583e7a59b76dc97c31ef6ea8205994c1482c6e4f3d8cc52a86de4815213",
+      "tests/team/api/__init__.py": "644e3a6aaa5b75fd9b949c84c69c6d6abd91c9cb61a1714263f8070e53b0b47e",
+      "tests/team/api/support.py": "03609059368fae69366e5419f58ef99a044837ac159f6a23959633cfd8ef7308",
+      "tests/team/api/test_authentication.py": "2d27fed69f52b404afca95d0c52e72895881475880e63b92f333425081c639fd",
+      "tests/team/api/test_w1_submission.py": "dc7ef8ce1250ce065b1255cef3c6b59965f9e793e94166af082be55075ef853b",
+      "tests/team/api/test_w2_decisions.py": "efa112e11ce983c906884ca1e555e42692af92071e86398e8209b051fd40a95f",
+      "tests/team/browser_safety.py": "3570c00ccf3f24aa7a9a5f69b9a203a6c6d6ad857f801bf1ed1f62da7595538a",
+      "tests/team/browser_settings.py": "219c1390367dd3619fcf138b6ee312f3d92d7c6f089c50eb7f0f03c3672be689",
+      "tests/team/fixtures/__init__.py": "a4f3d78436c5ac0a1377fa08183f7ee299df67e7638f1e076e249b340dd0bcfe",
+      "tests/team/fixtures/leave_data.py": "db3f01290c00206db9d065c020582bab9bac8364b7fc7405ed6d5f3ef13c8a1a",
+      "tests/team/foundation/__init__.py": "a4a08308e5b6d25d67ba2b831993afe15c05265c12d6a789c566d013f090746b",
+      "tests/team/foundation/test_foundation.py": "4ce6683e4d3f9697c48e1b804f5010f1fcf1d513086056d804a4469e10a84c03",
+      "tests/team/generated/__init__.py": "7ce94dcf1916a745a59ab5aa38f69bfb38816d03a821a3e5ff581dfa31f6a567",
+      "tests/team/generated/test_generated_api.py": "a9e2e732f0206e318615ad77244be53f5ed51608cc1064131b807e5e05e16ca2",
+      "tests/team/generated/test_generated_api_v2.py": "dce23e8363b1194937455c7a17f02429b0888979b67b2da3001d1960ed05f6f4",
+      "tests/team/generated/test_generated_api_v3.py": "92c6a175bdf185381655736adb51d858a32aa8e640811a07d99b1019c36ce52b",
+      "tests/team/integration/__init__.py": "b9728132e02d77de346980957b8ada6f25baa658e043382d59e4fb08ed68634f",
+      "tests/team/integration/test_w1_w2_integration.py": "f6104dc620e76b5258749fe879b950dd405bb52478528eab277fe40760c9543d",
+      "tests/team/runner.py": "bf1ee1c4bd1e215e65822a93a3503c9ed97f16f1964205b82a60abb041bc9655",
+      "tests/team/safety.py": "0d07fd512e41b0c7d1f8147b2f3c44251a609dba9d2c8501bc568b17723f3592",
+      "tests/team/settings.py": "9281b859d7f4d9e9aac2667ce7a6ac719bbc5756b08c305bdc17a4babe0941fe",
+      "tests/team/structural/__init__.py": "4ae042f033bd4654db1c6bf75548e12d8cb299fc4c14a0591b5abf100e52e174",
+      "tests/team/structural/support.py": "a784888e41da5db3eaf90506ea9d9e80a8035c4b34e0080041e3466681073e82",
+      "tests/team/structural/test_decision_table.py": "f560cd80a2d9f89f9ce04024ee912555a31376629ed77f9374255cdc222c8035",
+      "tests/team/structural/test_ep_bva.py": "7002c110666b4cd8761b50bd3250d24a23e41fd8db6717023b2a512a53c139d3",
+      "tests/team/structural/test_state_transition.py": "838922d942cadec36001d5c66f420d671c6be6d04b4fc87014c990bdde09438a"
+    },
+    "sqlite_version": "3.46.1",
+    "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "finished_at_utc": "2026-11-24T07:13:46.329185+00:00",
+  "process_exit_code": 0,
+  "snapshots": {},
+  "started_at_utc": "2026-11-24T07:11:47.582071+00:00"
+}

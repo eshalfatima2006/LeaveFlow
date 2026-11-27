@@ -1,0 +1,37 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+test_approval_is_published_after_commit (tests.team.integration.test_event_publication.EventPublicationTests.test_approval_is_published_after_commit)
+DT-004; FR-W2-05: approval is published only at commit, to the owner. ... ok
+test_redis_failure_does_not_undo_the_decision (tests.team.integration.test_event_publication.EventPublicationTests.test_redis_failure_does_not_undo_the_decision)
+BR-05: Redis failing at publication is logged; the committed decision stands. ... ok
+test_refused_calls_register_no_event (tests.team.integration.test_event_publication.EventPublicationTests.test_refused_calls_register_no_event)
+DT-004: W1 400, W2 403 and W2 400 register no commit callback. ... ok
+test_rejection_is_published_after_commit (tests.team.integration.test_event_publication.EventPublicationTests.test_rejection_is_published_after_commit)
+DT-004; FR-W2-06: rejection is published only at commit, to the owner. ... ok
+test_rolled_back_decision_publishes_nothing (tests.team.integration.test_event_publication.EventPublicationTests.test_rolled_back_decision_publishes_nothing)
+BR-05: a failure after the event was registered rolls the decision back and drops the event. ... ok
+test_submission_is_published_after_commit (tests.team.integration.test_event_publication.EventPublicationTests.test_submission_is_published_after_commit)
+DT-004; FR-W1-06: W1 registers one event and publishes it only at commit, to admin and team manager. ... ok
+test_second_approval_overdraws_allowance_characterization (tests.team.integration.test_w1_w2_integration.ApprovalOverdrawTests.test_second_approval_overdraws_allowance_characterization)
+API-INT-001.03 — CHARACTERIZATION of a known SUT defect (TEST-BASIS GAP-01, risk PR-01). ... ok
+test_other_team_request_is_invisible_to_manager (tests.team.integration.test_w1_w2_integration.CrossWorkflowAuthorizationTests.test_other_team_request_is_invisible_to_manager)
+API-INT-001.05; FR-W2-01, FR-W2-02; BR-04. ... ok
+test_requester_cannot_decide_own_w1_request (tests.team.integration.test_w1_w2_integration.CrossWorkflowAuthorizationTests.test_requester_cannot_decide_own_w1_request)
+API-INT-001.04; FR-W2-02; BR-04, BR-05. ... ok
+test_ec01_two_four_day_requests_characterization (tests.team.integration.test_w1_w2_integration.ExitCriterionScenarioTests.test_ec01_two_four_day_requests_characterization)
+API-INT-001.09 — CHARACTERIZATION of the EC-01 scenario (GAP-01, PR-01), not an approved oracle. ... ok
+test_decision_on_approved_request_conflicts (tests.team.integration.test_w1_w2_integration.InvalidTransitionTests.test_decision_on_approved_request_conflicts)
+API-INT-001.06; FR-W2-04; BR-03, BR-05. ... ok
+test_decision_on_rejected_request_conflicts (tests.team.integration.test_w1_w2_integration.InvalidTransitionTests.test_decision_on_rejected_request_conflicts)
+API-INT-001.07; FR-W2-04, FR-W2-06; BR-03, BR-05. ... ok
+test_identical_submission_repeated_while_pending (tests.team.integration.test_w1_w2_integration.RepeatedSubmissionTests.test_identical_submission_repeated_while_pending)
+API-INT-001.08; FR-W1-04, FR-W1-06; BR-02, BR-03: immediate repeat → overlap 400, one row, balance unchanged. ... ok
+test_w1_submission_then_w2_approval_consumes_allowance (tests.team.integration.test_w1_w2_integration.SameRecordApprovalTests.test_w1_submission_then_w2_approval_consumes_allowance)
+API-INT-001.01; FR-W1-06, FR-W2-01, FR-W2-04, FR-W2-05; BR-03, BR-04, BR-05. ... ok
+test_w1_submission_then_w2_rejection_consumes_nothing (tests.team.integration.test_w1_w2_integration.SameRecordRejectionTests.test_w1_submission_then_w2_rejection_consumes_nothing)
+API-INT-001.02; FR-W1-04, FR-W1-06, FR-W2-04, FR-W2-06; BR-02, BR-03, BR-05. ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 1.436s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...

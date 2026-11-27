@@ -1,0 +1,4 @@
+RCA-HTTP {"server": "1 sync worker (shipped command)", "pairs": 100, "outcomes": {"201+400": 100}}
+RCA-HTTP {"server": "2 worker processes", "pairs": 100, "outcomes": {"201+400": 1, "201+201": 99}}
+RCA-HTTP {"server": "3 separate 1-worker servers, requests split (as 3 HPA replicas)", "pairs": 100, "outcomes": {"201+201": 100}}
+RCA-HTTP {"rows": 499, "date_ranges_stored_twice": 199, "postgres": "17.12"}

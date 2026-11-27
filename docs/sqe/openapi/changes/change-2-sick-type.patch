@@ -1,0 +1,20 @@
+--- a/docs/sqe/openapi/leaveflow-api.yaml
++++ b/docs/sqe/openapi/leaveflow-api.yaml
+@@ -528,7 +528,7 @@
+       properties:
+         leave_type:
+           type: string
+-          enum: [vacation, permit, personal]
++          enum: [vacation, permit, personal, sick]
+           default: vacation
+           x-invalid-examples: [""]
+         start_date:
+@@ -603,7 +603,7 @@
+           $ref: "#/components/schemas/User"
+         leave_type:
+           type: string
+-          enum: [vacation, permit, personal]
++          enum: [vacation, permit, personal, sick]
+         leave_type_label:
+           type: string
+         start_date:

@@ -50,8 +50,8 @@ All verification IDs below are **planned** objectives defined in [REQUIREMENTS-T
 
 ### PR-01 — Approval can overdraw employee allowance
 
-- **Evidence / classification:** S: `backend/leave/serializers.py:36–38` checks only submission; `backend/leave/views.py:81–86` saves approval with no balance check; `backend/leave/models.py:35–43` derives remaining from approved totals. Missing safeguard is statically confirmed, not a reproduced transaction.
-- **Mitigation:** Approve desired nonnegative rule/error contract, reproduce two nonoverlapping pending4-day requests against allowance5; retain original k values. Prioritize before broad automation (WP-08/10/22).
+- **Evidence / classification:** S: `backend/leave/serializers.py:36–38` checks only submission; `backend/leave/views.py:81–86` saves approval with no balance check; `backend/leave/models.py:35–43` derives remaining from approved totals. Missing safeguard is statically confirmed, not a reproduced transaction. *V (25–27 Nov 2026): reproduced as DEF-A2-01 ([#25](https://github.com/eshalfatima2006/LeaveFlow/issues/25)), independently confirmed by Muhammad Bilal on 27 Nov 2026; see [RCA 1](../defects/RCA-MAJOR-01-BALANCE-OVERDRAW.md).*
+- **Mitigation:** Approve desired nonnegative rule/error contract (agreed 25 Nov 2026: 400 `{"detail": "Insufficient leave balance"}`; GAP-01), reproduce two nonoverlapping pending4-day requests against allowance5; retain original k values. Prioritize before broad automation (WP-08/10/22).
 - **Planned verification:** API-INT-001, API-W2-005 and UT-W1-005: check second approval rejected under agreed desired policy, original row/audit unchanged and available1; characterize defective baseline separately; EC-01.
 - **Contingency:** Hold affected release; if reproduced, students triage genuine issue/fix with regression and fail-before/pass-after proof. Do not count characterization as desired-rule success.
 - **Residual risk:** NOT MEASURED; original L=5, I=5 remains the planning assessment until verified controls justify a recorded revision. Owner A2 proposes actual residual values/rationale; peer reviews evidence. Status OPEN, no control completion claimed.
@@ -66,7 +66,7 @@ All verification IDs below are **planned** objectives defined in [REQUIREMENTS-T
 
 ### PR-03 — Simultaneous submissions or distinct approvals break invariants
 
-- **Evidence / classification:** H/S: W1 query then create `backend/leave/serializers.py:31–42`; W2 selected-row lock `backend/leave/views.py:74–87` does not lock the shared employee balance across distinct requests. No race reproduced; SQLite results cannot establish PostgreSQL locks.
+- **Evidence / classification:** H/S: W1 query then create `backend/leave/serializers.py:31–42`; W2 selected-row lock `backend/leave/views.py:74–87` does not lock the shared employee balance across distinct requests. No race reproduced; SQLite results cannot establish PostgreSQL locks. *V (25–27 Nov 2026): the W1 race is reproduced on PostgreSQL 17.12 as DEF-A2-02 ([#26](https://github.com/eshalfatima2006/LeaveFlow/issues/26)), independently confirmed by Muhammad Bilal on 27 Nov 2026; see [RCA 2](../defects/RCA-MAJOR-02-CONCURRENT-SUBMISSIONS.md).*
 - **Mitigation:** Design synchronized independent-connection tests for overlap and same-k/distinct-k decisions, bounded barriers/timeouts, real disposable PostgreSQL and reviewed invariant oracle.
 - **Planned verification:** API-INT-002 and ST-001: record every response and final request/balance/audit counts; prove no unauthorized double transition or overdraw under desired rule; EC-03.
 - **Contingency:** Mark concurrency guarantee unverified/HOLD if DB unavailable; retain SQLite functional results separately. No assumed fix from wrapping one query in atomic.

@@ -1,0 +1,14 @@
+== w1-lock-employee-row: upstream suite
+Ran 9 tests in 0.062s
+OK
+== w1-lock-employee-row: team suite
+Ran 344 tests in 19.748s
+OK
+== w2-check-and-lock-balance: upstream suite
+Ran 9 tests in 0.075s
+OK
+== w2-check-and-lock-balance: team suite
+FAIL: test_second_approval_overdraws_allowance_characterization (tests.team.integration.test_w1_w2_integration.ApprovalOverdrawTests.test_second_approval_overdraws_allowance_characterization)
+FAIL: test_ec01_two_four_day_requests_characterization (tests.team.integration.test_w1_w2_integration.ExitCriterionScenarioTests.test_ec01_two_four_day_requests_characterization)
+Ran 344 tests in 19.380s
+FAILED (failures=2)

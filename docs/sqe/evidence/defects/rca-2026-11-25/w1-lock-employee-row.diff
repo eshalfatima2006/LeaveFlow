@@ -1,0 +1,17 @@
+diff --git a/backend/leave/views.py b/backend/leave/views.py
+index 4809881..f8c9cb2 100644
+--- a/backend/leave/views.py
++++ b/backend/leave/views.py
+@@ -55,8 +55,10 @@ def visible_requests(user):
+ def requests_view(request):
+     if request.method == 'POST':
+         serializer = LeaveRequestSerializer(data=request.data, context={'request': request})
+-        serializer.is_valid(raise_exception=True)
+-        item = serializer.save()
++        with transaction.atomic():
++            User.objects.select_for_update().get(pk=request.user.pk)
++            serializer.is_valid(raise_exception=True)
++            item = serializer.save()
+         publish_leave_event(item, 'leave.requested', request.user)
+         return Response(serializer.data, status=status.HTTP_201_CREATED)
+     serializer = LeaveRequestSerializer(visible_requests(request.user), many=True)

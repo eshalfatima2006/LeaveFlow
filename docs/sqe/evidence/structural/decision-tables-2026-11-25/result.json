@@ -1,0 +1,404 @@
+{
+  "action": "team",
+  "cases": [
+    {
+      "description": "DT-004 decision branch: approval \u2192 one leave.approved event to the owner only.",
+      "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_approval_notifies_owner_only",
+      "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_approval_notifies_owner_only",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-004 R1: A=T, T=T, O=F \u2192 notified.",
+      "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r1_admin_same_team",
+      "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r1_admin_same_team",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-004 R2: A=T, T=F, O=F \u2192 notified.",
+      "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r2_admin_other_team",
+      "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r2_admin_other_team",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-004 R3: M=T, T=T, O=F \u2192 notified.",
+      "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r3_manager_same_team",
+      "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r3_manager_same_team",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-004 R4: M=T, T=F, O=F \u2192 not notified (other team's and teamless manager).",
+      "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r4_manager_other_team",
+      "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r4_manager_other_team",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-004 R5: A=F, M=F, T=T, O=F \u2192 the teammate is not notified.",
+      "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r5_employee_same_team",
+      "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r5_employee_same_team",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-004 R6: A=F, M=F, T=F, O=F \u2192 not notified.",
+      "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r6_employee_other_team",
+      "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r6_employee_other_team",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-004 R7: A=T, O=T \u2192 the requesting admin is excluded; exactly the others remain.",
+      "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r7_admin_is_requester",
+      "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r7_admin_is_requester",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-004 R8: M=T, T=T, O=T \u2192 the requesting manager is excluded; exactly the admins remain.",
+      "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r8_manager_is_requester",
+      "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r8_manager_is_requester",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-004 R9: A=F, M=F, O=T \u2192 the requester is excluded; exactly both admins and m1 are notified.",
+      "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r9_employee_is_requester",
+      "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_r9_employee_is_requester",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-004: a refused submission (400) and a refused decision (403) publish no event.",
+      "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_refused_calls_publish_nothing",
+      "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_refused_calls_publish_nothing",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-004 decision branch: rejection \u2192 one leave.rejected event to the owner only.",
+      "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_rejection_notifies_owner_only",
+      "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_rejection_notifies_owner_only",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-004, T with both teams null \u2014 CHARACTERIZATION (GAP-08), not an approved oracle.",
+      "id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_teamless_requester_characterization",
+      "method_id": "tests.team.structural.test_decision_table_rules.EventRecipientDecisionTable.test_dt004_teamless_requester_characterization",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-002 P=F, 12 rows (model level): the saved row never blocks itself, whatever E,S,L,R are.",
+      "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_pk_excluded_rows",
+      "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_pk_excluded_rows",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-002 R10: E and S false \u2192 201.",
+      "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r10",
+      "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r10",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-002 R11: E, S and L false \u2192 201.",
+      "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r11",
+      "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r11",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-002 R12: E, S and R false \u2192 201.",
+      "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r12",
+      "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r12",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-002 R1: E,S,L,R all true, X approved (second value of S) \u2192 400 overlap, no row.",
+      "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r1_approved_blocks",
+      "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r1_approved_blocks",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-002 R1: E,S,L,R all true, X pending \u2192 400 overlap, no row.",
+      "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r1_pending_blocks",
+      "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r1_pending_blocks",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-002 R2: only L false (candidate ends before X starts) \u2192 201.",
+      "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r2",
+      "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r2",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-002 R3: only R false (candidate starts after X ends) \u2192 201.",
+      "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r3",
+      "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r3",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-002 R4: only S false (X rejected) \u2192 201.",
+      "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r4",
+      "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r4",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-002 R5: S and L false \u2192 201.",
+      "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r5",
+      "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r5",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-002 R6: S and R false \u2192 201.",
+      "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r6",
+      "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r6",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-002 R7: only E false (X belongs to a colleague) \u2192 201.",
+      "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r7",
+      "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r7",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-002 R8: E and L false \u2192 201.",
+      "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r8",
+      "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r8",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-002 R9: E and R false \u2192 201.",
+      "id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r9",
+      "method_id": "tests.team.structural.test_decision_table_rules.OverlapDecisionTable.test_dt002_r9",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-005 with W2: pending (null) \u2192 manager approves \u2192 the same dates appear in /api/team/.",
+      "id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_approval_through_w2_becomes_upcoming",
+      "method_id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_approval_through_w2_becomes_upcoming",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-005: two R1 rows, the later one stored first \u2192 the earlier start is returned.",
+      "id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_earliest_start_selected",
+      "method_id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_earliest_start_selected",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-005: a member without any request \u2192 null.",
+      "id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_no_requests",
+      "method_id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_no_requests",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-005 R1: approved, end = today+1 (leave in progress) \u2192 shown.",
+      "id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r1_end_after_today",
+      "method_id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r1_end_after_today",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-005 R1: approved, end = today (inclusive limit) \u2192 shown.",
+      "id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r1_end_today",
+      "method_id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r1_end_today",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-005 R2: approved, end = today-1 \u2192 null.",
+      "id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r2_end_yesterday",
+      "method_id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r2_end_yesterday",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-005 R3: pending and future \u2192 null.",
+      "id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r3_pending_future",
+      "method_id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r3_pending_future",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-005 R3: rejected and future (second non-approved value of P) \u2192 null.",
+      "id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r3_rejected_future",
+      "method_id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r3_rejected_future",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-005 R4: pending and past \u2192 null.",
+      "id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r4_pending_past",
+      "method_id": "tests.team.structural.test_decision_table_rules.UpcomingLeaveDecisionTable.test_dt005_r4_pending_past",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-003 R1: admin with a team \u2192 every request of every team.",
+      "id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r1_admin_with_team",
+      "method_id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r1_admin_with_team",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-003 R1: admin without a team \u2192 still every request (T does not matter).",
+      "id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r1_admin_without_team",
+      "method_id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r1_admin_without_team",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-003 R2: M=T, T=T \u2192 exactly the team's requests, own included.",
+      "id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r2_manager_with_team",
+      "method_id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r2_manager_with_team",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-003 R3: M=T, T=F \u2192 own only; another teamless user's request is not listed.",
+      "id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r3_manager_without_team",
+      "method_id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r3_manager_without_team",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-003 R4: M=F, T=T \u2192 own only; the teammate's request is not listed.",
+      "id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r4_employee_with_team",
+      "method_id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r4_employee_with_team",
+      "outcome": "passed"
+    },
+    {
+      "description": "DT-003 R5: M=F, T=F \u2192 own only (the row no earlier team test covered).",
+      "id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r5_employee_without_team",
+      "method_id": "tests.team.structural.test_decision_table_rules.VisibilityDecisionTable.test_dt003_r5_employee_without_team",
+      "outcome": "passed"
+    }
+  ],
+  "command": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python /home/pc/projects/sqe-final/LeaveFlow/scripts/sqe/run_tests.py team tests.team.structural.test_decision_table_rules --evidence-dir docs/sqe/evidence/structural/decision-tables-2026-11-25",
+  "counts": {
+    "errors": 0,
+    "executed": 42,
+    "expected_failures": 0,
+    "failed": 0,
+    "non_passing_test_methods": 0,
+    "passed": 42,
+    "skipped": 0,
+    "unexpected_successes": 0
+  },
+  "database": {
+    "active_name": "file:memorydb_default?mode=memory&cache=shared",
+    "engine": "django.db.backends.sqlite3",
+    "redis_disabled": true
+  },
+  "development_database_after": {
+    "db.sqlite3": {
+      "exists": true,
+      "sha256": "70155559be6dc448fa8eb05e804ff7a60532afbac881bac21bc42de47cbcd33d",
+      "size": 180224
+    },
+    "db.sqlite3-journal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-shm": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-wal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    }
+  },
+  "development_database_before": {
+    "db.sqlite3": {
+      "exists": true,
+      "sha256": "70155559be6dc448fa8eb05e804ff7a60532afbac881bac21bc42de47cbcd33d",
+      "size": 180224
+    },
+    "db.sqlite3-journal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-shm": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    },
+    "db.sqlite3-wal": {
+      "exists": false,
+      "sha256": null,
+      "size": null
+    }
+  },
+  "development_database_unchanged": true,
+  "elapsed_seconds": 82.992497,
+  "environment": {
+    "database_profile": "sqe-memory-v1",
+    "external_database_environment_ignored": false,
+    "git_branch": "test/a2.4-openapi-gen",
+    "git_sha": "bbb3174a5c2626c077143f6723e16f8d7dcbffbb",
+    "git_status": [
+      "?? docs/sqe/evidence/structural/decision-tables-2026-11-25/stderr.log",
+      "?? docs/sqe/evidence/structural/decision-tables-2026-11-25/stdout.log",
+      "?? prompt.md"
+    ],
+    "packages": {
+      "Django": "6.0.7",
+      "django-cors-headers": "4.9.0",
+      "djangorestframework": "3.17.1",
+      "psycopg": "3.3.4",
+      "redis": "6.4.0"
+    },
+    "python": "3.12.7",
+    "python_executable": "/home/pc/projects/sqe-final/LeaveFlow/.venv/bin/python",
+    "redis_environment_ignored": false,
+    "runner": "Django DiscoverRunner + unittest; version is the Django/Python version above",
+    "source_sha256": {
+      "backend/config/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/config/asgi.py": "f23d09f7cded8ce1239e5fbb32961ea409103501b9958934dbd77e92d4a8db21",
+      "backend/config/settings.py": "280ef4c3681431f604f132324c3f8bfd1ab00ed189799478e9e65efa4d6d2a7e",
+      "backend/config/urls.py": "ffd0aafd7a1d40d02be8bb99429d0058adfa4983568e9faf90fda22020d81bf5",
+      "backend/config/wsgi.py": "a7b47958708160e7ebcb377d677f5f2081640fb5dc4478bb486743055a85e192",
+      "backend/leave/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/admin.py": "7ce699328024faa2509a344b00c4edc255bd0bb7baeb4430bfbc4f40fc733acc",
+      "backend/leave/apps.py": "83e25d15a9e284383927712d3e065ab41882f7d22b995a7a44e1f271c364901a",
+      "backend/leave/events.py": "5f7d0c07bfbbfed9d30275a7b2dc7312399529afcf89965fd79240683c93c494",
+      "backend/leave/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/management/commands/seed_demo.py": "5f2e5db904c68eb03f89b1616404cb5f38d1758f79720a91f67191aaf44edd59",
+      "backend/leave/migrations/0001_initial.py": "ee7a9ad789bed3726e5b5b027f43dfc6fbe613e05d5e95d3acf69515f26d7f91",
+      "backend/leave/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "backend/leave/models.py": "bd1f0dbea11e0d7a665d9b17bd17c2d01c3ce7da7985d9deff0a7ca405711f57",
+      "backend/leave/serializers.py": "8dbfd179d7a85198cd0fac5b209c7fe6dfd740d50d110bd8e9c5a521089a7d88",
+      "backend/leave/tests.py": "61be0822d9c51929efdcde2f401d055deab8b0c0919b697078cc768413563c1c",
+      "backend/leave/urls.py": "81630a31adc7c02c33c92218b7f08b91bc9068f924661b17e80228a7126245e3",
+      "backend/leave/views.py": "86f214b1d1e775c1610f0d6377702b7a1569970068205a7c7c39d2f9c8f2c971",
+      "backend/manage.py": "b30eeb4890cb6f315cc238313808f636db29e9906b61cc6f6051567156a0097b",
+      "requirements.txt": "ca409861c6a962ba2b22754da08a531b1a4bf1c1f1f4c77e892e804532fe0a44",
+      "scripts/sqe/browser_harness.py": "46e379c6188cb2654131bb56cf5add0dcea65a2e66ae544e9d8478eae602c5e4",
+      "scripts/sqe/capture_decision_screenshot.py": "171c067ceae88674188c9bdffbaf801b57cf5e05116f3f33ddb31c54eef92fec",
+      "scripts/sqe/check_docs.py": "0c9c7c2a6975469f9cecee49ec2bf4a5230f9c54dbd781af614fdf324c0440f8",
+      "scripts/sqe/generate_api_tests.py": "4418e9045f6f28f47104b7e2eb5666404111ca36fd6d34272e69aebf8630b436",
+      "scripts/sqe/reproduce_baseline.py": "754609cbd1b79c27990119201b5090d0a799c17cff5c54a1255242f5892af109",
+      "scripts/sqe/run_tests.py": "1c7124816207befa8aa5a6989377dfb668cc2e04bca15c801d5673fcbc2e474b",
+      "tests/__init__.py": "401c994404cf80c29753cd5ffcb9f5b4964f07e20d51a720ba7070f1b1c334c8",
+      "tests/team/__init__.py": "1a8c0583e7a59b76dc97c31ef6ea8205994c1482c6e4f3d8cc52a86de4815213",
+      "tests/team/api/__init__.py": "644e3a6aaa5b75fd9b949c84c69c6d6abd91c9cb61a1714263f8070e53b0b47e",
+      "tests/team/api/support.py": "03609059368fae69366e5419f58ef99a044837ac159f6a23959633cfd8ef7308",
+      "tests/team/api/test_authentication.py": "2d27fed69f52b404afca95d0c52e72895881475880e63b92f333425081c639fd",
+      "tests/team/api/test_w1_submission.py": "dc7ef8ce1250ce065b1255cef3c6b59965f9e793e94166af082be55075ef853b",
+      "tests/team/api/test_w2_decisions.py": "efa112e11ce983c906884ca1e555e42692af92071e86398e8209b051fd40a95f",
+      "tests/team/browser_safety.py": "3570c00ccf3f24aa7a9a5f69b9a203a6c6d6ad857f801bf1ed1f62da7595538a",
+      "tests/team/browser_settings.py": "219c1390367dd3619fcf138b6ee312f3d92d7c6f089c50eb7f0f03c3672be689",
+      "tests/team/fixtures/__init__.py": "a4f3d78436c5ac0a1377fa08183f7ee299df67e7638f1e076e249b340dd0bcfe",
+      "tests/team/fixtures/leave_data.py": "db3f01290c00206db9d065c020582bab9bac8364b7fc7405ed6d5f3ef13c8a1a",
+      "tests/team/foundation/__init__.py": "a4a08308e5b6d25d67ba2b831993afe15c05265c12d6a789c566d013f090746b",
+      "tests/team/foundation/test_foundation.py": "4ce6683e4d3f9697c48e1b804f5010f1fcf1d513086056d804a4469e10a84c03",
+      "tests/team/generated/__init__.py": "7ce94dcf1916a745a59ab5aa38f69bfb38816d03a821a3e5ff581dfa31f6a567",
+      "tests/team/generated/test_generated_api.py": "a9e2e732f0206e318615ad77244be53f5ed51608cc1064131b807e5e05e16ca2",
+      "tests/team/generated/test_generated_api_v2.py": "dce23e8363b1194937455c7a17f02429b0888979b67b2da3001d1960ed05f6f4",
+      "tests/team/generated/test_generated_api_v3.py": "92c6a175bdf185381655736adb51d858a32aa8e640811a07d99b1019c36ce52b",
+      "tests/team/integration/__init__.py": "b9728132e02d77de346980957b8ada6f25baa658e043382d59e4fb08ed68634f",
+      "tests/team/integration/test_w1_w2_integration.py": "f6104dc620e76b5258749fe879b950dd405bb52478528eab277fe40760c9543d",
+      "tests/team/runner.py": "bf1ee1c4bd1e215e65822a93a3503c9ed97f16f1964205b82a60abb041bc9655",
+      "tests/team/safety.py": "0d07fd512e41b0c7d1f8147b2f3c44251a609dba9d2c8501bc568b17723f3592",
+      "tests/team/settings.py": "9281b859d7f4d9e9aac2667ce7a6ac719bbc5756b08c305bdc17a4babe0941fe",
+      "tests/team/structural/__init__.py": "4ae042f033bd4654db1c6bf75548e12d8cb299fc4c14a0591b5abf100e52e174",
+      "tests/team/structural/support.py": "a784888e41da5db3eaf90506ea9d9e80a8035c4b34e0080041e3466681073e82",
+      "tests/team/structural/test_decision_table.py": "f560cd80a2d9f89f9ce04024ee912555a31376629ed77f9374255cdc222c8035",
+      "tests/team/structural/test_decision_table_rules.py": "531dc6ba9112dae405e8bed2043d66c30f145a0677a2cbec30366c46d90cb8fc",
+      "tests/team/structural/test_ep_bva.py": "7002c110666b4cd8761b50bd3250d24a23e41fd8db6717023b2a512a53c139d3",
+      "tests/team/structural/test_state_transition.py": "838922d942cadec36001d5c66f420d671c6be6d04b4fc87014c990bdde09438a"
+    },
+    "sqlite_version": "3.46.1",
+    "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "finished_at_utc": "2026-11-25T13:24:13.474897+00:00",
+  "process_exit_code": 0,
+  "snapshots": {},
+  "started_at_utc": "2026-11-25T13:22:50.482110+00:00"
+}

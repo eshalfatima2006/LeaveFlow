@@ -1,0 +1,33 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+test_dt1_r1 (tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r1)
+DT1 R1: C1=F (C2–C4 not evaluated) → 400 on end_date only, no row. ... ok
+test_dt1_r2 (tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r2)
+DT1 R2: C1=T, C2=F (C3/C4 not evaluated) → 400 overlap, no row. ... ok
+test_dt1_r3 (tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r3)
+DT1 R3: C1=T, C2=T, C3=F (C4 masked) → 201 although D is large. ... ok
+test_dt1_r4 (tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r4)
+DT1 R4: C1=T, C2=T, C3=T, C4=F → 400 'Saldo ferie insufficiente.', no row. ... ok
+test_dt1_r5 (tests.team.structural.test_decision_table.W1ValidationDecisionTable.test_dt1_r5)
+DT1 R5: all conditions true → 201 pending row; no allowance consumed. ... ok
+test_dt001_w2_r1_reject_over_limit (tests.team.structural.test_decision_table.W2ApprovalBalanceTable.test_dt001_w2_r1_reject_over_limit)
+DT-001 W2 R1: C1=F (C2/C3 not evaluated) → 200 rejected, balance unchanged. ... ok
+test_dt001_w2_r2_no_balance_record (tests.team.structural.test_decision_table.W2ApprovalBalanceTable.test_dt001_w2_r2_no_balance_record)
+DT-001 W2 R2: C1=T, C2=F → 200 approved (CHARACTERIZATION, GAP-07: policy undecided). ... ok
+test_dt001_w2_r4_approve_to_exactly_zero (tests.team.structural.test_decision_table.W2ApprovalBalanceTable.test_dt001_w2_r4_approve_to_exactly_zero)
+DT-001 W2 R4 (boundary D = available): allowance 4, a 4-day request → 200 approved, balance 0. ... ok
+test_dt2_r1 (tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r1)
+DT2 R1: C1=F → 403 'Operazione non consentita.', unchanged. ... ok
+test_dt2_r2 (tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r2)
+DT2 R2: C1=T, C2=F → 404, unchanged. ... ok
+test_dt2_r3 (tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r3)
+DT2 R3: C1=T, C2=T, C3=F → 403 'Non puoi decidere una tua richiesta.', unchanged. ... ok
+test_dt2_r4 (tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r4)
+DT2 R4: C1=T, C2=T, C3=T, C4=F → 409 'La richiesta è già stata decisa.'. ... ok
+test_dt2_r5 (tests.team.structural.test_decision_table.W2DecisionAuthorisationTable.test_dt2_r5)
+DT2 R5: all conditions true → 200; the same row becomes approved by the admin. ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.603s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...

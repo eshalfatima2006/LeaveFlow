@@ -37,7 +37,7 @@ Version 0.2 — 24 November 2026. Supersedes the Phase 1 candidate table in [WOR
 
 **Mandatory flow coverage:** 10 of 30 executed and passed (33.3%). Counting rules:
 - **The 30 mandatory flows** (6 × 5) are the only denominator.
-- **OBJ-UC02-01** is a blocked regression objective. It joins the denominator (making 31) only if the approval-time error contract is approved and it is then specified as a UC-02 exception.
+- **OBJ-UC02-01** is a blocked regression objective. The approval-time error contract was agreed on 25 Nov 2026 (GAP-01). It joins the denominator (making 31) only if it is also specified as a UC-02 exception, which is not done.
 - **Included use cases** (INC-01, INC-02) are tested once and reported separately (Lecture 16 p16).
 - **Reported separately, never counted:** supplementary checks (SUP-*), characterisations and observations (OBS-*).
 
@@ -141,7 +141,7 @@ The machine-readable registry is [`tests/team/browser/flows.json`](../../../test
 - **E1 — already decided by another approver (TC-UC02-E1).** Branches at step 5: the admin rejected k after the page loaded → 409 `La richiesta è già stata decisa.` The first decision is preserved exactly [X], and after a reload the row shows Rejected [X]. Observed UI [O] (OBS-UC02-01): no message is shown, the row still says Pending with its actions until reload, and the console logs the unhandled error.
 - **E2 — own request (TC-UC02-E2).** Branches at step 4: the Approve button is offered on the manager's own pending request [X] (GAP-04) → 403 `Non puoi decidere una tua richiesta.` and the row is unchanged [X]. Observed UI [O]: no message is shown.
 
-**Blocked regression objective OBJ-UC02-01.** An approval with D > available should be refused atomically. The baseline approves it (GAP-01, PR-01). It stays blocked until the approval-time error contract is approved. Outside the 30.
+**Blocked regression objective OBJ-UC02-01.** An approval with D > available should be refused atomically. The baseline approves it (GAP-01, PR-01). The error contract was agreed on 25 Nov 2026: 400 `{"detail": "Insufficient leave balance"}`, request still pending. The contract no longer blocks it; the test is not written and cannot pass until DEF-A2-01 is fixed. Outside the 30.
 
 **Postconditions:** the same k reaches a final state, audit fields are set once, and the employee's derived availability falls by D only on approval. After 409 or 403, nothing changes.
 
