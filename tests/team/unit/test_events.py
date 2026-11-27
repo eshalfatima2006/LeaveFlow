@@ -8,7 +8,7 @@ from uuid import UUID
 from django.test import TestCase, override_settings
 
 from leave.events import STREAM_NAME, build_leave_event, publish_leave_event
-from tests.team.fixtures.leave_data import build_reference_fixture
+from tests.team.fixtures.leave_data import build_reference_fixture, make_request
 
 
 class LeaveEventTests(TestCase):
@@ -51,6 +51,18 @@ class LeaveEventTests(TestCase):
         self.assertEqual(event["recipients"], [self.people.e1.id])
         self.assertEqual(event["type"], "leave.approved")
         self.assertEqual(event["actor"], {"id": self.people.m1.id, "display_name": self.people.m1.display_name})
+
+    def test_requested_event_excludes_requester_with_manager_or_admin_role(self):
+        """A privileged requester's own identity must not receive its event."""
+        for employee, expected in (
+            (self.people.m1, {self.people.admin.id}),
+            (self.people.admin, {self.people.m1.id}),
+        ):
+            with self.subTest(role=employee.role):
+                item = make_request(employee)
+                event = build_leave_event(item, "leave.requested", employee)
+                self.assertEqual(set(event["recipients"]), expected)
+                self.assertNotIn(employee.id, event["recipients"])
 
     @override_settings(REDIS_URL="")
     def test_publish_returns_without_registering_commit_when_redis_is_disabled(self):

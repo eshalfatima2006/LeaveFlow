@@ -1,9 +1,28 @@
 # Individual analysis of historical survivors
 
-Initial evidence: the 30-survivor report committed at `25253fff` in PR #17.
+Initial evidence: [CI run 66](https://github.com/eshalfatima2006/LeaveFlow/actions/runs/45702440867)
+recorded 267 killed and **30 survived** out of 297. Its unmodified
+[mutmut stats](historical-run-66/mutmut-cicd-stats.json) and
+[original survivor table](historical-run-66/original-survivor-table.md) are
+preserved from the uploaded artifact at commit `25253fff` in PR #17.
 The first 15 records are analyzed below. Current evidence in `final/results.json`
 records 296 killed, 3 survived, 299 total, no unresolved results: **99.00% raw score**.
 Equivalent mutants remain in that raw denominator. No test was weakened.
+
+The newer [hosted PR #17 run 74, attempt 4](https://github.com/eshalfatima2006/LeaveFlow/actions/runs/46052602581)
+passed at commit `65e229d` with **295 killed, 4 survived, 299 total (98.66%)**;
+its [raw stats](hosted-run-74/mutmut-cicd-stats.json) are preserved separately.
+The combined local and hosted numbers are different revisions and test suites.
+The [exact-PR-tree local rerun](pr17-pre-new-test/README.md) identifies the fourth survivor as **E-10**:
+`.exclude(pk=item.employee_id)` becomes `.exclude(pk=None)` in the requested
+event's recipient query. It is killable. PR #17 lacked a test where the
+requester is a manager or admin, so its existing employee-only assertion did
+not detect self-notification. The new
+`test_requested_event_excludes_requester_with_manager_or_admin_role` checks
+both roles. The [focused E-10 verification](pr17-post-test-e10/README.md)
+passes on the original source and fails by assertion on the exact mutant for
+both roles. A new full hosted mutation score is still needed after pushing the
+test; the earlier 295/299 hosted result is unchanged.
 
 The historical rerun attempted during this audit stalled in its clean-test
 phase and was stopped; it is not a completed baseline run. Initial statuses
@@ -17,7 +36,7 @@ in `backend/leave/management/commands/seed_demo.py`. JSON stores the full IDs.
 | Historical survivor | Actual mutation | Classification/cause | Assertion or equivalence justification | Final |
 |---|---|---|---|---|
 | E-8 | Remove `'id'` from `values_list('id', flat=True)` | Equivalent | Django selects the User primary key by default; flat=True still yields scalar IDs | Survived |
-| E-10 | Replace self exclusion with `.exclude(pk=None)` | Missing actor-context test | Area 2 DT-004 self-exclusion cases require manager/admin requesters to be absent from recipients | Killed |
+| E-10 | Replace self exclusion with `.exclude(pk=None)` | Missing actor-context test | Area 2 DT-004 kills it in the combined run; the new Area 1 requested-event test independently asserts manager/admin self-exclusion for PR #17 | Survived hosted PR #17 before new test; killed by focused verification after test |
 | S-52 | Replace balance defaults with None | Missing existing-state test | `test_seed_restores_existing_allowance_and_year` changes an existing balance to 3/2025 and requires reset to 26/2026 | Killed |
 | S-54 | Remove balance defaults argument | Missing existing-state test | Same reset test verifies update of existing values; fresh model defaults previously hid this gap | Killed |
 | S-69 | Omit first request's vacation type | Equivalent | LeaveRequest.leave_type defaults to vacation, so persisted type is unchanged | Survived |
@@ -42,6 +61,11 @@ killable test gap. All core models/serializers/views mutants were killed.
 
 Most historical examples are in demo support code. They must not be claimed
 as 15 survivors confined to DR-001: this is an expanded application scope.
+Within `models.py`, `serializers.py`, and `views.py`, the combined local run
+killed **24/24, 36/36, and 5/5** mutants respectively: **65/65 (100%)** across
+those three critical files. This is a separate denominator from the broader
+299-mutant application score. The two custom inclusive-overlap boundary
+mutants and the overlap-truth mutant were generated in `models.py` and killed.
 The source hashes and exact changes for every mutant are in `final/results.json`.
 Both custom operators run: inclusive overlap boundaries become exclusive,
 and the overlap existence predicate is inverted; their mutants are killed.

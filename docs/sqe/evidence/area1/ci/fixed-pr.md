@@ -11,7 +11,12 @@
 - After: [CI run 18](https://github.com/eshalfatima2006/LeaveFlow/actions/runs/45457756653)
   passed that same evidence-generation step. Its overall run still failed at the
   subsequent mutation threshold, so it is not represented as an overall pass.
-- Final passing candidate: run 68 below completed the whole quality job.
+- Subsequent full pass: [run 74, attempt 4](https://github.com/eshalfatima2006/LeaveFlow/actions/runs/46052602581)
+  on `65e229da86c9563b15ac9a5ec240220025e97329` passed tests, critical
+  coverage, SonarQube scan and gate, mutmut, and the 85% mutation threshold.
+  Its raw score was 295/299 = 98.66%. Earlier attempts on that same commit
+  failed when the temporary SonarQube tunnel was unavailable; they are not
+  code-regression evidence.
 
 This is an observed fail-before/pass-after code fix in the same PR. PR #27 is
 the separate intentional blocked-check demonstration, not the before-state
@@ -25,7 +30,7 @@ request after the quality-gate fixes were applied.
 - Base branch: `dev`
 - Head branch: `feat/area1-quality-engineering`
 - Passing commit: `25253fff291e63795cbf19d7d64f37e5b694e3c8`
-- Latest verified remote workflow: [CI run 68](https://github.com/eshalfatima2006/LeaveFlow/actions/runs/45705453697)
+- Earlier verified remote workflow: [CI run 68](https://github.com/eshalfatima2006/LeaveFlow/actions/runs/45705453697)
 
 The passing run completed successfully for every required job. The Area 1
 quality gate passed critical coverage enforcement, SonarQube analysis,
@@ -35,9 +40,10 @@ historical run 66 recorded 73 passing tests, 267 killed mutants, 30 surviving
 mutants and an 89.90% mutation score against the former 60% threshold.
 Run 68 confirms a successful gate at the updated documentation commit.
 These historical figures must not be presented as the new integrated result.
-The local integrated run now records 296 killed, 3 equivalent survivors and
-99.00%; its score gate requires at least 85%, with no unresolved results.
-It still needs a new hosted run after the user authorizes pushing this branch.
+The combined local run records 296 killed, 3 equivalent survivors and
+99.00%; the separate current PR #17 hosted run records 295 killed and 4
+survivors. Both passed the 85% threshold with no unresolved results. The
+combined integration branch still needs its own hosted run after a push.
 
 The fail-before and pass-after records are retained separately so the review
 can verify that the workflow first blocked the change and then accepted the

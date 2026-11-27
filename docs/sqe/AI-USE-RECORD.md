@@ -386,3 +386,24 @@ Students must review source safety/fixtures/assertions/evidence, retain prompts,
 - Verified remote historical fail/fix/pass step evidence (runs 16, 18 and 68)
   through read-only GitHub API calls. New hosted execution, the new required
   branch check and instructor decisions remain explicitly external.
+
+## PR #17 mutation and required-check audit - 28 November 2026
+
+- Tool: Codex, at Bilal's request to satisfy the mutation evidence requirement
+  and explain the added CI check. AI-assisted inspection, test drafting,
+  execution and evidence writing; no human review or full-marks guarantee is
+  claimed. The student must inspect the output and be able to explain it.
+- Checked the assignment wording against PR #17's source, the GitHub CI jobs,
+  active repository ruleset, and downloaded run 66/run 74 artifacts. Run 66
+  recorded 30 survivors; run 74 recorded 4 at 295/299. Preserved both raw
+  stats and the original historical survivor table with revision links.
+- Repeated mutmut on the exact PR #17 tree before the new test: 295 killed,
+  4 survived, no unresolved, including 65/65 killed in models, serializers
+  and views. Identified E-10 as a killable event-recipient survivor.
+- Added a manager/admin requester assertion. The team pytest suite passed
+  82 tests and 144 subtests. An isolated copy showed the new test passing on
+  original source and failing on the exact E-10 mutation by assertion.
+- The earlier 295/299 hosted result is not changed or presented as the new
+  score. No push or new hosted run occurred in this audit. Most of the 15
+  historical survivors are in demo support code, which is disclosed instead
+  of claiming they all belong to DR-001.

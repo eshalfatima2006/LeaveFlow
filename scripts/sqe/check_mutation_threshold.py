@@ -4,9 +4,9 @@ import json
 import sys
 from pathlib import Path
 
-# The score is calculated only from mutants with an associated test.  This
-# baseline is intentionally explicit so future changes cannot reduce the
-# current tested-mutant score without failing CI.
+# Require at least 85% killed/total while rejecting all incomplete result
+# categories below. The threshold is a justified minimum, not the current
+# measured score (98.66% in hosted PR #17 run 74).
 THRESHOLD = 0.85
 RESULTS = Path("mutants/mutmut-cicd-stats.json")
 

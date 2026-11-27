@@ -26,8 +26,17 @@ The quality gate now requires **85% raw killed/total**, aligned with the propose
 project strategy rather than the former 60% placeholder. This retains room for
 equivalent mutants while rejecting material loss of test effectiveness.
 No untested, skipped, timed-out, suspicious, interrupted or unclassified mutants
-are accepted. The integrated measured score is **296/299 = 99.00%**, with three
-explained equivalent survivors. Both custom operators are exercised and killed.
+are accepted. The combined local measurement is **296/299 = 99.00%**; the
+latest hosted PR #17 measurement is **295/299 = 98.66%**. Both custom operator
+families generated mutants that were killed. The three critical files have a
+separate combined-local result of **65/65 killed** (models 24, serializers 36,
+views 5). These denominators and provenance are documented in
+`surviving-mutants.md`.
+The exact PR #17 tree had a fourth, killable event-recipient survivor, E-10.
+`tests/team/unit/test_events.py` now covers manager/admin self-exclusion,
+and `scripts/sqe/verify_event_recipient_mutant.py` demonstrates a passing
+baseline and a failing exact mutant in a disposable source copy. The next
+hosted full run must confirm the aggregate score after this test addition.
 The individually reviewed first 15 historical survivors and their final outcomes
 are in `surviving-mutants.md`; raw diffs and metadata are in `final/results.json`.
 Support-code survivors are explicitly distinguished from the DR-001 rule scope.

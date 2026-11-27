@@ -8,17 +8,25 @@ operators. No step uses `continue-on-error` or `|| true`.
 
 ## Repository configuration required
 
-The `dev` and `main` branch protection rules must require the check named
-`Area1 quality gate`. Configure the following repository secrets before the
-first remote run:
+The active `CI_Checks` ruleset was read through GitHub on 28 November 2026.
+It targets the default branch and `dev` and requires the current six CI jobs:
+`backend`, `Area1 quality gate`, `frontend`, `notification-worker`,
+`notifications`, and `kubernetes-manifests`. No additional check needs to be
+added for the current PR #17 workflow. The separate integration branch defines
+`Team API and integration tests` and aggregate `Project quality gate` jobs;
+those names must be reconsidered as required checks only after that workflow
+is pushed and observed on GitHub. Do not require a name that has not yet run.
+
+The workflow uses these repository secrets:
 
 | Secret | Purpose |
 |---|---|
 | `SONAR_HOST_URL` | SonarQube URL reachable from GitHub-hosted runners |
 | `SONAR_TOKEN` | Project-scoped SonarQube analysis token |
 
-The local Docker server at `localhost:9000` cannot serve GitHub-hosted runners;
-use a hosted/reachable SonarQube instance for the remote workflow.
+The local Docker server is mapped to `localhost:19000` on this machine; the
+GitHub-hosted runner uses a reachable Cloudflare tunnel URL in `SONAR_HOST_URL`.
+That URL is temporary. Run 74 attempt 4 verified the scanner and gate passed.
 
 ## Required demonstration
 
@@ -26,9 +34,10 @@ To satisfy the assignment demonstration requirement, retain two linked PRs in
 the final evidence:
 
 1. a deliberately failing quality-gate PR, showing the check blocked the merge;
-2. a follow-up fix PR, showing the same check passed after the defect and/or
-   quality threshold issue was corrected.
+2. the documented fix in PR #17, showing its failed step before and passing
+   step after the correction; the latest full run also passed.
 
 Record the PR URLs, commit SHAs, check summaries, and before/after result in
-the final report. This repository contains the executable workflow and the
-evidence format, but no result is claimed until those remote runs exist.
+the final report. PR #27 still carries the older synthetic failing test; the
+revised real-regression evidence is local and has not been pushed. Its merge
+box should be captured while `Area1 quality gate` is failing and required.
