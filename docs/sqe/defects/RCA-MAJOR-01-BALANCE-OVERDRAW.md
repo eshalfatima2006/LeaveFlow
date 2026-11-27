@@ -1,6 +1,6 @@
 # RCA 1 — Approval overdraws the leave balance (DEF-A2-01)
 
-Version 0.2 — 25 November 2026 (v0.2: agreed rejection contract recorded). AI-assisted draft for student review. Issue: [#25](https://github.com/eshalfatima2006/LeaveFlow/issues/25) (text in [ISSUE-MAJOR-01](ISSUE-MAJOR-01-BALANCE-OVERDRAW.md)). Independent reproduction, triage, severity and fix: **PENDING**. No application code was changed.
+Version 0.3 — 27 November 2026 (v0.3: independent reproduction confirmed; v0.2: agreed rejection contract recorded). AI-assisted draft for student review. Issue: [#25](https://github.com/eshalfatima2006/LeaveFlow/issues/25) (text in [ISSUE-MAJOR-01](ISSUE-MAJOR-01-BALANCE-OVERDRAW.md)). Independent reproduction: **CONFIRMED** by Muhammad Bilal (@Bilalmughal-07) on 27 November 2026 at commit `8ee5176`, from a clean checkout on in-memory SQLite (`sqe-memory-v1`): the characterization `ExitCriterionScenarioTests` passed (allowance 5, two approved 4-day requests, balance −3) and the desired-rule regression `W2ApprovalOverdrawRegression` failed with `AssertionError: 200 != 400`. Evidence: [issue-25-independent-evidence.zip](https://github.com/user-attachments/files/35516410/issue-25-independent-evidence.zip) ([comment](https://github.com/eshalfatima2006/LeaveFlow/issues/25#issuecomment-7220515359)). Triage, severity and fix: **PENDING**. No application code was changed.
 
 ## 1. Problem statement
 
@@ -125,4 +125,4 @@ Experiment result for this shape ([diff](../evidence/defects/rca-2026-11-25/w2-c
 - **Primary root-cause category (Pareto): Validation/Boundary.** Related: specification. Counted once (API-INT-001.03, .09 and API-INT-002.05 are the same defect).
 - **Residual risk:** PR-01 stays open; EC-01 blocks release.
 - **Out of scope:** staff can also make the balance negative by lowering the allowance in Django Admin (BR-03 note, D-1). That is a different path and needs its own decision.
-- **Closure:** PENDING (independent reproduction, fix, independent retest, regression in CI).
+- **Closure:** PENDING (fix, independent retest, regression in CI). Independent reproduction: CONFIRMED 27 November 2026 (see the header).

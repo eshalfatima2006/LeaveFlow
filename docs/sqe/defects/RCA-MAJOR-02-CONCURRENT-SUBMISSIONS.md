@@ -1,6 +1,6 @@
 # RCA 2 — Concurrent submissions create overlapping requests (DEF-A2-02)
 
-Version 0.1 — 25 November 2026. AI-assisted draft for student review. Issue: [#26](https://github.com/eshalfatima2006/LeaveFlow/issues/26) (text in [ISSUE-MAJOR-02](ISSUE-MAJOR-02-CONCURRENT-SUBMISSIONS.md)). Independent reproduction, triage, severity and fix: **PENDING**. No application code was changed.
+Version 0.2 — 27 November 2026 (v0.2: independent reproduction confirmed). AI-assisted draft for student review. Issue: [#26](https://github.com/eshalfatima2006/LeaveFlow/issues/26) (text in [ISSUE-MAJOR-02](ISSUE-MAJOR-02-CONCURRENT-SUBMISSIONS.md)). Independent reproduction: **CONFIRMED** by Muhammad Bilal (@Bilalmughal-07) on 27 November 2026 at commit `8ee5176`, from a clean checkout with `scripts/sqe/run_concurrency.py` on a throwaway PostgreSQL 17.12 container (`postgres:17-alpine`, removed afterwards): 5/5 passed, so overlapping and identical simultaneous submissions both returned 201 instead of one 201 and one 400. Evidence: [issue-26-independent-evidence.zip](https://github.com/user-attachments/files/35516520/issue-26-independent-evidence.zip) ([comment](https://github.com/eshalfatima2006/LeaveFlow/issues/26#issuecomment-7220564456)). Triage, severity and fix: **PENDING**. No application code was changed.
 
 ## 1. Problem statement
 
@@ -126,4 +126,4 @@ Evidence: [concurrency run](../evidence/concurrency/postgresql17-2026-11-25/resu
 
 - **Primary root-cause category (Pareto): State/Transaction.** API-INT-002.01 and .02 are one defect. It is independent of RCA 1: that one happens without concurrency, has another cause, and neither experimental fix changes the other defect.
 - **Residual risk:** PR-03 stays open; EC-03 affected.
-- **Closure:** PENDING (triage, fix, independent retest, regression in CI).
+- **Closure:** PENDING (triage, fix, independent retest, regression in CI). Independent reproduction: CONFIRMED 27 November 2026 (see the header).

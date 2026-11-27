@@ -28,7 +28,7 @@ For each package: E=(O+4M+P)/6; standard deviation SD=(P−O)/6. O assumes compa
 | WP-20 | k6 fixture protocol and four steady-state runs | A3 | 4 | 7 | 12 | 7.33 | 1.33 | NOT MEASURED | NOT MEASURED | Not started | WP-05, WP-10 |
 | WP-21 | Controlled write failure/restoration/retry and readback | A3 | 4 | 7 | 13 | 7.50 | 1.50 | NOT MEASURED | NOT MEASURED | Not started | WP-10, WP-14 |
 | WP-22 | Genuine defect reporting, triage, fixes/retests and regression | Shared | 3 | 6 | 12 | 6.50 | 1.50 | NOT MEASURED | NOT MEASURED | Not started | WP-08, WP-10 |
-| WP-23 | Two verified major-defect RCAs, fishbones and Pareto | Shared | 4 | 7 | 14 | 7.67 | 1.67 | NOT MEASURED | NOT MEASURED | Blocked until major defects verified | WP-22 |
+| WP-23 | Two verified major-defect RCAs, fishbones and Pareto | Shared | 4 | 7 | 14 | 7.67 | 1.67 | NOT MEASURED | NOT MEASURED | Unblocked 27 Nov 2026: both major defects independently verified (#25, #26) | WP-22 |
 | WP-24 | Session actual-effort logs and weekly GQM/control reports | Shared | 3 | 5 | 9 | 5.33 | 1.00 | NOT MEASURED | NOT MEASURED | Not measured | WP-02, WP-03 |
 | WP-25 | Completion, residual risk and release/hold report | Shared | 3 | 5 | 9 | 5.33 | 1.00 | NOT MEASURED | NOT MEASURED | Not started | WP-17, WP-18, WP-19, WP-20, WP-21, WP-23, WP-24 |
 | WP-26 | Final PDF/ZIP, source/evidence/link checks | Shared | 3 | 5 | 8 | 5.17 | 0.83 | NOT MEASURED | NOT MEASURED | Not started | WP-25 |

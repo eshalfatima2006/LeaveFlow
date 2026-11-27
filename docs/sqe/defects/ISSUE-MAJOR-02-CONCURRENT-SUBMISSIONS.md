@@ -37,7 +37,7 @@ docs/sqe/defects/rca-experiments/run_rca.sh NEW_DIR         # includes the HTTP 
 | 2 workers | 99 | 1 |
 | 3 one-worker servers (stand-in for the 3 replicas the shipped autoscaler allows) | 100 | 0 |
 
-All runs so far were by AI-assisted scripts for Member 2. Independent reproduction by another member: **PENDING** (name, date, commit).
+Member 2's runs used AI-assisted scripts. Independent reproduction by another member: **CONFIRMED** by Muhammad Bilal (@Bilalmughal-07) on 27 November 2026 at commit `8ee5176`, from a clean checkout with `scripts/sqe/run_concurrency.py` on a throwaway PostgreSQL 17.12 container (`postgres:17-alpine`, removed afterwards): 5/5 passed, so overlapping and identical simultaneous submissions both returned 201 instead of one 201 and one 400. Evidence: [issue-26-independent-evidence.zip](https://github.com/user-attachments/files/35516520/issue-26-independent-evidence.zip) ([comment](https://github.com/eshalfatima2006/LeaveFlow/issues/26#issuecomment-7220564456)).
 
 **Logs and evidence:** [PostgreSQL run](https://github.com/eshalfatima2006/LeaveFlow/blob/19678451f98fd1f030085928697cd912bba419fb/docs/sqe/evidence/concurrency/postgresql17-2026-11-25/result.json), [HTTP run](https://github.com/eshalfatima2006/LeaveFlow/blob/19678451f98fd1f030085928697cd912bba419fb/docs/sqe/evidence/defects/rca-2026-11-25/http.txt), [cause experiments](https://github.com/eshalfatima2006/LeaveFlow/blob/19678451f98fd1f030085928697cd912bba419fb/docs/sqe/evidence/defects/rca-2026-11-25/results.txt). Synthetic data; no tokens in the logs.
 

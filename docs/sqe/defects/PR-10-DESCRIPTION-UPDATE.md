@@ -45,7 +45,7 @@ Root cause analyses: `docs/sqe/defects/RCA-MAJOR-01-BALANCE-OVERDRAW.md` and `RC
 ### Pending
 
 - **CI integration is pending coordination with the CI owner (Member 1, Area 1).** `.github/workflows/ci.yml` still runs only the upstream tests. A proposed job for the team suite is in `docs/sqe/openapi/README.md`. The PostgreSQL suite needs Docker on the runner.
-- Fixes for #25 and #26 and their independent retest. Independent reproduction by another member is also pending.
+- Fixes for #25 and #26 and their independent retest. (Independent reproduction is done: Muhammad Bilal reproduced both at `8ee5176` on 27 Nov 2026; the evidence is attached to each issue.)
 - Team decisions: the target TCL level, and what approval should do when an employee has no balance record (GAP-07).
 
 AI assistance is recorded in `docs/sqe/AI-USE-RECORD.md`.
