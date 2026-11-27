@@ -31,7 +31,12 @@ info:
                         whitespace. There is no limit on the raw value, so maxLength
                         would contradict the application.
       x-context-cases   actor and target-record classes of an operation.
-      x-operation-flows operation sequences for the operation-flow criterion.
+      x-operation-flows operation sequences for the operation-flow criterion. Each
+                        step names an operation, the status it must return and
+                        conditions on earlier steps (by index): decision (value
+                        sent), same_record, same_dates, actor (same_as, owner_of,
+                        not_owner_of), shows_record (response lists the record),
+                        shows_leave (team next_leave of the owner has its dates).
       x-sqe-fixture     records that the generated tests create first.
       x-sqe-test        test bindings for scripts/sqe/generate_api_tests.py:
                         acting fixture user, path parameters, fixture-bound
@@ -52,14 +57,40 @@ x-sqe-fixture:
     end: "2026-12-16"
 
 x-operation-flows:
-  - {name: login then profile, steps: [login, me]}
-  - {name: submit then own list, steps: [submitRequest, listRequests]}
-  - {name: submit then dashboard, steps: [submitRequest, dashboard]}
-  - {name: submit then approve or reject the same request, steps: [submitRequest, decideRequest]}
-  - {name: submit then decide then repeat the decision, steps: [submitRequest, decideRequest, decideRequest]}
-  - {name: decide then owner dashboard, steps: [decideRequest, dashboard]}
-  - {name: decide then team upcoming leave, steps: [decideRequest, team]}
-  - {name: reject then resubmit the dates, steps: [submitRequest, decideRequest, submitRequest]}
+  - name: login then profile
+    steps:
+      - {operation: login, status: 200}
+      - {operation: me, status: 200, actor: {same_as: 0}}
+  - name: submit then own list
+    steps:
+      - {operation: submitRequest, status: 201}
+      - {operation: listRequests, status: 200, actor: {same_as: 0}, shows_record: 0}
+  - name: submit then dashboard
+    steps:
+      - {operation: submitRequest, status: 201}
+      - {operation: dashboard, status: 200, actor: {same_as: 0}}
+  - name: submit then approve or reject the same request
+    steps:
+      - {operation: submitRequest, status: 201}
+      - {operation: decideRequest, status: 200, same_record: 0, actor: {not_owner_of: 0}}
+  - name: submit then decide then repeat the decision
+    steps:
+      - {operation: submitRequest, status: 201}
+      - {operation: decideRequest, status: 200, same_record: 0, actor: {not_owner_of: 0}}
+      - {operation: decideRequest, status: 409, same_record: 0}
+  - name: decide then owner dashboard
+    steps:
+      - {operation: decideRequest, status: 200}
+      - {operation: dashboard, status: 200, actor: {owner_of: 0}}
+  - name: decide then team upcoming leave
+    steps:
+      - {operation: decideRequest, status: 200, decision: approved}
+      - {operation: team, status: 200, shows_leave: 0}
+  - name: reject then resubmit the dates
+    steps:
+      - {operation: submitRequest, status: 201}
+      - {operation: decideRequest, status: 200, decision: rejected, same_record: 0, actor: {not_owner_of: 0}}
+      - {operation: submitRequest, status: 201, actor: {owner_of: 0}, same_dates: 0}
 
 tags:
   - name: auth

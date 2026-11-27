@@ -2,7 +2,7 @@
 # GENERATED FILE - DO NOT EDIT BY HAND.
 # Generator: scripts/sqe/generate_api_tests.py
 # Spec:      docs/sqe/openapi/leaveflow-api.yaml
-# Spec SHA-256: e5095486e105b397e3c32ea02c2ff7de6130100663dfa46218ced8159f042151
+# Spec SHA-256: 939d1303b296138c872a55f84823eeb15d0370925cc840fe5f14c6064fcd0b41
 # Command:   python3 scripts/sqe/generate_api_tests.py docs/sqe/openapi/leaveflow-api.yaml --output tests/team/generated/test_generated_api.py
 #
 # One input varies per test; the rest is the operation's example request.
@@ -26,7 +26,7 @@ from tests.team.api.contract import response_errors
 from tests.team.api.support import all_rows, balance_view, token_client
 from tests.team.fixtures.leave_data import TEST_PASSWORD, build_people, make_request
 
-SPEC_SHA256 = 'e5095486e105b397e3c32ea02c2ff7de6130100663dfa46218ced8159f042151'
+SPEC_SHA256 = '939d1303b296138c872a55f84823eeb15d0370925cc840fe5f14c6064fcd0b41'
 FIXTURE = {'allowance': 10, 'pending': {'start': '2026-12-15', 'end': '2026-12-16'}}
 
 

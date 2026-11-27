@@ -5,9 +5,10 @@
 
 Runs the guarded team suite (tests.team, in-memory profile) and records every real
 API call of its test client: test id, operation, status, media types, and the NAMES
-of the fields sent and received. Values are kept only for enum fields; credentials,
-tokens and response values are never stored. Coverage is computed from these calls,
-never from what a test claims to cover.
+of the fields sent and received. Values are kept only for enum fields, plus what the
+operation-flow conditions need: the acting user's id, request ids, owners and dates
+(synthetic fixture data). Credentials, tokens and other response values are never
+stored. Coverage is computed from these calls, never from what a test claims to cover.
 
 Output: coverage.json (covered/total/missing and test ids per criterion),
 observed_cases.json (the generated-case manifest joined with observed status and
@@ -107,50 +108,104 @@ class Trace:
                 from urllib.parse import parse_qsl
                 sent = dict(parse_qsl(text))
         kind = response.get("Content-Type", "").split(";")[0]
-        paths, request_id = [], None
+        paths, value = [], None
         if kind == "application/json" and response.content:
             value = response.json()
             paths = sorted(set(response_paths(value)))
-            if isinstance(value, dict) and "id" in value:
-                request_id = value["id"]
         self.calls.append({
             "test": self.test, "operation": name, "method": method.lower(), "status": response.status_code,
             "path_parameters": list(match.groups()) if name and match else [],
             "request_media": media if data else None, "response_media": kind,
-            "fields": sorted(sent), "response_paths": paths, "response_id": request_id,
+            "fields": sorted(sent), "response_paths": paths,
             "enum_values": {f: sent[f] for f, options in self.enums.get(name, {}).items()
                             if options and isinstance(sent.get(f), str) and sent[f] in options},
+            **flow_facts(name, response, value, list(match.groups()) if name and match else []),
         })
 
 
+def leave_record(value):
+    """id, owner and dates of a serialized leave request, or None."""
+    if isinstance(value, dict) and "id" in value and isinstance(value.get("employee"), dict):
+        return {"id": str(value["id"]), "owner": value["employee"].get("id"),
+                "start_date": value.get("start_date"), "end_date": value.get("end_date")}
+    return None
+
+
+def flow_facts(operation, response, value, path_parameters):
+    """What the operation-flow conditions need from one call.
+
+    actor: id of the authenticated user (DRF sets it on the underlying request);
+    for a successful login, the user the token was issued to. record: the leave
+    request the call created or decided (a refused decision knows only the path id).
+    listed: request ids in a list or dashboard response. leaves: (member, start, end)
+    of each team member's next approved leave.
+    """
+    user = getattr(getattr(response, "wsgi_request", None), "user", None)
+    actor = user.pk if getattr(user, "is_authenticated", False) else None
+    if operation == "login" and isinstance(value, dict) and isinstance(value.get("user"), dict):
+        actor = value["user"].get("id")
+    record = leave_record(value)
+    if record is None and operation == "decideRequest" and path_parameters:
+        record = {"id": path_parameters[0], "owner": None, "start_date": None, "end_date": None}
+    items = value if isinstance(value, list) else value.get("recent", []) if isinstance(value, dict) else []
+    listed = [r["id"] for r in map(leave_record, items) if r]
+    leaves = [[m.get("id"), m["next_leave"]["start_date"], m["next_leave"]["end_date"]]
+              for m in (value if operation == "team" and isinstance(value, list) else [])
+              if isinstance(m, dict) and isinstance(m.get("next_leave"), dict)]
+    return {"actor": actor, "record": record, "listed": listed, "leaves": leaves}
+
+
 def flow_tests(flow, calls_by_test):
-    """Tests whose calls contain the flow in order, on one request id where it decides one."""
-    found = []
-    for test, calls in calls_by_test.items():
-        if match_flow(flow["steps"], calls, None):
-            found.append(test)
-    return found
+    """Tests whose calls contain the flow in order and meet every step condition."""
+    return [test for test, calls in calls_by_test.items() if match_flow(flow["steps"], calls)]
 
 
-def match_flow(steps, calls, current):
+STEP_KEYS = {"operation", "status", "decision", "same_record", "same_dates", "actor", "shows_record", "shows_leave"}
+
+
+def owner(call):
+    return (call.get("record") or {}).get("owner")
+
+
+def step_matches(step, call, matched):
+    """True when ``call`` is ``step``: operation, exact status and every condition on earlier steps."""
+    unknown = set(step) - STEP_KEYS
+    if unknown:
+        raise ValueError(f"unknown x-operation-flows condition(s) {sorted(unknown)}")
+    if call["operation"] != step["operation"] or call["status"] != step["status"]:
+        return False
+    record = call.get("record") or {}
+    if "decision" in step and call["enum_values"].get("status") != step["decision"]:
+        return False
+    if "same_record" in step and (not record or record["id"] != (matched[step["same_record"]].get("record") or {}).get("id")):
+        return False
+    if "same_dates" in step:
+        earlier = matched[step["same_dates"]].get("record") or {}
+        if not record.get("start_date") or (record["start_date"], record["end_date"]) != (earlier.get("start_date"), earlier.get("end_date")):
+            return False
+    for relation, index in step.get("actor", {}).items():
+        if relation not in ("same_as", "owner_of", "not_owner_of"):
+            raise ValueError(f"unknown actor relation {relation!r}")
+        expected = matched[index].get("actor") if relation == "same_as" else owner(matched[index])
+        if call.get("actor") is None or expected is None:
+            return False
+        if (call["actor"] == expected) != (relation != "not_owner_of"):
+            return False
+    if "shows_record" in step and (matched[step["shows_record"]].get("record") or {}).get("id") not in call.get("listed", []):
+        return False
+    if "shows_leave" in step:
+        earlier = matched[step["shows_leave"]].get("record") or {}
+        if [owner(matched[step["shows_leave"]]), earlier.get("start_date"), earlier.get("end_date")] not in call.get("leaves", []):
+            return False
+    return True
+
+
+def match_flow(steps, calls, matched=()):
+    """Match the steps in order (other calls may come between); conditions refer to earlier matched steps."""
     if not steps:
         return True
-    for n, call in enumerate(calls):
-        if call["operation"] != steps[0]:
-            continue
-        # Every step succeeds, except an explicit repeated decision (409).
-        if steps[0] == "decideRequest":
-            target = call["path_parameters"][0]
-            if call["status"] not in (200, 409) or (current is not None and target != current):
-                continue
-            following = target
-        elif call["status"] >= 300:
-            continue
-        else:
-            following = str(call["response_id"]) if steps[0] == "submitRequest" else current
-        if match_flow(steps[1:], calls[n + 1:], following):
-            return True
-    return False
+    return any(step_matches(steps[0], call, list(matched)) and match_flow(steps[1:], calls[n + 1:], (*matched, call))
+               for n, call in enumerate(calls))
 
 
 def measure(contract, calls):
@@ -253,11 +308,14 @@ def markdown(data):
     lines += [
         "", f"**Achieved level: TCL{data['achieved_level']}.** Target: **PENDING — team decision (EC-05)**; proposed target TCL7.", "",
         "Level mapping used: " + "; ".join(f"TCL{n} = {' + '.join(c)}" for n, c in LEVELS)
-        + ". Cumulative. *The team must check this mapping against the Lecture 20 slides; they are not in the repository.*", "",
+        + ". Cumulative. The mapping was compared with the Lecture 20 text and Martin-Lopez, Segura and Ruiz-Cortés "
+        "(A-TEST 2019); the team still decides the target.", "",
         "Every covered item and its test ids are in `coverage.json` of the evidence directory.", "",
         "**Counting rules.** A path, operation or parameter counts when sent in a real call; an enum value or request media type "
         "only when the operation accepted it (2xx); status codes, media types and properties when observed in a response. "
-        "Operation flows are the sequences in the spec's `x-operation-flows`; a flow that decides a request must use one request id.", "",
+        "Operation flows are the sequences in the spec's `x-operation-flows`. A flow counts only when every step returns its "
+        "documented status and meets its conditions: the decision value sent, the same request id or dates, the acting user "
+        "(same user, record owner, or not the owner) and the record shown in a later read.", "",
         "**Exclusions.** HEAD, OPTIONS, the HTML browsable API and 406 (framework features outside the selected scope); 405, which "
         "OpenAPI cannot document for a method that does not exist (generated and asserted, not counted); the Authorization header, "
         "which is a security scheme and not a parameter in OpenAPI (generated EP cases exist); the `/health/` probe (not a selected endpoint).", "",

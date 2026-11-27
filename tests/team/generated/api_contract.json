@@ -1,6 +1,6 @@
 {
  "generated_by": "scripts/sqe/generate_api_tests.py",
- "spec_sha256": "e5095486e105b397e3c32ea02c2ff7de6130100663dfa46218ced8159f042151",
+ "spec_sha256": "939d1303b296138c872a55f84823eeb15d0370925cc840fe5f14c6064fcd0b41",
  "operations": {
   "login": {
    "method": "post",
@@ -973,59 +973,146 @@
   {
    "name": "login then profile",
    "steps": [
-    "login",
-    "me"
+    {
+     "operation": "login",
+     "status": 200
+    },
+    {
+     "operation": "me",
+     "status": 200,
+     "actor": {
+      "same_as": 0
+     }
+    }
    ]
   },
   {
    "name": "submit then own list",
    "steps": [
-    "submitRequest",
-    "listRequests"
+    {
+     "operation": "submitRequest",
+     "status": 201
+    },
+    {
+     "operation": "listRequests",
+     "status": 200,
+     "actor": {
+      "same_as": 0
+     },
+     "shows_record": 0
+    }
    ]
   },
   {
    "name": "submit then dashboard",
    "steps": [
-    "submitRequest",
-    "dashboard"
+    {
+     "operation": "submitRequest",
+     "status": 201
+    },
+    {
+     "operation": "dashboard",
+     "status": 200,
+     "actor": {
+      "same_as": 0
+     }
+    }
    ]
   },
   {
    "name": "submit then approve or reject the same request",
    "steps": [
-    "submitRequest",
-    "decideRequest"
+    {
+     "operation": "submitRequest",
+     "status": 201
+    },
+    {
+     "operation": "decideRequest",
+     "status": 200,
+     "same_record": 0,
+     "actor": {
+      "not_owner_of": 0
+     }
+    }
    ]
   },
   {
    "name": "submit then decide then repeat the decision",
    "steps": [
-    "submitRequest",
-    "decideRequest",
-    "decideRequest"
+    {
+     "operation": "submitRequest",
+     "status": 201
+    },
+    {
+     "operation": "decideRequest",
+     "status": 200,
+     "same_record": 0,
+     "actor": {
+      "not_owner_of": 0
+     }
+    },
+    {
+     "operation": "decideRequest",
+     "status": 409,
+     "same_record": 0
+    }
    ]
   },
   {
    "name": "decide then owner dashboard",
    "steps": [
-    "decideRequest",
-    "dashboard"
+    {
+     "operation": "decideRequest",
+     "status": 200
+    },
+    {
+     "operation": "dashboard",
+     "status": 200,
+     "actor": {
+      "owner_of": 0
+     }
+    }
    ]
   },
   {
    "name": "decide then team upcoming leave",
    "steps": [
-    "decideRequest",
-    "team"
+    {
+     "operation": "decideRequest",
+     "status": 200,
+     "decision": "approved"
+    },
+    {
+     "operation": "team",
+     "status": 200,
+     "shows_leave": 0
+    }
    ]
   },
   {
    "name": "reject then resubmit the dates",
    "steps": [
-    "submitRequest",
-    "decideRequest",
-    "submitRequest"
+    {
+     "operation": "submitRequest",
+     "status": 201
+    },
+    {
+     "operation": "decideRequest",
+     "status": 200,
+     "decision": "rejected",
+     "same_record": 0,
+     "actor": {
+      "not_owner_of": 0
+     }
+    },
+    {
+     "operation": "submitRequest",
+     "status": 201,
+     "actor": {
+      "owner_of": 0
+     },
+     "same_dates": 0
+    }
    ]
   }
  ]

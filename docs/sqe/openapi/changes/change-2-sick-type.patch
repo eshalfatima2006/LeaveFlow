@@ -1,6 +1,6 @@
 --- a/docs/sqe/openapi/leaveflow-api.yaml
 +++ b/docs/sqe/openapi/leaveflow-api.yaml
-@@ -497,7 +497,7 @@
+@@ -528,7 +528,7 @@
        properties:
          leave_type:
            type: string
@@ -9,7 +9,7 @@
            default: vacation
            x-invalid-examples: [""]
          start_date:
-@@ -572,7 +572,7 @@
+@@ -603,7 +603,7 @@
            $ref: "#/components/schemas/User"
          leave_type:
            type: string

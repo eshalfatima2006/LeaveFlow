@@ -1,6 +1,6 @@
 --- a/docs/sqe/openapi/leaveflow-api.yaml
 +++ b/docs/sqe/openapi/leaveflow-api.yaml
-@@ -516,7 +516,7 @@
+@@ -547,7 +547,7 @@
          note:
            type: string
            minLength: 0
@@ -9,7 +9,7 @@
            default: ""
            description: |
              At most 280 characters after surrounding whitespace is trimmed; the raw
-@@ -583,7 +583,7 @@
+@@ -614,7 +614,7 @@
            format: date
          note:
            type: string

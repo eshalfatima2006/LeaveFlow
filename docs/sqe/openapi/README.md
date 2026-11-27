@@ -36,11 +36,11 @@ SQE_SPEC_CHANGE_DEMO=v2 .venv/bin/python scripts/sqe/run_tests.py team tests.tea
 
 | Change | Module | Changed spec SHA-256 | Generated | Expected failures against the unchanged app |
 |---|---|---|---|---|
-| 1 `note` limit 280 → 200 | v2 | `3aaad1a3…8c38` | 127 | 2: 201 characters, and 201 characters padded with spaces (app 201, spec 400) |
-| 2 `leave_type` adds `sick` | v3 | `ff887cd8…e400` | 128 | 1: `sick` (app 400, spec 201) |
-| 3 `note` nullable | v4 | `5067c18e…937c` | 127 | 1: null (app 400, spec 201) |
+| 1 `note` limit 280 → 200 | v2 | `426adf51…81e2` | 127 | 2: 201 characters, and 201 characters padded with spaces (app 201, spec 400) |
+| 2 `leave_type` adds `sick` | v3 | `3f898cac…473e` | 128 | 1: `sick` (app 400, spec 201) |
+| 3 `note` nullable | v4 | `cbfc8d9c…bf09` | 127 | 1: null (app 400, spec 201) |
 
-Baseline spec SHA-256 `e5095486e105b397e3c32ea02c2ff7de6130100663dfa46218ced8159f042151`; 127 tests, all passing. In a viva, edit the spec directly, regenerate without `--patch`, and predict which tests change.
+Baseline spec SHA-256 `939d1303b296138c872a55f84823eeb15d0370925cc840fe5f14c6064fcd0b41` (27 Nov 2026: operation-flow conditions added; the constraint changes and their predicted failures are unchanged, the hashes in the CHANGE documents are those of their original runs); 127 tests, all passing. In a viva, edit the spec directly, regenerate without `--patch`, and predict which tests change.
 
 ## CI (not changed here)
 

@@ -2,7 +2,7 @@
 # GENERATED FILE - DO NOT EDIT BY HAND.
 # Generator: scripts/sqe/generate_api_tests.py
 # Spec:      docs/sqe/openapi/leaveflow-api.yaml + docs/sqe/openapi/changes/change-1-note-length.patch
-# Spec SHA-256: 3aaad1a3d296254fd34047d9b42982d4503252dbad693a7de12a64a36dfc8c38
+# Spec SHA-256: 426adf51941300560ce7376a60ed9b03f027536cf8bedef6e8aa8efd7cf581e2
 # Command:   python3 scripts/sqe/generate_api_tests.py docs/sqe/openapi/leaveflow-api.yaml --patch docs/sqe/openapi/changes/change-1-note-length.patch --output tests/team/generated/test_generated_api_v2.py --demo-env SQE_SPEC_CHANGE_DEMO=v2
 #
 # One input varies per test; the rest is the operation's example request.
@@ -31,7 +31,7 @@ from tests.team.api.contract import response_errors
 from tests.team.api.support import all_rows, balance_view, token_client
 from tests.team.fixtures.leave_data import TEST_PASSWORD, build_people, make_request
 
-SPEC_SHA256 = '3aaad1a3d296254fd34047d9b42982d4503252dbad693a7de12a64a36dfc8c38'
+SPEC_SHA256 = '426adf51941300560ce7376a60ed9b03f027536cf8bedef6e8aa8efd7cf581e2'
 FIXTURE = {'allowance': 10, 'pending': {'start': '2026-12-15', 'end': '2026-12-16'}}
 DEMO_ENABLED = os.environ.get('SQE_SPEC_CHANGE_DEMO') == 'v2'
 

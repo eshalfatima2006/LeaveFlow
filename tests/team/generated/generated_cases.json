@@ -1,6 +1,6 @@
 {
  "generated_by": "scripts/sqe/generate_api_tests.py",
- "spec_sha256": "e5095486e105b397e3c32ea02c2ff7de6130100663dfa46218ced8159f042151",
+ "spec_sha256": "939d1303b296138c872a55f84823eeb15d0370925cc840fe5f14c6064fcd0b41",
  "seed": "none (deterministic)",
  "fixture": {
   "allowance": 10,
@@ -9,7 +9,7 @@
    "end": "2026-12-16"
   }
  },
- "module_sha256": "75eccad9dc64f19352b2795813f9ce60bc4244417a724e7865390b813e601a8f",
+ "module_sha256": "ec727e2c3b624e3fefd5de6d9837c84229c0e7950f7ff97bc679872ca02cf36f",
  "cases": [
   {
    "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_valid_string",
