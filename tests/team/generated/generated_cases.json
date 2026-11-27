@@ -9,7 +9,7 @@
    "end": "2026-12-16"
   }
  },
- "module_sha256": "ec727e2c3b624e3fefd5de6d9837c84229c0e7950f7ff97bc679872ca02cf36f",
+ "module_sha256": "e9a2d3d6eda127c7f53c47c861bce40800c41eb03c6709e2e9f7756a4dc1ce16",
  "cases": [
   {
    "id": "tests.team.generated.test_generated_api.GeneratedLoginTests.test_username_ep_valid_string",

@@ -304,8 +304,13 @@ def field_cases(name, schema, required, example, binding):
     return cases
 
 
+MIN_LEAVE_DAYS = 1  # a leave request covers at least one business day
+
+
 def end_after_business_days(start, days):
     """Last day of an interval from start that contains exactly ``days`` weekdays."""
+    if days < MIN_LEAVE_DAYS:
+        raise SpecError(f"No interval has {days} business days; a leave request has at least {MIN_LEAVE_DAYS}")
     current, counted = dt.date.fromisoformat(start), 0
     while True:
         counted += current.weekday() < 5
@@ -323,8 +328,11 @@ def rule_cases(rule, fixture):
 
         def interval(days):
             return {first: start, last: end_after_business_days(start, days)}
-        cases = bva(name, limit, f"{rid} business days <= {limit}", (True, True, False), convert=interval, **where)
-        return cases + [Case(name, "EP", f"invalid {rid} {2 * limit} business days", interval(2 * limit), False, **where)]
+        # Points below one business day are not leave durations (skipped, listed by Operation).
+        cases = bva(name, limit, f"{rid} business days <= {limit}", (True, True, False),
+                    floor=MIN_LEAVE_DAYS, convert=interval, **where)
+        over = max(2 * limit, limit + 2)  # well above the limit, and a real duration even when the limit is 0
+        return cases + [Case(name, "EP", f"invalid {rid} {over} business days", interval(over), False, **where)]
     if rule["kind"] == "interval-overlap":
         existing = fixture[rule["interval"]]
         multi = existing["start"] != existing["end"]
@@ -376,6 +384,12 @@ class Operation:
         for rule in op.get("x-rule-boundaries", []):
             for case in rule_cases(rule, spec["x-sqe-fixture"]):
                 rules.setdefault(case.field, []).append(case)
+            if rule["kind"] == "business-days":
+                limit = spec["x-sqe-fixture"][rule["maximum"]]
+                for point, value in (("limit-1", limit - 1), ("limit", limit)):
+                    if value < MIN_LEAVE_DAYS:
+                        self.skip("..".join(rule["fields"]), f"BVA point {point}",
+                                  f"{value} business days is not a leave duration (minimum {MIN_LEAVE_DAYS}).")
         for name, cases in rules.items():
             self.add(name, cases)
         for parameter in op.get("parameters", []):
@@ -681,7 +695,8 @@ class GeneratedApiTestCase(TestCase):
         )
         self.assertEqual(
             (row["leave_type"], row["start_date"].isoformat(), row["end_date"].isoformat(), row["note"]),
-            (expected["leave_type"], expected["start_date"], expected["end_date"], expected["note"].strip()),
+            (expected["leave_type"], expected["start_date"], expected["end_date"],
+             expected["note"].strip() if expected["note"] else expected["note"]),  # null note (nullable spec)
         )
         self.assertTrue(after[1:] == before[1:], "balance or tokens changed")
 

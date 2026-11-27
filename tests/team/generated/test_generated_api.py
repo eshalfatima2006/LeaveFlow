@@ -128,7 +128,8 @@ class GeneratedApiTestCase(TestCase):
         )
         self.assertEqual(
             (row["leave_type"], row["start_date"].isoformat(), row["end_date"].isoformat(), row["note"]),
-            (expected["leave_type"], expected["start_date"], expected["end_date"], expected["note"].strip()),
+            (expected["leave_type"], expected["start_date"], expected["end_date"],
+             expected["note"].strip() if expected["note"] else expected["note"]),  # null note (nullable spec)
         )
         self.assertTrue(after[1:] == before[1:], "balance or tokens changed")
 
