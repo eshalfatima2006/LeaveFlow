@@ -5,8 +5,8 @@ import sys
 from pathlib import Path
 
 # Require at least 85% killed/total while rejecting all incomplete result
-# categories below. The threshold is a justified minimum, not the current
-# measured score (98.66% in hosted PR #17 run 74).
+# categories below. The threshold is a justified minimum; the current hosted
+# PR #17 result is 99.00% (296/299, run 76).
 THRESHOLD = 0.85
 RESULTS = Path("mutants/mutmut-cicd-stats.json")
 

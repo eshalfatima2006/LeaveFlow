@@ -5,11 +5,12 @@ recorded 267 killed and **30 survived** out of 297. Its unmodified
 [mutmut stats](historical-run-66/mutmut-cicd-stats.json) and
 [original survivor table](historical-run-66/original-survivor-table.md) are
 preserved from the uploaded artifact at commit `25253fff` in PR #17.
-The first 15 records are analyzed below. Current evidence in `final/results.json`
+The first 15 records are analyzed below. Current evidence in
+`pr17-after-stronger-tests/results.json`
 records 296 killed, 3 survived, 299 total, no unresolved results: **99.00% raw score**.
 Equivalent mutants remain in that raw denominator. No test was weakened.
 
-The newer [hosted PR #17 run 74, attempt 4](https://github.com/eshalfatima2006/LeaveFlow/actions/runs/46052602581)
+The earlier [hosted PR #17 run 74, attempt 4](https://github.com/eshalfatima2006/LeaveFlow/actions/runs/46052602581)
 passed at commit `65e229d` with **295 killed, 4 survived, 299 total (98.66%)**;
 its [raw stats](hosted-run-74/mutmut-cicd-stats.json) are preserved separately.
 The combined local and hosted numbers are different revisions and test suites.
@@ -58,7 +59,9 @@ vacation type and is equivalent for the same model-default reason as S-69.
 Equivalence applies to the current model and stored/HTTP observations; a
 future default change requires reanalysis. The [full revised-tree mutation
 run](pr17-after-stronger-tests/README.md) confirms **296 killed, 3 survived,
-299 total, 0 unresolved**. The hosted 295/299 figure remains historical until
+299 total, 0 unresolved**. The current [hosted PR #17 run 76](https://github.com/eshalfatima2006/LeaveFlow/actions/runs/46067326691)
+on commit `c811cb7b` confirms the same result. The hosted 295/299 figure is
+historical only.
 the revised commit runs in GitHub Actions. All core models/serializers/views
 mutants were killed.
 
@@ -69,7 +72,8 @@ killed **24/24, 36/36, and 5/5** mutants respectively: **65/65 (100%)** across
 those three critical files. This is a separate denominator from the broader
 299-mutant application score. The two custom inclusive-overlap boundary
 mutants and the overlap-truth mutant were generated in `models.py` and killed.
-The source hashes and exact changes for every mutant are in `final/results.json`.
+The source hashes and exact changes for every mutant are in
+`pr17-after-stronger-tests/results.json`.
 Both custom operators run: inclusive overlap boundaries become exclusive,
 and the overlap existence predicate is inverted; their mutants are killed.
 mutmut 3.8.1 skips decorated functions, including properties and API views;

@@ -4,15 +4,14 @@ Area 1 white-box tests, MC/DC evidence, mutation analysis and SonarQube measurem
 
 The local combined verification with PR #10 recorded 384 team tests, 296 of
 299 mutants killed and a passing SonarQube gate. Those are local measurements
-on a different integration revision. PR #17's own hosted run 74 attempt 4
-passed its current checks at 295/299 (98.66%). The four surviving mutants
+on a different integration revision. PR #17's current hosted run on commit
+`c811cb7b` passed its checks at 296/299 (99.00%). The three remaining survivors
 were identified by a repeat run of the exact PR tree; the critical models,
 serializers and views files killed 65/65. Three survivors are equivalent and
 the event-recipient survivor was a missing-test gap. A new manager/admin
-requester assertion kills that mutant in focused verification. The hosted
-295/299 result remains the current PR result until CI runs on the revised head.
-The complete revised local run records 296/299 (99.00%) with only three
-equivalent survivors.
+requester assertion kills that mutant in focused verification. The complete
+revised-tree evidence and hosted result both record 296/299 (99.00%) with only
+three equivalent survivors.
 
 Team API, PostgreSQL and generator CI integration remains on
 `ci/integrate-team-tests-and-area1-evidence` because that workflow needs PR

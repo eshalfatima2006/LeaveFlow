@@ -14,7 +14,7 @@
 - Subsequent full pass: [run 74, attempt 4](https://github.com/eshalfatima2006/LeaveFlow/actions/runs/46052602581)
   on `65e229da86c9563b15ac9a5ec240220025e97329` passed tests, critical
   coverage, SonarQube scan and gate, mutmut, and the 85% mutation threshold.
-  Its raw score was 295/299 = 98.66%. Earlier attempts on that same commit
+  Its historical raw score was 295/299 = 98.66%. Earlier attempts on that same commit
   failed when the temporary SonarQube tunnel was unavailable; they are not
   code-regression evidence.
 
@@ -40,10 +40,9 @@ historical run 66 recorded 73 passing tests, 267 killed mutants, 30 surviving
 mutants and an 89.90% mutation score against the former 60% threshold.
 Run 68 confirms a successful gate at the updated documentation commit.
 These historical figures must not be presented as the new integrated result.
-The combined local run records 296 killed, 3 equivalent survivors and
-99.00%; the separate current PR #17 hosted run records 295 killed and 4
-survivors. Both passed the 85% threshold with no unresolved results. The
-combined integration branch still needs its own hosted run after a push.
+The current PR #17 hosted run records 296 killed, 3 survivors and 99.00%
+against the 85% threshold with no unresolved results. The historical 295/299
+run is retained only as the earlier pass-before-the-latest-test update.
 
 The fail-before and pass-after records are retained separately so the review
 can verify that the workflow first blocked the change and then accepted the

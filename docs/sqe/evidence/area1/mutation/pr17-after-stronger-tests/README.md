@@ -9,6 +9,5 @@ The three survivors are E-8, S-69 and S-123. Each is equivalent under the
 current Django model defaults or query behavior. E-10 is absent from the
 survivor list because the added manager/admin requester assertion kills it.
 
-The full team suite also passed **82 tests and 144 subtests**. This is a local
-measurement on the revised branch. PR #17's previous hosted result remains
-295/299 until this commit is pushed and GitHub Actions runs on the new head.
+The full team suite also passed **82 tests and 144 subtests**. The hosted PR #17
+run on commit `c811cb7b` confirms the revised result: **296/299 (99.00%)**.
