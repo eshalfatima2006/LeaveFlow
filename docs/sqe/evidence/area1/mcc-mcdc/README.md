@@ -1,15 +1,18 @@
 # MCC and MC/DC evidence for DR-001
 
 The analysis is based on the current source, not on an assumed requirement.
-The four assignment business rules are mapped to the repository's current
-validation chain as follows:
+The assignment requires at least four rules; the repository defines six.
+Use the shared BR identifiers below rather than renumbering the allowance rule BR-04.
 
 | Rule | Source decision | Test evidence |
 |---|---|---|
 | BR-01 | ordered inclusive interval and weekday counting | `test_business_days_covers_weekend_weekday_and_mixed_interval`, `test_clean_rejects_reversed_dates_with_field_error` |
 | BR-02 | active overlap query | `test_clean_accepts_nonoverlap_and_rejects_pending_and_approved_overlap`, `test_clean_ignores_rejected_requests_and_excludes_self` |
 | BR-03 | approved-only balance aggregation | `test_approved_days_counts_only_approved_and_available_is_remaining` |
-| BR-04 | missing/equal/insufficient available balance | serializer tests in `BalanceAndSerializerTests` |
+| BR-03 | missing/equal/insufficient available balance | serializer tests in `BalanceAndSerializerTests` |
+| BR-04 | identity, role, team and self-decision | `tests/team/api/test_authentication.py`, `test_w2_decisions.py` and visibility tests |
+| BR-05 | pending-only decision and immutable final state | `tests/team/structural/test_state_transition.py`, `test_w2_decisions.py` |
+| BR-06 | field types, required values, enum and note length | generated EP/BVA tests and `test_ep_bva.py` |
 
 ## Multiple-condition coverage
 
@@ -37,11 +40,11 @@ existing API suite and the direct `ViewBranchTests`.
 
 ## MC/DC pairs
 
-For `B`, the pair MCC-01/MCC-02 keeps the successful validation outcome the
-same while demonstrating that B independently controls whether the right-hand
-balance expression is evaluated. This is the required short-circuit/masking
-interpretation and is explicitly recorded rather than silently presenting an
-infeasible `B = F, E = T` row.
+For `B`, use MCC-01/MCC-03: no balance accepts the request; a balance with
+insufficient allowance rejects it. B changes and the decision outcome flips;
+E is masked in MCC-01. MCC-01/MCC-02 is not an MC/DC pair because both accept.
+This is masking MC/DC, not unique-cause MC/DC with two evaluated operands.
+The executable pair is `BalanceAndSerializerTests.test_mcdc_balance_presence_flips_rejection_for_same_dates`.
 
 For `E`, MCC-02/MCC-03 holds B true and changes only E; the outcome changes from
 valid to insufficient-balance error.

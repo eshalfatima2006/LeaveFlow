@@ -5,11 +5,13 @@ on end-to-end API scenarios.  The test IDs map to the four assignment rules:
 
 * BR-01: an interval must be ordered and count weekdays inclusively;
 * BR-02: an active request must not overlap another active request;
-* BR-03: only approved requests consume the allowance;
-* BR-04: a new request must not exceed the caller's available allowance.
+* BR-03: approved-only consumption and submission allowance enforcement.
+
+Shared BR-04 is authorization, BR-05 is pending-only decisions and BR-06 is
+field domains; their API and view tests are mapped in the MCC evidence.
 
 The current source keeps the missing-balance path permissive.  That behavior is
-characterized as BR-04-C03 until the product owner confirms a different policy.
+characterized as GAP-07 until the product owner confirms a different policy.
 """
 
 from datetime import date
@@ -103,7 +105,7 @@ class BusinessDaysAndCleaningTests(TestCase):
 
 
 class BalanceAndSerializerTests(TestCase):
-    """BR-03 and BR-04 truth-table rows for the validation chain."""
+    """BR-03 truth-table rows for the validation chain."""
 
     @classmethod
     def setUpTestData(cls):
@@ -151,6 +153,20 @@ class BalanceAndSerializerTests(TestCase):
         serializer = self.serializer_for(self.people.e2, start="2026-12-14", end="2026-12-16")
         self.assertFalse(serializer.is_valid())
         self.assertEqual(serializer.errors["non_field_errors"], ["Saldo ferie insufficiente."])
+
+    def test_mcdc_balance_presence_flips_rejection_for_same_dates(self):
+        """MCC-03/MCC-01: B changes, E masked without balance, outcome flips."""
+        balance = self.people.e2.leave_balance
+        balance.allowance = 1
+        balance.save(update_fields=["allowance"])
+        limited = self.serializer_for(self.people.e2, start="2026-12-28", end="2026-12-30")
+        self.assertFalse(limited.is_valid())
+        self.assertEqual(limited.errors["non_field_errors"], ["Saldo ferie insufficiente."])
+        balance.delete()
+        # Refresh to avoid the reverse OneToOne relation cache retaining the deleted row.
+        user = type(self.people.e2).objects.get(pk=self.people.e2.pk)
+        unlimited = self.serializer_for(user, start="2026-12-28", end="2026-12-30")
+        self.assertTrue(unlimited.is_valid(), unlimited.errors)
 
     def test_serializer_preserves_field_and_nonfield_clean_errors(self):
         reversed_dates = self.serializer_for(self.people.e2, start="2026-12-18", end="2026-12-14")

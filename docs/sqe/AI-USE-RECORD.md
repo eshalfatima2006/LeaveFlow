@@ -252,3 +252,137 @@ Students must review source safety/fixtures/assertions/evidence, retain prompts,
 - **Not changed:** application code, tests, existing evidence; no business rule.
 - **Development database:** unchanged (metadata only).
 - **Student review required:** confirm DR-001; obtain instructor confirmation of the critical module; reply to the PR #2 reviewer.
+
+# A2.2 — cross-workflow integration testing
+
+- **Date/tool:** 24 November 2026 (Asia/Karachi), Claude Code (Claude Opus 5.5) at the student's instruction. AI-assisted implementation and execution; no human review, approval or authorship is claimed.
+- **Sources read:** FUNCTIONAL-REQUIREMENTS (FR-W1-05, FR-W1-06, FR-W2-04, FR-W2-05, FR-W2-06), BUSINESS-RULES (BR-02, BR-03, BR-05), TEST-BASIS (GAP-01), RTM (API-INT-001), API-FUNCTIONAL-TESTING.md; `backend/leave/models.py`, `serializers.py`, `views.py`.
+- **Created:** `tests/team/integration/test_w1_w2_integration.py` (7 tests); `docs/sqe/evidence/integration/a22-2026-11-24/`.
+- **Tests:** 7 passed — approve path, reject path, overdraw characterization, self-decision forbidden, cross-team visibility, re-decide after approval (409), re-decide after rejection (409).
+- **Limitations:** the overdraw test (API-INT-001) is a characterization test pinning GAP-01 baseline behavior, not an approved oracle. Concurrency integration (API-INT-002) requires PostgreSQL and is not implemented.
+- **Student review required:** confirm characterization tests do not misrepresent baseline as correct behavior; all Git/GitHub actions remain student-owned.
+
+# A2.3 — EP/BVA, decision table and state transition testing
+
+- **Date/tool:** 24 November 2026 (Asia/Karachi), Claude Code (Claude Opus 5.5) at the student's instruction. AI-assisted implementation and execution; no human review, approval or authorship is claimed.
+- **Sources read:** FUNCTIONAL-REQUIREMENTS, BUSINESS-RULES, TEST-BASIS, COVERAGE-BOUNDARY, RTM structural families; `backend/leave/models.py`, `serializers.py`, `views.py`.
+- **Created:** `tests/team/structural/test_ep_bva.py` (48 tests: 22 W1 EP, 12 W2 EP, 14 BVA 3-point), `tests/team/structural/test_decision_table.py` (10 tests: DT1 W1 validation — 5 rules covering date order, overlap, balance record and balance amount; DT2 W2 authorisation — 5 rules covering role, visibility, self-decision and pending guard; each with ASCII truth table in docstring), `tests/team/structural/test_state_transition.py` (7 tests: full pending→approved/rejected transition table with invalid transitions).
+- **Total:** 65 tests, all passed.
+- **Techniques:** equivalence partitioning per FR, 3-point BVA on numeric/date/string boundaries, decision tables for compound business rules, state transition testing for leave request lifecycle.
+- **ID mapping note:** the code's DT1 (W1 validation) maps to RTM objectives DT-001 (balance boundary) and DT-002 (overlap predicate) combined. The code's DT2 (W2 authorisation) maps to parts of RTM DT-003 (visibility/role check). DT-004 (notification recipients) and DT-005 (upcoming-leave filter) are not covered by either table.
+- **Limitations:** BVA uses 3-point (boundary, boundary−1, boundary+1). Decision tables DT-004 (notification recipients) and DT-005 (upcoming-leave filter) are not covered. EP classes derived from requirements, not from code paths.
+- **Student review required:** verify EP classes are complete for each FR; confirm 3-point BVA is acceptable per course guidelines; all Git/GitHub actions remain student-owned.
+
+# A2.4 — OpenAPI spec, automated test data generation, constraint change analysis
+
+- **Date/tool:** 24 November 2026 (Asia/Karachi), Claude Code (Claude Opus 5.5) at the student's instruction. AI-assisted implementation and execution; no human review, approval or authorship is claimed.
+- **Sources read:** FUNCTIONAL-REQUIREMENTS, BUSINESS-RULES, `backend/leave/models.py`, `serializers.py`, `views.py`, `urls.py`; OpenAPI 3.0 specification standard.
+- **Created:** `docs/sqe/openapi/leaveflow-api.yaml` (OpenAPI 3.0 spec covering all 7 endpoints with x-business-rules extensions), `scripts/sqe/generate_api_tests.py` (standalone script that reads the YAML spec and writes Django TestCase source files with one method per generated case, producing EP + 3-point BVA test cases), `tests/team/generated/test_generated_api.py` (33 generated tests: 7 login, 20 W1, 6 W2), `tests/team/generated/test_generated_api_v2.py` and `test_generated_api_v3.py` (constraint change demonstrations), `docs/sqe/openapi/CHANGE-1-NOTE-LENGTH.md`, `docs/sqe/openapi/CHANGE-2-SICK-TYPE.md`.
+- **Process:** spec written manually from source code and requirements, not auto-generated from DRF. Generator is a standalone Python script that writes Django TestCase source, not parameterized pytest cases. Two constraint changes demonstrated: (1) note maxLength 280→200 produces 1 expected failure, (2) adding "sick" leave type produces 1 expected failure. Demo files load only when `SQE_SPEC_CHANGE_DEMO=v2` (for v2) or `=v3` (for v3), not `=1`.
+- **Limitations:** generator produces EP and BVA cases only; it does not generate decision table, state transition or integration tests. The spec is a testing artifact, not a contract with the application. Admin endpoints are out of scope.
+- **Student review required:** verify spec matches actual API behavior; confirm constraint change demonstrations are sufficient for the rubric; all Git/GitHub actions remain student-owned.
+
+# PR #10 review — decision-table coverage (25 November 2026)
+
+- **Date/tool:** 25 November 2026 (Asia/Karachi), Claude Code (Claude Opus 5.5) at the student's instruction. AI-assisted audit, implementation and execution; no human review, approval or authorship is claimed.
+- **Purpose:** check the PR #10 review claim that decision-table coverage falls short. Verdict: valid. DT-004 and DT-005 describe logic that exists in the baseline (`events.py`, `team_view`) and had no team test; DT-003 lacked the employee-without-team row; DT-002 had no combination table.
+- **Correction of an earlier AI statement:** the 24 November RTM edit marked DT-002 as executed at rule level and pk exclusion as unreachable. Both were overstated and are corrected in the RTM.
+- **Created:** `tests/team/structural/test_decision_table_rules.py` (42 tests: DT-002 14, DT-003 6, DT-004 13, DT-005 9); `docs/sqe/evidence/structural/decision-tables-2026-11-25/` (run on commit `bbb3174`). RTM status updated.
+- **Checked:** 42/42 passed; full team suite 199/199; development database unchanged. Twelve faults injected one at a time in a throwaway copy of the application: 11 caught by this file. The twelfth (`start_date__lte` to `__lt` in the overlap query) is an exact-boundary fault that the table's mid-interval dates cannot see; `test_bva_overlap_start_at` catches it. The repository source was not changed.
+- **Limits:** DT-004 verifies who is in the event, not delivery through Redis, the worker or the gateway. The GAP-08 row is a characterisation. DT-001's W2 half stays blocked by GAP-01. Some rows repeat A2.1 case classes; the file header lists them so that each is counted once.
+- **Student review required:** check each table's infeasibility argument and be able to explain the recorder used for DT-004; all Git/GitHub actions remain student-owned.
+
+# PR #10 review — OpenAPI contract verification (25 November 2026)
+
+- **Date/tool:** 25 November 2026 (Asia/Karachi), Claude Code (Claude Opus 5.5) at the student's instruction. AI-assisted audit, implementation and execution; no human review, approval or authorship is claimed.
+- **Purpose:** check the PR #10 review claim that the API contract is not verified. Verdict: valid. No test compared a response with the spec, and the generated tests checked the status class and stored rows only.
+- **Correction of an earlier AI output:** the 24 November spec omitted responses the application really returns. Added: login 401 (invalid Authorization header), 415 on the three POST operations, W1 400 with `detail` (malformed JSON), W2 404 as HTML (id that does not match the route), and `x-known-deviations`.
+- **Created:** `tests/team/api/contract.py` (strict validator, standard library only), `tests/team/api/test_openapi_contract.py` (41 tests), `tests/team/generated/api_contract.json` (exported from the spec by the generator, because the test environment has no YAML parser); `docs/sqe/evidence/api/contract-2026-11-25/` (run on commit `2d02e9c`). RTM status updated.
+- **Found in the application (not changed):** 500 for a non-object JSON body on login and on W2 (`request.data.get`), and 500 for W1 `end_date` 9999-12-31 (date overflow in `business_days`). Pinned as characterisations.
+- **Checked:** 41/41 passed; full team suite 240/240 at that commit; spec validated with openapi-spec-validator; development database unchanged. Eight response faults injected one at a time in a throwaway copy of the application: all caught.
+- **Limits:** verifies response structure, not every business value. 405 responses are outside the spec, since OpenAPI lists only implemented methods. The spec types `note` as string, while the application also accepts a number.
+- **Student review required:** file the three defects, decide severity, and confirm the spec changes; all Git/GitHub actions remain student-owned.
+
+# PR #10 review — generated inputs (25 November 2026)
+
+- **Date/tool:** 25 November 2026 (Asia/Karachi), Claude Code (Claude Opus 5.5) at the student's instruction. AI-assisted audit, implementation and execution; no human review, approval or authorship is claimed.
+- **Purpose:** check the PR #10 review claim that generated inputs fall short. Verdict: partly valid. The generator did read the spec and produce EP and BVA, but it skipped the W2 path `id`, the token, null/omitted optional fields and the note's lower limit, generated nothing for the balance and overlap rules named by GEN-001, and wrote no case manifest.
+- **Correction of an earlier AI output:** the 24 November generated tests accepted any documented 4xx for an invalid body, so a wrong 401, 403 or 409 would have passed. They now require the exact status and error key.
+- **Created/changed:** `scripts/sqe/generate_api_tests.py`; spec extensions `x-invalid-examples`, `x-rule-boundaries` and `x-sqe-fixture`, and `minLength: 0` for note; `tests/team/generated/` regenerated (33 → 68 tests; v2 68, v3 69), with `generated_cases.json` and `test_generated_manifest.py` (2 tests); `docs/sqe/evidence/generated/inputs-2026-11-25/`, `change-1-note-length-2026-11-25/`, `change-2-sick-type-2026-11-25/` (run on commit `3ebeb40`); CHANGE documents (section 5); RTM status.
+- **Checked:** 70/70 passed; full team suite 277/277; v2 and v3 fail on exactly one intended test each; spec restored byte for byte and validated; development database unchanged. Six faults injected one at a time in a throwaway copy of the application: all caught.
+- **Limits:** invalid examples and rule boundaries are written by hand in the spec, then generated. Only POST operations are generated; the GET operations have no input except the token, and their 401 is covered by the contract tests. The W2 `id` has EP only, because existence is not a numeric limit.
+- **Student review required:** be able to change a constraint in the spec, regenerate and predict the failing tests in the viva; all Git/GitHub actions remain student-owned.
+
+# PR #10 completion report — remaining Area 2 gaps (25 November 2026)
+
+- **Date/tool:** 25 November 2026 (Asia/Karachi), Claude Code (Claude Opus 5.5) at the student's instruction ("analyze this review and check that if its identified gaps are genuine if yes then fill the gaps"). AI-assisted audit, implementation and execution; no human review, approval or authorship is claimed.
+- **Input:** the reviewer's completion report for head `0bf291a`. Each finding was checked against `ce0b53f` and reproduced where it is a runtime claim (padded 282-character note → 201; nullable change; EC-01 → −3).
+- **Corrections of earlier AI outputs:** the spec's raw `maxLength` contradicted the application's trimming; form and multipart bodies were undocumented; a nullable field gained no valid null case; the generated readback checked a row count or status only.
+- **Created/changed:** generator rewritten (127 tests; contexts, media, methods, reads; full row, balance, token and schema readback; manifest with constraints and inapplicable techniques; `--patch`), spec, three change patches and v2–v4; API-INT-001.08/.09; `test_event_publication.py` (6); API-INT-002 with its PostgreSQL profile and runner (5); `api_coverage.py` and API-COVERAGE.md; fast hasher in the core profile; DEFECT-RECORDS.md; `docs/sqe/openapi/README.md`; RTM, EC-03, EC-05 and GAP-02 status.
+- **Checked:** team 344/344 and upstream 9/9 in the working tree and from a fresh local clone with a new virtual environment, where regeneration reproduced the committed files; concurrency 5/5 in five consecutive runs on PostgreSQL 17.12 after one probe bug was fixed (`pg_stat_activity` is cached inside a transaction); 12 faults injected one at a time in a throwaway copy, all caught (one was first injected wrongly, as an equivalent change, and repeated); removing the row lock fails both lock tests; the coverage tool reports level 0 without calls and rejects a flow on a different request id. Development database unchanged; no other container touched.
+- **External access:** the public image `postgres:17-alpine` (the one in docker-compose.yml) was pulled, and the fresh virtual environment installed the pinned packages from PyPI. No project or personal data was sent.
+- **Limits:** the operation flows and the TCL mapping were written by the AI and need checking against the Lecture 20 slides. Worker, gateway and browser delivery of events are not tested (UC-07, D-2). Characterisations pin open defects.
+- **Not done, student/team:** filing issues, agreeing the EC-01 rejection contract, the TCL target and notification scope, the CI job (Member 1), actual effort, UC-07, and the 5 Whys/fishbone analyses. All Git/GitHub actions remain student-owned.
+
+# PR #10 — defect issues and root cause analysis (25 November 2026)
+
+- **Date/tool:** 25 November 2026 (Asia/Karachi), Claude Code (Claude Opus 5.5) at the student's instruction (issue texts and RCAs for two major defects, EC-05/GAP-02 status, review reply). AI-assisted analysis, execution and drafting; no human review, reproduction, triage or approval is claimed.
+- **Created:** `ISSUE-MAJOR-01/02`, `RCA-MAJOR-01/02` and `PR-10-REVIEW-RESPONSE.md` in `docs/sqe/defects/`; `rca-experiments/` (scripts) and `docs/sqe/evidence/defects/rca-2026-11-25/` (run on commit `53c4da3`). **Updated:** DEFECT-RECORDS, EC-05, TEST-BASIS GAP-02 and risk B. Application code and CI unchanged; experimental changes exist only in throwaway clones and as `.diff` evidence.
+- **Executed:** eight application variants on throwaway PostgreSQL 17.12 containers; upstream and team suites against two candidate fixes; 300 pairs of simultaneous HTTP submissions against real gunicorn with 1, 2 and 3 processes.
+- **Statements of the task prompt corrected by evidence:** `views.py:81–86` does not read the allowance at all; default autocommit contributes to the second defect, but a transaction alone does not fix it, and `select_for_update` helps only on a row that always exists; SERIALIZABLE needs a retry; EC-05 and GAP-02 no longer said the spec was missing (wording completed instead); the defects are executed but not independently verified, so every human field says PENDING.
+- **Corrections of earlier AI outputs:** DEFECT-RECORDS said the W1 race "can occur in production" without evidence. It cannot be shown with the shipped single worker and is near certain with two processes. An earlier entry said the TCL mapping needs checking against Lecture 20; it was now compared with the Lecture 20 text and the original paper and matches.
+- **Errors during the work:** the first experiment run reported a 500 for both requests while one row was stored. Django's test client collects exceptions through a process-wide signal, so one thread re-raised the other's error; fixed, and all variants rerun. The first HTTP run did not start, because an invalid debug value made the application redirect to HTTPS.
+- **External access:** the public A-TEST 2019 paper and a related preprint were downloaded and a web search was made. No project or personal data was sent.
+- **Limits:** three local servers stand in for Kubernetes replicas. Why the original authors omitted the rules is not known. Severity, priority and root-cause categories are proposals.
+- **Student review required:** reproduce both defects, be able to explain each Why and each refuted cause, have another member verify independently, file the issues, and fill the PENDING fields from real events. All Git/GitHub actions beyond local commits remain student-owned.
+
+# DEF-A2-01 — agreed rejection contract recorded (25 November 2026)
+
+- **Date/tool:** 25 November 2026 (Asia/Karachi), Claude Code (Claude Opus 5.5) at the student's instruction. AI-assisted documentation update; the decision is the team's, as stated by the student in the task prompt. The AI did not take part in it and saw no separate approval record.
+- **Contract recorded:** an over-balance approval returns 400 `{"detail": "Insufficient leave balance"}`; the request stays pending, `decided_by` null, balance unchanged.
+- **Changed (documents only):** ISSUE-MAJOR-01, RCA-MAJOR-01, DEFECT-RECORDS, PR-10-REVIEW-RESPONSE; ENTRY-EXIT-CRITERIA (EC-01, EC-05), RISK-REGISTER, TEST-STRATEGY, DEFECT-MANAGEMENT-PLAN, RTM; TEST-BASIS, BUSINESS-RULES, FUNCTIONAL-REQUIREMENTS, SCOPE, USE-CASE-SPECIFICATIONS; BROWSER-USE-CASE-TESTING, A21-EXECUTION-MAPPING, SHARED-TEST-FOUNDATION. Earlier entries of this record and all evidence files are kept as history.
+- **Statement of the task prompt corrected by the source:** submission does return 400, but with `{"non_field_errors": ["Saldo ferie insufficiente."]}`, not a `detail` body. The `detail` key matches the decision endpoint; the English text differs from the Italian messages of the application. The contract was recorded as given and the difference is noted in RCA 1.
+- **Interpretation:** GAP-01 is marked resolved as a specification gap only. The safeguard is still missing, DEF-A2-01 is open and EC-01 stays NOT MEASURED. Employees without a balance row are not covered (GAP-07).
+- **Not changed:** application code, tests (the characterizations, the `fixme` OBJ-UC02-01 and `flows.json`, whose comments still say the contract is not approved), the OpenAPI spec (describes the implemented behaviour) and the W2 half of DT-001.
+- **Not executed:** no test asserts the new contract, and the earlier experiments returned a placeholder 409.
+- **Student review required:** record who agreed and when, decide the message language and the missing-balance case, and confirm the wording. All Git/GitHub actions beyond local commits remain student-owned.
+
+# PR #10 review — flow matching, DT-001 W2, generator fixes (27 November 2026)
+
+- **Date/tool:** 27 November 2026 (Asia/Karachi), Claude Code (Claude Opus 5.5) at the student's instruction (four review items and an updated PR description). AI-assisted implementation, execution and drafting; no human review, approval or authorship is claimed.
+- **Flow matching (TCL7):** confirmed the review finding by running the previous matcher on an approve-then-submit sequence: it reported "reject then resubmit the dates". Each `x-operation-flows` step now states its status and conditions (decision, same record or dates, actor), enforced by `scripts/sqe/api_coverage.py`; `tests/team/foundation/test_flow_matcher.py` (7 tests, negative cases with the same endpoint sequence). Spec, generated modules and change patches regenerated (spec SHA-256 now `939d1303…`). Coverage rerun: TCL7 kept, 8/8 flows each matched by a test that meets every condition (`submit then own list` 3 → 2 tests). The report's old note that the TCL mapping still had to be checked against the slides was replaced, since it was checked on 25 November.
+- **DT-001 W2 half:** R1 reject over limit, R2 no balance record (GAP-07 characterisation), R4 approval to exactly 0, all passing; R3, the overdraw regression with the agreed 400 contract, loads only with `SQE_DESIRED_RULES=1` and fails on the baseline (200). It passed 14/14 with the module against a candidate fix in a throwaway clone (deleted). Gated rather than marked as an expected failure, because the runner exits 1 for expected failures and skips. Issue links #25/#26 (given by the student) added to DEFECT-RECORDS, the RTM and both RCAs.
+- **Statement of the task prompt not followed as worded:** no concurrent-submission row was added to DT-001. DT-001 is the balance table; the concurrency regression belongs to API-INT-002 on PostgreSQL (#26) and is not written.
+- **Generator:** both reported bugs confirmed. The one-day allowance crashed the generator with `OverflowError` (a 0-day interval looped past `date.max`); fixed with a minimum of one business day, a recorded skip, and an invalid class that stays a real duration (allowance 0 also crashed through that class). The null-note `.strip()` was latent: the v4 null case fails at its status check before the readback, so it never ran; it is guarded now. Generation checked with allowances 0, 1, 2 and 10; the committed spec still yields 127 tests.
+- **Checked:** team 354/354, upstream 9/9, PostgreSQL 17.12 concurrency 5/5 (container removed), v2/v3/v4 fail on the predicted 2/1/1 tests, docs check 0 problems, development database unchanged. `openapi-spec-validator` was not available in this environment, so the edited spec was not revalidated with it; the generator parsed it.
+- **Created:** `PR-10-DESCRIPTION-UPDATE.md`; evidence `api/coverage-2026-11-27/`, `structural/dt001-w2-2026-11-27/`, `concurrency/postgresql17-2026-11-27/`.
+- **Not changed:** application code and CI. The CHANGE documents keep the spec hashes of their original runs.
+- **Student review required:** check the flow conditions against the intended meaning of each flow, the R2 characterisation, and that #25/#26 are the right issues; agree the CI job with Member 1. All Git/GitHub actions beyond local commits remain student-owned.
+
+## Area 1 integration and evidence audit - 27 November 2026
+
+- Tool: Codex, at Bilal's instruction to implement CI integration and complete
+  Area 1 evidence. AI-assisted implementation, execution and drafting; human
+  approval is not claimed. No remote push, issue comment, review or merge was made.
+- Created local `ci/integrate-team-tests-and-area1-evidence` from PR #17 and
+  merged Area 2 head `8ee5176` locally. Added team/generator/TCL7/PostgreSQL CI
+  checks, aggregate quality enforcement and release-event safeguards.
+- Corrected MC/DC outcome pairs and CFG edge/node counts. Added explicit
+  balance-presence, demo schedule/reset and failing-report gate tests.
+- Verified 384 Django team tests, 9 upstream tests, all critical statement/branch
+  coverage, generator consistency, TCL7 and disposable PostgreSQL concurrency.
+- Actual final Linux mutmut run: 296 killed, 3 equivalent survivors, 299 total.
+  Reviewed 15 historical survivors from the committed PR #17 report individually.
+  A historical rerun stalled and was stopped; it is not reported as completed.
+- Found mutmut's decorated-function exclusion: replaced the inactive calendar
+  custom operator with reachable overlap boundaries. Separate temporary-copy
+  mutations kill weekday and inclusive-date property changes without changing
+  production files or weakening tests. Source/test/runtime provenance is retained.
+- Captured historical and fresh live Sonar API evidence. Corrected the upstream
+  test file's source classification; fresh scan passed at 100% overall coverage,
+  zero findings and all A ratings. An unchanged extracted validate function
+  measured 4 in Sonar versus hand/radon 5; documented exception convention.
+  Temporary analysis tokens were revoked and no credentials were committed.
+- Verified remote historical fail/fix/pass step evidence (runs 16, 18 and 68)
+  through read-only GitHub API calls. New hosted execution, the new required
+  branch check and instructor decisions remain explicitly external.

@@ -11,17 +11,15 @@ import libcst as cst
 import libcst.matchers as m
 
 
-def operator_calendar_step(node: cst.Call):
-    """Change the inclusive date-loop step from one day to reverse one day."""
-    if not m.matches(node.func, m.Name("timedelta")):
+def operator_overlap_boundary(node: cst.Call):
+    """Change inclusive interval intersection to exclusive comparisons."""
+    if not m.matches(node.func, m.Attribute(attr=m.Name("filter"))):
         return
     for argument in node.args:
-        if argument.keyword and argument.keyword.value == "days" and m.matches(
-            argument.value, m.Integer(value="1")
-        ):
+        if argument.keyword and argument.keyword.value in {"start_date__lte", "end_date__gte"}:
             yield node.with_changes(
                 args=[
-                    item.with_changes(value=cst.UnaryOperation(cst.Minus(), cst.Integer("1")))
+                    item.with_changes(keyword=cst.Name(argument.keyword.value[:-1]))
                     if item is argument
                     else item
                     for item in node.args
@@ -53,7 +51,7 @@ def main() -> None:
 
     mutators.mutation_operators.extend(
         [
-            (cst.Call, operator_calendar_step),
+            (cst.Call, operator_overlap_boundary),
             (cst.Call, operator_overlap_truth),
         ]
     )

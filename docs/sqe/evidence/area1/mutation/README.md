@@ -4,8 +4,8 @@ Mutation testing is run with mutmut on Ubuntu/WSL through
 `scripts/sqe/mutmut_custom.py`. The wrapper registers two project-specific
 operators before loading the normal mutmut CLI:
 
-1. `operator_calendar_step`: changes the one-day inclusive date-loop step to a
-   reverse one-day step;
+1. `operator_overlap_boundary`: changes inclusive interval comparisons to
+   exclusive comparisons, generating two boundary mutants;
 2. `operator_overlap_truth`: inverts `overlap.exists()` in the active-overlap
    rule.
 
@@ -22,14 +22,15 @@ python scripts/sqe/mutmut_custom.py export-cicd-stats
 python scripts/sqe/check_mutation_threshold.py
 ```
 
-The quality gate uses a documented 60% killed-mutant threshold over tested
-mutants. This is the current tested-mutant baseline and prevents future
-changes from reducing mutation effectiveness. The final report must still
-explain any survivors. At least 15 evaluated mutants must be listed with the
-mutation, result, affected rule, killability judgement, and either the test
-that kills it or the reason it survives. If the submitted run has no
-survivors, the report records 15 real killed mutants and states that no
-survivor result exists; no survivor result is invented in this repository.
+The quality gate now requires **85% raw killed/total**, aligned with the proposed
+project strategy rather than the former 60% placeholder. This retains room for
+equivalent mutants while rejecting material loss of test effectiveness.
+No untested, skipped, timed-out, suspicious, interrupted or unclassified mutants
+are accepted. The integrated measured score is **296/299 = 99.00%**, with three
+explained equivalent survivors. Both custom operators are exercised and killed.
+The individually reviewed first 15 historical survivors and their final outcomes
+are in `surviving-mutants.md`; raw diffs and metadata are in `final/results.json`.
+Support-code survivors are explicitly distinguished from the DR-001 rule scope.
 
 After the run, generate the candidate table with:
 
@@ -37,6 +38,12 @@ After the run, generate the candidate table with:
 python scripts/sqe/export_surviving_mutants.py
 ```
 
-The command exits non-zero until at least 15 evaluated mutants exist, which
-prevents a missing or incomplete mutation-analysis artifact from being
-mistaken for a completed assignment requirement.
+The exporter creates `mutation-candidates.md`, including actual diffs. It never
+overwrites the curated analysis or labels every survivor a missing test.
+Counting 15 evaluated or killed mutants is not a substitute for reviewing 15
+actual historical survivors. The completed analysis cites the historical report
+at `25253fff` and the new run separately; it does not invent additional survivors.
+
+For WSL, `bash scripts/sqe/verify_mutation_linux.sh` runs in a temporary Linux
+directory and copies the mutation metadata/log back. The optional path argument
+allows an unchanged historical checkout to be investigated separately.

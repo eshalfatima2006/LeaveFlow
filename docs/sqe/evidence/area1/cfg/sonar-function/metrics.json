@@ -1,0 +1,150 @@
+{
+  "captured_at": "2026-11-27T14:39:29.333545+00:00",
+  "analysis": {
+    "paging": {
+      "pageIndex": 1,
+      "pageSize": 1,
+      "total": 1
+    },
+    "analyses": [
+      {
+        "key": "cc08bdd7-8f40-46b9-97d1-a2d3f9bc7bf5",
+        "date": "2026-11-27T14:38:27+0000",
+        "events": [
+          {
+            "key": "52635633-e268-47db-a3d9-f1ae09d79928",
+            "category": "SQ_UPGRADE",
+            "name": "26.11.0.134175"
+          },
+          {
+            "key": "3e1184f3-f775-4f8b-ac81-9f9f265ff055",
+            "category": "VERSION",
+            "name": "c45342b"
+          }
+        ],
+        "projectVersion": "c45342b",
+        "manualNewCodePeriodBaseline": false,
+        "revision": "c45342b",
+        "detectedCI": "undetected"
+      }
+    ]
+  },
+  "metrics": {
+    "component": {
+      "key": "leaveflow-dr001-complexity",
+      "name": "LeaveFlow DR-001 function complexity comparison",
+      "qualifier": "TRK",
+      "measures": [
+        {
+          "metric": "coverage",
+          "value": "0.0",
+          "bestValue": false
+        },
+        {
+          "metric": "bugs",
+          "value": "0",
+          "bestValue": true
+        },
+        {
+          "metric": "complexity",
+          "value": "4"
+        },
+        {
+          "metric": "reliability_rating",
+          "value": "1.0",
+          "bestValue": true
+        },
+        {
+          "metric": "code_smells",
+          "value": "0",
+          "bestValue": true
+        },
+        {
+          "metric": "duplicated_lines_density",
+          "value": "0.0",
+          "bestValue": true
+        },
+        {
+          "metric": "cognitive_complexity",
+          "value": "5",
+          "bestValue": false
+        },
+        {
+          "metric": "security_rating",
+          "value": "1.0",
+          "bestValue": true
+        },
+        {
+          "metric": "vulnerabilities",
+          "value": "0",
+          "bestValue": true
+        },
+        {
+          "metric": "sqale_index",
+          "value": "0",
+          "bestValue": true
+        },
+        {
+          "metric": "sqale_rating",
+          "value": "1.0",
+          "bestValue": true
+        }
+      ]
+    }
+  },
+  "quality_gate": {
+    "projectStatus": {
+      "status": "OK",
+      "conditions": [],
+      "ignoredConditions": false,
+      "caycStatus": "compliant"
+    }
+  },
+  "files": {
+    "paging": {
+      "pageIndex": 1,
+      "pageSize": 500,
+      "total": 1
+    },
+    "baseComponent": {
+      "key": "leaveflow-dr001-complexity",
+      "name": "LeaveFlow DR-001 function complexity comparison",
+      "qualifier": "TRK",
+      "measures": []
+    },
+    "components": [
+      {
+        "key": "leaveflow-dr001-complexity:validate.py",
+        "name": "validate.py",
+        "qualifier": "FIL",
+        "path": "validate.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "4"
+          },
+          {
+            "metric": "coverage",
+            "value": "0.0",
+            "bestValue": false
+          }
+        ]
+      }
+    ]
+  },
+  "issues": {
+    "total": 0,
+    "p": 1,
+    "ps": 500,
+    "paging": {
+      "pageIndex": 1,
+      "pageSize": 500,
+      "total": 0
+    },
+    "effortTotal": 0,
+    "issues": [],
+    "components": [],
+    "facets": []
+  }
+}

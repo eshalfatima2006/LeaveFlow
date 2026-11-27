@@ -1,6 +1,8 @@
 """Contract tests for the production demo-data management command."""
 
 from io import StringIO
+from datetime import date
+from unittest.mock import patch
 
 from django.core.management import call_command
 from django.test import TestCase
@@ -62,3 +64,28 @@ class SeedDemoCommandTests(TestCase):
         self.assertEqual(User.objects.count(), 4)
         self.assertEqual(LeaveBalance.objects.count(), 4)
         self.assertEqual(LeaveRequest.objects.count(), 3)
+
+    def test_demo_schedule_and_account_permissions_match_documented_fixture(self):
+        """Verify full demo record content and deny staff powers to non-admins."""
+        with patch("leave.management.commands.seed_demo.date") as clock:
+            clock.today.return_value = date(2026, 12, 1)
+            self.run_seed_command()
+        expected = {
+            ("employee", "vacation"): (date(2026, 12, 19), date(2026, 12, 23), "Cinque giorni in montagna"),
+            ("employee", "permit"): (date(2026, 11, 6), date(2026, 11, 6), "Visita medica"),
+            ("teammate", "vacation"): (date(2026, 12, 9), date(2026, 12, 11), "Ponte lungo"),
+        }
+        for row in LeaveRequest.objects.select_related("employee"):
+            self.assertEqual((row.start_date, row.end_date, row.note), expected[row.employee.username, row.leave_type])
+        team = Team.objects.get(name="Product Studio")
+        for user in User.objects.all():
+            self.assertEqual(user.team_id, team.pk)
+            self.assertEqual(user.is_staff, user.username == "admin")
+            self.assertEqual(user.is_superuser, user.username == "admin")
+
+    def test_seed_restores_existing_allowance_and_year(self):
+        """Reset a previously edited demo balance, not only a fresh model default."""
+        self.run_seed_command()
+        LeaveBalance.objects.update(allowance=3, year=2025)
+        self.run_seed_command()
+        self.assertEqual(set(LeaveBalance.objects.values_list("allowance", "year")), {(26, 2026)})

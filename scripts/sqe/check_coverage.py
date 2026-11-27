@@ -8,6 +8,7 @@ TARGETS = (
     "backend/leave/models.py",
     "backend/leave/serializers.py",
     "backend/leave/views.py",
+    "backend/leave/events.py",
 )
 
 

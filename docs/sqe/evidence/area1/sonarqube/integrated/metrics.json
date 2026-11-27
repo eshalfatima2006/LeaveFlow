@@ -1,0 +1,330 @@
+{
+  "captured_at": "2026-11-27T14:38:31.722411+00:00",
+  "analysis": {
+    "paging": {
+      "pageIndex": 1,
+      "pageSize": 1,
+      "total": 3
+    },
+    "analyses": [
+      {
+        "key": "7980b238-aef1-4cb8-adc0-8f7e6a288de3",
+        "date": "2026-11-27T14:37:27+0000",
+        "events": [
+          {
+            "key": "5956a296-640f-429d-b7fd-f5cd38582810",
+            "category": "VERSION",
+            "name": "c45342b"
+          }
+        ],
+        "projectVersion": "c45342b",
+        "manualNewCodePeriodBaseline": false,
+        "revision": "c45342b",
+        "detectedCI": "undetected"
+      }
+    ]
+  },
+  "metrics": {
+    "component": {
+      "key": "leaveflow",
+      "name": "LeaveFlow",
+      "qualifier": "TRK",
+      "measures": [
+        {
+          "metric": "coverage",
+          "value": "100.0",
+          "bestValue": true
+        },
+        {
+          "metric": "bugs",
+          "value": "0",
+          "bestValue": true
+        },
+        {
+          "metric": "complexity",
+          "value": "49"
+        },
+        {
+          "metric": "reliability_rating",
+          "value": "1.0",
+          "bestValue": true
+        },
+        {
+          "metric": "code_smells",
+          "value": "0",
+          "bestValue": true
+        },
+        {
+          "metric": "duplicated_lines_density",
+          "value": "0.0",
+          "bestValue": true
+        },
+        {
+          "metric": "cognitive_complexity",
+          "value": "38",
+          "bestValue": false
+        },
+        {
+          "metric": "security_rating",
+          "value": "1.0",
+          "bestValue": true
+        },
+        {
+          "metric": "vulnerabilities",
+          "value": "0",
+          "bestValue": true
+        },
+        {
+          "metric": "sqale_index",
+          "value": "0",
+          "bestValue": true
+        },
+        {
+          "metric": "sqale_rating",
+          "value": "1.0",
+          "bestValue": true
+        }
+      ]
+    }
+  },
+  "quality_gate": {
+    "projectStatus": {
+      "status": "OK",
+      "conditions": [
+        {
+          "status": "OK",
+          "metricKey": "new_duplicated_lines_density",
+          "comparator": "GT",
+          "errorThreshold": "3",
+          "actualValue": "0.0"
+        },
+        {
+          "status": "OK",
+          "metricKey": "new_violations",
+          "comparator": "GT",
+          "errorThreshold": "0",
+          "actualValue": "0"
+        }
+      ],
+      "ignoredConditions": false,
+      "period": {
+        "mode": "PREVIOUS_VERSION",
+        "date": "2026-11-25T21:35:16+0000",
+        "parameter": "not provided"
+      },
+      "caycStatus": "compliant"
+    }
+  },
+  "files": {
+    "paging": {
+      "pageIndex": 1,
+      "pageSize": 500,
+      "total": 11
+    },
+    "baseComponent": {
+      "key": "leaveflow",
+      "name": "LeaveFlow",
+      "qualifier": "TRK",
+      "measures": []
+    },
+    "components": [
+      {
+        "key": "leaveflow:backend/leave/management/__init__.py",
+        "name": "__init__.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/management/__init__.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/management/commands/__init__.py",
+        "name": "__init__.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/management/commands/__init__.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/__init__.py",
+        "name": "__init__.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/__init__.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/admin.py",
+        "name": "admin.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/admin.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "0"
+          },
+          {
+            "metric": "coverage",
+            "value": "100.0",
+            "bestValue": true
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/apps.py",
+        "name": "apps.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/apps.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "0"
+          },
+          {
+            "metric": "coverage",
+            "value": "100.0",
+            "bestValue": true
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/events.py",
+        "name": "events.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/events.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "5"
+          },
+          {
+            "metric": "coverage",
+            "value": "100.0",
+            "bestValue": true
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/models.py",
+        "name": "models.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/models.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "12"
+          },
+          {
+            "metric": "coverage",
+            "value": "100.0",
+            "bestValue": true
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/management/commands/seed_demo.py",
+        "name": "seed_demo.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/management/commands/seed_demo.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "2"
+          },
+          {
+            "metric": "coverage",
+            "value": "100.0",
+            "bestValue": true
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/serializers.py",
+        "name": "serializers.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/serializers.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "5"
+          },
+          {
+            "metric": "coverage",
+            "value": "100.0",
+            "bestValue": true
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/urls.py",
+        "name": "urls.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/urls.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "0"
+          },
+          {
+            "metric": "coverage",
+            "value": "100.0",
+            "bestValue": true
+          }
+        ]
+      },
+      {
+        "key": "leaveflow:backend/leave/views.py",
+        "name": "views.py",
+        "qualifier": "FIL",
+        "path": "backend/leave/views.py",
+        "language": "py",
+        "measures": [
+          {
+            "metric": "complexity",
+            "value": "25"
+          },
+          {
+            "metric": "coverage",
+            "value": "100.0",
+            "bestValue": true
+          }
+        ]
+      }
+    ]
+  },
+  "issues": {
+    "total": 0,
+    "p": 1,
+    "ps": 500,
+    "paging": {
+      "pageIndex": 1,
+      "pageSize": 500,
+      "total": 0
+    },
+    "effortTotal": 0,
+    "issues": [],
+    "components": [],
+    "facets": []
+  }
+}

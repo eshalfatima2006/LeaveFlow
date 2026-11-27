@@ -7,6 +7,7 @@ passing the copied path makes every metadata record appear empty.
 """
 
 from pathlib import Path
+from capture_mutation_results import mutant_diff
 
 from mutmut.mutation.data import SourceFileMutationData
 from mutmut.stats import status_by_exit_code
@@ -22,8 +23,8 @@ def _source_path_from_metadata(metadata: Path) -> Path:
         raise ValueError(f"Unexpected mutmut metadata path: {metadata}") from exc
 
 
-def _analysis_for(source: Path, result: str) -> tuple[str, str, str]:
-    """Provide a source-grounded triage prompt for the evidence table."""
+def _rule_for(source: Path) -> str:
+    """Describe the area; classification requires an actual diff review."""
 
     rule_by_file = {
         "models.py": "Leave-request date/overlap and leave-balance invariant",
@@ -31,21 +32,7 @@ def _analysis_for(source: Path, result: str) -> tuple[str, str, str]:
         "views.py": "Request visibility, submission, or approval response flow",
         "events.py": "Leave-event publication behavior",
     }
-    rule = rule_by_file.get(source.name, "Supporting leave-workflow behavior")
-    if result == "survived":
-        return (
-            rule,
-            "Yes - test gap",
-            "The current tests execute this source area but do not distinguish "
-            "the original result from the surviving mutation; add a focused "
-            "assertion for the affected boundary or state transition.",
-        )
-    return (
-        rule,
-        "No - killed by suite",
-        "The mutation changed observable behavior and was detected by the "
-        "executed pytest suite.",
-    )
+    return rule_by_file.get(source.name, "Supporting leave-workflow behavior")
 
 
 def main() -> int:
@@ -63,31 +50,31 @@ def main() -> int:
             elif result == "killed":
                 killed.append(row)
 
-    # Prefer all real survivors. If the suite kills every covered mutant,
-    # record 15 real killed mutants instead of inventing survivor results.
-    rows = survivors + killed[: max(0, 15 - len(survivors))]
+    rows = survivors
 
-    output = Path("docs/sqe/evidence/area1/mutation/surviving-mutants.md")
+    output = Path("mutation-candidates.md")
     output.parent.mkdir(parents=True, exist_ok=True)
     lines = [
-        "# Mutation analysis",
+        "# Mutation review candidates (not completed analysis)",
         "",
-        "Generated from the mutmut result for the current commit. Surviving "
-        "mutants are listed first; when none survive, the table records 15 "
-        "mutants killed by the test suite.",
+        "Generated from the actual mutmut metadata. Review each diff against the curated survivor analysis; tool output alone does not establish equivalence or killability.",
         "",
         "| # | Mutant | Source | Result | Affected rule | Killable? | Test or equivalence justification |",
         "|---:|---|---|---|---|---|---|",
     ]
     for index, (name, source, result) in enumerate(rows, start=1):
-        rule, killability, justification = _analysis_for(Path(source), result)
+        rule = _rule_for(Path(source))
+        killability, justification = "REVIEW REQUIRED", "Inspect the recorded diff and run a discriminating test."
         lines.append(
             f"| {index} | `{name}` | `{source}` | {result} | {rule} | "
             f"{killability} | {justification} |"
         )
+    for name, source, result in survivors:
+        diff = mutant_diff(Path("mutants") / source, name)
+        lines += ["", f"## {name}", "", "```diff", diff.strip(), "```"]
     output.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(f"Wrote {len(rows)} mutant analyses to {output}")
-    return 0 if len(rows) >= 15 else 1
+    print(f"Wrote {len(rows)} mutation review candidates to {output}")
+    return 0
 
 
 if __name__ == "__main__":

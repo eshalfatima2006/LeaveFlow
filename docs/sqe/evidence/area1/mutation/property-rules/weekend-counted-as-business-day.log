@@ -1,0 +1,22 @@
+.                                                                     [100%]
+================================== FAILURES ===================================
+_ BusinessDaysAndCleaningTests.test_business_days_covers_weekend_weekday_and_mixed_interval (start=datetime.date(2026, 12, 12), end=datetime.date(2026, 12, 13)) _
+
+self = <tests.team.unit.test_critical_module.BusinessDaysAndCleaningTests testMethod=test_business_days_covers_weekend_weekday_and_mixed_interval>
+
+    def test_business_days_covers_weekend_weekday_and_mixed_interval(self):
+        cases = [
+            (date(2026, 12, 12), date(2026, 12, 13), 0),  # weekend only
+            (date(2026, 12, 14), date(2026, 12, 14), 1),  # one weekday
+            (date(2026, 12, 14), date(2026, 12, 18), 5),  # inclusive work week
+        ]
+        for start, end, expected in cases:
+            with self.subTest(start=start, end=end):
+                item = LeaveRequest(employee=self.people.e2, start_date=start, end_date=end)
+>               self.assertEqual(item.business_days, expected)
+E               AssertionError: 1 != 0
+
+tests\team\unit\test_critical_module.py:49: AssertionError
+=========================== short test summary info ===========================
+SUBFAILED(start=datetime.date(2026, 12, 12), end=datetime.date(2026, 12, 13)) tests/team/unit/test_critical_module.py::BusinessDaysAndCleaningTests::test_business_days_covers_weekend_weekday_and_mixed_interval
+1 failed, 1 passed, 2 subtests passed in 1.19s

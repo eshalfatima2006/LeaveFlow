@@ -9,3 +9,7 @@ flowchart TD
     P3 -- yes --> P4{days > available?}
     P4 -- yes --> E3[raise insufficient balance]
     P4 -- no --> R
+    E1 --> X([exit])
+    E2 --> X
+    E3 --> X
+    R --> X
