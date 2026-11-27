@@ -1,0 +1,153 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+test_employee_cannot_decide_or_reach_another_users_request (tests.team.api.test_authentication.IdentityAndOwnershipTests.test_employee_cannot_decide_or_reach_another_users_request)
+API-W2-002.06; FR-W2-02; BR-04/05: employee decision on a teammate's request -> 403, GET 405, unchanged. ... ok
+test_token_identity_is_the_authenticated_user_only (tests.team.api.test_authentication.IdentityAndOwnershipTests.test_token_identity_is_the_authenticated_user_only)
+API-W1-001.05; FR-W1-01, FR-W2-01; BR-04: /me and lists reflect only the token's user. ... ok
+test_invalid_credentials_are_refused_without_issuing_tokens (tests.team.api.test_authentication.LoginTests.test_invalid_credentials_are_refused_without_issuing_tokens)
+API-W1-001.02; FR-W1-01; BR-04: wrong/unknown/missing/blank/inactive -> 400, no token. ... ok
+test_valid_login_returns_token_bound_to_that_user (tests.team.api.test_authentication.LoginTests.test_valid_login_returns_token_bound_to_that_user)
+API-W1-001.01; FR-W1-01; BR-04: valid credentials yield the caller's own token. ... ok
+test_malformed_and_invalid_tokens_return_401 (tests.team.api.test_authentication.UnauthenticatedAccessTests.test_malformed_and_invalid_tokens_return_401)
+API-W1-001.04; FR-W1-01; BR-04: malformed header/unknown/inactive-user token -> 401, no row. ... ok
+test_protected_endpoints_return_401_without_credentials (tests.team.api.test_authentication.UnauthenticatedAccessTests.test_protected_endpoints_return_401_without_credentials)
+API-W1-001.03; FR-W1-01, FR-W2-01, FR-W2-02; BR-04: no token -> 401, nothing exposed or written. ... ok
+test_available_counts_approved_history_only (tests.team.api.test_w1_submission.BalanceTests.test_available_counts_approved_history_only)
+API-W1-005.02; FR-W1-05; BR-03: A = 5 - approved 2; pending/rejected consume nothing -> D=3 ok, D=4 400. ... ok
+test_missing_balance_record_skips_the_check (tests.team.api.test_w1_submission.BalanceTests.test_missing_balance_record_skips_the_check)
+API-W1-005.04; FR-W1-05; BR-03. CHARACTERIZATION (GAP-07): no balance -> any D accepted, dashboard zeros. ... ok
+test_pending_requests_reserve_no_allowance (tests.team.api.test_w1_submission.BalanceTests.test_pending_requests_reserve_no_allowance)
+API-W1-005.05; FR-W1-05, FR-W1-06; BR-03. CHARACTERIZATION (GAP-01): two 4-day pendings at A=5 both 201. ... ok
+test_requested_days_at_available_boundary (tests.team.api.test_w1_submission.BalanceTests.test_requested_days_at_available_boundary)
+API-W1-005.01; FR-W1-05; BR-03/01: A=5 -> D=4 and D=5 accepted, D=6 rejected (three-point BVA). ... ok
+test_zero_and_negative_available (tests.team.api.test_w1_submission.BalanceTests.test_zero_and_negative_available)
+API-W1-005.03; FR-W1-05; BR-03. A=0: D=1 400, D=0 accepted. A=-1: even D=0 400 (CHARACTERIZATION, GAP-01). ... ok
+test_end_before_start_rejected_on_end_date (tests.team.api.test_w1_submission.DateRuleTests.test_end_before_start_rejected_on_end_date)
+API-W1-003.01; FR-W1-03; BR-01: end one day before start -> 400 end_date, no row. ... ok
+test_inclusive_weekday_counts (tests.team.api.test_w1_submission.DateRuleTests.test_inclusive_weekday_counts)
+API-W1-003.02; FR-W1-03, FR-W1-06; BR-01: server business_days equals independent counts. ... ok
+test_past_dates_are_accepted (tests.team.api.test_w1_submission.DateRuleTests.test_past_dates_are_accepted)
+API-W1-003.04; FR-W1-03; BR-01. CHARACTERIZATION (no date-relative-to-today rule; policy open). ... ok
+test_weekend_only_request_is_accepted_with_zero_days (tests.team.api.test_w1_submission.DateRuleTests.test_weekend_only_request_is_accepted_with_zero_days)
+API-W1-003.03; FR-W1-03; BR-01. CHARACTERIZATION (no positive-day minimum; policy open). ... ok
+test_approved_request_blocks_and_neighbour_passes (tests.team.api.test_w1_submission.OverlapTests.test_approved_request_blocks_and_neighbour_passes)
+API-W1-004.02; FR-W1-04; BR-02/05: approved interval still blocks overlap. ... ok
+test_inclusive_boundaries_against_pending_request (tests.team.api.test_w1_submission.OverlapTests.test_inclusive_boundaries_against_pending_request)
+API-W1-004.01; FR-W1-04; BR-02: existing pending 12-07..11; touching endpoints block, neighbours pass. ... 
+  test_inclusive_boundaries_against_pending_request (tests.team.api.test_w1_submission.OverlapTests.test_inclusive_boundaries_against_pending_request) (start='2026-12-07', end='2026-12-07')
+API-W1-004.01; FR-W1-04; BR-02: existing pending 12-07..11; touching endpoints block, neighbours pass. ... FAIL
+  test_inclusive_boundaries_against_pending_request (tests.team.api.test_w1_submission.OverlapTests.test_inclusive_boundaries_against_pending_request) (start='2026-12-04', end='2026-12-07')
+API-W1-004.01; FR-W1-04; BR-02: existing pending 12-07..11; touching endpoints block, neighbours pass. ... FAIL
+test_other_employee_may_request_same_dates (tests.team.api.test_w1_submission.OverlapTests.test_other_employee_may_request_same_dates)
+API-W1-004.04; FR-W1-04, FR-W1-01; BR-02/04: overlap is per employee only. ... ok
+test_rejected_request_dates_can_be_reused_as_new_row (tests.team.api.test_w1_submission.OverlapTests.test_rejected_request_dates_can_be_reused_as_new_row)
+API-W1-004.03; FR-W1-04; BR-02/05: rejected history does not block; a NEW row is created. ... ok
+test_invalid_date_type_and_note_values_rejected (tests.team.api.test_w1_submission.PayloadValidationTests.test_invalid_date_type_and_note_values_rejected)
+API-W1-002.04; FR-W1-02; BR-06: unparseable/impossible dates, unknown types, nonstring note -> 400. ... ok
+test_malformed_json_and_unsupported_media_type (tests.team.api.test_w1_submission.PayloadValidationTests.test_malformed_json_and_unsupported_media_type)
+API-W1-002.05; FR-W1-02; BR-06: protocol partitions -> 400 parse error / 415, no insert. ... ok
+test_missing_and_null_fields_rejected_without_insert (tests.team.api.test_w1_submission.PayloadValidationTests.test_missing_and_null_fields_rejected_without_insert)
+API-W1-002.03; FR-W1-02; BR-06: omitted/null required dates, null type/note -> 400 on that field. ... ok
+test_each_leave_type_and_omitted_default (tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_each_leave_type_and_omitted_default)
+API-W1-002.01; FR-W1-02; BR-06: vacation/permit/personal accepted; omitted defaults to vacation. ... ok
+test_manager_and_admin_self_submission_is_owned_by_caller (tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_manager_and_admin_self_submission_is_owned_by_caller)
+API-W1-001.06; FR-W1-01, FR-W1-06; BR-04. CHARACTERIZATION (FR-W1-01 note): role is not restricted. ... ok
+test_note_optional_blank_and_length_boundaries (tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_note_optional_blank_and_length_boundaries)
+API-W1-002.02; FR-W1-02; BR-06: omitted/blank/whitespace -> '', trimmed 279/280 ok, 281 -> 400. ... ok
+test_read_only_and_unknown_fields_cannot_set_owner_or_state (tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_read_only_and_unknown_fields_cannot_set_owner_or_state)
+API-W1-001.07; FR-W1-01, FR-W1-02; BR-04/05/06: injected employee/status/id/days are ignored. ... ok
+test_valid_employee_submission_persists_one_pending_owned_row (tests.team.api.test_w1_submission.SuccessfulSubmissionTests.test_valid_employee_submission_persists_one_pending_owned_row)
+API-W1-006.01; FR-W1-01, FR-W1-06; BR-04/05/06: 201, returned k readable, balance unchanged. ... ok
+test_admin_decides_requests_of_any_team (tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_admin_decides_requests_of_any_team)
+API-W2-002.03; FR-W2-02, FR-W2-05, FR-W2-06; BR-04/05: admin approves Team B, rejects Team A. ... ok
+test_extra_body_keys_cannot_override_audit_or_content (tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_extra_body_keys_cannot_override_audit_or_content)
+API-W2-003.03; FR-W2-03, FR-W2-05; BR-05/06: injected decider/time/owner/note are ignored. ... ok
+test_same_team_manager_approves_pending_and_balance_is_derived (tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_same_team_manager_approves_pending_and_balance_is_derived)
+API-W2-002.02, API-W2-005.01; FR-W2-02, FR-W2-04, FR-W2-05; BR-03/04/05: 200, actor/time, used +D. ... ok
+test_same_team_manager_rejects_pending_without_charging_allowance (tests.team.api.test_w2_decisions.AuthorizedDecisionTests.test_same_team_manager_rejects_pending_without_charging_allowance)
+API-W2-006.01; FR-W2-02, FR-W2-04, FR-W2-06; BR-03/04/05: 200 rejected, used unchanged. ... ok
+test_guard_precedence (tests.team.api.test_w2_decisions.DecisionValueTests.test_guard_precedence)
+API-W2-003.02; FR-W2-02, FR-W2-03; BR-04/05/06: role before value before lookup before self/state. ... ok
+test_missing_null_and_invalid_status_values (tests.team.api.test_w2_decisions.DecisionValueTests.test_missing_null_and_invalid_status_values)
+API-W2-003.01; FR-W2-03; BR-05/06: only approved/rejected accepted; others -> 400, unchanged. ... ok
+test_employee_role_cannot_decide (tests.team.api.test_w2_decisions.DeniedDecisionTests.test_employee_role_cannot_decide)
+API-W2-002.01; FR-W2-02; BR-04: employee -> 403 for teammate's and own requests, unchanged. ... ok
+test_nonexistent_and_unroutable_ids (tests.team.api.test_w2_decisions.DeniedDecisionTests.test_nonexistent_and_unroutable_ids)
+API-W2-002.07; FR-W2-02; BR-04: absent IDs -> 404 even for admin; non-integer path does not route. ... ok
+test_out_of_scope_managers_receive_404 (tests.team.api.test_w2_decisions.DeniedDecisionTests.test_out_of_scope_managers_receive_404)
+API-W2-002.04; FR-W2-01, FR-W2-02; BR-04: other-team and teamless managers cannot reach target. ... ok
+test_self_decision_forbidden_for_every_privileged_role (tests.team.api.test_w2_decisions.DeniedDecisionTests.test_self_decision_forbidden_for_every_privileged_role)
+API-W2-002.05; FR-W2-02; BR-04/05: own pending request -> 403 for manager, admin, teamless manager. ... ok
+test_approved_and_rejected_requests_cannot_be_decided_again (tests.team.api.test_w2_decisions.FinalStateTests.test_approved_and_rejected_requests_cannot_be_decided_again)
+API-W2-004.01; FR-W2-04; BR-05: final states -> 409 for both values; audit and balance preserved. ... ok
+test_repeat_after_successful_decision_conflicts (tests.team.api.test_w2_decisions.FinalStateTests.test_repeat_after_successful_decision_conflicts)
+API-W2-004.02; FR-W2-04; BR-05: pending->approved once; later approve/reject -> 409, same actor/time. ... ok
+test_request_list_and_dashboard_scope_by_role (tests.team.api.test_w2_decisions.VisibilityTests.test_request_list_and_dashboard_scope_by_role)
+API-W2-001.01; FR-W2-01; BR-04: employee own, team manager team, teamless own, admin all. ... ok
+test_01_mutate_own_records (tests.team.foundation.test_foundation.FixtureIsolationTests.test_01_mutate_own_records)
+FND-008; FR-W1-06; BR-03/05: mutate inside this test's savepoint. ... ok
+test_02_independent_test_starts_clean (tests.team.foundation.test_foundation.FixtureIsolationTests.test_02_independent_test_starts_clean)
+FND-009; FR-W1-06; BR-03/05: prior test's mutations rolled back. ... ok
+test_overlap_requires_explicit_fixture_opt_in (tests.team.foundation.test_foundation.FoundationTests.test_overlap_requires_explicit_fixture_opt_in)
+FND-006; FR-W1-04; BR-02: invalid fixture setup is deliberate only. ... ok
+test_pending_record_and_approved_only_consumption (tests.team.foundation.test_foundation.FoundationTests.test_pending_record_and_approved_only_consumption)
+FND-002; FR-W1-03/05/06; BR-01/03/05: persisted pending and totals. ... ok
+test_prepare_future_overapproval_scenario_without_deciding (tests.team.foundation.test_foundation.FoundationTests.test_prepare_future_overapproval_scenario_without_deciding)
+FND-007; FR-W1-05/06; BR-03/05: prepare future regression, no W2 call. ... ok
+test_real_login_and_token_authenticated_dashboard (tests.team.foundation.test_foundation.FoundationTests.test_real_login_and_token_authenticated_dashboard)
+FND-003; FR-W1-01/05, FR-W2-01; BR-03/04: real DRF token lookup. ... ok
+test_reference_logical_snapshot (tests.team.foundation.test_foundation.FoundationTests.test_reference_logical_snapshot)
+FND-004; FR-W1-06, FR-W2-01; BR-03/04/05: stable logical fixture. ... ok
+test_synthetic_identity_and_balance_relationships (tests.team.foundation.test_foundation.FoundationTests.test_synthetic_identity_and_balance_relationships)
+FND-001; FR-W1-01, FR-W2-01; BR-04: synthetic roles/teams/balances. ... ok
+test_zero_missing_and_exact_balance_fixture_variants (tests.team.foundation.test_foundation.FoundationTests.test_zero_missing_and_exact_balance_fixture_variants)
+FND-005; FR-W1-05; BR-03: reusable zero/missing/exact allowance setups. ... ok
+test_approved_days_counts_only_approved_and_available_is_remaining (tests.team.unit.test_critical_module.BalanceAndSerializerTests.test_approved_days_counts_only_approved_and_available_is_remaining) ... ok
+test_serializer_accepts_equal_available_days (tests.team.unit.test_critical_module.BalanceAndSerializerTests.test_serializer_accepts_equal_available_days) ... ok
+test_serializer_keeps_current_missing_balance_policy (tests.team.unit.test_critical_module.BalanceAndSerializerTests.test_serializer_keeps_current_missing_balance_policy) ... ok
+test_serializer_preserves_field_and_nonfield_clean_errors (tests.team.unit.test_critical_module.BalanceAndSerializerTests.test_serializer_preserves_field_and_nonfield_clean_errors) ... ok
+test_serializer_rejects_insufficient_balance (tests.team.unit.test_critical_module.BalanceAndSerializerTests.test_serializer_rejects_insufficient_balance) ... ok
+test_business_days_covers_weekend_weekday_and_mixed_interval (tests.team.unit.test_critical_module.BusinessDaysAndCleaningTests.test_business_days_covers_weekend_weekday_and_mixed_interval) ... ok
+test_clean_accepts_nonoverlap_and_rejects_pending_and_approved_overlap (tests.team.unit.test_critical_module.BusinessDaysAndCleaningTests.test_clean_accepts_nonoverlap_and_rejects_pending_and_approved_overlap) ... ok
+test_clean_ignores_rejected_requests_and_excludes_self (tests.team.unit.test_critical_module.BusinessDaysAndCleaningTests.test_clean_ignores_rejected_requests_and_excludes_self) ... ok
+test_clean_rejects_reversed_dates_with_field_error (tests.team.unit.test_critical_module.BusinessDaysAndCleaningTests.test_clean_rejects_reversed_dates_with_field_error) ... ok
+test_model_string_and_display_helpers_are_deterministic (tests.team.unit.test_critical_module.BusinessDaysAndCleaningTests.test_model_string_and_display_helpers_are_deterministic) ... ok
+test_health_returns_degraded_when_database_probe_fails (tests.team.unit.test_critical_module.ViewBranchTests.test_health_returns_degraded_when_database_probe_fails) ... ok
+test_health_returns_ok_when_database_probe_succeeds (tests.team.unit.test_critical_module.ViewBranchTests.test_health_returns_ok_when_database_probe_succeeds) ... ok
+test_team_view_reports_members_without_balance_and_next_leave (tests.team.unit.test_critical_module.ViewBranchTests.test_team_view_reports_members_without_balance_and_next_leave) ... ok
+test_team_view_returns_empty_for_teamless_manager (tests.team.unit.test_critical_module.ViewBranchTests.test_team_view_returns_empty_for_teamless_manager) ... ok
+test_file_external_and_custom_test_targets_are_refused (tests.team.foundation.test_foundation.SafetyGuardTests.test_file_external_and_custom_test_targets_are_refused)
+FND-011; infrastructure: reject dev SQLite, unknown files/URIs and PG. ... ok
+test_fixture_requires_active_django_memory_target (tests.team.foundation.test_foundation.SafetyGuardTests.test_fixture_requires_active_django_memory_target)
+FND-012; infrastructure: refuse fixture work before test DB selection. ... ok
+test_unknown_profiles_are_refused (tests.team.foundation.test_foundation.SafetyGuardTests.test_unknown_profiles_are_refused)
+FND-010; infrastructure: an explicit safe profile is mandatory. ... ok
+
+======================================================================
+FAIL: test_inclusive_boundaries_against_pending_request (tests.team.api.test_w1_submission.OverlapTests.test_inclusive_boundaries_against_pending_request) (start='2026-12-07', end='2026-12-07')
+API-W1-004.01; FR-W1-04; BR-02: existing pending 12-07..11; touching endpoints block, neighbours pass.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Laptop House\Documents\ChatGPT\SQE\tmp\LeaveFlow-pr27-block-fix\tests\team\api\test_w1_submission.py", line 244, in test_inclusive_boundaries_against_pending_request
+    response = self.assert_rejected_without_insert(payload(start, end), "non_field_errors")
+  File "C:\Users\Laptop House\Documents\ChatGPT\SQE\tmp\LeaveFlow-pr27-block-fix\tests\team\api\test_w1_submission.py", line 37, in assert_rejected_without_insert
+    self.assertEqual(response.status_code, 400, response.data)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 201 != 400 : {'id': 2, 'employee': {'id': 1, 'username': 'ov_e1', 'display_name': 'Synthetic e1', 'email': 'ov_e1@example.invalid', 'role': 'employee', 'team': 'ov-A'}, 'leave_type': 'vacation', 'leave_type_label': 'Ferie', 'start_date': '2026-12-07', 'end_date': '2026-12-07', 'note': 'Synthetic A2.1', 'status': 'pending', 'status_label': 'In attesa', 'business_days': 1, 'created_at': '2026-11-27T17:01:36.911260+01:00'}
+
+======================================================================
+FAIL: test_inclusive_boundaries_against_pending_request (tests.team.api.test_w1_submission.OverlapTests.test_inclusive_boundaries_against_pending_request) (start='2026-12-04', end='2026-12-07')
+API-W1-004.01; FR-W1-04; BR-02: existing pending 12-07..11; touching endpoints block, neighbours pass.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Laptop House\Documents\ChatGPT\SQE\tmp\LeaveFlow-pr27-block-fix\tests\team\api\test_w1_submission.py", line 244, in test_inclusive_boundaries_against_pending_request
+    response = self.assert_rejected_without_insert(payload(start, end), "non_field_errors")
+  File "C:\Users\Laptop House\Documents\ChatGPT\SQE\tmp\LeaveFlow-pr27-block-fix\tests\team\api\test_w1_submission.py", line 37, in assert_rejected_without_insert
+    self.assertEqual(response.status_code, 400, response.data)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 201 != 400 : {'id': 2, 'employee': {'id': 1, 'username': 'ov_e1', 'display_name': 'Synthetic e1', 'email': 'ov_e1@example.invalid', 'role': 'employee', 'team': 'ov-A'}, 'leave_type': 'vacation', 'leave_type_label': 'Ferie', 'start_date': '2026-12-04', 'end_date': '2026-12-07', 'note': 'Synthetic A2.1', 'status': 'pending', 'status_label': 'In attesa', 'business_days': 2, 'created_at': '2026-11-27T17:01:36.938362+01:00'}
+
+----------------------------------------------------------------------
+Ran 66 tests in 167.832s
+
+FAILED (failures=2)
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...

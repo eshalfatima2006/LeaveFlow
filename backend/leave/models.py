@@ -83,7 +83,7 @@ class LeaveRequest(models.Model):
         overlap = LeaveRequest.objects.filter(
             employee=self.employee,
             status__in=[self.Status.PENDING, self.Status.APPROVED],
-            start_date__lte=self.end_date,
+            start_date__lt=self.end_date,
             end_date__gte=self.start_date,
         ).exclude(pk=self.pk)
         if overlap.exists():
