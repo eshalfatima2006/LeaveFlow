@@ -400,9 +400,13 @@ Students must review source safety/fixtures/assertions/evidence, retain prompts,
 - Repeated mutmut on the exact PR #17 tree: 295 killed,
   4 survived, no unresolved, including 65/65 killed in models, serializers
   and views. Identified E-10 as a killable event-recipient survivor.
-- A manager/admin requester assertion was explored locally and shown to kill
-  E-10, then removed at the student's direction before submission. Existing
-  tests were not weakened. E-10 remains disclosed as a missing-test survivor.
+- Added a manager/admin requester assertion after the student requested that
+  E-10 be killed. The correct source passed; the exact E-10 mutation failed by
+  assertion for both role subcases. Existing tests were not weakened.
+- Full verification after the assertion: 82 tests and 144 subtests passed;
+  mutmut recorded 296 killed, 3 equivalent survivors, 299 total and no
+  unresolved mutants. Raw output, environment, source hashes and diffs are
+  preserved. This is local evidence until the revised commit runs on GitHub.
 - The earlier 295/299 hosted result is not changed or presented as the new
   score. No push or new hosted run occurred in this audit. Most of the 15
   historical survivors are in demo support code, which is disclosed instead

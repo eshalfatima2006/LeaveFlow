@@ -33,8 +33,10 @@ separate combined-local result of **65/65 killed** (models 24, serializers 36,
 views 5). These denominators and provenance are documented in
 `surviving-mutants.md`.
 The exact PR #17 tree has a fourth, killable event-recipient survivor, E-10.
-It remains documented as a missing manager/admin requester test. Existing
-tests were not weakened or removed to preserve it.
+The added manager/admin requester assertion kills it in the focused mutation
+verification and the full revised-tree run. Existing tests were not weakened
+or removed. The revised local score is **296/299 = 99.00%**; a hosted run is
+still required before replacing the recorded PR result of 295/299.
 The individually reviewed first 15 historical survivors and their final outcomes
 are in `surviving-mutants.md`; raw diffs and metadata are in `final/results.json`.
 Support-code survivors are explicitly distinguished from the DR-001 rule scope.

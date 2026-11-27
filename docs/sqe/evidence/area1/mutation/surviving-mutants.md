@@ -17,9 +17,10 @@ The [exact-PR-tree local rerun](pr17-pre-new-test/README.md) identifies the four
 `.exclude(pk=item.employee_id)` becomes `.exclude(pk=None)` in the requested
 event's recipient query. It is killable. PR #17 lacked a test where the
 requester is a manager or admin, so its existing employee-only assertion did
-not detect self-notification. It remains classified as a **missing-test gap**
-in the submitted PR #17 result. No existing test was removed or weakened to
-produce or preserve this survivor.
+not detect self-notification. The added manager/admin requester assertion now
+kills it; [focused evidence](pr17-post-test-e10-v2/README.md) records a passing
+baseline and assertion failures under the exact mutant. No existing test was
+removed or weakened.
 
 The historical rerun attempted during this audit stalled in its clean-test
 phase and was stopped; it is not a completed baseline run. Initial statuses
@@ -33,30 +34,33 @@ in `backend/leave/management/commands/seed_demo.py`. JSON stores the full IDs.
 | Historical survivor | Actual mutation | Classification/cause | Assertion or equivalence justification | Final |
 |---|---|---|---|---|
 | E-8 | Remove `'id'` from `values_list('id', flat=True)` | Equivalent | Django selects the User primary key by default; flat=True still yields scalar IDs | Survived |
-| E-10 | Replace self exclusion with `.exclude(pk=None)` | Missing actor-context test | A manager/admin requester test would detect self-notification; Area 2 DT-004 kills it only in the separate combined run | Survived hosted PR #17; documented missing test |
-| S-52 | Replace balance defaults with None | Missing existing-state test | `test_seed_restores_existing_allowance_and_year` changes an existing balance to 3/2025 and requires reset to 26/2026 | Killed |
-| S-54 | Remove balance defaults argument | Missing existing-state test | Same reset test verifies update of existing values; fresh model defaults previously hid this gap | Killed |
+| E-10 | Replace self exclusion with `.exclude(pk=None)` | Missing actor-context test | Added `test_requested_event_excludes_manager_and_admin_requesters`; it detects self-notification for both roles | Initially survived; killed after stronger test |
+| S-52 | Replace balance defaults with None | Missing existing-state test | Added `test_seed_restores_existing_allowance_and_year`; it changes an existing balance to 3/2025 and requires reset to 26/2026 | Initially survived; killed after stronger test |
+| S-54 | Remove balance defaults argument | Missing existing-state test | The same added reset test verifies existing values are updated; fresh model defaults previously hid the gap | Initially survived; killed after stronger test |
 | S-69 | Omit first request's vacation type | Equivalent | LeaveRequest.leave_type defaults to vacation, so persisted type is unchanged | Survived |
-| S-72 | Omit vacation note | Weak content assertion | `test_demo_schedule_and_account_permissions_match_documented_fixture` requires Cinque giorni in montagna | Killed |
-| S-77 | Vacation start: today+18 to today-18 | Weak date assertion | Freeze today at 2026-12-01 and require start 2026-12-19 | Killed |
-| S-79 | Vacation start offset 18 to 19 | Missing exact boundary assertion | Same test rejects start 2026-12-20 | Killed |
-| S-80 | Vacation end: today+22 to today-22 | Weak date assertion | Require end 2026-12-23; changed/reversed interval is detected | Killed |
-| S-82 | Vacation end offset 22 to 23 | Missing exact boundary assertion | Require end 2026-12-23, not 2026-12-24 | Killed |
-| S-83 | Add XX markers to vacation note | Weak content assertion | Exact expected note rejects extra markers | Killed |
-| S-84 | Lowercase vacation note | Weak content assertion | Exact expected note preserves its documented capitalization | Killed |
-| S-85 | Uppercase vacation note | Weak content assertion | Exact expected note rejects uppercase text | Killed |
-| S-97 | Omit permit note | Weak content assertion | Require Visita medica on the permit record | Killed |
-| S-104 | Permit start: today-25 to today+25 | Weak date assertion | Fixed clock requires start and end both 2026-11-06 | Killed |
+| S-72 | Omit vacation note | Weak content assertion | Added `test_demo_schedule_and_account_permissions_match_documented_fixture`; it requires `Cinque giorni in montagna` | Initially survived; killed after stronger test |
+| S-77 | Vacation start: today+18 to today-18 | Weak date assertion | The added schedule test freezes 2026-12-01 and requires start 2026-12-19 | Initially survived; killed after stronger test |
+| S-79 | Vacation start offset 18 to 19 | Missing exact boundary assertion | The added schedule test rejects start 2026-12-20 | Initially survived; killed after stronger test |
+| S-80 | Vacation end: today+22 to today-22 | Weak date assertion | The added schedule test requires end 2026-12-23 and detects the reversed interval | Initially survived; killed after stronger test |
+| S-82 | Vacation end offset 22 to 23 | Missing exact boundary assertion | The added schedule test requires 2026-12-23, not 2026-12-24 | Initially survived; killed after stronger test |
+| S-83 | Add XX markers to vacation note | Weak content assertion | The added exact-note assertion rejects extra markers | Initially survived; killed after stronger test |
+| S-84 | Lowercase vacation note | Weak content assertion | The added exact-note assertion preserves documented capitalization | Initially survived; killed after stronger test |
+| S-85 | Uppercase vacation note | Weak content assertion | The added exact-note assertion rejects uppercase text | Initially survived; killed after stronger test |
+| S-97 | Omit permit note | Weak content assertion | The added schedule test requires `Visita medica` on the permit record | Initially survived; killed after stronger test |
+| S-104 | Permit start: today-25 to today+25 | Weak date assertion | The added fixed-clock assertion requires start and end 2026-11-06 | Initially survived; killed after stronger test |
 
 ## All final survivors and scope
 
-The combined local run's survivors are E-8, S-69 and S-123. PR #17's exact
-and hosted runs also retain E-10, for four survivors total. S-123 omits the teammate request's
+The combined local run's survivors are E-8, S-69 and S-123. PR #17's last
+hosted run also retained E-10, but the newly added focused assertion kills it.
+S-123 omits the teammate request's
 vacation type and is equivalent for the same model-default reason as S-69.
 Equivalence applies to the current model and stored/HTTP observations; a
-future default change requires reanalysis. E-10 is the one known killable
-survivor in PR #17; it is retained and disclosed at the user's direction.
-All core models/serializers/views mutants were killed.
+future default change requires reanalysis. The [full revised-tree mutation
+run](pr17-after-stronger-tests/README.md) confirms **296 killed, 3 survived,
+299 total, 0 unresolved**. The hosted 295/299 figure remains historical until
+the revised commit runs in GitHub Actions. All core models/serializers/views
+mutants were killed.
 
 Most historical examples are in demo support code. They must not be claimed
 as 15 survivors confined to DR-001: this is an expanded application scope.
