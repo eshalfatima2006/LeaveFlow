@@ -1,6 +1,6 @@
-# Exact PR #17 tree before the event-recipient assertion
+# Exact PR #17 mutation result
 
-The unchanged application source and test suite from PR #17 commit
+The unchanged application source and submitted test suite from PR #17 commit
 `65e229d` were copied to a disposable Linux directory and run through mutmut
 3.8.1. The [complete metadata export](results.json) records **295 killed,
 4 survived, 299 total, 0 unresolved**, matching [hosted run 74, attempt 4](https://github.com/eshalfatima2006/LeaveFlow/actions/runs/46052602581).

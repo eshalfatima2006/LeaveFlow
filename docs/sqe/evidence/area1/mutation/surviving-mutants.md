@@ -17,12 +17,9 @@ The [exact-PR-tree local rerun](pr17-pre-new-test/README.md) identifies the four
 `.exclude(pk=item.employee_id)` becomes `.exclude(pk=None)` in the requested
 event's recipient query. It is killable. PR #17 lacked a test where the
 requester is a manager or admin, so its existing employee-only assertion did
-not detect self-notification. The new
-`test_requested_event_excludes_requester_with_manager_or_admin_role` checks
-both roles. The [focused E-10 verification](pr17-post-test-e10/README.md)
-passes on the original source and fails by assertion on the exact mutant for
-both roles. A new full hosted mutation score is still needed after pushing the
-test; the earlier 295/299 hosted result is unchanged.
+not detect self-notification. It remains classified as a **missing-test gap**
+in the submitted PR #17 result. No existing test was removed or weakened to
+produce or preserve this survivor.
 
 The historical rerun attempted during this audit stalled in its clean-test
 phase and was stopped; it is not a completed baseline run. Initial statuses
@@ -36,7 +33,7 @@ in `backend/leave/management/commands/seed_demo.py`. JSON stores the full IDs.
 | Historical survivor | Actual mutation | Classification/cause | Assertion or equivalence justification | Final |
 |---|---|---|---|---|
 | E-8 | Remove `'id'` from `values_list('id', flat=True)` | Equivalent | Django selects the User primary key by default; flat=True still yields scalar IDs | Survived |
-| E-10 | Replace self exclusion with `.exclude(pk=None)` | Missing actor-context test | Area 2 DT-004 kills it in the combined run; the new Area 1 requested-event test independently asserts manager/admin self-exclusion for PR #17 | Survived hosted PR #17 before new test; killed by focused verification after test |
+| E-10 | Replace self exclusion with `.exclude(pk=None)` | Missing actor-context test | A manager/admin requester test would detect self-notification; Area 2 DT-004 kills it only in the separate combined run | Survived hosted PR #17; documented missing test |
 | S-52 | Replace balance defaults with None | Missing existing-state test | `test_seed_restores_existing_allowance_and_year` changes an existing balance to 3/2025 and requires reset to 26/2026 | Killed |
 | S-54 | Remove balance defaults argument | Missing existing-state test | Same reset test verifies update of existing values; fresh model defaults previously hid this gap | Killed |
 | S-69 | Omit first request's vacation type | Equivalent | LeaveRequest.leave_type defaults to vacation, so persisted type is unchanged | Survived |
@@ -53,11 +50,13 @@ in `backend/leave/management/commands/seed_demo.py`. JSON stores the full IDs.
 
 ## All final survivors and scope
 
-Final survivors: E-8, S-69 and S-123. S-123 omits the teammate request's
+The combined local run's survivors are E-8, S-69 and S-123. PR #17's exact
+and hosted runs also retain E-10, for four survivors total. S-123 omits the teammate request's
 vacation type and is equivalent for the same model-default reason as S-69.
 Equivalence applies to the current model and stored/HTTP observations; a
-future default change requires reanalysis. No final survivor is a known
-killable test gap. All core models/serializers/views mutants were killed.
+future default change requires reanalysis. E-10 is the one known killable
+survivor in PR #17; it is retained and disclosed at the user's direction.
+All core models/serializers/views mutants were killed.
 
 Most historical examples are in demo support code. They must not be claimed
 as 15 survivors confined to DR-001: this is an expanded application scope.

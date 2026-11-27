@@ -397,12 +397,12 @@ Students must review source safety/fixtures/assertions/evidence, retain prompts,
   active repository ruleset, and downloaded run 66/run 74 artifacts. Run 66
   recorded 30 survivors; run 74 recorded 4 at 295/299. Preserved both raw
   stats and the original historical survivor table with revision links.
-- Repeated mutmut on the exact PR #17 tree before the new test: 295 killed,
+- Repeated mutmut on the exact PR #17 tree: 295 killed,
   4 survived, no unresolved, including 65/65 killed in models, serializers
   and views. Identified E-10 as a killable event-recipient survivor.
-- Added a manager/admin requester assertion. The team pytest suite passed
-  82 tests and 144 subtests. An isolated copy showed the new test passing on
-  original source and failing on the exact E-10 mutation by assertion.
+- A manager/admin requester assertion was explored locally and shown to kill
+  E-10, then removed at the student's direction before submission. Existing
+  tests were not weakened. E-10 remains disclosed as a missing-test survivor.
 - The earlier 295/299 hosted result is not changed or presented as the new
   score. No push or new hosted run occurred in this audit. Most of the 15
   historical survivors are in demo support code, which is disclosed instead

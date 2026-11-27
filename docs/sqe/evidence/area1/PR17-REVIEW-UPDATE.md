@@ -7,10 +7,10 @@ The local combined verification with PR #10 recorded 384 team tests, 296 of
 on a different integration revision. PR #17's own hosted run 74 attempt 4
 passed its current checks at 295/299 (98.66%). The four surviving mutants
 were identified by a repeat run of the exact PR tree; the critical models,
-serializers and views files killed 65/65. A new focused test now kills the
-remaining killable event-recipient mutant in a disposable source-copy check.
-The branch must run hosted CI again after that test is pushed; the historical
-295/299 result must not be relabelled.
+serializers and views files killed 65/65. Three survivors are equivalent and
+the event-recipient survivor is classified as a missing-test gap. No existing
+test was weakened to preserve it. The hosted 295/299 result remains the current
+PR result.
 
 Team API, PostgreSQL and generator CI integration remains on
 `ci/integrate-team-tests-and-area1-evidence` because that workflow needs PR

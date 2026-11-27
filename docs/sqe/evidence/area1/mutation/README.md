@@ -32,11 +32,9 @@ families generated mutants that were killed. The three critical files have a
 separate combined-local result of **65/65 killed** (models 24, serializers 36,
 views 5). These denominators and provenance are documented in
 `surviving-mutants.md`.
-The exact PR #17 tree had a fourth, killable event-recipient survivor, E-10.
-`tests/team/unit/test_events.py` now covers manager/admin self-exclusion,
-and `scripts/sqe/verify_event_recipient_mutant.py` demonstrates a passing
-baseline and a failing exact mutant in a disposable source copy. The next
-hosted full run must confirm the aggregate score after this test addition.
+The exact PR #17 tree has a fourth, killable event-recipient survivor, E-10.
+It remains documented as a missing manager/admin requester test. Existing
+tests were not weakened or removed to preserve it.
 The individually reviewed first 15 historical survivors and their final outcomes
 are in `surviving-mutants.md`; raw diffs and metadata are in `final/results.json`.
 Support-code survivors are explicitly distinguished from the DR-001 rule scope.

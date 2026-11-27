@@ -11,6 +11,5 @@ generated candidate list, so the JSON alone does not identify the four names.
 The local exact-tree rerun and the curated analysis in
 [`../surviving-mutants.md`](../surviving-mutants.md) distinguish those mutants
 from the combined local run, which included PR #10 tests and killed one more.
-The later manager/admin self-exclusion test is a proposed kill for that
-additional survivor; it must be verified in a new run before updating this
-hosted result.
+The additional E-10 survivor is classified as a missing manager/admin
+self-exclusion test and remains alive in this PR result.
