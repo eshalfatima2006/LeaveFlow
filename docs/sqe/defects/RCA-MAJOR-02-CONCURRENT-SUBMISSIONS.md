@@ -1,6 +1,6 @@
 # RCA 2 — Concurrent submissions create overlapping requests (DEF-A2-02)
 
-Version 0.1 — 25 November 2026. AI-assisted draft for student review. Issue URL: **PENDING** (text in [ISSUE-MAJOR-02](ISSUE-MAJOR-02-CONCURRENT-SUBMISSIONS.md)). Independent reproduction, triage, severity and fix: **PENDING**. No application code was changed.
+Version 0.1 — 25 November 2026. AI-assisted draft for student review. Issue: [#26](https://github.com/eshalfatima2006/LeaveFlow/issues/26) (text in [ISSUE-MAJOR-02](ISSUE-MAJOR-02-CONCURRENT-SUBMISSIONS.md)). Independent reproduction, triage, severity and fix: **PENDING**. No application code was changed.
 
 ## 1. Problem statement
 

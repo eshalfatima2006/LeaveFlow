@@ -1,6 +1,6 @@
 # RCA 1 — Approval overdraws the leave balance (DEF-A2-01)
 
-Version 0.2 — 25 November 2026 (v0.2: agreed rejection contract recorded). AI-assisted draft for student review. Issue URL: **PENDING** (text in [ISSUE-MAJOR-01](ISSUE-MAJOR-01-BALANCE-OVERDRAW.md)). Independent reproduction, triage, severity and fix: **PENDING**. No application code was changed.
+Version 0.2 — 25 November 2026 (v0.2: agreed rejection contract recorded). AI-assisted draft for student review. Issue: [#25](https://github.com/eshalfatima2006/LeaveFlow/issues/25) (text in [ISSUE-MAJOR-01](ISSUE-MAJOR-01-BALANCE-OVERDRAW.md)). Independent reproduction, triage, severity and fix: **PENDING**. No application code was changed.
 
 ## 1. Problem statement
 
@@ -115,7 +115,7 @@ Experiment result for this shape ([diff](../evidence/defects/rca-2026-11-25/w2-c
 | Action | What it prevents | Owner | Completion evidence |
 |---|---|---|---|
 | Rule and error contract written into BR-03 and FR-W2-05 (25 Nov 2026; review PENDING). Still to do: add "what does each event do to the invariant?" to the review checklist | Rules enforced at one event only | Shared — PENDING | Reviewed requirement change |
-| Replace .03/.09/002.05 with regressions: days = available −1, equal, +1, plus rejection of an over-allowance request; complete the W2 half of DT-001 | Untested balance limit | Member 2 — PENDING | Fails before the fix, passes after |
+| Replace .03/.09/002.05 with regressions: days = available −1, equal, +1, plus rejection of an over-allowance request; complete the W2 half of DT-001 | Untested balance limit | Member 2 — partly done 27 Nov 2026: DT-001 W2 R1/R2/R4 pass, R3 regression written and fails on the baseline (`SQE_DESIRED_RULES=1`); available −1 and the replacements PENDING | Fails before the fix, passes after |
 | Add the team suite to CI (proposal in [openapi/README](../openapi/README.md)) | Tests that exist but do not gate | Member 1 — PENDING | Required check on a PR |
 
 **Effectiveness check:** after the fix, remove the check in a throwaway copy; the new regressions must fail. At each later review, count new validation/boundary defects in W1 and W2 against this one.

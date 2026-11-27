@@ -1,0 +1,20 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+test_dt001_w2_r3_second_approval_would_overdraw (tests.team.structural.test_decision_table.W2ApprovalOverdrawRegression.test_dt001_w2_r3_second_approval_would_overdraw)
+DT-001 W2 R3: C1,C2=T, C3=F → 400 'Insufficient leave balance'; B pending, no decider, 1 day left. ... FAIL
+
+======================================================================
+FAIL: test_dt001_w2_r3_second_approval_would_overdraw (tests.team.structural.test_decision_table.W2ApprovalOverdrawRegression.test_dt001_w2_r3_second_approval_would_overdraw)
+DT-001 W2 R3: C1,C2=T, C3=F → 400 'Insufficient leave balance'; B pending, no decider, 1 day left.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/structural/test_decision_table.py", line 281, in test_dt001_w2_r3_second_approval_would_overdraw
+    self.assert_w2_denied(p.m1, second, "approved", 400, INSUFFICIENT_APPROVAL)
+  File "/home/pc/projects/sqe-final/LeaveFlow/tests/team/structural/support.py", line 92, in assert_w2_denied
+    self.assertEqual(response.status_code, status_code, response.data)
+AssertionError: 200 != 400 : {'id': 1, 'employee': {'id': 1, 'username': 'dto_e1', 'display_name': 'Synthetic e1', 'email': 'dto_e1@example.invalid', 'role': 'employee', 'team': 'dto-A'}, 'leave_type': 'vacation', 'leave_type_label': 'Ferie', 'start_date': '2026-12-14', 'end_date': '2026-12-17', 'note': 'Synthetic fixture', 'status': 'approved', 'status_label': 'Approvata', 'business_days': 4, 'created_at': '2026-11-27T11:46:21.759303+01:00'}
+
+----------------------------------------------------------------------
+Ran 1 test in 0.100s
+
+FAILED (failures=1)
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...

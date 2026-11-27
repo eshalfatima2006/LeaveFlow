@@ -1,11 +1,11 @@
 # Endpoint weaknesses — defect records for triage (Area 2)
 
-25 November 2026. **These are drafts for the student to file as GitHub Issues; no issue exists yet** (issue links: PENDING). Severity and priority are proposals until shared triage ([DEFECT-MANAGEMENT-PLAN](../planning/DEFECT-MANAGEMENT-PLAN.md)). All were observed by executed tests against the unchanged application (baseline `bada9a0`, tests at `707a5b3`). The tests that pin them are characterizations: they pass while the defect exists and must be replaced when it is fixed. No application code was changed. The root causes of 03–06 come from reading the source. 01 and 02 have issue texts and root cause analyses with experiments (drafts for student review): [issue 1](ISSUE-MAJOR-01-BALANCE-OVERDRAW.md), [RCA 1](RCA-MAJOR-01-BALANCE-OVERDRAW.md), [issue 2](ISSUE-MAJOR-02-CONCURRENT-SUBMISSIONS.md), [RCA 2](RCA-MAJOR-02-CONCURRENT-SUBMISSIONS.md). Independent reproduction and triage: PENDING.
+25 November 2026. **Drafts for GitHub Issues.** DEF-A2-01 is filed as [#25](https://github.com/eshalfatima2006/LeaveFlow/issues/25) and DEF-A2-02 as [#26](https://github.com/eshalfatima2006/LeaveFlow/issues/26); DEF-A2-03 to 06 are not filed (PENDING). Severity and priority are proposals until shared triage ([DEFECT-MANAGEMENT-PLAN](../planning/DEFECT-MANAGEMENT-PLAN.md)). All were observed by executed tests against the unchanged application (baseline `bada9a0`, tests at `707a5b3`). The tests that pin them are characterizations: they pass while the defect exists and must be replaced when it is fixed. No application code was changed. The root causes of 03–06 come from reading the source. 01 and 02 have issue texts and root cause analyses with experiments (drafts for student review): [issue 1](ISSUE-MAJOR-01-BALANCE-OVERDRAW.md), [RCA 1](RCA-MAJOR-01-BALANCE-OVERDRAW.md), [issue 2](ISSUE-MAJOR-02-CONCURRENT-SUBMISSIONS.md), [RCA 2](RCA-MAJOR-02-CONCURRENT-SUBMISSIONS.md). Independent reproduction and triage: PENDING.
 
 | ID | Weakness | Severity / priority (proposed) | Risk | Test | Status |
 |---|---|---|---|---|---|
-| DEF-A2-01 | Approval overdraws the allowance | S2 / P1 | PR-01 | API-INT-001.03, .09; API-INT-002.05 | New — rejection contract agreed (400) |
-| DEF-A2-02 | Concurrent W1 submissions create overlapping or duplicate requests | S2 / P1 | PR-03 | API-INT-002.01, .02 | New |
+| DEF-A2-01 | Approval overdraws the allowance | S2 / P1 | PR-01 | API-INT-001.03, .09; API-INT-002.05 | New, [#25](https://github.com/eshalfatima2006/LeaveFlow/issues/25) — rejection contract agreed (400) |
+| DEF-A2-02 | Concurrent W1 submissions create overlapping or duplicate requests | S2 / P1 | PR-03 | API-INT-002.01, .02 | New, [#26](https://github.com/eshalfatima2006/LeaveFlow/issues/26) |
 | DEF-A2-03 | Login returns 500 for a non-object JSON body | S3 / P2 | PR-06 | `test_login_non_object_json_characterization` | New |
 | DEF-A2-04 | W2 returns 500 for a non-object JSON body | S3 / P2 | PR-06 | `test_decide_non_object_json_characterization` | New |
 | DEF-A2-05 | W1 returns 500 for `end_date` 9999-12-31 | S3 / P3 | PR-06 | `test_submit_maximum_date_characterization` | New |
@@ -20,7 +20,7 @@ Evidence: `docs/sqe/evidence/integration/completion-2026-11-25/` (01), `docs/sqe
 - **Observed:** both 200; available −3. The three-day variant gives −1. Two approvers acting together give the same result on PostgreSQL.
 - **Root cause:** `decide_request` (`backend/leave/views.py`) has no balance check; W1 checks `available_days`, but pending requests reserve nothing.
 - **Proposed fix:** check the balance inside the decision transaction, with the owner's `LeaveBalance` row locked. Locking the request row alone would not serialize two different requests.
-- **Retest:** replace API-INT-001.03/.09 and API-INT-002.05 with the agreed 400. **Residual risk:** open, score 25, release-blocking under EC-01.
+- **Retest:** the regression DT-001 W2 R3 (`SQE_DESIRED_RULES=1`, fails on the baseline) must pass; then replace API-INT-001.03/.09 and API-INT-002.05 with the agreed 400. **Residual risk:** open, score 25, release-blocking under EC-01.
 
 ## DEF-A2-02 — Concurrent submissions bypass the overlap rule
 

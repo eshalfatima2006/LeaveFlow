@@ -17,6 +17,18 @@
 #   5 rules cover all 16 combinations. The decision value is held valid
 #   ("approved"/"rejected"); invalid values are EP cases in test_ep_bva.py.
 #
+# DT-001 W2 HALF — approval against the balance (views.decide_request, after Table 2 passes)
+#   C1 decision == approved
+#   C2 a LeaveBalance record exists for the request's owner
+#   C3 business_days <= available_days of the owner
+#   4 rules cover all 8 combinations. Agreed contract for C1,C2=T, C3=F (25 Nov 2026,
+#   TEST-BASIS GAP-01): 400 {"detail": "Insufficient leave balance"}, row unchanged.
+#   The baseline approves instead (DEF-A2-01, issue #25), so that row's regression
+#   is loaded only with SQE_DESIRED_RULES=1 and fails until the fix: the default
+#   suite must not go red, and a skip or expected failure would make the runner
+#   exit 1. Concurrent submissions (DEF-A2-02, issue #26) are not a balance rule;
+#   their regression belongs to API-INT-002 on PostgreSQL, not to this table.
+#
 # Each rule's test sets its don't-care conditions to values that show they are
 # not evaluated (e.g. an end-before-start request whose dates also overlap).
 # Counting: one executable case per rule, with inputs not repeated elsewhere in
@@ -26,6 +38,7 @@
 """A2.3 decision tables for W1 validation and W2 authorisation, through real API calls."""
 
 from datetime import date
+import os
 
 from leave.models import LeaveRequest, User
 from tests.team.api.support import add_member, balance_view, payload, row_state
@@ -183,3 +196,90 @@ class W2DecisionAuthorisationTable(StructuralTestCase):
         """DT2 R5: all conditions true → 200; the same row becomes approved by the admin."""
         after = self.assert_w2_decided(self.p.admin, self.pending_b, "approved")
         self.assertEqual(after["employee_id"], self.eb.pk)
+
+
+INSUFFICIENT_APPROVAL = {"detail": "Insufficient leave balance"}  # agreed contract, GAP-01
+
+
+class W2ApprovalBalanceTable(StructuralTestCase):
+    """DT-001, W2 half — does an approval fit the owner's remaining balance?
+
+        Rule              R1    R2     R3      R4
+        ---------------  ----  -----  ------  ----
+        C1 approved        F     T      T       T
+        C2 balance         -     F      T       T
+        C3 D <= avail.     -     -      F       T
+        ---------------  ----  -----  ------  ----
+        HTTP              200   200    400     200
+        Row status       rej.  appr.  pending  appr.
+        Balance moves     no    -      no      -D
+
+    R2 is the observed baseline (no balance record: nothing to compare, GAP-07);
+    the agreed contract does not cover it. R3 is the agreed contract
+    (W2ApprovalOverdrawRegression below; the baseline returns 200 and −3).
+    Issues: #25 (DEF-A2-01, overdraw), #26 (DEF-A2-02, concurrent submissions).
+    """
+
+    def setUp(self):
+        self.p = build_people("dtw", allowances={"e2": 4})
+        self.e1, self.e2 = self.p.e1, self.p.e2
+        self.nb = add_member("dtw", "nb", User.Role.EMPLOYEE, self.p.team_a, allowance=None)
+
+    def test_dt001_w2_r1_reject_over_limit(self):
+        """DT-001 W2 R1: C1=F (C2/C3 not evaluated) → 200 rejected, balance unchanged.
+
+        Allowance 10 with 8 approved days (available 2); rejecting a 4-day
+        request that would overdraw stays allowed and charges nothing.
+        """
+        # Pending first: the fixture builder refuses a pending row larger than the balance.
+        pending = make_request(self.e1, start=date(2026, 12, 14), end=date(2026, 12, 17)).pk
+        make_request(self.e1, start=date(2026, 11, 30), end=date(2026, 12, 9),
+                     status=LeaveRequest.Status.APPROVED, decided_by=self.p.m1)
+        self.assertEqual(balance_view(self.e1), (10, 8, 2))
+        self.assert_w2_decided(self.p.m1, pending, "rejected")
+        self.assertEqual(balance_view(self.e1), (10, 8, 2))
+
+    def test_dt001_w2_r2_no_balance_record(self):
+        """DT-001 W2 R2: C1=T, C2=F → 200 approved (CHARACTERIZATION, GAP-07: policy undecided)."""
+        pending = make_request(self.nb, start=date(2026, 12, 14), end=date(2026, 12, 17)).pk
+        self.assert_w2_decided(self.p.m1, pending, "approved")
+
+    def test_dt001_w2_r4_approve_to_exactly_zero(self):
+        """DT-001 W2 R4 (boundary D = available): allowance 4, a 4-day request → 200 approved, balance 0.
+
+        Mon 12-07..Thu 12-10 = 4 business days. The agreed rule refuses only an
+        approval that makes the balance negative, so equality must succeed.
+        """
+        pending = make_request(self.e2, start=date(2026, 12, 7), end=date(2026, 12, 10)).pk
+        self.assertEqual(balance_view(self.e2), (4, 0, 4))
+        self.assert_w2_decided(self.p.m1, pending, "approved")
+        self.assertEqual(balance_view(self.e2), (4, 4, 0))
+
+
+if os.environ.get("SQE_DESIRED_RULES") == "1":
+
+    class W2ApprovalOverdrawRegression(StructuralTestCase):
+        """DT-001 W2 R3 — desired-rule regression for DEF-A2-01 (issue #25).
+
+        Loaded only with SQE_DESIRED_RULES=1. It FAILS on the baseline (200,
+        balance −3) and must pass after the fix; it then replaces the
+        characterizations API-INT-001.03/.09 and API-INT-002.05.
+        """
+
+        def test_dt001_w2_r3_second_approval_would_overdraw(self):
+            """DT-001 W2 R3: C1,C2=T, C3=F → 400 'Insufficient leave balance'; B pending, no decider, 1 day left.
+
+            Allowance 5; A = Mon 12-07..Thu 12-10 (4 days) approved, so 1 day
+            remains; B = Mon 12-14..Thu 12-17 (4 days) pending.
+            """
+            p = build_people("dto", allowances={"e1": 5})
+            # B first: the fixture builder refuses a pending row larger than the balance.
+            second = make_request(p.e1, start=date(2026, 12, 14), end=date(2026, 12, 17)).pk
+            make_request(p.e1, start=date(2026, 12, 7), end=date(2026, 12, 10),
+                         status=LeaveRequest.Status.APPROVED, decided_by=p.m1)
+            self.assertEqual(balance_view(p.e1), (5, 4, 1))
+            self.assert_w2_denied(p.m1, second, "approved", 400, INSUFFICIENT_APPROVAL)
+            row = row_state(second)
+            self.assertEqual((row["status"], row["decided_by_id"], row["decided_at"]),
+                             (LeaveRequest.Status.PENDING, None, None))
+            self.assertEqual(balance_view(p.e1), (5, 4, 1))
